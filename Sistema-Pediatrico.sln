@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.28803.452
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sistema-Pediatrico", "Sistema-Pediatrico\Sistema-Pediatrico.csproj", "{D1307B5E-72DF-4E8C-91A5-FA9509C9838F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BL", "BL\BL.csproj", "{275FE766-2006-4416-BD86-105E6FAA20AB}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{D1307B5E-72DF-4E8C-91A5-FA9509C9838F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D1307B5E-72DF-4E8C-91A5-FA9509C9838F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D1307B5E-72DF-4E8C-91A5-FA9509C9838F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D1307B5E-72DF-4E8C-91A5-FA9509C9838F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{275FE766-2006-4416-BD86-105E6FAA20AB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{275FE766-2006-4416-BD86-105E6FAA20AB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{275FE766-2006-4416-BD86-105E6FAA20AB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{275FE766-2006-4416-BD86-105E6FAA20AB}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {B5853BA8-B062-482A-BE7E-ADB130A5E3BF}
+	EndGlobalSection
+EndGlobal
