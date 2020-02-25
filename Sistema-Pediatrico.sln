@@ -7,6 +7,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sistema-Pediatrico", "Siste
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BL", "BL\BL.csproj", "{275FE766-2006-4416-BD86-105E6FAA20AB}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DAO", "DAO\DAO.csproj", "{794288E9-BB96-454D-82BA-B192EEEADDF9}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TO", "TO\TO.csproj", "{3407C2F3-C7BB-4E07-8C07-F548A900B5E2}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +25,14 @@ Global
 		{275FE766-2006-4416-BD86-105E6FAA20AB}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{275FE766-2006-4416-BD86-105E6FAA20AB}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{275FE766-2006-4416-BD86-105E6FAA20AB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{794288E9-BB96-454D-82BA-B192EEEADDF9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{794288E9-BB96-454D-82BA-B192EEEADDF9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{794288E9-BB96-454D-82BA-B192EEEADDF9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{794288E9-BB96-454D-82BA-B192EEEADDF9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3407C2F3-C7BB-4E07-8C07-F548A900B5E2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3407C2F3-C7BB-4E07-8C07-F548A900B5E2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3407C2F3-C7BB-4E07-8C07-F548A900B5E2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3407C2F3-C7BB-4E07-8C07-F548A900B5E2}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
