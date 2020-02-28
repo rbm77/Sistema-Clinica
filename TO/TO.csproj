@@ -41,7 +41,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="TOCuenta.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="TOMedico.cs" />
+    <Compile Include="TOUsuario.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

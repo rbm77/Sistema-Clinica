@@ -41,6 +41,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BLCuenta.cs" />
+    <Compile Include="BLMedico.cs" />
+    <Compile Include="BLUsuario.cs" />
+    <Compile Include="ManejadorCuenta.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
