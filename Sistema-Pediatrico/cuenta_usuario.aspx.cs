@@ -11,6 +11,18 @@ namespace Sistema_Pediatrico
     {
         protected void Page_Load(object sender, EventArgs e)
         {
+            this.inputCodigoAsistente.Attributes["disabled"] = "disabled";
+            this.inputCodigoMedico.Attributes["disabled"] = "disabled";
+            this.inputEspecialidad.Attributes["disabled"] = "disabled";
+        }
+
+        protected void btnGuardar_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        protected void btnRegresar_Click(object sender, EventArgs e)
+        {
 
         }
     }
