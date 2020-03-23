@@ -26,20 +26,23 @@ namespace BL
 
                 TOMedico toMedico = null;
 
-                ValidarCuenta(toCuenta);
+                toCuenta = ValidarCuenta(toCuenta);
 
-                ValidarUsuario(toUsuario);
+                if(toCuenta != null)
+                {
+                    toUsuario = ValidarUsuario(toUsuario, toCuenta.Rol);
+                }
 
                 if (toCuenta != null && toUsuario != null)
                 {
-                    DAOCuenta daoCuenta = new DAOCuenta();
+                    
 
                     if (toCuenta.Rol.Equals("medico") && blMedico != null)
                     {
                         toMedico = new TOMedico(blMedico.IdMedico.Trim(), blMedico.CodigoMedico.Trim(),
                             blMedico.Especialidad.Trim(), blMedico.DuracionCita.Trim());
 
-                        ValidarMedico(toMedico);
+                        toMedico = ValidarMedico(toMedico);
 
                         if (toMedico == null)
                         {
@@ -47,7 +50,7 @@ namespace BL
                         }
 
                     }
-                    
+                    DAOCuenta daoCuenta = new DAOCuenta();
                     return daoCuenta.CrearCuenta(toCuenta, toUsuario, toMedico);
                 }
                 else
@@ -58,39 +61,53 @@ namespace BL
             return confirmacion;
         }
 
-        private void ValidarCuenta(TOCuenta toCuenta)
+        private TOCuenta ValidarCuenta(TOCuenta toCuenta)
         {
             if ((!toCuenta.Correo.Contains("@")) || (toCuenta.Correo == null) || (toCuenta.Correo.Equals(""))
                 || (toCuenta.Contrasenna == null) || (toCuenta.Contrasenna.Equals(""))
-                || (toCuenta.Rol == null) || (toCuenta.Rol.Equals(""))
+                || (toCuenta.Rol == null) || (toCuenta.Rol.Equals("")) || (toCuenta.Rol.Equals("nulo"))
                 || (toCuenta.Estado == null) || (toCuenta.Estado.Equals(""))
                 || (toCuenta.IdCuenta == null) ||(toCuenta.IdCuenta.Equals("")))
             {
-                toCuenta = null;
-            }
+                return null;
+            } 
+            return toCuenta;
         }
 
-        private void ValidarUsuario(TOUsuario toUsuario)
+        private TOUsuario ValidarUsuario(TOUsuario toUsuario, string rol)
         {
             if ((toUsuario.Cedula == null) || (toUsuario.Cedula.Equals(""))
                 || (toUsuario.Nombre == null) || (toUsuario.Nombre.Equals(""))
                 || (toUsuario.PrimerApellido == null) || (toUsuario.PrimerApellido.Equals(""))
                 || (toUsuario.SegundoApellido == null) || (toUsuario.SegundoApellido.Equals(""))
-                || (toUsuario.Telefono == 0))
+                || (toUsuario.Telefono == 0) || (rol.Equals("asistente") && toUsuario.CodigoAsistente == null)
+                || (rol.Equals("asistente") && toUsuario.CodigoAsistente.Equals("")) || (rol.Equals("asistente") && toUsuario.CodigoAsistente.Equals("nulo")))
             {
-                toUsuario = null;
+                return null;
             }
+            return toUsuario;
         }
 
-        private void ValidarMedico(TOMedico toMedico)
+        private TOMedico ValidarMedico(TOMedico toMedico)
         {
             if ((toMedico.IdMedico == null) || (toMedico.IdMedico.Equals(""))
                 || (toMedico.CodigoMedico == null) || (toMedico.CodigoMedico.Equals(""))
-                || (toMedico.Especialidad == null) || (toMedico.Especialidad.Equals(""))
-                || (toMedico.DuracionCita == null) || (toMedico.DuracionCita.Equals("")))
+                || (toMedico.Especialidad == null) || (toMedico.Especialidad.Equals("")))
             {
-                toMedico = null;
+                return null;
             }
+            return toMedico;
+        }
+
+        public string CargarCodigosMedicos(List<string> codigos)
+        {
+            string confirmacion = "Error: Indefinido.";
+            if(codigos != null)
+            {
+                DAOCuenta daoCuenta = new DAOCuenta();
+                return daoCuenta.CargarCodigosMedicos(codigos);
+            }
+            return confirmacion;
         }
     }
 }

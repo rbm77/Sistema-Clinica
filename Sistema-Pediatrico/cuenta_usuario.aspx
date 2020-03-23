@@ -11,8 +11,10 @@
 
         <hr />
 
+        <asp:Literal ID="mensajeConfirmacion" runat="server" Visible="false"></asp:Literal> 
 
-        <form id="formulario_cuenta_usuario" style="margin-top:30px" runat="server">
+
+        <form id="formulario_cuenta_usuario" style="margin-top: 30px" runat="server">
 
             <div class="form-row">
                 <div class="form-group col-md-3 col-sm-4">
@@ -58,7 +60,9 @@
                 </div>
                 <div class="form-group col-md-3 col-sm-4">
                     <asp:Label ID="labelCodAsistente" runat="server" Text="Código de Asistente" data-toggle="tooltip" data-placement="top" title="Debe ingresar el código de médico al cual asiste"></asp:Label>
-                    <asp:TextBox ID="inputCodigoAsistente" runat="server" class="form-control" ClientIDMode="Static" data-toggle="tooltip" data-placement="top" title="Debe ingresar el código de médico al cual asiste"></asp:TextBox>
+                    <asp:DropDownList ID="inputCodigoAsistente" runat="server" class="form-control" ClientIDMode="Static" data-toggle="tooltip" data-placement="top" title="Debe ingresar el código de médico al cual asiste">
+                        <asp:ListItem Selected="True" Value="nulo">Seleccionar...</asp:ListItem>
+                    </asp:DropDownList>
                 </div>
                 <div class="form-group col-md-3 col-sm-4">
                     <asp:Label ID="labelCodigoMedico" runat="server" Text="Código de Médico"></asp:Label>
@@ -72,7 +76,7 @@
 
             <div class="row justify-content-center" style="margin-top: 30px">
                 <div class="col-md-2 col-sm-5">
-                    <asp:Button ID="btnGuardar" runat="server" Text="Guardar" CssClass="btn btn-guardar" OnClick="btnGuardar_Click" />
+                    <asp:Button ID="btnGuardar" runat="server" Text="Guardar" CssClass="btn btn-guardar" OnClick="btnGuardar_Click" OnClientClick="validar()" />
                 </div>
                 <div class="col-md-2 col-sm-5">
                     <asp:Button ID="btnRegresar" runat="server" Text="Cancelar" CssClass="btn btn-regresar" OnClick="btnRegresar_Click" />
@@ -83,6 +87,15 @@
 
     </div>
 
+    <script>
+        function validar() {
+            valor = document.getElementById("inputNombre").value;
+            if (valor == null || valor.length == 0 || /^\s+$/.test(valor)) {
+                return false;
+            }
+        }
+
+    </script>
 
 
 </asp:Content>

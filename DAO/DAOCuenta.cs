@@ -29,14 +29,14 @@ namespace DAO
                 }
                 catch (Exception)
                 {
-                    confirmacion = "Ocurrió un error y no se pudo ingresar la cuenta en el sistema";
+                    confirmacion = "Error: No se pudo ingresar la cuenta en el sistema";
                     return confirmacion;
 
                 }
             }
             else
             {
-                confirmacion = "Ocurrió un error y no se pudo ingresar la cuenta en el sistema";
+                confirmacion = "Error: No se pudo ingresar la cuenta en el sistema";
                 return confirmacion;
             }
 
@@ -130,7 +130,7 @@ namespace DAO
                 }
                 finally
                 {
-                    confirmacion = "Ocurrió un error y no se pudo ingresar la cuenta en el sistema";
+                    confirmacion = "Error: No se pudo ingresar la cuenta en el sistema";
                 }
             }
             finally
@@ -142,5 +142,113 @@ namespace DAO
             }
             return confirmacion;
         }
+
+
+        public string CargarCodigosMedicos(List<string> codigos)
+        {
+            string confirmacion = "Los códigos de los médicos se cargaron exitosamente.";
+
+            // Se abre la conexión
+
+            if (conexion != null)
+            {
+                try
+                {
+                    if (conexion.State != ConnectionState.Open)
+                    {
+                        conexion.Open();
+                    }
+                }
+                catch (Exception)
+                {
+                    confirmacion = "Error: No se pudieron cargar los códigos de los médicos";
+                    return confirmacion;
+
+                }
+            }
+            else
+            {
+                confirmacion = "Error: No se pudieron cargar los códigos de los médicos";
+                return confirmacion;
+            }
+
+            // Se inicia una nueva transacción
+
+            SqlTransaction transaccion = null;
+
+            try
+            {
+                transaccion = conexion.BeginTransaction("Cargar códigos de médicos");
+
+                // Se crea un nuevo comando con la secuencia SQL y el objeto de conexión
+
+                SqlCommand comando = new SqlCommand();
+
+                comando.Connection = conexion;
+
+                comando.CommandText = "SELECT CODIGO_MEDICO FROM MEDICO";
+
+
+                comando.Transaction = transaccion;
+
+
+                // Se ejecuta el comando y se realiza un commit de la transacción
+
+
+                SqlDataReader lector = comando.ExecuteReader();
+
+                if (lector.HasRows)
+                {
+                    while (lector.Read())
+                    {
+                        codigos.Add(lector["CODIGO_MEDICO"].ToString());
+                    }
+                }
+
+                lector.Close();
+
+                transaccion.Commit();
+
+            }
+            catch (Exception)
+            {
+                try
+                {
+
+                    // En caso de un error se realiza un rollback a la transacción
+
+                    transaccion.Rollback();
+                }
+                catch (Exception)
+                {
+                }
+                finally
+                {
+                    confirmacion = "Error: No se pudieron cargar los códigos de los médicos";
+                }
+            }
+            finally
+            {
+                if (conexion.State != ConnectionState.Closed)
+                {
+                    conexion.Close();
+                }
+            }
+            return confirmacion;
+        }
+
+
     }
 }
+
+
+
+
+
+
+
+
+
+
+
+

@@ -13,6 +13,15 @@ namespace Sistema_Pediatrico {
     public partial class cuenta_usuario {
         
         /// <summary>
+        /// Control mensajeConfirmacion.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Literal mensajeConfirmacion;
+        
+        /// <summary>
         /// Control formulario_cuenta_usuario.
         /// </summary>
         /// <remarks>
@@ -199,7 +208,7 @@ namespace Sistema_Pediatrico {
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox inputCodigoAsistente;
+        protected global::System.Web.UI.WebControls.DropDownList inputCodigoAsistente;
         
         /// <summary>
         /// Control labelCodigoMedico.
