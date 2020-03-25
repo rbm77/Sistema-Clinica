@@ -35,37 +35,116 @@
     }
 }
 
-function ValidarFormulario() {
 
-    var cedula = document.getElementById("inputCedula").value;
-    var nombre = document.getElementById("inputNombre").value;
-    var primerApellido = document.getElementById("inputPrimerApellido").value;
-    var segundoApellido = document.getElementById("inputSegundoApellido").value;
-    var telefono = document.getElementById("inputTelefono").value;
-    var correo = document.getElementById("inputCorreo").value;
-    var contrasenna = document.getElementById("inputContrasenna").value;
-    var confirmar = document.getElementById("inputConfirmar").value;
-    var rol = document.getElementById("inputRol").value;
-    var codigoAsistente = document.getElementById("inputCodigoAsistente").value;
-    var codigoMedico = document.getElementById("inputCodigoMedico").value;
-    var especialidad = document.getElementById("inputEspecialidad").value;
 
-    if (cedula == null || cedula.length == 0 || /^\s+$/.test(cedula)
-        || nombre == null || nombre.length == 0 || /^\s+$/.test(nombre)
-        || primerApellido == null || primerApellido.length == 0 || /^\s+$/.test(primerApellido)
-        || segundoApellido == null || segundoApellido.length == 0 || /^\s+$/.test(segundoApellido)
-        || telefono == null || telefono.length == 0 || /^\s+$/.test(telefono)
-        || correo == null || correo.length == 0 || /^\s+$/.test(correo)
-        || contrasenna == null || contrasenna.length == 0 || /^\s+$/.test(contrasenna)
-        || confirmar == null || confirmar.length == 0 || /^\s+$/.test(confirmar)
-        || rol == null || rol.length == 0 || /^\s+$/.test(rol)
-        || codigoAsistente == null || codigoAsistente.length == 0 || /^\s+$/.test(codigoAsistente)
-        || codigoMedico == null || codigoMedico.length == 0 || /^\s+$/.test(codigoMedico)
-        || especialidad == null || especialidad.length == 0 || /^\s+$/.test(especialidad)) {
-        alert("Esto es falso");
-        return false;
-    } else {
-        alert("Esto es falso");
-        return true;
-    }
+
+
+function CargarDatos(input, datos) {
+
+    var seleccionar = document.createElement('option');
+
+    seleccionar.appendChild(document.createTextNode("Seleccionar..."));
+
+    seleccionar.value = "nulo";
+
+    input.appendChild(seleccionar);
+
+    input.value = "nulo";
+
+    $.each(datos, function (key, val) {
+
+        var option = document.createElement('option');
+
+        option.appendChild(document.createTextNode(val));
+
+        option.value = key;
+
+        input.appendChild(option);
+
+    });
+
 }
+
+function ObtenerCantones(provincia) {
+
+    var codigoProvincia = provincia.value;
+    var destino = 'https://ubicaciones.paginasweb.cr/provincia/' + codigoProvincia + '/cantones.json'
+
+    $.ajax({
+        dataType: 'json',
+        type: 'GET',
+        url: destino,
+        success: function (response, status) {
+ 
+            if (status == "success") {
+
+                var canton = document.getElementById("inputCanton");
+                var distrito = document.getElementById("inputDistrito");
+
+                var lengthC = canton.options.length;
+                for (i = lengthC - 1; i >= 0; i--) {
+                    canton.options[i] = null;
+                }
+
+                var lengthD = distrito.options.length;
+                for (i = lengthD - 1; i >= 0; i--) {
+                    distrito.options[i] = null;
+                }
+
+                CargarDatos(canton, response);
+            }
+        },
+    });
+}
+
+function ObtenerDistritos(canton) {
+
+    var codigoCanton = canton.value;
+    var codigoProvincia = document.getElementById("inputProvincia").value;
+
+    var destino = 'https://ubicaciones.paginasweb.cr/provincia/' + codigoProvincia + '/canton/' + codigoCanton + '/distritos.json'
+
+    $.ajax({
+        dataType: 'json',
+        type: 'GET',
+        url: destino,
+        success: function (response, status) {
+
+            if (status == "success") {
+
+                var distrito = document.getElementById("inputDistrito");
+
+                var lengthD = distrito.options.length;
+                for (i = lengthD - 1; i >= 0; i--) {
+                    distrito.options[i] = null;
+                }
+
+                CargarDatos(distrito, response);
+            }
+        },
+    });
+}
+
+function ObtenerProvincias() {
+
+    $.ajax({
+        dataType: 'json',
+        type: 'GET',
+        url: 'https://ubicaciones.paginasweb.cr/provincias.json',
+        success: function (response, status) {
+
+            if (status == "success") {
+
+                var provincia = document.getElementById("inputProvincia");
+
+                var length = provincia.options.length;
+                for (i = length - 1; i >= 0; i--) {
+                    provincia.options[i] = null;
+                }
+
+                CargarDatos(provincia, response);
+            }
+        },
+    });
+}
+
