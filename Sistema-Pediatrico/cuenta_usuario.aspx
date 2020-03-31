@@ -24,15 +24,15 @@
                 </div>
                 <div class="form-group col-md-3 col-sm-4">
                     <asp:Label ID="labelNombre" runat="server" Text="Nombre"></asp:Label>
-                    <asp:TextBox ID="inputNombre" runat="server" class="form-control" ClientIDMode="Static" pattern="[A-Za-z ]*" required></asp:TextBox>
+                    <asp:TextBox ID="inputNombre" runat="server" class="form-control" ClientIDMode="Static" pattern="[A-Za-zñÑáéíóúÁÉÍÓÚ ]*" required></asp:TextBox>
                 </div>
                 <div class="form-group col-md-3 col-sm-4">
                     <asp:Label ID="labelPrimerApellido" runat="server" Text="Primer Apellido"></asp:Label>
-                    <asp:TextBox ID="inputPrimerApellido" runat="server" class="form-control" ClientIDMode="Static" pattern="[A-Za-z ]*" required></asp:TextBox>
+                    <asp:TextBox ID="inputPrimerApellido" runat="server" class="form-control" ClientIDMode="Static" pattern="[A-Za-zñÑáéíóúÁÉÍÓÚ ]*" required></asp:TextBox>
                 </div>
                 <div class="form-group col-md-3 col-sm-4">
                     <asp:Label ID="labelSegundoApellido" runat="server" Text="Segundo Apellido"></asp:Label>
-                    <asp:TextBox ID="inputSegundoApellido" runat="server" class="form-control" ClientIDMode="Static" pattern="[A-Za-z ]*" required></asp:TextBox>
+                    <asp:TextBox ID="inputSegundoApellido" runat="server" class="form-control" ClientIDMode="Static" pattern="[A-Za-zñÑáéíóúÁÉÍÓÚ ]*" required></asp:TextBox>
                 </div>
                 <div class="form-group col-md-3 col-sm-4">
                     <asp:Label ID="labelTelefono" runat="server" Text="Teléfono"></asp:Label>
@@ -71,7 +71,7 @@
                 </div>
                 <div class="form-group col-md-3 col-sm-4">
                     <asp:Label ID="labelEspecialidad" runat="server" Text="Especialidad"></asp:Label>
-                    <asp:TextBox ID="inputEspecialidad" runat="server" class="form-control" ClientIDMode="Static" pattern="[A-Za-z ]*" required></asp:TextBox>
+                    <asp:TextBox ID="inputEspecialidad" runat="server" class="form-control" ClientIDMode="Static" pattern="[A-Za-zñÑáéíóúÁÉÍÓÚ ]*" required></asp:TextBox>
                 </div>
             </div>
 

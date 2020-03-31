@@ -1,0 +1,29 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace BL
+{
+    public class BLSolicitanteCita
+    {
+        public string Correo { get; set; }
+        public string Contrasenna { get; set; }
+        public int Telefono { get; set; }
+        public string Estado { get; set; }
+
+        public BLSolicitanteCita()
+        {
+
+        }
+
+        public BLSolicitanteCita(string correo, string contrasenna, int telefono, string estado)
+        {
+            this.Correo = correo;
+            this.Contrasenna = contrasenna;
+            this.Telefono = telefono;
+            this.Estado = estado;
+        }
+    }
+}

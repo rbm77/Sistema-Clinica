@@ -41,8 +41,17 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BLConsulta.cs" />
     <Compile Include="BLCuenta.cs" />
+    <Compile Include="BLDatosNacimiento.cs" />
+    <Compile Include="BLDestinatarioFactura.cs" />
+    <Compile Include="BLDireccion.cs" />
+    <Compile Include="BLEncargado.cs" />
+    <Compile Include="BLExamenFisico.cs" />
+    <Compile Include="BLExpediente.cs" />
+    <Compile Include="BLHistoriaClinica.cs" />
     <Compile Include="BLMedico.cs" />
+    <Compile Include="BLSolicitanteCita.cs" />
     <Compile Include="BLUsuario.cs" />
     <Compile Include="ManejadorCuenta.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

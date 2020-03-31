@@ -41,9 +41,18 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="TOConsulta.cs" />
     <Compile Include="TOCuenta.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="TODatosNacimiento.cs" />
+    <Compile Include="TODestinatarioFactura.cs" />
+    <Compile Include="TODireccion.cs" />
+    <Compile Include="TOEncargado.cs" />
+    <Compile Include="TOExamenFisico.cs" />
+    <Compile Include="TOExpediente.cs" />
+    <Compile Include="TOHistoriaClinica.cs" />
     <Compile Include="TOMedico.cs" />
+    <Compile Include="TOSolicitanteCita.cs" />
     <Compile Include="TOUsuario.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
