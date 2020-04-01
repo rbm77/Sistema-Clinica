@@ -15,13 +15,14 @@ namespace BL
         public string HeredoFamiliares { get; set; }
         public string Alergias { get; set; }
         public string Vacunas { get; set; }
+        public BLDatosNacimiento DatosNacimiento { get; set; }
 
         public BLHistoriaClinica()
         {
 
         }
         public BLHistoriaClinica(string perinatales, string patologicos, string quirurgicos, 
-            string traumaticos, string heredoFamiliares, string alergias, string vacunas)
+            string traumaticos, string heredoFamiliares, string alergias, string vacunas, BLDatosNacimiento datosNacimiento)
         {
             this.Perinatales = perinatales;
             this.Patologicos = patologicos;
@@ -30,6 +31,7 @@ namespace BL
             this.HeredoFamiliares = heredoFamiliares;
             this.Alergias = alergias;
             this.Vacunas = vacunas;
+            this.DatosNacimiento = datosNacimiento;
         }
 
     }

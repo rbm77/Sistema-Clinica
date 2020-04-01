@@ -15,13 +15,14 @@ namespace TO
         public string HeredoFamiliares { get; set; }
         public string Alergias { get; set; }
         public string Vacunas { get; set; }
+        public TODatosNacimiento DatosNacimiento { get; set; }
 
         public TOHistoriaClinica()
         {
 
         }
         public TOHistoriaClinica(string perinatales, string patologicos, string quirurgicos,
-            string traumaticos, string heredoFamiliares, string alergias, string vacunas)
+            string traumaticos, string heredoFamiliares, string alergias, string vacunas, TODatosNacimiento datosNacimiento)
         {
             this.Perinatales = perinatales;
             this.Patologicos = patologicos;
@@ -30,6 +31,7 @@ namespace TO
             this.HeredoFamiliares = heredoFamiliares;
             this.Alergias = alergias;
             this.Vacunas = vacunas;
+            this.DatosNacimiento = datosNacimiento;
         }
 
     }

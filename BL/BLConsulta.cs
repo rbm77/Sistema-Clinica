@@ -17,13 +17,15 @@ namespace BL
         public string Plan { get; set; }
         public string MMFrecuencia { get; set; }
         public string MMReferidoA { get; set; }
+        public BLExamenFisico ExamenFisico { get; set; }
 
         public BLConsulta()
         {
 
         }
         public BLConsulta(int idExpediente, string fecha, string hora, string padecimientoActual,
-            string analisis, string impresionDiagnostica, string plan, string mmFrecuencia, string mmReferidoA)
+            string analisis, string impresionDiagnostica, string plan, string mmFrecuencia, string mmReferidoA,
+            BLExamenFisico examenFisico)
         {
             this.IDExpediente = idExpediente;
             this.Fecha = fecha;
@@ -34,6 +36,7 @@ namespace BL
             this.Plan = plan;
             this.MMFrecuencia = mmFrecuencia;
             this.MMReferidoA = mmReferidoA;
+            this.ExamenFisico = examenFisico;
         }
     }
 }

@@ -54,6 +54,7 @@
     <Compile Include="BLSolicitanteCita.cs" />
     <Compile Include="BLUsuario.cs" />
     <Compile Include="ManejadorCuenta.cs" />
+    <Compile Include="ManejadorExpediente.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
