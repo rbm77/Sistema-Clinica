@@ -108,6 +108,7 @@
     <Content Include="Bootstrap\src\assets\img\error-404-monochrome.svg" />
     <Content Include="Bootstrap\src\js\scripts.js" />
     <Content Include="cuenta_usuario.aspx" />
+    <Content Include="expediente.aspx" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
@@ -117,6 +118,13 @@
     </Compile>
     <Compile Include="cuenta_usuario.aspx.designer.cs">
       <DependentUpon>cuenta_usuario.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="expediente.aspx.cs">
+      <DependentUpon>expediente.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="expediente.aspx.designer.cs">
+      <DependentUpon>expediente.aspx</DependentUpon>
     </Compile>
     <Compile Include="Maestra.Master.cs">
       <DependentUpon>Maestra.Master</DependentUpon>

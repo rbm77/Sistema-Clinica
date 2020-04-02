@@ -6,6 +6,19 @@
     padding-bottom: 1.75rem;
 }
 
+.padding-contenedorExp {
+    padding-top: 0.5rem;
+    padding-bottom: 1.75rem;
+}
+
+.padding-tab-exp {
+    padding-top: 1.2rem;
+}
+
+.txtArea-size {
+    resize: none;
+}
+
 
 
 .btn-guardar {
@@ -43,4 +56,8 @@
 
 .titulo {
     color: #343a40 !important;
+}
+
+.custom-file-input ~ .custom-file-label::after {
+    content: "Elegir";
 }

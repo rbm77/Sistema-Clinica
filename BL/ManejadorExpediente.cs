@@ -49,6 +49,8 @@ namespace BL
                                     expediente.DestinatarioFactura.Direccion.Canton, expediente.DestinatarioFactura.Direccion.Distrito)),
                     new TOSolicitanteCita(expediente.SolicitanteCita.Correo, expediente.SolicitanteCita.Contrasenna,
                     expediente.SolicitanteCita.Telefono, expediente.SolicitanteCita.Estado));
+
+                return dao.CrearExpediente(to);
             }
             else
             {
