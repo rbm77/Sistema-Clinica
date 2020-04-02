@@ -40,13 +40,15 @@ namespace BL
                                 expediente.Encargado.SegundoApellido, expediente.Encargado.Telefono, expediente.Encargado.Correo,
                                 expediente.Encargado.Parentesco, new TODireccion(
                                     expediente.Encargado.Direccion.CodigoDireccion, expediente.Encargado.Direccion.Provincia,
-                                    expediente.Encargado.Direccion.Canton, expediente.Encargado.Direccion.Distrito)),
+                                    expediente.Encargado.Direccion.Canton, expediente.Encargado.Direccion.Distrito),
+                                expediente.Encargado.DireccionExacta),
                     new TODestinatarioFactura(
                                 expediente.DestinatarioFactura.Cedula, expediente.DestinatarioFactura.Nombre, expediente.DestinatarioFactura.PrimerApellido,
                                 expediente.DestinatarioFactura.SegundoApellido, expediente.DestinatarioFactura.Telefono, expediente.DestinatarioFactura.Correo,
                                 new TODireccion(
                                     expediente.DestinatarioFactura.Direccion.CodigoDireccion, expediente.DestinatarioFactura.Direccion.Provincia,
-                                    expediente.DestinatarioFactura.Direccion.Canton, expediente.DestinatarioFactura.Direccion.Distrito)),
+                                    expediente.DestinatarioFactura.Direccion.Canton, expediente.DestinatarioFactura.Direccion.Distrito),
+                                expediente.DestinatarioFactura.DireccionExacta),
                     new TOSolicitanteCita(expediente.SolicitanteCita.Correo, expediente.SolicitanteCita.Contrasenna,
                     expediente.SolicitanteCita.Telefono, expediente.SolicitanteCita.Estado));
 

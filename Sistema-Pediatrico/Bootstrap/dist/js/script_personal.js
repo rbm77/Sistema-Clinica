@@ -65,7 +65,7 @@ function CargarDatos(input, datos) {
 
 }
 
-function ObtenerCantones(provincia) {
+function ObtenerCantonesPaciente(provincia) {
 
     var codigoProvincia = provincia.value;
     var destino = 'https://ubicaciones.paginasweb.cr/provincia/' + codigoProvincia + '/cantones.json'
@@ -78,8 +78,8 @@ function ObtenerCantones(provincia) {
  
             if (status == "success") {
 
-                var canton = document.getElementById("inputCanton");
-                var distrito = document.getElementById("inputDistrito");
+                var canton = document.getElementById("inputCantonPaciente");
+                var distrito = document.getElementById("inputDistritoPaciente");
 
                 var lengthC = canton.options.length;
                 for (i = lengthC - 1; i >= 0; i--) {
@@ -97,10 +97,10 @@ function ObtenerCantones(provincia) {
     });
 }
 
-function ObtenerDistritos(canton) {
+function ObtenerDistritosPaciente(canton) {
 
     var codigoCanton = canton.value;
-    var codigoProvincia = document.getElementById("inputProvincia").value;
+    var codigoProvincia = document.getElementById("inputProvinciaPaciente").value;
 
     var destino = 'https://ubicaciones.paginasweb.cr/provincia/' + codigoProvincia + '/canton/' + codigoCanton + '/distritos.json'
 
@@ -112,7 +112,7 @@ function ObtenerDistritos(canton) {
 
             if (status == "success") {
 
-                var distrito = document.getElementById("inputDistrito");
+                var distrito = document.getElementById("inputDistritoPaciente");
 
                 var lengthD = distrito.options.length;
                 for (i = lengthD - 1; i >= 0; i--) {
@@ -135,16 +135,155 @@ function ObtenerProvincias() {
 
             if (status == "success") {
 
-                var provincia = document.getElementById("inputProvincia");
+                var provinciaPaciente = document.getElementById("inputProvinciaPaciente");
 
-                var length = provincia.options.length;
+                var length = provinciaPaciente.options.length;
                 for (i = length - 1; i >= 0; i--) {
-                    provincia.options[i] = null;
+                    provinciaPaciente.options[i] = null;
                 }
 
-                CargarDatos(provincia, response);
+                CargarDatos(provinciaPaciente, response);
+
+                var provinciaEncargado = document.getElementById("inputProvinciaEncargado");
+
+                var length = provinciaEncargado.options.length;
+                for (i = length - 1; i >= 0; i--) {
+                    provinciaEncargado.options[i] = null;
+                }
+
+                CargarDatos(provinciaEncargado, response);
+
+                var provinciaDestinatario = document.getElementById("inputProvinciaDestinatario");
+
+                var length = provinciaDestinatario.options.length;
+                for (i = length - 1; i >= 0; i--) {
+                    provinciaDestinatario.options[i] = null;
+                }
+
+                CargarDatos(provinciaDestinatario, response);
             }
         },
     });
 }
 
+
+function ObtenerCantonesEncargado(provincia) {
+
+    var codigoProvincia = provincia.value;
+    var destino = 'https://ubicaciones.paginasweb.cr/provincia/' + codigoProvincia + '/cantones.json'
+
+    $.ajax({
+        dataType: 'json',
+        type: 'GET',
+        url: destino,
+        success: function (response, status) {
+
+            if (status == "success") {
+
+                var canton = document.getElementById("inputCantonEncargado");
+                var distrito = document.getElementById("inputDistritoEncargado");
+
+                var lengthC = canton.options.length;
+                for (i = lengthC - 1; i >= 0; i--) {
+                    canton.options[i] = null;
+                }
+
+                var lengthD = distrito.options.length;
+                for (i = lengthD - 1; i >= 0; i--) {
+                    distrito.options[i] = null;
+                }
+
+                CargarDatos(canton, response);
+            }
+        },
+    });
+}
+
+function ObtenerDistritosEncargado(canton) {
+
+    var codigoCanton = canton.value;
+    var codigoProvincia = document.getElementById("inputProvinciaEncargado").value;
+
+    var destino = 'https://ubicaciones.paginasweb.cr/provincia/' + codigoProvincia + '/canton/' + codigoCanton + '/distritos.json'
+
+    $.ajax({
+        dataType: 'json',
+        type: 'GET',
+        url: destino,
+        success: function (response, status) {
+
+            if (status == "success") {
+
+                var distrito = document.getElementById("inputDistritoEncargado");
+
+                var lengthD = distrito.options.length;
+                for (i = lengthD - 1; i >= 0; i--) {
+                    distrito.options[i] = null;
+                }
+
+                CargarDatos(distrito, response);
+            }
+        },
+    });
+}
+
+
+function ObtenerCantonesDestinatario(provincia) {
+
+    var codigoProvincia = provincia.value;
+    var destino = 'https://ubicaciones.paginasweb.cr/provincia/' + codigoProvincia + '/cantones.json'
+
+    $.ajax({
+        dataType: 'json',
+        type: 'GET',
+        url: destino,
+        success: function (response, status) {
+
+            if (status == "success") {
+
+                var canton = document.getElementById("inputCantonDestinatario");
+                var distrito = document.getElementById("inputDistritoDestinatario");
+
+                var lengthC = canton.options.length;
+                for (i = lengthC - 1; i >= 0; i--) {
+                    canton.options[i] = null;
+                }
+
+                var lengthD = distrito.options.length;
+                for (i = lengthD - 1; i >= 0; i--) {
+                    distrito.options[i] = null;
+                }
+
+                CargarDatos(canton, response);
+            }
+        },
+    });
+}
+
+function ObtenerDistritosDestinatario(canton) {
+
+    var codigoCanton = canton.value;
+    var codigoProvincia = document.getElementById("inputProvinciaDestinatario").value;
+
+    var destino = 'https://ubicaciones.paginasweb.cr/provincia/' + codigoProvincia + '/canton/' + codigoCanton + '/distritos.json'
+
+    $.ajax({
+        dataType: 'json',
+        type: 'GET',
+        url: destino,
+        success: function (response, status) {
+
+            if (status == "success") {
+
+                var distrito = document.getElementById("inputDistritoDestinatario");
+
+                var lengthD = distrito.options.length;
+                for (i = lengthD - 1; i >= 0; i--) {
+                    distrito.options[i] = null;
+                }
+
+                CargarDatos(distrito, response);
+            }
+        },
+    });
+}

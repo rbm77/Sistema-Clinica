@@ -15,6 +15,7 @@ namespace BL
         public int Telefono { get; set; }
         public string Correo { get; set; }
         public BLDireccion Direccion { get; set; }
+        public string DireccionExacta { get; set; }
 
         public BLDestinatarioFactura()
         {
@@ -22,7 +23,7 @@ namespace BL
         }
 
         public BLDestinatarioFactura(string cedula, string nombre, string primerApellido, string segundoApellido,
-            int telefono, string correo, BLDireccion direccion)
+            int telefono, string correo, BLDireccion direccion, string direccionExacta)
         {
             this.Cedula = cedula;
             this.Nombre = nombre;
@@ -31,6 +32,7 @@ namespace BL
             this.Telefono = telefono;
             this.Correo = correo;
             this.Direccion = direccion;
+            this.DireccionExacta = direccionExacta;
         }
     }
 }

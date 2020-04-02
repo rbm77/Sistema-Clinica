@@ -31,33 +31,36 @@
                 </div>
             </nav>
             <div class="tab-content" id="nav-tabContent">
+
+                <%-- DATOS DE PACIENTE --%>
+
                 <div class="tab-pane fade show active padding-tab-exp" id="datosPaciente" role="tabpanel" aria-labelledby="nav-paciente-tab">
 
 
                     <div class="form-row">
-                        <div class="form-group col-md-3 col-sm-4">
-                            <asp:Label ID="label1" runat="server" Text="Cédula"></asp:Label>
-                            <asp:TextBox ID="TextBox1" runat="server" class="form-control" ClientIDMode="Static"></asp:TextBox>
+                        <div class="form-group col-md-4 col-sm-4">
+                            <asp:Label ID="labelCedulaPaciente" runat="server" Text="Cédula"></asp:Label>
+                            <asp:TextBox ID="cedulaPaciente" runat="server" class="form-control" ClientIDMode="Static"></asp:TextBox>
                         </div>
-                        <div class="form-group col-md-3 col-sm-4">
-                            <asp:Label ID="label2" runat="server" Text="Nombre"></asp:Label>
-                            <asp:TextBox ID="TextBox2" runat="server" class="form-control" ClientIDMode="Static" pattern="[A-Za-zñÑáéíóúÁÉÍÓÚ ]*" required></asp:TextBox>
+                        <div class="form-group col-md-4 col-sm-4">
+                            <asp:Label ID="labelNombrePaciente" runat="server" Text="Nombre"></asp:Label>
+                            <asp:TextBox ID="nombrePaciente" runat="server" class="form-control" ClientIDMode="Static" pattern="[A-Za-zñÑáéíóúÁÉÍÓÚ ]*" required></asp:TextBox>
                         </div>
-                        <div class="form-group col-md-3 col-sm-4">
-                            <asp:Label ID="label3" runat="server" Text="Primer Apellido"></asp:Label>
-                            <asp:TextBox ID="TextBox3" runat="server" class="form-control" ClientIDMode="Static" pattern="[A-Za-zñÑáéíóúÁÉÍÓÚ ]*" required></asp:TextBox>
+                        <div class="form-group col-md-4 col-sm-4">
+                            <asp:Label ID="labelPrimerApellidoPaciente" runat="server" Text="Primer Apellido"></asp:Label>
+                            <asp:TextBox ID="primerApellidoPaciente" runat="server" class="form-control" ClientIDMode="Static" pattern="[A-Za-zñÑáéíóúÁÉÍÓÚ ]*" required></asp:TextBox>
                         </div>
-                        <div class="form-group col-md-3 col-sm-4">
-                            <asp:Label ID="label4" runat="server" Text="Segundo Apellido"></asp:Label>
-                            <asp:TextBox ID="TextBox4" runat="server" class="form-control" ClientIDMode="Static" pattern="[A-Za-zñÑáéíóúÁÉÍÓÚ ]*" required></asp:TextBox>
+                        <div class="form-group col-md-4 col-sm-4">
+                            <asp:Label ID="labelSegundoApellidoPaciente" runat="server" Text="Segundo Apellido"></asp:Label>
+                            <asp:TextBox ID="segundoApellidoPaciente" runat="server" class="form-control" ClientIDMode="Static" pattern="[A-Za-zñÑáéíóúÁÉÍÓÚ ]*"></asp:TextBox>
                         </div>
-                        <div class="form-group col-md-3 col-sm-4">
-                            <asp:Label ID="label9" runat="server" Text="Fecha de Nacimiento"></asp:Label>
-                            <asp:TextBox ID="TextBox9" runat="server" class="form-control" placeholder="formato: dd/mm/aaaa" ClientIDMode="Static" pattern="([0-2][0-9]|3[0-1])(\/|-)(0[1-9]|1[0-2])\2(\d{4})" required></asp:TextBox>
+                        <div class="form-group col-md-4 col-sm-4">
+                            <asp:Label ID="labelFechaNacimiento" runat="server" Text="Fecha de Nacimiento"></asp:Label>
+                            <asp:TextBox ID="fechaNacimiento" runat="server" class="form-control" placeholder="formato: dd/mm/aaaa" ClientIDMode="Static" pattern="([0-2][0-9]|3[0-1])(\/|-)(0[1-9]|1[0-2])\2(\d{4})" required></asp:TextBox>
                         </div>
-                        <div class="form-group col-md-3 col-sm-4">
-                            <asp:Label ID="label10" runat="server" Text="Sexo"></asp:Label>
-                            <asp:DropDownList ID="DropDownList1" runat="server" class="form-control" ClientIDMode="Static" required>
+                        <div class="form-group col-md-4 col-sm-4">
+                            <asp:Label ID="labelSexoPaciente" runat="server" Text="Sexo"></asp:Label>
+                            <asp:DropDownList ID="sexoPaciente" runat="server" class="form-control" ClientIDMode="Static" required>
                                 <asp:ListItem Selected="True" Value="nulo">Seleccionar...</asp:ListItem>
                                 <asp:ListItem Selected="False" Value="masculino">Masculino</asp:ListItem>
                                 <asp:ListItem Selected="False" Value="femenino">Femenino</asp:ListItem>
@@ -73,19 +76,19 @@
 
                         <h5 class="titulo col-12">Dirección</h5>
 
-                        <div class="form-group col-md-3 col-sm-4">
-                            <asp:Label ID="labelProvincia" runat="server" ClientIDMode="Static" Text="Provincia"></asp:Label>
-                            <select onchange="ObtenerCantones(this)" class="custom-select" id="inputProvincia" clientidmode="Static" runat="server" required>
+                        <div class="form-group col-md-4 col-sm-4">
+                            <asp:Label ID="labelProvinciaPaciente" runat="server" ClientIDMode="Static" Text="Provincia"></asp:Label>
+                            <select onchange="ObtenerCantonesPaciente(this)" class="custom-select" id="inputProvinciaPaciente" clientidmode="Static" runat="server" required>
                             </select>
                         </div>
-                        <div class="form-group col-md-3 col-sm-4">
-                            <asp:Label ID="labelCanton" runat="server" ClientIDMode="Static" Text="Cantón"></asp:Label>
-                            <select onchange="ObtenerDistritos(this)" class="custom-select" id="inputCanton" clientidmode="Static" runat="server" required>
+                        <div class="form-group col-md-4 col-sm-4">
+                            <asp:Label ID="labelCantonPaciente" runat="server" ClientIDMode="Static" Text="Cantón"></asp:Label>
+                            <select onchange="ObtenerDistritosPaciente(this)" class="custom-select" id="inputCantonPaciente" clientidmode="Static" runat="server" required>
                             </select>
                         </div>
-                        <div class="form-group col-md-3 col-sm-4">
-                            <asp:Label ID="labelDistritos" runat="server" ClientIDMode="Static" Text="Distrito"></asp:Label>
-                            <select class="custom-select" id="inputDistrito" clientidmode="Static" runat="server" required>
+                        <div class="form-group col-md-4 col-sm-4">
+                            <asp:Label ID="labelDistritosPaciente" runat="server" ClientIDMode="Static" Text="Distrito"></asp:Label>
+                            <select class="custom-select" id="inputDistritoPaciente" clientidmode="Static" runat="server" required>
                             </select>
                         </div>
 
@@ -94,25 +97,25 @@
                     <div class="form-row">
 
                         <div class="form-group col-md-6 col-sm-12">
-                            <asp:Label ID="label12" runat="server" Text="Dirección exacta"></asp:Label>
-                            <textarea class="form-control txtArea-size" id="exampleFormControlTextarea6" rows="2"></textarea>
+                            <asp:Label ID="labelDireccionExactaPaciente" runat="server" Text="Dirección exacta"></asp:Label>
+                            <textarea class="form-control txtArea-size" runat="server" id="direccionExactaPaciente" rows="2"></textarea>
                         </div>
 
                         <div class="form-group col-md-6 col-sm-12">
-                            <asp:Label ID="label11" runat="server" Text="URL vinculante a expediente antiguo"></asp:Label>
-                            <textarea class="form-control txtArea-size" id="exampleFormControlTextarea7" rows="2"></textarea>
+                            <asp:Label ID="labelURLExpediente" runat="server" Text="URL vinculante a expediente antiguo"></asp:Label>
+                            <textarea class="form-control txtArea-size" runat="server" id="urlExpedienteAntiguo" rows="2"></textarea>
                         </div>
                     </div>
 
                     <div class="form-row">
-                        <div class="form-group col-md-3 col-sm-4">
-                            <asp:Label ID="label13" runat="server" Text="Fecha actual"></asp:Label>
-                            <asp:TextBox ID="TextBox10" runat="server" class="form-control" placeholder="formato: dd/mm/aaaa" ClientIDMode="Static" pattern="([0-2][0-9]|3[0-1])(\/|-)(0[1-9]|1[0-2])\2(\d{4})" required></asp:TextBox>
+                        <div class="form-group col-md-4 col-sm-4">
+                            <asp:Label ID="labelFechaActual" runat="server" Text="Fecha actual"></asp:Label>
+                            <asp:TextBox ID="fechaActual" runat="server" class="form-control" placeholder="formato: dd/mm/aaaa" ClientIDMode="Static" pattern="([0-2][0-9]|3[0-1])(\/|-)(0[1-9]|1[0-2])\2(\d{4})" required></asp:TextBox>
                         </div>
-                        <div class="form-group col-md-9 col-sm-12">
+                        <div class="form-group col-md-8 col-sm-12">
                             <asp:Label ID="label14" runat="server" Text="Foto del paciente"></asp:Label>
                             <div class="custom-file">
-                                <input type="file" class="custom-file-input" id="inputFotoPaciente" lang="es">
+                                <asp:FileUpload class="custom-file-input" ID="inputFotoPaciente" runat="server" />
                                 <label class="custom-file-label" for="inputFotoPaciente">Seleccionar archivo...</label>
                             </div>
                         </div>
@@ -121,57 +124,212 @@
 
                 </div>
 
+                <%-- DATOS DE ENCARGADO --%>
 
                 <div class="tab-pane fade padding-tab-exp" id="datosEncargado" role="tabpanel" aria-labelledby="nav-encargado-tab">
 
                     <div class="form-row">
                         <div class="form-group col-md-3 col-sm-4">
-                            <asp:Label ID="label5" runat="server" Text="Cédula"></asp:Label>
-                            <asp:TextBox ID="TextBox5" runat="server" class="form-control" ClientIDMode="Static"></asp:TextBox>
+                            <asp:Label ID="labelCedulaEncargado" runat="server" Text="Cédula"></asp:Label>
+                            <asp:TextBox ID="cedulaEncargado" runat="server" class="form-control" ClientIDMode="Static"></asp:TextBox>
                         </div>
                         <div class="form-group col-md-3 col-sm-4">
-                            <asp:Label ID="label6" runat="server" Text="Nombre"></asp:Label>
-                            <asp:TextBox ID="TextBox6" runat="server" class="form-control" ClientIDMode="Static" pattern="[A-Za-zñÑáéíóúÁÉÍÓÚ ]*" required></asp:TextBox>
+                            <asp:Label ID="labelNombreEncargado" runat="server" Text="Nombre"></asp:Label>
+                            <asp:TextBox ID="nombreEncargado" runat="server" class="form-control" ClientIDMode="Static" pattern="[A-Za-zñÑáéíóúÁÉÍÓÚ ]*"></asp:TextBox>
                         </div>
                         <div class="form-group col-md-3 col-sm-4">
-                            <asp:Label ID="label7" runat="server" Text="Primer Apellido"></asp:Label>
-                            <asp:TextBox ID="TextBox7" runat="server" class="form-control" ClientIDMode="Static" pattern="[A-Za-zñÑáéíóúÁÉÍÓÚ ]*" required></asp:TextBox>
+                            <asp:Label ID="labelPrimerApellidoEncargado" runat="server" Text="Primer Apellido"></asp:Label>
+                            <asp:TextBox ID="primerApellidoEncargado" runat="server" class="form-control" ClientIDMode="Static" pattern="[A-Za-zñÑáéíóúÁÉÍÓÚ ]*"></asp:TextBox>
                         </div>
                         <div class="form-group col-md-3 col-sm-4">
-                            <asp:Label ID="label8" runat="server" Text="Segundo Apellido"></asp:Label>
-                            <asp:TextBox ID="TextBox8" runat="server" class="form-control" ClientIDMode="Static" pattern="[A-Za-zñÑáéíóúÁÉÍÓÚ ]*" required></asp:TextBox>
+                            <asp:Label ID="labelSegundoApellidoEncargado" runat="server" Text="Segundo Apellido"></asp:Label>
+                            <asp:TextBox ID="segundoApellidoEncargado" runat="server" class="form-control" ClientIDMode="Static" pattern="[A-Za-zñÑáéíóúÁÉÍÓÚ ]*"></asp:TextBox>
+                        </div>
+                        <div class="form-group col-md-3 col-sm-4">
+                            <asp:Label ID="labelParentesco" runat="server" Text="Parentesco"></asp:Label>
+                            <asp:TextBox ID="parentesco" runat="server" class="form-control" ClientIDMode="Static" pattern="[A-Za-zñÑáéíóúÁÉÍÓÚ ]*"></asp:TextBox>
+                        </div>
+                        <div class="form-group col-md-3 col-sm-4">
+                            <asp:Label ID="labelTelefonoEncargado" runat="server" Text="Teléfono"></asp:Label>
+                            <asp:TextBox ID="inputTelefonoEncargado" runat="server" class="form-control" ClientIDMode="Static" pattern="[0-9]*"></asp:TextBox>
+                        </div>
+                        <div class="form-group col-md-6 col-sm-4">
+                            <asp:Label ID="labelCorreoEncargado" runat="server" Text="Correo Electrónico"></asp:Label>
+                            <asp:TextBox ID="inputCorreoEncargado" type="email" runat="server" class="form-control" ClientIDMode="Static"></asp:TextBox>
                         </div>
                     </div>
 
+                    <hr />
+
+                    <div class="form-row">
+
+                        <h5 class="titulo col-12">Dirección</h5>
+
+                        <div class="form-group col-md-4 col-sm-4">
+                            <asp:Label ID="labelProvinciaEncargado" runat="server" ClientIDMode="Static" Text="Provincia"></asp:Label>
+                            <select onchange="ObtenerCantonesEncargado(this)" class="custom-select" id="inputProvinciaEncargado" clientidmode="Static" runat="server">
+                            </select>
+                        </div>
+                        <div class="form-group col-md-4 col-sm-4">
+                            <asp:Label ID="labelCantonEncargado" runat="server" ClientIDMode="Static" Text="Cantón"></asp:Label>
+                            <select onchange="ObtenerDistritosEncargado(this)" class="custom-select" id="inputCantonEncargado" clientidmode="Static" runat="server">
+                            </select>
+                        </div>
+                        <div class="form-group col-md-4 col-sm-4">
+                            <asp:Label ID="labelDistritoEncargado" runat="server" ClientIDMode="Static" Text="Distrito"></asp:Label>
+                            <select class="custom-select" id="inputDistritoEncargado" clientidmode="Static" runat="server">
+                            </select>
+                        </div>
+
+                    </div>
+
+                    <div class="form-row">
+
+                        <div class="form-group col-md-12 col-sm-12">
+                            <asp:Label ID="labelDireccionExactaEncargado" runat="server" Text="Dirección exacta"></asp:Label>
+                            <textarea class="form-control txtArea-size" runat="server" id="direccionExactaEncargado" rows="2"></textarea>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+
+
+
+                    </div>
+
+
                 </div>
-                <div class="tab-pane fade" id="datosDestinatario" role="tabpanel" aria-labelledby="nav-destinatario-tab">
+
+                <%-- DATOS DE DESTINATARIO DE FACTURA --%>
+
+                <div class="tab-pane fade padding-tab-exp" id="datosDestinatario" role="tabpanel" aria-labelledby="nav-destinatario-tab">
+
+
+                    <div class="form-row">
+                        <div class="form-group col-md-4 col-sm-4">
+                            <asp:Label ID="labelCedulaDestinatario" runat="server" Text="Cédula"></asp:Label>
+                            <asp:TextBox ID="cedulaDestinatario" runat="server" class="form-control" ClientIDMode="Static"></asp:TextBox>
+                        </div>
+                        <div class="form-group col-md-4 col-sm-4">
+                            <asp:Label ID="labelNombreDestinatario" runat="server" Text="Nombre"></asp:Label>
+                            <asp:TextBox ID="nombreDestinatario" runat="server" class="form-control" ClientIDMode="Static" pattern="[A-Za-zñÑáéíóúÁÉÍÓÚ ]*"></asp:TextBox>
+                        </div>
+                        <div class="form-group col-md-4 col-sm-4">
+                            <asp:Label ID="labelPrimerApellidoDestinatario" runat="server" Text="Primer Apellido"></asp:Label>
+                            <asp:TextBox ID="primerApellidoDestinatario" runat="server" class="form-control" ClientIDMode="Static" pattern="[A-Za-zñÑáéíóúÁÉÍÓÚ ]*"></asp:TextBox>
+                        </div>
+                        <div class="form-group col-md-4 col-sm-4">
+                            <asp:Label ID="labelSegundoApellidoDestinatario" runat="server" Text="Segundo Apellido"></asp:Label>
+                            <asp:TextBox ID="segundoApellidoDestinatario" runat="server" class="form-control" ClientIDMode="Static" pattern="[A-Za-zñÑáéíóúÁÉÍÓÚ ]*"></asp:TextBox>
+                        </div>
+                        <div class="form-group col-md-4 col-sm-4">
+                            <asp:Label ID="labelTelefono" runat="server" Text="Teléfono"></asp:Label>
+                            <asp:TextBox ID="telefonoDestinatario" runat="server" class="form-control" ClientIDMode="Static" pattern="[0-9]*"></asp:TextBox>
+                        </div>
+                        <div class="form-group col-md-4 col-sm-4">
+                            <asp:Label ID="labelCorreoDestinatario" runat="server" Text="Correo Electrónico"></asp:Label>
+                            <asp:TextBox ID="correoDestinatario" type="email" runat="server" class="form-control" ClientIDMode="Static"></asp:TextBox>
+                        </div>
+                    </div>
+
+                    <hr />
+
+                    <div class="form-row">
+
+                        <h5 class="titulo col-12">Dirección</h5>
+
+                        <div class="form-group col-md-4 col-sm-4">
+                            <asp:Label ID="labelProvinciaDestinatario" runat="server" ClientIDMode="Static" Text="Provincia"></asp:Label>
+                            <select onchange="ObtenerCantonesDestinatario(this)" class="custom-select" id="inputProvinciaDestinatario" clientidmode="Static" runat="server">
+                            </select>
+                        </div>
+                        <div class="form-group col-md-4 col-sm-4">
+                            <asp:Label ID="labelCantonDestinatario" runat="server" ClientIDMode="Static" Text="Cantón"></asp:Label>
+                            <select onchange="ObtenerDistritosDestinatario(this)" class="custom-select" id="inputCantonDestinatario" clientidmode="Static" runat="server">
+                            </select>
+                        </div>
+                        <div class="form-group col-md-4 col-sm-4">
+                            <asp:Label ID="labelDistritoDestinatario" runat="server" ClientIDMode="Static" Text="Distrito"></asp:Label>
+                            <select class="custom-select" id="inputDistritoDestinatario" clientidmode="Static" runat="server">
+                            </select>
+                        </div>
+
+                    </div>
+
+                    <div class="form-row">
+
+                        <div class="form-group col-md-12 col-sm-12">
+                            <asp:Label ID="labelDireccionExactaDestinatario" runat="server" Text="Dirección exacta"></asp:Label>
+                            <textarea class="form-control txtArea-size" runat="server" id="direccionExactaDestinatario" rows="2"></textarea>
+                        </div>
+                    </div>
+
+
                 </div>
+
+                <%-- DATOS DE SOLICITANTE DE CITA --%>
+
                 <div class="tab-pane fade" id="datosSolicitante" role="tabpanel" aria-labelledby="nav-solicitante-tab">
+
+
                 </div>
+
+                <%-- DATOS DE HISTORIA CLÍNICA--%>
+
                 <div class="tab-pane fade" id="historiaClinica" role="tabpanel" aria-labelledby="nav-historia-tab">
+
+
                 </div>
             </div>
 
+            <div class="row justify-content-center" style="margin-top: 30px">
+                <div class="col-md-2 col-sm-5">
+                    <asp:Button ID="btnGuardar" runat="server" Text="Guardar" CssClass="btn btn-guardar" OnClick="btnGuardar_Click" />
+                </div>
+                <div class="col-md-2 col-sm-5">
+                    <asp:Button ID="btnRegresar" runat="server" Text="Cancelar" CssClass="btn btn-regresar" />
+                </div>
+            </div>
 
-            <br />
-            <br />
-            <br />
-            <br />
-            <br />
-            <br />
-            <br />
-            <br />
-            <hr />
-
-            <br />
+        </form>
 
 
-            <br />
-            <br />
-            <br />
 
 
-            <div class="form-row">
+    </div>
+
+    <script>
+        // Example starter JavaScript for disabling form submissions if there are invalid fields
+        (function () {
+            'use strict';
+            window.addEventListener('load', function () {
+                // Fetch all the forms we want to apply custom Bootstrap validation styles to
+                var forms = document.getElementsByClassName('needs-validation');
+                // Loop over them and prevent submission
+                var validation = Array.prototype.filter.call(forms, function (form) {
+                    form.addEventListener('submit', function (event) {
+                        if (form.checkValidity() === false) {
+                            event.preventDefault();
+                            event.stopPropagation();
+                        }
+                        form.classList.add('was-validated');
+                    }, false);
+                });
+                ObtenerProvincias();
+            }, false);
+        })();
+
+
+        // Add the following code if you want the name of the file appear on select
+        $(".custom-file-input").on("change", function () {
+            var fileName = $(this).val().split("\\").pop();
+            $(this).siblings(".custom-file-label").addClass("selected").html(fileName);
+        });
+
+    </script>
+
+
+                <%--            <div class="form-row">
                 <div class="form-group col-md-3 col-sm-4">
                     <asp:Label ID="labelCedula" runat="server" Text="Cédula"></asp:Label>
                     <asp:TextBox ID="inputCedula" runat="server" class="form-control" ClientIDMode="Static" required></asp:TextBox>
@@ -227,65 +385,7 @@
                     <asp:Label ID="labelEspecialidad" runat="server" Text="Especialidad"></asp:Label>
                     <asp:TextBox ID="inputEspecialidad" runat="server" class="form-control" ClientIDMode="Static" pattern="[A-Za-zñÑáéíóúÁÉÍÓÚ ]*" required></asp:TextBox>
                 </div>
-            </div>
-
-            <div class="row justify-content-center" style="margin-top: 30px">
-                <div class="col-md-2 col-sm-5">
-                    <asp:Button ID="btnGuardar" runat="server" Text="Guardar" CssClass="btn btn-guardar" />
-                </div>
-                <div class="col-md-2 col-sm-5">
-                    <asp:Button ID="btnRegresar" runat="server" Text="Cancelar" CssClass="btn btn-regresar" />
-                </div>
-            </div>
-
-
-
-            <%-- CODIGO DIRECCION, VA EN OTRA PAGINA --%>
-
-            <div class="form-row">
-            </div>
-
-
-            <%-- HASTA AQUI LO DE DIRECCION --%>
-        </form>
-
-
-
-
-    </div>
-
-    <script>
-        // Example starter JavaScript for disabling form submissions if there are invalid fields
-        (function () {
-            'use strict';
-            window.addEventListener('load', function () {
-                // Fetch all the forms we want to apply custom Bootstrap validation styles to
-                var forms = document.getElementsByClassName('needs-validation');
-                // Loop over them and prevent submission
-                var validation = Array.prototype.filter.call(forms, function (form) {
-                    form.addEventListener('submit', function (event) {
-                        if (form.checkValidity() === false) {
-                            event.preventDefault();
-                            event.stopPropagation();
-                        }
-                        form.classList.add('was-validated');
-                    }, false);
-                });
-                ObtenerProvincias();
-            }, false);
-        })();
-
-
-        // Add the following code if you want the name of the file appear on select
-        $(".custom-file-input").on("change", function () {
-            var fileName = $(this).val().split("\\").pop();
-            $(this).siblings(".custom-file-label").addClass("selected").html(fileName);
-        });
-
-    </script>
-
-
-
+            </div>--%>
 
 
 

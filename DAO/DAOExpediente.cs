@@ -95,8 +95,8 @@ namespace DAO
                 if (expediente.Encargado != null && idExpedienteGuardado != 0)
                 {
                     comando.CommandText = "INSERT INTO ENCARGADO (CEDULA, NOMBRE, PRIMER_APELLIDO, SEGUNDO_APELLIDO," +
-                    " TELEFONO, CORREO, PARENTESCO, CODIGO_DIRECCION) VALUES (@cedula, @nombre, @primerApellido, @segundoApellido," +
-                    " @telefono, @correo, @parentesco, @codigoDireccion);";
+                    " TELEFONO, CORREO, PARENTESCO, CODIGO_DIRECCION, DIRECCION_EXACTA) VALUES (@cedula, @nombre, @primerApellido, @segundoApellido," +
+                    " @telefono, @correo, @parentesco, @codigoDireccion, @direccionExacta);";
 
                     // Se asigna un valor a los parámetros del comando a ejecutar
 
@@ -108,6 +108,7 @@ namespace DAO
                     comando.Parameters.AddWithValue("@correo", expediente.Encargado.Correo);
                     comando.Parameters.AddWithValue("@parentesco", expediente.Encargado.Parentesco);
                     comando.Parameters.AddWithValue("@codigoDireccion", expediente.Encargado.Direccion.CodigoDireccion);
+                    comando.Parameters.AddWithValue("@direccionExacta", expediente.Encargado.DireccionExacta);
 
                     // Se ejecuta el comando y se realiza un commit de la transacción
 
@@ -119,8 +120,8 @@ namespace DAO
                 if (expediente.DestinatarioFactura != null && idExpedienteGuardado != 0)
                 {
                     comando.CommandText = "INSERT INTO DESTINATARIO_FACTURA (CEDULA, NOMBRE, PRIMER_APELLIDO, SEGUNDO_APELLIDO," +
-                        " TELEFONO, CORREO, CODIGO_DIRECCION) VALUES (@cedula, @nombre, @primerApellido, @segundoApellido," +
-                        " @telefono, @correo, @codigoDireccion);";
+                        " TELEFONO, CORREO, CODIGO_DIRECCION, DIRECCION_EXACTA) VALUES (@cedula, @nombre, @primerApellido, @segundoApellido," +
+                        " @telefono, @correo, @codigoDireccion, @direccionExacta);";
 
                     // Se asigna un valor a los parámetros del comando a ejecutar
 
@@ -131,6 +132,7 @@ namespace DAO
                     comando.Parameters.AddWithValue("@telefono", expediente.DestinatarioFactura.Telefono);
                     comando.Parameters.AddWithValue("@correo", expediente.DestinatarioFactura.Correo);
                     comando.Parameters.AddWithValue("@codigoDireccion", expediente.DestinatarioFactura.Direccion.CodigoDireccion);
+                    comando.Parameters.AddWithValue("@direccionExacta", expediente.DestinatarioFactura.DireccionExacta);
 
                     // Se ejecuta el comando y se realiza un commit de la transacción
 
