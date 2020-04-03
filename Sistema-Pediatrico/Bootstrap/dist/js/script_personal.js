@@ -287,3 +287,25 @@ function ObtenerDistritosDestinatario(canton) {
         },
     });
 }
+
+
+function esSolicitanteCita() {
+    var checkboxSolicitante = document.getElementById("esSolicitante");
+    var datos = document.getElementById("datosSolicitanteCita");
+    if (checkboxSolicitante.checked == true) {
+        datos.style.display = "none";
+    } else {
+        datos.style.display = "block";
+    }
+}
+
+function esDestinatarioFactura() {
+
+    var tab = document.getElementById("datosDestinatarioTab");
+    var checkboxDestinatario = document.getElementById("esDestinatario");
+    if (checkboxDestinatario.checked == true) {
+        tab.style.display = "none";
+    } else {
+        tab.style.display = "block";
+    }
+}
