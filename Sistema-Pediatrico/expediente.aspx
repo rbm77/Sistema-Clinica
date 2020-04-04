@@ -314,7 +314,7 @@
 
                     <div class="form-row">
 
-                        <h5 class="titulo col-12" style="padding-bottom: 10px">Datos de Nacimiento</h5>
+                        <h4 class="titulo col-12" style="padding-bottom: 10px">Datos de Nacimiento</h4>
 
 
                         <div class="form-group col-md-4 col-sm-4">
@@ -368,13 +368,166 @@
                             </div>
                         </div>
 
-                        
+
                         <div class="form-group col-md-4 col-sm-4">
                             <asp:Label ID="labelClasificacionUniversal" runat="server" Text="Clasificación Universal"></asp:Label>
                             <asp:TextBox ID="clasificacionUniversal" runat="server" class="form-control" ClientIDMode="Static"></asp:TextBox>
                         </div>
 
                     </div>
+
+                    <hr />
+
+                    <div class="form-row">
+
+                        <h4 class="titulo col-12" style="padding-bottom: 10px">Antecedentes</h4>
+
+
+
+
+
+                        
+
+                        <div class="form-group col-md-6 col-sm-12">
+
+                            <h6 class="titulo col-12" style="padding-left: 0px !important;">Perinatales</h6>
+
+                            <ul class="list-group list-group-flush">
+                                <li class="list-group-item padding-der-izq-list padding-arr-aba-list list-group-item-light">
+
+                                    <div style="margin-left: 5px !important;">
+
+                                        <div class="form-check form-check-inline">
+                                            <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="option1">
+                                            <label class="form-check-label" for="inlineRadio1">Normal</label>
+                                        </div>
+                                        <div class="form-check form-check-inline">
+                                            <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2" value="option2">
+                                            <label class="form-check-label" for="inlineRadio2">Anormal</label>
+                                        </div>
+                                    </div>
+                                </li>
+
+                                <li class="list-group-item padding-der-izq-list padding-arr-aba-list">
+                                    <div class="padding-der-izq-list col-md-12 col-sm-12">
+                                        <textarea class="form-control" runat="server" clientidmode="Static" id="Textarea1" rows="3"></textarea>
+                                    </div>
+                                </li>
+
+                            </ul>
+
+                        </div>
+
+
+                        <div class="form-group col-md-6 col-sm-12">
+                            <h6 class="titulo col-12" style="padding-left: 0px !important;">Patológicos</h6>
+
+                            <ul class="list-group list-group-flush">
+                                <li class="list-group-item padding-der-izq-list padding-arr-aba-list list-group-item-light">
+
+                                    <div style="margin-left: 5px !important;">
+
+                                        <div class="form-check form-check-inline">
+                                            <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio3" value="option1">
+                                            <label class="form-check-label" for="inlineRadio1">Normal</label>
+                                        </div>
+                                        <div class="form-check form-check-inline">
+                                            <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio4" value="option2">
+                                            <label class="form-check-label" for="inlineRadio2">Anormal</label>
+                                        </div>
+                                    </div>
+                                </li>
+
+                                <li class="list-group-item padding-der-izq-list padding-arr-aba-list">
+                                    <div class="padding-der-izq-list col-md-12 col-sm-12">
+                                        <textarea class="form-control" runat="server" clientidmode="Static" id="Textarea2" rows="3"></textarea>
+                                    </div>
+                                </li>
+
+                            </ul>
+
+                        </div>
+
+
+                        
+                        <div class="form-group col-md-6 col-sm-12">
+
+                            <h6 class="titulo col-12" style="padding-left: 0px !important;">Perinatales</h6>
+
+                            <ul class="list-group list-group-flush">
+                                <li class="list-group-item padding-der-izq-list padding-arr-aba-list list-group-item-light">
+
+                                    <div style="margin-left: 5px !important;">
+
+                                        <div class="form-check form-check-inline">
+                                            <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio7" value="option1">
+                                            <label class="form-check-label" for="inlineRadio1">Normal</label>
+                                        </div>
+                                        <div class="form-check form-check-inline">
+                                            <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio8" value="option2">
+                                            <label class="form-check-label" for="inlineRadio2">Anormal</label>
+                                        </div>
+                                    </div>
+                                </li>
+
+                                <li class="list-group-item padding-der-izq-list padding-arr-aba-list">
+                                    <div class="padding-der-izq-list col-md-12 col-sm-12">
+                                        <textarea class="form-control" runat="server" clientidmode="Static" id="Textarea3" rows="3"></textarea>
+                                    </div>
+                                </li>
+
+                            </ul>
+
+                        </div>
+
+
+                        <div class="form-group col-md-6 col-sm-12">
+                            <h6 class="titulo col-12" style="padding-left: 0px !important;">Patológicos</h6>
+
+                            <ul class="list-group list-group-flush">
+                                <li class="list-group-item padding-der-izq-list padding-arr-aba-list list-group-item-light">
+
+                                    <div style="margin-left: 5px !important;">
+
+                                        <div class="form-check form-check-inline">
+                                            <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio5" value="option1">
+                                            <label class="form-check-label" for="inlineRadio1">Normal</label>
+                                        </div>
+                                        <div class="form-check form-check-inline">
+                                            <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio6" value="option2">
+                                            <label class="form-check-label" for="inlineRadio2">Anormal</label>
+                                        </div>
+                                    </div>
+                                </li>
+
+                                <li class="list-group-item padding-der-izq-list padding-arr-aba-list">
+                                    <div class="padding-der-izq-list col-md-12 col-sm-12">
+                                        <textarea class="form-control" runat="server" clientidmode="Static" id="Textarea4" rows="3"></textarea>
+                                    </div>
+                                </li>
+
+                            </ul>
+
+                        </div>
+
+
+                    </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
                     <div class="row justify-content-center" style="margin-top: 30px">
@@ -389,8 +542,6 @@
 
                 </div>
             </div>
-
-
         </form>
 
 

@@ -61,3 +61,14 @@
 .custom-file-input ~ .custom-file-label::after {
     content: "Elegir";
 }
+
+.padding-der-izq-list {
+    padding-left: 0px !important;
+    padding-right: 0px !important;
+}
+
+.padding-arr-aba-list {
+    padding-bottom: 7px !important;
+    padding-top: 7px !important;
+}
+
