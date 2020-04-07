@@ -309,3 +309,129 @@ function esDestinatarioFactura() {
         tab.style.display = "block";
     }
 }
+
+function PerinatalNormal(normalPerinatal) {
+    var descripcion = document.getElementById("descripcionPerinatal");
+    if (normalPerinatal.checked == true) {
+        descripcion.disabled = true;
+    } else {
+        descripcion.disabled = false;
+    }
+}
+
+function PerinatalAnormal(anormalPerinatal) {
+    var descripcion = document.getElementById("descripcionPerinatal");
+    if (anormalPerinatal.checked == true) {
+        descripcion.disabled = false;
+    } else {
+        descripcion.disabled = true;
+    }
+}
+
+function PatologicoNegativo(negativoPatologico) {
+    var descripcion = document.getElementById("descripcionPatologico");
+    if (negativoPatologico.checked == true) {
+        descripcion.disabled = true;
+    } else {
+        descripcion.disabled = false;
+    }
+}
+
+function PatologicoPositivo(positivoPatologico) {
+    var descripcion = document.getElementById("descripcionPatologico");
+    if (positivoPatologico.checked == true) {
+        descripcion.disabled = false;
+    } else {
+        descripcion.disabled = true;
+    }
+}
+
+function QuirurgicoNegativo(negativoQuirurgico) {
+    var descripcion = document.getElementById("descripcionQuirurgico");
+    if (negativoQuirurgico.checked == true) {
+        descripcion.disabled = true;
+    } else {
+        descripcion.disabled = false;
+    }
+}
+
+function QuirurgicoPositivo(positivoQuirurgico) {
+    var descripcion = document.getElementById("descripcionQuirurgico");
+    if (positivoQuirurgico.checked == true) {
+        descripcion.disabled = false;
+    } else {
+        descripcion.disabled = true;
+    }
+}
+
+function TraumaticoNegativo(negativoTraumatico) {
+    var descripcion = document.getElementById("descripcionTraumatico");
+    if (negativoTraumatico.checked == true) {
+        descripcion.disabled = true;
+    } else {
+        descripcion.disabled = false;
+    }
+}
+
+function TraumaticoPositivo(positivoTraumatico) {
+    var descripcion = document.getElementById("descripcionTraumatico");
+    if (positivoTraumatico.checked == true) {
+        descripcion.disabled = false;
+    } else {
+        descripcion.disabled = true;
+    }
+}
+
+function HeredoFamiliarNegativo(negativoHeredoFamiliar) {
+    var descripcion = document.getElementById("descripcionHeredoFamiliar");
+    if (negativoHeredoFamiliar.checked == true) {
+        descripcion.disabled = true;
+    } else {
+        descripcion.disabled = false;
+    }
+}
+
+function HeredoFamiliarPositivo(positivoHeredoFamiliar) {
+    var descripcion = document.getElementById("descripcionHeredoFamiliar");
+    if (positivoHeredoFamiliar.checked == true) {
+        descripcion.disabled = false;
+    } else {
+        descripcion.disabled = true;
+    }
+}
+
+function AlergiaNegativo(negativoAlergia) {
+    var descripcion = document.getElementById("descripcionAlergia");
+    if (negativoAlergia.checked == true) {
+        descripcion.disabled = true;
+    } else {
+        descripcion.disabled = false;
+    }
+}
+
+function AlergiaPositivo(positivoAlergia) {
+    var descripcion = document.getElementById("descripcionAlergia");
+    if (positivoAlergia.checked == true) {
+        descripcion.disabled = false;
+    } else {
+        descripcion.disabled = true;
+    }
+}
+
+function VacunaAlDia(aldiaVacuna) {
+    var descripcion = document.getElementById("descripcionVacuna");
+    if (aldiaVacuna.checked == true) {
+        descripcion.disabled = true;
+    } else {
+        descripcion.disabled = false;
+    }
+}
+
+function VacunaPendiente(pendienteVacuna) {
+    var descripcion = document.getElementById("descripcionVacuna");
+    if (pendienteVacuna.checked == true) {
+        descripcion.disabled = false;
+    } else {
+        descripcion.disabled = true;
+    }
+}

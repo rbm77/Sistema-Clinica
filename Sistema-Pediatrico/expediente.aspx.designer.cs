@@ -112,13 +112,13 @@ namespace Sistema_Pediatrico {
         protected global::System.Web.UI.WebControls.Label labelFechaNacimiento;
         
         /// <summary>
-        /// Control fechaNacimiento.
+        /// Control fechaNacimientoPaciente.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox fechaNacimiento;
+        protected global::System.Web.UI.WebControls.TextBox fechaNacimientoPaciente;
         
         /// <summary>
         /// Control labelSexoPaciente.
@@ -220,13 +220,13 @@ namespace Sistema_Pediatrico {
         protected global::System.Web.UI.WebControls.Label labelURLExpediente;
         
         /// <summary>
-        /// Control urlExpedienteAntiguo.
+        /// Control urlExpedienteAntiguoPaciente.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlTextArea urlExpedienteAntiguo;
+        protected global::System.Web.UI.HtmlControls.HtmlTextArea urlExpedienteAntiguoPaciente;
         
         /// <summary>
         /// Control labelFechaActual.
@@ -814,40 +814,193 @@ namespace Sistema_Pediatrico {
         protected global::System.Web.UI.WebControls.TextBox clasificacionUniversal;
         
         /// <summary>
-        /// Control Textarea1.
+        /// Control normalPerinatal.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlTextArea Textarea1;
+        protected global::System.Web.UI.HtmlControls.HtmlInputRadioButton normalPerinatal;
         
         /// <summary>
-        /// Control Textarea2.
+        /// Control anormalPerinatal.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlTextArea Textarea2;
+        protected global::System.Web.UI.HtmlControls.HtmlInputRadioButton anormalPerinatal;
         
         /// <summary>
-        /// Control Textarea3.
+        /// Control descripcionPerinatal.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlTextArea Textarea3;
+        protected global::System.Web.UI.HtmlControls.HtmlTextArea descripcionPerinatal;
         
         /// <summary>
-        /// Control Textarea4.
+        /// Control negativoPatologico.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlTextArea Textarea4;
+        protected global::System.Web.UI.HtmlControls.HtmlInputRadioButton negativoPatologico;
+        
+        /// <summary>
+        /// Control positivoPatologico.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlInputRadioButton positivoPatologico;
+        
+        /// <summary>
+        /// Control descripcionPatologico.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlTextArea descripcionPatologico;
+        
+        /// <summary>
+        /// Control negativoQuirurgico.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlInputRadioButton negativoQuirurgico;
+        
+        /// <summary>
+        /// Control positivoQuirurgico.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlInputRadioButton positivoQuirurgico;
+        
+        /// <summary>
+        /// Control descripcionQuirurgico.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlTextArea descripcionQuirurgico;
+        
+        /// <summary>
+        /// Control negativoTraumatico.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlInputRadioButton negativoTraumatico;
+        
+        /// <summary>
+        /// Control positivoTraumatico.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlInputRadioButton positivoTraumatico;
+        
+        /// <summary>
+        /// Control descripcionTraumatico.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlTextArea descripcionTraumatico;
+        
+        /// <summary>
+        /// Control negativoHeredoFamiliar.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlInputRadioButton negativoHeredoFamiliar;
+        
+        /// <summary>
+        /// Control positivoHeredoFamiliar.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlInputRadioButton positivoHeredoFamiliar;
+        
+        /// <summary>
+        /// Control descripcionHeredoFamiliar.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlTextArea descripcionHeredoFamiliar;
+        
+        /// <summary>
+        /// Control negativoAlergias.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlInputRadioButton negativoAlergias;
+        
+        /// <summary>
+        /// Control positivoAlergias.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlInputRadioButton positivoAlergias;
+        
+        /// <summary>
+        /// Control descripcionAlergia.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlTextArea descripcionAlergia;
+        
+        /// <summary>
+        /// Control aldiaVacunas.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlInputRadioButton aldiaVacunas;
+        
+        /// <summary>
+        /// Control pendientesVacunas.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlInputRadioButton pendientesVacunas;
+        
+        /// <summary>
+        /// Control descripcionVacuna.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlTextArea descripcionVacuna;
         
         /// <summary>
         /// Control btnGuardar.

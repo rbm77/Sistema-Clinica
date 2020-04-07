@@ -55,7 +55,7 @@
                         </div>
                         <div class="form-group col-md-4 col-sm-4">
                             <asp:Label ID="labelFechaNacimiento" runat="server" Text="Fecha de Nacimiento"></asp:Label>
-                            <asp:TextBox ID="fechaNacimiento" runat="server" class="form-control" placeholder="formato: dd/mm/aaaa" ClientIDMode="Static" pattern="([0-2][0-9]|3[0-1])(\/|-)(0[1-9]|1[0-2])\2(\d{4})" required></asp:TextBox>
+                            <asp:TextBox ID="fechaNacimientoPaciente" runat="server" class="form-control" placeholder="formato: dd/mm/aaaa" ClientIDMode="Static" pattern="([0-2][0-9]|3[0-1])(\/|-)(0[1-9]|1[0-2])\2(\d{4})" required></asp:TextBox>
                         </div>
                         <div class="form-group col-md-4 col-sm-4">
                             <asp:Label ID="labelSexoPaciente" runat="server" Text="Sexo"></asp:Label>
@@ -102,7 +102,7 @@
 
                         <div class="form-group col-md-6 col-sm-12">
                             <asp:Label ID="labelURLExpediente" runat="server" Text="URL vinculante a expediente antiguo"></asp:Label>
-                            <textarea class="form-control txtArea-size" clientidmode="Static" runat="server" id="urlExpedienteAntiguo" rows="2"></textarea>
+                            <textarea class="form-control txtArea-size" clientidmode="Static" runat="server" id="urlExpedienteAntiguoPaciente" rows="2"></textarea>
                         </div>
                     </div>
 
@@ -320,7 +320,7 @@
                         <div class="form-group col-md-4 col-sm-4">
                             <asp:Label ID="labelTallaNacimiento" runat="server" Text="Talla"></asp:Label>
                             <div class="input-group">
-                                <asp:TextBox ID="tallaNacimiento" runat="server" class="form-control" ClientIDMode="Static"></asp:TextBox>
+                                <asp:TextBox ID="tallaNacimiento" runat="server" class="form-control" ClientIDMode="Static" pattern="[0-9]+(\.[0-9]{1,2})?%?"></asp:TextBox>
                                 <div class="input-group-append">
                                     <span class="input-group-text">cm</span>
                                 </div>
@@ -331,7 +331,7 @@
                         <div class="form-group col-md-4 col-sm-4">
                             <asp:Label ID="labelPesoNacimiento" runat="server" Text="Peso"></asp:Label>
                             <div class="input-group">
-                                <asp:TextBox ID="pesoNacimiento" runat="server" class="form-control" ClientIDMode="Static"></asp:TextBox>
+                                <asp:TextBox ID="pesoNacimiento" runat="server" class="form-control" ClientIDMode="Static" pattern="[0-9]+(\.[0-9]{1,2})?%?"></asp:TextBox>
                                 <div class="input-group-append">
                                     <span class="input-group-text">kg</span>
                                 </div>
@@ -344,7 +344,7 @@
                         <div class="form-group col-md-4 col-sm-4">
                             <asp:Label ID="labelPerimetroCefalico" runat="server" Text="Perímetro Cefálico"></asp:Label>
                             <div class="input-group">
-                                <asp:TextBox ID="perimetroCefalico" runat="server" class="form-control" ClientIDMode="Static"></asp:TextBox>
+                                <asp:TextBox ID="perimetroCefalico" runat="server" class="form-control" ClientIDMode="Static" pattern="[0-9]+(\.[0-9]{1,2})?%?"></asp:TextBox>
                                 <div class="input-group-append">
                                     <span class="input-group-text">cm</span>
                                 </div>
@@ -361,7 +361,7 @@
                         <div class="form-group col-md-4 col-sm-4">
                             <asp:Label ID="labelEdadGestacional" runat="server" Text="Edad Gestacional"></asp:Label>
                             <div class="input-group">
-                                <asp:TextBox ID="edadGestacional" runat="server" class="form-control" ClientIDMode="Static"></asp:TextBox>
+                                <asp:TextBox ID="edadGestacional" runat="server" class="form-control" ClientIDMode="Static" pattern="[0-9]+(\.[0-9]{1,2})?%?"></asp:TextBox>
                                 <div class="input-group-append">
                                     <span class="input-group-text">semanas</span>
                                 </div>
@@ -382,12 +382,6 @@
 
                         <h4 class="titulo col-12" style="padding-bottom: 10px">Antecedentes</h4>
 
-
-
-
-
-                        
-
                         <div class="form-group col-md-6 col-sm-12">
 
                             <h6 class="titulo col-12" style="padding-left: 0px !important;">Perinatales</h6>
@@ -398,19 +392,19 @@
                                     <div style="margin-left: 5px !important;">
 
                                         <div class="form-check form-check-inline">
-                                            <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="option1">
-                                            <label class="form-check-label" for="inlineRadio1">Normal</label>
+                                            <input onclick="PerinatalNormal(this)" class="form-check-input" clientidmode="Static" runat="server" type="radio" name="perinatal" id="normalPerinatal" value="normal">
+                                            <label class="form-check-label" clientidmode="Static" runat="server">Normal</label>
                                         </div>
                                         <div class="form-check form-check-inline">
-                                            <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2" value="option2">
-                                            <label class="form-check-label" for="inlineRadio2">Anormal</label>
+                                            <input onclick="PerinatalAnormal(this)" class="form-check-input" clientidmode="Static" runat="server" type="radio" name="perinatal" id="anormalPerinatal" value="anormal">
+                                            <label class="form-check-label" clientidmode="Static" runat="server">Anormal</label>
                                         </div>
                                     </div>
                                 </li>
 
                                 <li class="list-group-item padding-der-izq-list padding-arr-aba-list">
                                     <div class="padding-der-izq-list col-md-12 col-sm-12">
-                                        <textarea class="form-control" runat="server" clientidmode="Static" id="Textarea1" rows="3"></textarea>
+                                        <textarea class="form-control" runat="server" clientidmode="Static" id="descripcionPerinatal" rows="3"></textarea>
                                     </div>
                                 </li>
 
@@ -420,6 +414,7 @@
 
 
                         <div class="form-group col-md-6 col-sm-12">
+
                             <h6 class="titulo col-12" style="padding-left: 0px !important;">Patológicos</h6>
 
                             <ul class="list-group list-group-flush">
@@ -428,51 +423,19 @@
                                     <div style="margin-left: 5px !important;">
 
                                         <div class="form-check form-check-inline">
-                                            <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio3" value="option1">
-                                            <label class="form-check-label" for="inlineRadio1">Normal</label>
+                                            <input onclick="PatologicoNegativo(this)" class="form-check-input" clientidmode="Static" runat="server" type="radio" name="patologico" id="negativoPatologico" value="negativo">
+                                            <label class="form-check-label" clientidmode="Static" runat="server">Negativos</label>
                                         </div>
                                         <div class="form-check form-check-inline">
-                                            <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio4" value="option2">
-                                            <label class="form-check-label" for="inlineRadio2">Anormal</label>
+                                            <input onclick="PatologicoPositivo(this)" class="form-check-input" clientidmode="Static" runat="server" type="radio" name="patologico" id="positivoPatologico" value="positivo">
+                                            <label class="form-check-label" clientidmode="Static" runat="server">Positivos</label>
                                         </div>
                                     </div>
                                 </li>
 
                                 <li class="list-group-item padding-der-izq-list padding-arr-aba-list">
                                     <div class="padding-der-izq-list col-md-12 col-sm-12">
-                                        <textarea class="form-control" runat="server" clientidmode="Static" id="Textarea2" rows="3"></textarea>
-                                    </div>
-                                </li>
-
-                            </ul>
-
-                        </div>
-
-
-                        
-                        <div class="form-group col-md-6 col-sm-12">
-
-                            <h6 class="titulo col-12" style="padding-left: 0px !important;">Perinatales</h6>
-
-                            <ul class="list-group list-group-flush">
-                                <li class="list-group-item padding-der-izq-list padding-arr-aba-list list-group-item-light">
-
-                                    <div style="margin-left: 5px !important;">
-
-                                        <div class="form-check form-check-inline">
-                                            <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio7" value="option1">
-                                            <label class="form-check-label" for="inlineRadio1">Normal</label>
-                                        </div>
-                                        <div class="form-check form-check-inline">
-                                            <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio8" value="option2">
-                                            <label class="form-check-label" for="inlineRadio2">Anormal</label>
-                                        </div>
-                                    </div>
-                                </li>
-
-                                <li class="list-group-item padding-der-izq-list padding-arr-aba-list">
-                                    <div class="padding-der-izq-list col-md-12 col-sm-12">
-                                        <textarea class="form-control" runat="server" clientidmode="Static" id="Textarea3" rows="3"></textarea>
+                                        <textarea class="form-control" runat="server" clientidmode="Static" id="descripcionPatologico" rows="3"></textarea>
                                     </div>
                                 </li>
 
@@ -482,7 +445,8 @@
 
 
                         <div class="form-group col-md-6 col-sm-12">
-                            <h6 class="titulo col-12" style="padding-left: 0px !important;">Patológicos</h6>
+
+                            <h6 class="titulo col-12" style="padding-left: 0px !important;">Quirúrgicos</h6>
 
                             <ul class="list-group list-group-flush">
                                 <li class="list-group-item padding-der-izq-list padding-arr-aba-list list-group-item-light">
@@ -490,19 +454,140 @@
                                     <div style="margin-left: 5px !important;">
 
                                         <div class="form-check form-check-inline">
-                                            <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio5" value="option1">
-                                            <label class="form-check-label" for="inlineRadio1">Normal</label>
+                                            <input onclick="QuirurgicoNegativo(this)" class="form-check-input" clientidmode="Static" runat="server" type="radio" name="quirurgico" id="negativoQuirurgico" value="negativo">
+                                            <label class="form-check-label" clientidmode="Static" runat="server">Negativos</label>
                                         </div>
                                         <div class="form-check form-check-inline">
-                                            <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio6" value="option2">
-                                            <label class="form-check-label" for="inlineRadio2">Anormal</label>
+                                            <input onclick="QuirurgicoPositivo(this)" class="form-check-input" clientidmode="Static" runat="server" type="radio" name="quirurgico" id="positivoQuirurgico" value="positivo">
+                                            <label class="form-check-label" clientidmode="Static" runat="server">Positivos</label>
                                         </div>
                                     </div>
                                 </li>
 
                                 <li class="list-group-item padding-der-izq-list padding-arr-aba-list">
                                     <div class="padding-der-izq-list col-md-12 col-sm-12">
-                                        <textarea class="form-control" runat="server" clientidmode="Static" id="Textarea4" rows="3"></textarea>
+                                        <textarea class="form-control" runat="server" clientidmode="Static" id="descripcionQuirurgico" rows="3"></textarea>
+                                    </div>
+                                </li>
+
+                            </ul>
+
+                        </div>
+
+
+                        <div class="form-group col-md-6 col-sm-12">
+
+                            <h6 class="titulo col-12" style="padding-left: 0px !important;">Traumáticos</h6>
+
+                            <ul class="list-group list-group-flush">
+                                <li class="list-group-item padding-der-izq-list padding-arr-aba-list list-group-item-light">
+
+                                    <div style="margin-left: 5px !important;">
+
+                                        <div class="form-check form-check-inline">
+                                            <input onclick="TraumaticoNegativo(this)" class="form-check-input" clientidmode="Static" runat="server" type="radio" name="traumatico" id="negativoTraumatico" value="negativo">
+                                            <label class="form-check-label" clientidmode="Static" runat="server">Negativos</label>
+                                        </div>
+                                        <div class="form-check form-check-inline">
+                                            <input onclick="TraumaticoPositivo(this)" class="form-check-input" clientidmode="Static" runat="server" type="radio" name="traumatico" id="positivoTraumatico" value="positivo">
+                                            <label class="form-check-label" clientidmode="Static" runat="server">Positivos</label>
+                                        </div>
+                                    </div>
+                                </li>
+
+                                <li class="list-group-item padding-der-izq-list padding-arr-aba-list">
+                                    <div class="padding-der-izq-list col-md-12 col-sm-12">
+                                        <textarea class="form-control" runat="server" clientidmode="Static" id="descripcionTraumatico" rows="3"></textarea>
+                                    </div>
+                                </li>
+
+                            </ul>
+
+                        </div>
+
+                        <div class="form-group col-md-6 col-sm-12">
+
+                            <h6 class="titulo col-12" style="padding-left: 0px !important;">Heredo Familiares</h6>
+
+                            <ul class="list-group list-group-flush">
+                                <li class="list-group-item padding-der-izq-list padding-arr-aba-list list-group-item-light">
+
+                                    <div style="margin-left: 5px !important;">
+
+                                        <div class="form-check form-check-inline">
+                                            <input onclick="HeredoFamiliarNegativo(this)" class="form-check-input" clientidmode="Static" runat="server" type="radio" name="heredoFamiliares" id="negativoHeredoFamiliar" value="negativo">
+                                            <label class="form-check-label" clientidmode="Static" runat="server">Negativos</label>
+                                        </div>
+                                        <div class="form-check form-check-inline">
+                                            <input onclick="HeredoFamiliarPositivo(this)" class="form-check-input" clientidmode="Static" runat="server" type="radio" name="heredoFamiliares" id="positivoHeredoFamiliar" value="positivo">
+                                            <label class="form-check-label" clientidmode="Static" runat="server">Positivos</label>
+                                        </div>
+                                    </div>
+                                </li>
+
+                                <li class="list-group-item padding-der-izq-list padding-arr-aba-list">
+                                    <div class="padding-der-izq-list col-md-12 col-sm-12">
+                                        <textarea class="form-control" runat="server" clientidmode="Static" id="descripcionHeredoFamiliar" rows="3"></textarea>
+                                    </div>
+                                </li>
+
+                            </ul>
+
+                        </div>
+
+                        <div class="form-group col-md-6 col-sm-12">
+
+                            <h6 class="titulo col-12" style="padding-left: 0px !important;">Alergias</h6>
+
+                            <ul class="list-group list-group-flush">
+                                <li class="list-group-item padding-der-izq-list padding-arr-aba-list list-group-item-light">
+
+                                    <div style="margin-left: 5px !important;">
+
+                                        <div class="form-check form-check-inline">
+                                            <input onclick="AlergiaNegativo(this)" class="form-check-input" clientidmode="Static" runat="server" type="radio" name="alergias" id="negativoAlergias" value="negativo">
+                                            <label class="form-check-label" clientidmode="Static" runat="server">Negativas</label>
+                                        </div>
+                                        <div class="form-check form-check-inline">
+                                            <input onclick="AlergiaPositivo(this)" class="form-check-input" clientidmode="Static" runat="server" type="radio" name="alergias" id="positivoAlergias" value="positivo">
+                                            <label class="form-check-label" clientidmode="Static" runat="server">Positivas</label>
+                                        </div>
+                                    </div>
+                                </li>
+
+                                <li class="list-group-item padding-der-izq-list padding-arr-aba-list">
+                                    <div class="padding-der-izq-list col-md-12 col-sm-12">
+                                        <textarea class="form-control" runat="server" clientidmode="Static" id="descripcionAlergia" rows="3"></textarea>
+                                    </div>
+                                </li>
+
+                            </ul>
+
+                        </div>
+
+                        <div class="form-group col-md-6 col-sm-12">
+
+                            <h6 class="titulo col-12" style="padding-left: 0px !important;">Vacunas</h6>
+
+                            <ul class="list-group list-group-flush">
+                                <li class="list-group-item padding-der-izq-list padding-arr-aba-list list-group-item-light">
+
+                                    <div style="margin-left: 5px !important;">
+
+                                        <div class="form-check form-check-inline">
+                                            <input onclick="VacunaAlDia(this)" class="form-check-input" clientidmode="Static" runat="server" type="radio" name="vacunas" id="aldiaVacunas" value="aldia">
+                                            <label class="form-check-label" clientidmode="Static" runat="server">Al día con esquema básico</label>
+                                        </div>
+                                        <div class="form-check form-check-inline">
+                                            <input onclick="VacunaPendiente(this)" class="form-check-input" clientidmode="Static" runat="server" type="radio" name="vacunas" id="pendientesVacunas" value="pendientes">
+                                            <label class="form-check-label" clientidmode="Static" runat="server">Pendientes</label>
+                                        </div>
+                                    </div>
+                                </li>
+
+                                <li class="list-group-item padding-der-izq-list padding-arr-aba-list">
+                                    <div class="padding-der-izq-list col-md-12 col-sm-12">
+                                        <textarea class="form-control" runat="server" clientidmode="Static" id="descripcionVacuna" rows="3"></textarea>
                                     </div>
                                 </li>
 
