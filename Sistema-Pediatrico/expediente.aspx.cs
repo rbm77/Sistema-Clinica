@@ -49,7 +49,7 @@ namespace Sistema_Pediatrico
                 }
                 return "La foto se almacenó exitosamente.";
             }
-            catch(Exception)
+            catch (Exception)
             {
                 return "Error: La foto no se pudo almacenar.";
             }
@@ -58,12 +58,23 @@ namespace Sistema_Pediatrico
         protected void btnGuardar_Click(object sender, EventArgs e)
         {
             ValidarDatos();
-          //  string respuestaFoto = SubirFoto();
+            //  string respuestaFoto = SubirFoto();
 
         }
 
         private BLExpediente ValidarDatos()
         {
+            BLDireccion direccionPaciente = null;
+            BLDireccion direccionEncargado = null;
+            BLDireccion direccionDestinatario = null;
+            BLEncargado encargado = null;
+            BLDestinatarioFactura destinatario = null;
+            BLSolicitanteCita solicitante = null;
+            BLDatosNacimiento datosNacimiento = null;
+            BLHistoriaClinica historiaClinica = null;
+            BLExpediente expediente = null;
+
+
             // Datos de PACIENTE
 
             string cedulaP = cedulaPaciente.Text.Trim();
@@ -74,16 +85,16 @@ namespace Sistema_Pediatrico
             string sexoP = sexoPaciente.Text.Trim();
             string urlFotoP = inputFotoPaciente.FileName.Trim();
             string urlExpedienteAntiguoP = urlExpedienteAntiguoPaciente.Value.Trim();
-            string provinciaP = inputProvinciaPaciente.Value.Trim();
-            string cantonP = inputCantonPaciente.Value.Trim();
-            string distritoP = inputDistritoPaciente.Value.Trim();
+            string provinciaP = inputProvinciaPaciente.Text;
+            string cantonP = inputCantonPaciente.Text;
+            string distritoP = inputDistritoPaciente.Text;
             string direccionExactaP = direccionExactaPaciente.Value.Trim();
             string idMedico = "AUSENTE"; // SE DEBE INSERTAR EL ID DEL MEDICO QUE CREO EL EXPEDIENTE. SE OBTIENE DE LA SESION DE USUARIO.
             string fechaCreacion = fechaActual.Text.Trim();
-            
+
             // Comienza a validar
 
-            if(nombreP.Equals("") || primerApellidoP.Equals("") || fechaNacimientoP.Equals("") || sexoP.Equals("nulo") ||
+            if (nombreP.Equals("") || primerApellidoP.Equals("") || fechaNacimientoP.Equals("") || sexoP.Equals("nulo") ||
                 provinciaP.Equals("nulo") || cantonP.Equals("nulo") || distritoP.Equals("nulo") || direccionExactaP.Equals("") ||
                 fechaCreacion.Equals("") || idMedico.Equals(""))
             {
@@ -99,8 +110,13 @@ namespace Sistema_Pediatrico
             int telefonoE = 0;
             try
             {
-                telefonoE = int.Parse(inputTelefonoEncargado.Text.Trim());
-            } catch(Exception)
+                string temp = inputTelefonoEncargado.Text.Trim();
+                if (!temp.Equals(""))
+                {
+                    telefonoE = int.Parse(temp);
+                }
+            }
+            catch (Exception)
             {
                 return null;
             }
@@ -108,8 +124,86 @@ namespace Sistema_Pediatrico
             string parentescoE = parentesco.Text.Trim();
             string provinciaE = inputProvinciaEncargado.Value.Trim();
             string cantonE = inputCantonEncargado.Value.Trim();
+            string distritoE = inputDistritoEncargado.Value.Trim();
+            string direccionExactaE = direccionExactaEncargado.Value.Trim();
 
-            // Nota: Validar estos datos de modo que hay que estar seguro que no hay datos de los subobjetos para dejarlos como nulos
+            if (!nombreE.Equals("") || !primerApellidoE.Equals("") || !segundoApellidoE.Equals("") || telefonoE != 0 ||
+                !correoE.Equals("") || !parentescoE.Equals("") || !direccionExactaE.Equals(""))
+            {
+                if (cedulaE.Equals("") || provinciaE.Equals("") || cantonE.Equals("") || distritoE.Equals(""))
+                {
+                    return null;
+                } else
+                {
+                    string cod = provinciaE + "-" + cantonE + "-" + distritoE;
+                    direccionEncargado = new BLDireccion(cod, provinciaE, cantonE, distritoE);
+                    encargado = new BLEncargado(cedulaE, nombreE, primerApellidoE, segundoApellidoE, telefonoE, correoE, parentescoE,
+                        direccionEncargado, direccionExactaE);
+                }
+            }
+
+            // Datos de DESTINATARIO
+
+            if (esDestinatario.Checked == false)
+            {
+                string cedulaD = cedulaDestinatario.Text.Trim();
+                string nombreD = nombreDestinatario.Text.Trim();
+                string primerApellidoD = primerApellidoDestinatario.Text.Trim();
+                string segundoApellidoD = segundoApellidoDestinatario.Text.Trim();
+                int telefonoD = 0;
+                try
+                {
+                    string temp = telefonoDestinatario.Text.Trim();
+                    if (!temp.Equals(""))
+                    {
+                        telefonoD = int.Parse(temp);
+                    }
+                }
+                catch (Exception)
+                {
+                    return null;
+                }
+                string correoD = correoDestinatario.Text.Trim();
+                string provinciaD = inputProvinciaDestinatario.Value.Trim();
+                string cantonD = inputCantonDestinatario.Value.Trim();
+                string distritoD = inputDistritoDestinatario.Value.Trim();
+                string direccionExactaD = direccionExactaDestinatario.Value.Trim();
+
+                if (!nombreD.Equals("") || !primerApellidoD.Equals("") || !segundoApellidoD.Equals("") || telefonoD != 0 ||
+                    !correoD.Equals("") || !direccionExactaD.Equals(""))
+                {
+                    if (cedulaD.Equals("") || provinciaD.Equals("") || cantonD.Equals("") || distritoD.Equals(""))
+                    {
+                        return null;
+                    }
+                }
+            }
+
+            // Datos de SOLICITANTE
+
+            if (esSolicitante.Checked == false)
+            {
+                int telefonoS = 0;
+                try
+                {
+                    string temp = telefonoSolicitante.Text.Trim();
+                    if (!temp.Equals(""))
+                    {
+                        telefonoS = int.Parse(temp);
+                    }
+                }
+                catch (Exception)
+                {
+                    return null;
+                }
+                string correoS = correoSolicitante.Text.Trim();
+
+                if (correoS.Equals(""))
+                {
+                    return null;
+                }
+            }
+
 
 
 

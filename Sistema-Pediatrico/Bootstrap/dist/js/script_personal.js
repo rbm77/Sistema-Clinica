@@ -65,6 +65,7 @@ function CargarDatos(input, datos) {
 
 }
 
+
 function ObtenerCantonesPaciente(provincia) {
 
     var codigoProvincia = provincia.value;
@@ -130,7 +131,7 @@ function ObtenerProvincias() {
     $.ajax({
         dataType: 'json',
         type: 'GET',
-        url: 'https://ubicaciones.paginasweb.cr/provincias.json',
+        url: '../../../Recursos/provincias.json',
         success: function (response, status) {
 
             if (status == "success") {

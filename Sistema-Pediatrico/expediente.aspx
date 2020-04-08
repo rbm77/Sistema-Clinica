@@ -1,4 +1,4 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Maestra.Master" AutoEventWireup="true" CodeBehind="expediente.aspx.cs" Inherits="Sistema_Pediatrico.expediente" %>
+﻿<%@ Page Title="" EnableEventValidation="false" Language="C#" MasterPageFile="~/Maestra.Master" AutoEventWireup="true" CodeBehind="expediente.aspx.cs" Inherits="Sistema_Pediatrico.expediente" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
 
@@ -75,20 +75,22 @@
 
                         <h5 class="titulo col-12">Dirección</h5>
 
+
                         <div class="form-group col-md-4 col-sm-4">
                             <asp:Label ID="labelProvinciaPaciente" runat="server" ClientIDMode="Static" Text="Provincia"></asp:Label>
-                            <select onchange="ObtenerCantonesPaciente(this)" class="custom-select" id="inputProvinciaPaciente" clientidmode="Static" runat="server" required>
-                            </select>
+                            <asp:DropDownList onchange="ObtenerCantonesPaciente(this)" ID="inputProvinciaPaciente" runat="server" class="form-control" ClientIDMode="Static" required>
+                            </asp:DropDownList>
+                            <input type="hidden" clientidmode="Static" id="provinciaPValue" runat="server" />
                         </div>
                         <div class="form-group col-md-4 col-sm-4">
                             <asp:Label ID="labelCantonPaciente" runat="server" ClientIDMode="Static" Text="Cantón"></asp:Label>
-                            <select onchange="ObtenerDistritosPaciente(this)" class="custom-select" id="inputCantonPaciente" clientidmode="Static" runat="server" required>
-                            </select>
+                            <asp:DropDownList onchange="ObtenerDistritosPaciente(this)" ID="inputCantonPaciente" runat="server" class="form-control" ClientIDMode="Static" required>
+                            </asp:DropDownList>
                         </div>
                         <div class="form-group col-md-4 col-sm-4">
                             <asp:Label ID="labelDistritosPaciente" runat="server" ClientIDMode="Static" Text="Distrito"></asp:Label>
-                            <select class="custom-select" id="inputDistritoPaciente" clientidmode="Static" runat="server" required>
-                            </select>
+                            <asp:DropDownList ID="inputDistritoPaciente" runat="server" class="form-control" ClientIDMode="Static" required>
+                            </asp:DropDownList>
                         </div>
 
                     </div>

@@ -154,7 +154,16 @@ namespace Sistema_Pediatrico {
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlSelect inputProvinciaPaciente;
+        protected global::System.Web.UI.WebControls.DropDownList inputProvinciaPaciente;
+        
+        /// <summary>
+        /// Control provinciaPValue.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlInputHidden provinciaPValue;
         
         /// <summary>
         /// Control labelCantonPaciente.
@@ -172,7 +181,7 @@ namespace Sistema_Pediatrico {
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlSelect inputCantonPaciente;
+        protected global::System.Web.UI.WebControls.DropDownList inputCantonPaciente;
         
         /// <summary>
         /// Control labelDistritosPaciente.
@@ -190,7 +199,7 @@ namespace Sistema_Pediatrico {
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlSelect inputDistritoPaciente;
+        protected global::System.Web.UI.WebControls.DropDownList inputDistritoPaciente;
         
         /// <summary>
         /// Control labelDireccionExactaPaciente.
