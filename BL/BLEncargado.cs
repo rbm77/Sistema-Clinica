@@ -16,7 +16,7 @@ namespace BL
         public string Correo { get; set; }
         public string Parentesco { get; set; }
 
-        public BLDireccion Direccion { get; set; }
+        public string CodigoDireccion { get; set; }
 
         public string DireccionExacta { get; set; }
 
@@ -26,7 +26,7 @@ namespace BL
         }
 
         public BLEncargado(string cedula, string nombre, string primerApellido, string segundoApellido, 
-            int telefono, string correo, string parentesco, BLDireccion direccion, string direccionExacta)
+            int telefono, string correo, string parentesco, string codigoDireccion, string direccionExacta)
         {
             this.Cedula = cedula;
             this.Nombre = nombre;
@@ -35,7 +35,7 @@ namespace BL
             this.Telefono = telefono;
             this.Correo = correo;
             this.Parentesco = parentesco;
-            this.Direccion = direccion;
+            this.CodigoDireccion = codigoDireccion;
             this.DireccionExacta = direccionExacta;
         }
     }

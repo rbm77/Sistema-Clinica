@@ -71,6 +71,8 @@ function ObtenerCantonesPaciente(provincia) {
     var codigoProvincia = provincia.value;
     var destino = 'https://ubicaciones.paginasweb.cr/provincia/' + codigoProvincia + '/cantones.json'
 
+    document.getElementById("provinciaPValue").value = codigoProvincia;
+
     $.ajax({
         dataType: 'json',
         type: 'GET',
@@ -103,6 +105,8 @@ function ObtenerDistritosPaciente(canton) {
     var codigoCanton = canton.value;
     var codigoProvincia = document.getElementById("inputProvinciaPaciente").value;
 
+    document.getElementById("cantonPValue").value = codigoCanton;
+
     var destino = 'https://ubicaciones.paginasweb.cr/provincia/' + codigoProvincia + '/canton/' + codigoCanton + '/distritos.json'
 
     $.ajax({
@@ -124,6 +128,24 @@ function ObtenerDistritosPaciente(canton) {
             }
         },
     });
+}
+
+function AsignarDistritoPaciente(distrito) {
+
+    var codigoDistrito = distrito.value;
+    document.getElementById("distritoPValue").value = codigoDistrito;
+}
+
+function AsignarDistritoEncargado(distrito) {
+
+    var codigoDistrito = distrito.value;
+    document.getElementById("distritoEValue").value = codigoDistrito;
+}
+
+function AsignarDistritoDestinatario(distrito) {
+
+    var codigoDistrito = distrito.value;
+    document.getElementById("distritoDValue").value = codigoDistrito;
 }
 
 function ObtenerProvincias() {
@@ -173,6 +195,8 @@ function ObtenerCantonesEncargado(provincia) {
     var codigoProvincia = provincia.value;
     var destino = 'https://ubicaciones.paginasweb.cr/provincia/' + codigoProvincia + '/cantones.json'
 
+    document.getElementById("provinciaEValue").value = codigoProvincia;
+
     $.ajax({
         dataType: 'json',
         type: 'GET',
@@ -205,6 +229,8 @@ function ObtenerDistritosEncargado(canton) {
     var codigoCanton = canton.value;
     var codigoProvincia = document.getElementById("inputProvinciaEncargado").value;
 
+    document.getElementById("cantonEValue").value = codigoCanton;
+
     var destino = 'https://ubicaciones.paginasweb.cr/provincia/' + codigoProvincia + '/canton/' + codigoCanton + '/distritos.json'
 
     $.ajax({
@@ -233,6 +259,8 @@ function ObtenerCantonesDestinatario(provincia) {
 
     var codigoProvincia = provincia.value;
     var destino = 'https://ubicaciones.paginasweb.cr/provincia/' + codigoProvincia + '/cantones.json'
+
+    document.getElementById("provinciaDValue").value = codigoProvincia;
 
     $.ajax({
         dataType: 'json',
@@ -265,6 +293,8 @@ function ObtenerDistritosDestinatario(canton) {
 
     var codigoCanton = canton.value;
     var codigoProvincia = document.getElementById("inputProvinciaDestinatario").value;
+
+    document.getElementById("cantonDValue").value = codigoCanton;
 
     var destino = 'https://ubicaciones.paginasweb.cr/provincia/' + codigoProvincia + '/canton/' + codigoCanton + '/distritos.json'
 

@@ -184,6 +184,15 @@ namespace Sistema_Pediatrico {
         protected global::System.Web.UI.WebControls.DropDownList inputCantonPaciente;
         
         /// <summary>
+        /// Control cantonPValue.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlInputHidden cantonPValue;
+        
+        /// <summary>
         /// Control labelDistritosPaciente.
         /// </summary>
         /// <remarks>
@@ -200,6 +209,15 @@ namespace Sistema_Pediatrico {
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
         protected global::System.Web.UI.WebControls.DropDownList inputDistritoPaciente;
+        
+        /// <summary>
+        /// Control distritoPValue.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlInputHidden distritoPValue;
         
         /// <summary>
         /// Control labelDireccionExactaPaciente.
@@ -400,13 +418,13 @@ namespace Sistema_Pediatrico {
         protected global::System.Web.UI.WebControls.TextBox inputCorreoEncargado;
         
         /// <summary>
-        /// Control labelProvinciaEncargado.
+        /// Control label1.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label labelProvinciaEncargado;
+        protected global::System.Web.UI.WebControls.Label label1;
         
         /// <summary>
         /// Control inputProvinciaEncargado.
@@ -415,16 +433,25 @@ namespace Sistema_Pediatrico {
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlSelect inputProvinciaEncargado;
+        protected global::System.Web.UI.WebControls.DropDownList inputProvinciaEncargado;
         
         /// <summary>
-        /// Control labelCantonEncargado.
+        /// Control provinciaEValue.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label labelCantonEncargado;
+        protected global::System.Web.UI.HtmlControls.HtmlInputHidden provinciaEValue;
+        
+        /// <summary>
+        /// Control label2.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label label2;
         
         /// <summary>
         /// Control inputCantonEncargado.
@@ -433,16 +460,25 @@ namespace Sistema_Pediatrico {
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlSelect inputCantonEncargado;
+        protected global::System.Web.UI.WebControls.DropDownList inputCantonEncargado;
         
         /// <summary>
-        /// Control labelDistritoEncargado.
+        /// Control cantonEValue.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label labelDistritoEncargado;
+        protected global::System.Web.UI.HtmlControls.HtmlInputHidden cantonEValue;
+        
+        /// <summary>
+        /// Control label3.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label label3;
         
         /// <summary>
         /// Control inputDistritoEncargado.
@@ -451,7 +487,16 @@ namespace Sistema_Pediatrico {
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlSelect inputDistritoEncargado;
+        protected global::System.Web.UI.WebControls.DropDownList inputDistritoEncargado;
+        
+        /// <summary>
+        /// Control distritoEValue.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlInputHidden distritoEValue;
         
         /// <summary>
         /// Control labelDireccionExactaEncargado.
@@ -643,13 +688,13 @@ namespace Sistema_Pediatrico {
         protected global::System.Web.UI.WebControls.TextBox correoDestinatario;
         
         /// <summary>
-        /// Control labelProvinciaDestinatario.
+        /// Control label4.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label labelProvinciaDestinatario;
+        protected global::System.Web.UI.WebControls.Label label4;
         
         /// <summary>
         /// Control inputProvinciaDestinatario.
@@ -658,16 +703,25 @@ namespace Sistema_Pediatrico {
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlSelect inputProvinciaDestinatario;
+        protected global::System.Web.UI.WebControls.DropDownList inputProvinciaDestinatario;
         
         /// <summary>
-        /// Control labelCantonDestinatario.
+        /// Control provinciaDValue.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label labelCantonDestinatario;
+        protected global::System.Web.UI.HtmlControls.HtmlInputHidden provinciaDValue;
+        
+        /// <summary>
+        /// Control label5.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label label5;
         
         /// <summary>
         /// Control inputCantonDestinatario.
@@ -676,16 +730,25 @@ namespace Sistema_Pediatrico {
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlSelect inputCantonDestinatario;
+        protected global::System.Web.UI.WebControls.DropDownList inputCantonDestinatario;
         
         /// <summary>
-        /// Control labelDistritoDestinatario.
+        /// Control cantonDValue.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label labelDistritoDestinatario;
+        protected global::System.Web.UI.HtmlControls.HtmlInputHidden cantonDValue;
+        
+        /// <summary>
+        /// Control label6.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label label6;
         
         /// <summary>
         /// Control inputDistritoDestinatario.
@@ -694,7 +757,16 @@ namespace Sistema_Pediatrico {
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlSelect inputDistritoDestinatario;
+        protected global::System.Web.UI.WebControls.DropDownList inputDistritoDestinatario;
+        
+        /// <summary>
+        /// Control distritoDValue.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlInputHidden distritoDValue;
         
         /// <summary>
         /// Control labelDireccionExactaDestinatario.

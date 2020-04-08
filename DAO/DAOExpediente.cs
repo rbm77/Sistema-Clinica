@@ -77,13 +77,58 @@ namespace DAO
                     comando.Parameters.AddWithValue("@sexo", expediente.Sexo);
                     comando.Parameters.AddWithValue("@urlFoto", expediente.UrlFoto);
                     comando.Parameters.AddWithValue("@urlExpediente", expediente.UrlExpedienteAntiguo);
-                    comando.Parameters.AddWithValue("@codigoDireccion", expediente.Direccion.CodigoDireccion);
+                    comando.Parameters.AddWithValue("@codigoDireccion", expediente.CodigoDireccion);
                     comando.Parameters.AddWithValue("@direccionExacta", expediente.DireccionExacta);
-                    comando.Parameters.AddWithValue("@idEncargado", expediente.Encargado.Cedula);
-                    comando.Parameters.AddWithValue("@idDestinatario", expediente.DestinatarioFactura.Cedula);
-                    comando.Parameters.AddWithValue("@idSolicitante", expediente.SolicitanteCita.Correo);
                     comando.Parameters.AddWithValue("@fechaCreacion", expediente.FechaCreacion);
                     comando.Parameters.AddWithValue("@idMedico", expediente.IDMedico);
+
+
+                    // validaciones de los asociados al expediente
+
+
+                    if (expediente.Encargado != null)
+                    {
+                        comando.Parameters.AddWithValue("@idEncargado", expediente.Encargado.Cedula);
+
+                        if (expediente.DestinatarioFactura == null)
+                        {
+                            comando.Parameters.AddWithValue("@idDestinatario", expediente.Encargado.Cedula);
+                        }
+                        else
+                        {
+                            comando.Parameters.AddWithValue("@idDestinatario", expediente.DestinatarioFactura.Cedula);
+                        }
+                        if (expediente.SolicitanteCita == null)
+                        {
+                            comando.Parameters.AddWithValue("@idSolicitante", expediente.Encargado.Correo);
+                        }
+                        else
+                        {
+                            comando.Parameters.AddWithValue("@idSolicitante", expediente.SolicitanteCita.Correo);
+                        }
+                    }
+                    else
+                    {
+                        comando.Parameters.AddWithValue("@idEncargado", "");
+
+                        if (expediente.DestinatarioFactura == null)
+                        {
+                            comando.Parameters.AddWithValue("@idDestinatario", "");
+                        }
+                        else
+                        {
+                            comando.Parameters.AddWithValue("@idDestinatario", expediente.DestinatarioFactura.Cedula);
+                        }
+                        if (expediente.SolicitanteCita == null)
+                        {
+                            comando.Parameters.AddWithValue("@idSolicitante", "");
+                        }
+                        else
+                        {
+                            comando.Parameters.AddWithValue("@idSolicitante", expediente.SolicitanteCita.Correo);
+                        }
+                    }
+                    
 
                     // Se ejecuta el comando y se realiza un commit de la transacción
 
@@ -107,7 +152,7 @@ namespace DAO
                     comando.Parameters.AddWithValue("@telefono", expediente.Encargado.Telefono);
                     comando.Parameters.AddWithValue("@correo", expediente.Encargado.Correo);
                     comando.Parameters.AddWithValue("@parentesco", expediente.Encargado.Parentesco);
-                    comando.Parameters.AddWithValue("@codigoDireccion", expediente.Encargado.Direccion.CodigoDireccion);
+                    comando.Parameters.AddWithValue("@codigoDireccion", expediente.Encargado.CodigoDireccion);
                     comando.Parameters.AddWithValue("@direccionExacta", expediente.Encargado.DireccionExacta);
 
                     // Se ejecuta el comando y se realiza un commit de la transacción
@@ -131,7 +176,7 @@ namespace DAO
                     comando.Parameters.AddWithValue("@segundoApellido", expediente.DestinatarioFactura.SegundoApellido);
                     comando.Parameters.AddWithValue("@telefono", expediente.DestinatarioFactura.Telefono);
                     comando.Parameters.AddWithValue("@correo", expediente.DestinatarioFactura.Correo);
-                    comando.Parameters.AddWithValue("@codigoDireccion", expediente.DestinatarioFactura.Direccion.CodigoDireccion);
+                    comando.Parameters.AddWithValue("@codigoDireccion", expediente.DestinatarioFactura.CodigoDireccion);
                     comando.Parameters.AddWithValue("@direccionExacta", expediente.DestinatarioFactura.DireccionExacta);
 
                     // Se ejecuta el comando y se realiza un commit de la transacción

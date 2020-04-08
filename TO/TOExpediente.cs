@@ -17,7 +17,7 @@ namespace TO
         public string Sexo { get; set; }
         public string UrlFoto { get; set; }
         public string UrlExpedienteAntiguo { get; set; }
-        public TODireccion Direccion { get; set; }
+        public string CodigoDireccion { get; set; }
         public string DireccionExacta { get; set; }
         public string IDMedico { get; set; }
         public string FechaCreacion { get; set; }
@@ -32,7 +32,7 @@ namespace TO
         }
         public TOExpediente(int idExpediente, string cedula, string nombre, string primerApellido,
             string segundoApellido, string fechaNacimiento, string sexo, string urlFoto, string urlExpedienteAntiguo,
-            TODireccion direccion, string direccionExacta, string idMedico, string fechaCreacion, TOHistoriaClinica historiaClinica,
+            string codigoDireccion, string direccionExacta, string idMedico, string fechaCreacion, TOHistoriaClinica historiaClinica,
             TOEncargado encargado, TODestinatarioFactura destinatarioFactura, TOSolicitanteCita solicitanteCita)
         {
             this.IDExpediente = idExpediente;
@@ -46,7 +46,7 @@ namespace TO
             this.DireccionExacta = direccionExacta;
             this.IDMedico = idMedico;
             this.FechaNacimiento = fechaCreacion;
-            this.Direccion = direccion;
+            this.CodigoDireccion = codigoDireccion;
             this.HistoriaClinica = historiaClinica;
             this.Encargado = encargado;
             this.DestinatarioFactura = destinatarioFactura;

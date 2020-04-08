@@ -80,17 +80,19 @@
                             <asp:Label ID="labelProvinciaPaciente" runat="server" ClientIDMode="Static" Text="Provincia"></asp:Label>
                             <asp:DropDownList onchange="ObtenerCantonesPaciente(this)" ID="inputProvinciaPaciente" runat="server" class="form-control" ClientIDMode="Static" required>
                             </asp:DropDownList>
-                            <input type="hidden" clientidmode="Static" id="provinciaPValue" runat="server" />
+                            <input type="hidden" clientidmode="Static" id="provinciaPValue" value="nulo" runat="server" />
                         </div>
                         <div class="form-group col-md-4 col-sm-4">
                             <asp:Label ID="labelCantonPaciente" runat="server" ClientIDMode="Static" Text="Cantón"></asp:Label>
                             <asp:DropDownList onchange="ObtenerDistritosPaciente(this)" ID="inputCantonPaciente" runat="server" class="form-control" ClientIDMode="Static" required>
                             </asp:DropDownList>
+                            <input type="hidden" clientidmode="Static" id="cantonPValue" value="nulo" runat="server" />
                         </div>
                         <div class="form-group col-md-4 col-sm-4">
                             <asp:Label ID="labelDistritosPaciente" runat="server" ClientIDMode="Static" Text="Distrito"></asp:Label>
-                            <asp:DropDownList ID="inputDistritoPaciente" runat="server" class="form-control" ClientIDMode="Static" required>
+                            <asp:DropDownList onchange="AsignarDistritoPaciente(this)" ID="inputDistritoPaciente" runat="server" class="form-control" ClientIDMode="Static" required>
                             </asp:DropDownList>
+                            <input type="hidden" clientidmode="Static" id="distritoPValue" value="nulo" runat="server" />
                         </div>
 
                     </div>
@@ -167,19 +169,22 @@
                         <h5 class="titulo col-12">Dirección</h5>
 
                         <div class="form-group col-md-4 col-sm-4">
-                            <asp:Label ID="labelProvinciaEncargado" runat="server" ClientIDMode="Static" Text="Provincia"></asp:Label>
-                            <select onchange="ObtenerCantonesEncargado(this)" class="custom-select" id="inputProvinciaEncargado" clientidmode="Static" runat="server">
-                            </select>
+                            <asp:Label ID="label1" runat="server" ClientIDMode="Static" Text="Provincia"></asp:Label>
+                            <asp:DropDownList onchange="ObtenerCantonesEncargado(this)" ID="inputProvinciaEncargado" runat="server" class="form-control" ClientIDMode="Static" required>
+                            </asp:DropDownList>
+                            <input type="hidden" clientidmode="Static" id="provinciaEValue" value="nulo" runat="server" />
                         </div>
                         <div class="form-group col-md-4 col-sm-4">
-                            <asp:Label ID="labelCantonEncargado" runat="server" ClientIDMode="Static" Text="Cantón"></asp:Label>
-                            <select onchange="ObtenerDistritosEncargado(this)" class="custom-select" id="inputCantonEncargado" clientidmode="Static" runat="server">
-                            </select>
+                            <asp:Label ID="label2" runat="server" ClientIDMode="Static" Text="Cantón"></asp:Label>
+                            <asp:DropDownList onchange="ObtenerDistritosEncargado(this)" ID="inputCantonEncargado" runat="server" class="form-control" ClientIDMode="Static" required>
+                            </asp:DropDownList>
+                            <input type="hidden" clientidmode="Static" id="cantonEValue" value="nulo" runat="server" />
                         </div>
                         <div class="form-group col-md-4 col-sm-4">
-                            <asp:Label ID="labelDistritoEncargado" runat="server" ClientIDMode="Static" Text="Distrito"></asp:Label>
-                            <select class="custom-select" id="inputDistritoEncargado" clientidmode="Static" runat="server">
-                            </select>
+                            <asp:Label ID="label3" runat="server" ClientIDMode="Static" Text="Distrito"></asp:Label>
+                            <asp:DropDownList onchange="AsignarDistritoEncargado(this)" ID="inputDistritoEncargado" runat="server" class="form-control" ClientIDMode="Static" required>
+                            </asp:DropDownList>
+                            <input type="hidden" clientidmode="Static" id="distritoEValue" value="nulo" runat="server" />
                         </div>
 
                     </div>
@@ -280,19 +285,22 @@
                         <h5 class="titulo col-12">Dirección</h5>
 
                         <div class="form-group col-md-4 col-sm-4">
-                            <asp:Label ID="labelProvinciaDestinatario" runat="server" ClientIDMode="Static" Text="Provincia"></asp:Label>
-                            <select onchange="ObtenerCantonesDestinatario(this)" class="custom-select" id="inputProvinciaDestinatario" clientidmode="Static" runat="server">
-                            </select>
+                            <asp:Label ID="label4" runat="server" ClientIDMode="Static" Text="Provincia"></asp:Label>
+                            <asp:DropDownList onchange="ObtenerCantonesDestinatario(this)" ID="inputProvinciaDestinatario" runat="server" class="form-control" ClientIDMode="Static" required>
+                            </asp:DropDownList>
+                            <input type="hidden" clientidmode="Static" id="provinciaDValue" value="nulo" runat="server" />
                         </div>
                         <div class="form-group col-md-4 col-sm-4">
-                            <asp:Label ID="labelCantonDestinatario" runat="server" ClientIDMode="Static" Text="Cantón"></asp:Label>
-                            <select onchange="ObtenerDistritosDestinatario(this)" class="custom-select" id="inputCantonDestinatario" clientidmode="Static" runat="server">
-                            </select>
+                            <asp:Label ID="label5" runat="server" ClientIDMode="Static" Text="Cantón"></asp:Label>
+                            <asp:DropDownList onchange="ObtenerDistritosDestinatario(this)" ID="inputCantonDestinatario" runat="server" class="form-control" ClientIDMode="Static" required>
+                            </asp:DropDownList>
+                            <input type="hidden" clientidmode="Static" id="cantonDValue" value="nulo" runat="server" />
                         </div>
                         <div class="form-group col-md-4 col-sm-4">
-                            <asp:Label ID="labelDistritoDestinatario" runat="server" ClientIDMode="Static" Text="Distrito"></asp:Label>
-                            <select class="custom-select" id="inputDistritoDestinatario" clientidmode="Static" runat="server">
-                            </select>
+                            <asp:Label ID="label6" runat="server" ClientIDMode="Static" Text="Distrito"></asp:Label>
+                            <asp:DropDownList onchange="AsignarDistritoDestinatario(this)" ID="inputDistritoDestinatario" runat="server" class="form-control" ClientIDMode="Static" required>
+                            </asp:DropDownList>
+                            <input type="hidden" clientidmode="Static" id="distritoDValue" value="nulo" runat="server" />
                         </div>
 
                     </div>

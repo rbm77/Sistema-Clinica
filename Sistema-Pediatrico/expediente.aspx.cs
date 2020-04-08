@@ -64,15 +64,12 @@ namespace Sistema_Pediatrico
 
         private BLExpediente ValidarDatos()
         {
-            BLDireccion direccionPaciente = null;
-            BLDireccion direccionEncargado = null;
-            BLDireccion direccionDestinatario = null;
             BLEncargado encargado = null;
             BLDestinatarioFactura destinatario = null;
             BLSolicitanteCita solicitante = null;
             BLDatosNacimiento datosNacimiento = null;
             BLHistoriaClinica historiaClinica = null;
-            BLExpediente expediente = null;
+            BLExpediente expediente = new BLExpediente();
 
 
             // Datos de PACIENTE
@@ -85,9 +82,9 @@ namespace Sistema_Pediatrico
             string sexoP = sexoPaciente.Text.Trim();
             string urlFotoP = inputFotoPaciente.FileName.Trim();
             string urlExpedienteAntiguoP = urlExpedienteAntiguoPaciente.Value.Trim();
-            string provinciaP = inputProvinciaPaciente.Text;
-            string cantonP = inputCantonPaciente.Text;
-            string distritoP = inputDistritoPaciente.Text;
+            string provinciaP = provinciaPValue.Value.Trim();
+            string cantonP = cantonPValue.Value.Trim();
+            string distritoP = distritoPValue.Value.Trim();
             string direccionExactaP = direccionExactaPaciente.Value.Trim();
             string idMedico = "AUSENTE"; // SE DEBE INSERTAR EL ID DEL MEDICO QUE CREO EL EXPEDIENTE. SE OBTIENE DE LA SESION DE USUARIO.
             string fechaCreacion = fechaActual.Text.Trim();
@@ -99,6 +96,26 @@ namespace Sistema_Pediatrico
                 fechaCreacion.Equals("") || idMedico.Equals(""))
             {
                 return null;
+            }
+            else
+            {
+                // Asigna primeros datos
+
+                expediente.Cedula = cedulaP;
+                expediente.Nombre = nombreP;
+                expediente.PrimerApellido = primerApellidoP;
+                expediente.SegundoApellido = segundoApellidoP;
+                expediente.FechaNacimiento = fechaNacimientoP;
+                expediente.Sexo = sexoP;
+                expediente.UrlFoto = urlFotoP;
+                expediente.UrlExpedienteAntiguo = urlExpedienteAntiguoP;
+                expediente.CodigoDireccion = provinciaP + "-" + cantonP + "-" + distritoP;
+                expediente.DireccionExacta = direccionExactaP;
+                expediente.IDMedico = idMedico;
+                expediente.FechaCreacion = fechaCreacion;
+                expediente.Encargado = null;
+                expediente.DestinatarioFactura = null;
+                expediente.SolicitanteCita = null;
             }
 
             // Datos de ENCARGADO
@@ -122,23 +139,25 @@ namespace Sistema_Pediatrico
             }
             string correoE = inputCorreoEncargado.Text.Trim();
             string parentescoE = parentesco.Text.Trim();
-            string provinciaE = inputProvinciaEncargado.Value.Trim();
-            string cantonE = inputCantonEncargado.Value.Trim();
-            string distritoE = inputDistritoEncargado.Value.Trim();
+            string provinciaE = provinciaEValue.Value.Trim();
+            string cantonE = cantonEValue.Value.Trim();
+            string distritoE = distritoEValue.Value.Trim();
             string direccionExactaE = direccionExactaEncargado.Value.Trim();
 
             if (!nombreE.Equals("") || !primerApellidoE.Equals("") || !segundoApellidoE.Equals("") || telefonoE != 0 ||
                 !correoE.Equals("") || !parentescoE.Equals("") || !direccionExactaE.Equals(""))
             {
-                if (cedulaE.Equals("") || provinciaE.Equals("") || cantonE.Equals("") || distritoE.Equals(""))
+                if (cedulaE.Equals(""))
                 {
                     return null;
-                } else
+                }
+                else
                 {
-                    string cod = provinciaE + "-" + cantonE + "-" + distritoE;
-                    direccionEncargado = new BLDireccion(cod, provinciaE, cantonE, distritoE);
+                    string codigoDireccion = provinciaE + "-" + cantonE + "-" + distritoE;
+
                     encargado = new BLEncargado(cedulaE, nombreE, primerApellidoE, segundoApellidoE, telefonoE, correoE, parentescoE,
-                        direccionEncargado, direccionExactaE);
+                        codigoDireccion, direccionExactaE);
+                    expediente.Encargado = encargado;
                 }
             }
 
@@ -164,17 +183,26 @@ namespace Sistema_Pediatrico
                     return null;
                 }
                 string correoD = correoDestinatario.Text.Trim();
-                string provinciaD = inputProvinciaDestinatario.Value.Trim();
-                string cantonD = inputCantonDestinatario.Value.Trim();
-                string distritoD = inputDistritoDestinatario.Value.Trim();
+                string provinciaD = provinciaDValue.Value.Trim();
+                string cantonD = cantonDValue.Value.Trim();
+                string distritoD = distritoDValue.Value.Trim();
                 string direccionExactaD = direccionExactaDestinatario.Value.Trim();
 
                 if (!nombreD.Equals("") || !primerApellidoD.Equals("") || !segundoApellidoD.Equals("") || telefonoD != 0 ||
                     !correoD.Equals("") || !direccionExactaD.Equals(""))
                 {
-                    if (cedulaD.Equals("") || provinciaD.Equals("") || cantonD.Equals("") || distritoD.Equals(""))
+                    if (cedulaD.Equals(""))
                     {
                         return null;
+                    }
+                    else
+                    {
+                        string codigoDireccion = provinciaD + "-" + cantonD + "-" + distritoD;
+
+                        destinatario = new BLDestinatarioFactura(cedulaD, nombreD, primerApellidoD, segundoApellidoD, telefonoD,
+                            correoD, codigoDireccion, direccionExactaD);
+
+                        expediente.DestinatarioFactura = destinatario;
                     }
                 }
             }
@@ -202,14 +230,133 @@ namespace Sistema_Pediatrico
                 {
                     return null;
                 }
+                else
+                {
+
+                    string contrasenna = "NINGUNA"; // SE DEBE AUTOGENERAR UNA CONTRASENNA Y ASIGNARLA AL SOLICITANTE. ADEMAS ENVIARLA POR CORREO
+                    solicitante = new BLSolicitanteCita(correoS, contrasenna, telefonoS, "activa");
+                    expediente.SolicitanteCita = solicitante;
+                }
+            }
+            else
+            {
+                if (expediente.Encargado != null)
+                {
+                    if (expediente.Encargado.Correo.Equals(""))
+                    {
+                        return null;
+                    }
+                }
             }
 
 
 
+            // Datos de DATOS DE NACIMIENTO
+
+            string tempTalla = tallaNacimiento.Text.Trim();
+            string tempPeso = pesoNacimiento.Text.Trim();
+            string tempPerimCefalico = perimetroCefalico.Text.Trim();
+            string tempEdadGest = edadGestacional.Text.Trim();
+            string tempApgar = apgar.Text.Trim();
 
 
+            double talla = 0.0;
+            double peso = 0.0;
+            int perimCefalico = 0;
+            double edadGest = 0.0;
+            int apg = 0;
+            string clasifUniversal = clasificacionUniversal.Text.Trim();
 
-            return null;
+            try
+            {
+                if (!tempTalla.Equals(""))
+                {
+                    talla = double.Parse(tempTalla);
+                }
+                if (!tempPeso.Equals(""))
+                {
+                    peso = double.Parse(tempPeso);
+                }
+                if (!tempPerimCefalico.Equals(""))
+                {
+                    perimCefalico = int.Parse(tempPerimCefalico);
+                }
+                if (!tempEdadGest.Equals(""))
+                {
+                    edadGest = double.Parse(tempEdadGest);
+                }
+                if (!tempApgar.Equals(""))
+                {
+                    apg = int.Parse(tempApgar);
+                }
+            }
+            catch (Exception)
+            {
+                return null;
+            }
+
+            if (talla != 0.0 || peso != 0.0 || perimCefalico != 0 || edadGest != 0.0 || !clasifUniversal.Equals("") || apg != 0)
+            {
+                datosNacimiento = new BLDatosNacimiento(talla, peso, perimCefalico, apg, edadGest, clasifUniversal);
+            }
+
+
+            // Datos de HISTORIA CLINICA
+
+            string perinatales = descripcionPerinatal.Value.Trim();
+            string patologicos = descripcionPatologico.Value.Trim();
+            string quirurgicos = descripcionQuirurgico.Value.Trim();
+            string traumaticos = descripcionTraumatico.Value.Trim();
+            string heredoFamiliares = descripcionHeredoFamiliar.Value.Trim();
+            string alergias = descripcionAlergia.Value.Trim();
+            string vacunas = descripcionVacuna.Value.Trim();
+
+            if ((anormalPerinatal.Checked && perinatales.Equals("")) ||
+                (positivoPatologico.Checked && patologicos.Equals("")) ||
+                (positivoQuirurgico.Checked && quirurgicos.Equals("")) ||
+                (positivoTraumatico.Checked && traumaticos.Equals("")) ||
+                (positivoHeredoFamiliar.Checked && heredoFamiliares.Equals("")) ||
+                (positivoAlergias.Checked && alergias.Equals("")) ||
+                (pendientesVacunas.Checked && vacunas.Equals("")))
+            {
+                return null;
+            }
+
+            if (normalPerinatal.Checked)
+            {
+                perinatales = "";
+            }
+            if(negativoPatologico.Checked)
+            {
+                patologicos = "";
+            }
+            if (negativoQuirurgico.Checked)
+            {
+                quirurgicos = "";
+            }
+            if (negativoTraumatico.Checked)
+            {
+                traumaticos = "";
+            }
+            if (negativoHeredoFamiliar.Checked)
+            {
+                heredoFamiliares = "";
+            }
+            if (negativoAlergias.Checked)
+            {
+                alergias = "";
+            }
+            if (aldiaVacunas.Checked)
+            {
+                vacunas = "";
+            }
+
+            historiaClinica = new BLHistoriaClinica(perinatales, patologicos, quirurgicos, traumaticos, 
+                heredoFamiliares, alergias, vacunas, datosNacimiento);
+
+            expediente.HistoriaClinica = historiaClinica;
+
+            return expediente;
 
 
         }

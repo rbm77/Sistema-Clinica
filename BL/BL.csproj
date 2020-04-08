@@ -45,7 +45,6 @@
     <Compile Include="BLCuenta.cs" />
     <Compile Include="BLDatosNacimiento.cs" />
     <Compile Include="BLDestinatarioFactura.cs" />
-    <Compile Include="BLDireccion.cs" />
     <Compile Include="BLEncargado.cs" />
     <Compile Include="BLExamenFisico.cs" />
     <Compile Include="BLExpediente.cs" />

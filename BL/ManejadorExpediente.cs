@@ -19,15 +19,13 @@ namespace BL
                 DAOExpediente dao = new DAOExpediente();
                 TOExpediente to = new TOExpediente(expediente.IDExpediente, expediente.Cedula, expediente.Nombre,
                     expediente.PrimerApellido, expediente.SegundoApellido, expediente.FechaNacimiento, expediente.Sexo,
-                    expediente.UrlFoto, expediente.UrlExpedienteAntiguo, 
-                    new TODireccion(expediente.Direccion.CodigoDireccion,
-                    expediente.Direccion.Provincia, expediente.Direccion.Canton, expediente.Direccion.Distrito),
-                    expediente.DireccionExacta, expediente.IDMedico, expediente.FechaCreacion, 
+                    expediente.UrlFoto, expediente.UrlExpedienteAntiguo, expediente.CodigoDireccion,
+                    expediente.DireccionExacta, expediente.IDMedico, expediente.FechaCreacion,
                     new TOHistoriaClinica(
                         expediente.HistoriaClinica.Perinatales, expediente.HistoriaClinica.Patologicos,
                         expediente.HistoriaClinica.Quirurgicos, expediente.HistoriaClinica.Traumaticos,
                         expediente.HistoriaClinica.HeredoFamiliares, expediente.HistoriaClinica.Alergias,
-                        expediente.HistoriaClinica.Vacunas, 
+                        expediente.HistoriaClinica.Vacunas,
                         new TODatosNacimiento(
                             expediente.HistoriaClinica.DatosNacimiento.TallaNacimiento,
                             expediente.HistoriaClinica.DatosNacimiento.PesoNacimiento,
@@ -38,16 +36,14 @@ namespace BL
                     new TOEncargado(
                                 expediente.Encargado.Cedula, expediente.Encargado.Nombre, expediente.Encargado.PrimerApellido,
                                 expediente.Encargado.SegundoApellido, expediente.Encargado.Telefono, expediente.Encargado.Correo,
-                                expediente.Encargado.Parentesco, new TODireccion(
-                                    expediente.Encargado.Direccion.CodigoDireccion, expediente.Encargado.Direccion.Provincia,
-                                    expediente.Encargado.Direccion.Canton, expediente.Encargado.Direccion.Distrito),
+                                expediente.Encargado.Parentesco, expediente.Encargado.CodigoDireccion,
                                 expediente.Encargado.DireccionExacta),
                     new TODestinatarioFactura(
-                                expediente.DestinatarioFactura.Cedula, expediente.DestinatarioFactura.Nombre, expediente.DestinatarioFactura.PrimerApellido,
-                                expediente.DestinatarioFactura.SegundoApellido, expediente.DestinatarioFactura.Telefono, expediente.DestinatarioFactura.Correo,
-                                new TODireccion(
-                                    expediente.DestinatarioFactura.Direccion.CodigoDireccion, expediente.DestinatarioFactura.Direccion.Provincia,
-                                    expediente.DestinatarioFactura.Direccion.Canton, expediente.DestinatarioFactura.Direccion.Distrito),
+                                expediente.DestinatarioFactura.Cedula, expediente.DestinatarioFactura.Nombre,
+                                expediente.DestinatarioFactura.PrimerApellido,
+                                expediente.DestinatarioFactura.SegundoApellido, expediente.DestinatarioFactura.Telefono,
+                                expediente.DestinatarioFactura.Correo,
+                                    expediente.DestinatarioFactura.CodigoDireccion,
                                 expediente.DestinatarioFactura.DireccionExacta),
                     new TOSolicitanteCita(expediente.SolicitanteCita.Correo, expediente.SolicitanteCita.Contrasenna,
                     expediente.SolicitanteCita.Telefono, expediente.SolicitanteCita.Estado));
