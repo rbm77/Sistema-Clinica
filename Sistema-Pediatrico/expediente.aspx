@@ -15,7 +15,7 @@
         <hr />
 
         <asp:Literal ID="mensajeConfirmacion" runat="server" Visible="false"></asp:Literal>
-
+        <asp:Literal ID="confirmacionFoto" runat="server" Visible="false"></asp:Literal>
 
         <form id="formularioExpediente" class="needs-validation"
             novalidate style="margin-top: 15px" runat="server">
@@ -170,19 +170,19 @@
 
                         <div class="form-group col-md-4 col-sm-4">
                             <asp:Label ID="label1" runat="server" ClientIDMode="Static" Text="Provincia"></asp:Label>
-                            <asp:DropDownList onchange="ObtenerCantonesEncargado(this)" ID="inputProvinciaEncargado" runat="server" class="form-control" ClientIDMode="Static" required>
+                            <asp:DropDownList onchange="ObtenerCantonesEncargado(this)" ID="inputProvinciaEncargado" runat="server" class="form-control" ClientIDMode="Static">
                             </asp:DropDownList>
                             <input type="hidden" clientidmode="Static" id="provinciaEValue" value="nulo" runat="server" />
                         </div>
                         <div class="form-group col-md-4 col-sm-4">
                             <asp:Label ID="label2" runat="server" ClientIDMode="Static" Text="Cantón"></asp:Label>
-                            <asp:DropDownList onchange="ObtenerDistritosEncargado(this)" ID="inputCantonEncargado" runat="server" class="form-control" ClientIDMode="Static" required>
+                            <asp:DropDownList onchange="ObtenerDistritosEncargado(this)" ID="inputCantonEncargado" runat="server" class="form-control" ClientIDMode="Static">
                             </asp:DropDownList>
                             <input type="hidden" clientidmode="Static" id="cantonEValue" value="nulo" runat="server" />
                         </div>
                         <div class="form-group col-md-4 col-sm-4">
                             <asp:Label ID="label3" runat="server" ClientIDMode="Static" Text="Distrito"></asp:Label>
-                            <asp:DropDownList onchange="AsignarDistritoEncargado(this)" ID="inputDistritoEncargado" runat="server" class="form-control" ClientIDMode="Static" required>
+                            <asp:DropDownList onchange="AsignarDistritoEncargado(this)" ID="inputDistritoEncargado" runat="server" class="form-control" ClientIDMode="Static">
                             </asp:DropDownList>
                             <input type="hidden" clientidmode="Static" id="distritoEValue" value="nulo" runat="server" />
                         </div>
@@ -286,19 +286,19 @@
 
                         <div class="form-group col-md-4 col-sm-4">
                             <asp:Label ID="label4" runat="server" ClientIDMode="Static" Text="Provincia"></asp:Label>
-                            <asp:DropDownList onchange="ObtenerCantonesDestinatario(this)" ID="inputProvinciaDestinatario" runat="server" class="form-control" ClientIDMode="Static" required>
+                            <asp:DropDownList onchange="ObtenerCantonesDestinatario(this)" ID="inputProvinciaDestinatario" runat="server" class="form-control" ClientIDMode="Static">
                             </asp:DropDownList>
                             <input type="hidden" clientidmode="Static" id="provinciaDValue" value="nulo" runat="server" />
                         </div>
                         <div class="form-group col-md-4 col-sm-4">
                             <asp:Label ID="label5" runat="server" ClientIDMode="Static" Text="Cantón"></asp:Label>
-                            <asp:DropDownList onchange="ObtenerDistritosDestinatario(this)" ID="inputCantonDestinatario" runat="server" class="form-control" ClientIDMode="Static" required>
+                            <asp:DropDownList onchange="ObtenerDistritosDestinatario(this)" ID="inputCantonDestinatario" runat="server" class="form-control" ClientIDMode="Static">
                             </asp:DropDownList>
                             <input type="hidden" clientidmode="Static" id="cantonDValue" value="nulo" runat="server" />
                         </div>
                         <div class="form-group col-md-4 col-sm-4">
                             <asp:Label ID="label6" runat="server" ClientIDMode="Static" Text="Distrito"></asp:Label>
-                            <asp:DropDownList onchange="AsignarDistritoDestinatario(this)" ID="inputDistritoDestinatario" runat="server" class="form-control" ClientIDMode="Static" required>
+                            <asp:DropDownList onchange="AsignarDistritoDestinatario(this)" ID="inputDistritoDestinatario" runat="server" class="form-control" ClientIDMode="Static">
                             </asp:DropDownList>
                             <input type="hidden" clientidmode="Static" id="distritoDValue" value="nulo" runat="server" />
                         </div>
@@ -609,22 +609,6 @@
                     </div>
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
                     <div class="row justify-content-center" style="margin-top: 30px">
                         <div class="col-md-2 col-sm-5">
                             <asp:Button ID="btnGuardar" runat="server" Text="Guardar" CssClass="btn btn-guardar" OnClick="btnGuardar_Click" />
@@ -662,6 +646,8 @@
                     }, false);
                 });
                 ObtenerProvincias();
+                esSolicitanteCita();
+                esDestinatarioFactura();
             }, false);
         })();
 
@@ -675,62 +661,4 @@
 
     </script>
 
-
-    <%--            <div class="form-row">
-                <div class="form-group col-md-3 col-sm-4">
-                    <asp:Label ID="labelCedula" runat="server" Text="Cédula"></asp:Label>
-                    <asp:TextBox ID="inputCedula" runat="server" class="form-control" ClientIDMode="Static" required></asp:TextBox>
-                </div>
-                <div class="form-group col-md-3 col-sm-4">
-                    <asp:Label ID="labelNombre" runat="server" Text="Nombre"></asp:Label>
-                    <asp:TextBox ID="inputNombre" runat="server" class="form-control" ClientIDMode="Static" pattern="[A-Za-zñÑáéíóúÁÉÍÓÚ ]*" required></asp:TextBox>
-                </div>
-                <div class="form-group col-md-3 col-sm-4">
-                    <asp:Label ID="labelPrimerApellido" runat="server" Text="Primer Apellido"></asp:Label>
-                    <asp:TextBox ID="inputPrimerApellido" runat="server" class="form-control" ClientIDMode="Static" pattern="[A-Za-zñÑáéíóúÁÉÍÓÚ ]*" required></asp:TextBox>
-                </div>
-                <div class="form-group col-md-3 col-sm-4">
-                    <asp:Label ID="labelSegundoApellido" runat="server" Text="Segundo Apellido"></asp:Label>
-                    <asp:TextBox ID="inputSegundoApellido" runat="server" class="form-control" ClientIDMode="Static" pattern="[A-Za-zñÑáéíóúÁÉÍÓÚ ]*" required></asp:TextBox>
-                </div>
-                <div class="form-group col-md-3 col-sm-4">
-                    <asp:Label ID="labelTelefono" runat="server" Text="Teléfono"></asp:Label>
-                    <asp:TextBox ID="inputTelefono" runat="server" class="form-control" ClientIDMode="Static" pattern="[0-9]*" required></asp:TextBox>
-                </div>
-                <div class="form-group col-md-3 col-sm-4">
-                    <asp:Label ID="labelCorreo" runat="server" Text="Correo Electrónico"></asp:Label>
-                    <asp:TextBox ID="inputCorreo" type="email" runat="server" class="form-control" ClientIDMode="Static" required></asp:TextBox>
-                </div>
-                <div class="form-group col-md-3 col-sm-4">
-                    <asp:Label ID="labelContrasenna" runat="server" Text="Contraseña"></asp:Label>
-                    <asp:TextBox ID="inputContrasenna" type="password" runat="server" class="form-control" ClientIDMode="Static" required></asp:TextBox>
-                </div>
-                <div class="form-group col-md-3 col-sm-4">
-                    <asp:Label ID="labelConfirmar" runat="server" Text="Confirmar Contraseña"></asp:Label>
-                    <asp:TextBox ID="inputConfirmar" type="password" runat="server" class="form-control" ClientIDMode="Static" required></asp:TextBox>
-                </div>
-                <div class="form-group col-md-3 col-sm-4">
-                    <asp:Label ID="labelRol" runat="server" ClientIDMode="Static" Text="Rol"></asp:Label>
-                    <select onchange="Actualizar(this)" class="custom-select" id="inputRol" runat="server" required>
-                        <option value="nulo" selected>Seleccionar...</option>
-                        <option value="medico">Médico</option>
-                        <option value="asistente">Asistente</option>
-                        <option value="administrador">Administrador</option>
-                    </select>
-                </div>
-                <div class="form-group col-md-3 col-sm-4">
-                    <asp:Label ID="labelCodAsistente" runat="server" Text="Código de Asistente" data-toggle="tooltip" data-placement="top" title="Debe ingresar el código de médico al cual asiste"></asp:Label>
-                    <asp:DropDownList ID="inputCodigoAsistente" runat="server" class="form-control" ClientIDMode="Static" data-toggle="tooltip" data-placement="top" title="Debe ingresar el código de médico al cual asiste" required>
-                        <asp:ListItem Selected="True" Value="nulo">Seleccionar...</asp:ListItem>
-                    </asp:DropDownList>
-                </div>
-                <div class="form-group col-md-3 col-sm-4">
-                    <asp:Label ID="labelCodigoMedico" runat="server" Text="Código de Médico"></asp:Label>
-                    <asp:TextBox ID="inputCodigoMedico" runat="server" class="form-control" ClientIDMode="Static" required></asp:TextBox>
-                </div>
-                <div class="form-group col-md-3 col-sm-4">
-                    <asp:Label ID="labelEspecialidad" runat="server" Text="Especialidad"></asp:Label>
-                    <asp:TextBox ID="inputEspecialidad" runat="server" class="form-control" ClientIDMode="Static" pattern="[A-Za-zñÑáéíóúÁÉÍÓÚ ]*" required></asp:TextBox>
-                </div>
-            </div>--%>
 </asp:Content>

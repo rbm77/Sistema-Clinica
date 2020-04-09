@@ -13,17 +13,39 @@ namespace Sistema_Pediatrico
     {
         protected void Page_Load(object sender, EventArgs e)
         {
+            // Este es para la accion de crear, se necesita algo diferente para la accion de actualizar
 
+            if (!IsPostBack)
+            {
+                esDestinatario.Checked = true;
+                esSolicitante.Checked = true;
+                normalPerinatal.Checked = true;
+                descripcionPerinatal.Disabled = true;
+                negativoPatologico.Checked = true;
+                descripcionPatologico.Disabled = true;
+                negativoQuirurgico.Checked = true;
+                descripcionQuirurgico.Disabled = true;
+                negativoTraumatico.Checked = true;
+                descripcionTraumatico.Disabled = true;
+                negativoHeredoFamiliar.Checked = true;
+                descripcionHeredoFamiliar.Disabled = true;
+                negativoAlergias.Checked = true;
+                descripcionAlergia.Disabled = true;
+                aldiaVacunas.Checked = true;
+                descripcionVacuna.Disabled = true;
+            }
         }
 
         private string SubirFoto()
         {
             try
             {
-                string extension = Path.GetExtension(inputFotoPaciente.FileName);
+                
 
                 if (inputFotoPaciente.HasFile)
                 {
+                    string extension = Path.GetExtension(inputFotoPaciente.FileName);
+
                     if (extension.Equals(".jpg") || extension.Equals(".jpeg") || extension.Equals(".png")
                        || extension.Equals(".JPG") || extension.Equals(".JPEG") || extension.Equals(".PNG"))
                     {
@@ -35,12 +57,12 @@ namespace Sistema_Pediatrico
                         }
                         else
                         {
-                            return "Error: El archivo seleccionado ya existe. Por favor intente cambiar el nombre del archivo.";
+                            return "Error: El archivo de la foto seleccionada ya existe. Por favor intente cambiar el nombre del archivo.";
                         }
                     }
                     else
                     {
-                        return "Error: La extensión del archivo no es permitida.";
+                        return "Error: La extensión del archivo de la foto no es permitida.";
                     }
                 }
                 else
@@ -57,9 +79,69 @@ namespace Sistema_Pediatrico
 
         protected void btnGuardar_Click(object sender, EventArgs e)
         {
-            ValidarDatos();
-            //  string respuestaFoto = SubirFoto();
+            BLExpediente expediente = ValidarDatos();
 
+            string confirmacion = "";
+
+            if (expediente != null)
+            {
+
+                ManejadorExpediente manejador = new ManejadorExpediente();
+
+                confirmacion = manejador.CrearExpediente(expediente);
+
+                if (!confirmacion.Contains("Error:"))
+                {
+                    MensajeAviso(confirmacion);
+
+                    if(!expediente.UrlFoto.Equals(""))
+                    {
+                        string respuestaFoto = SubirFoto();
+
+                        if (respuestaFoto.Contains("Error:"))
+                        {
+                            // DEBE HACER UN LLAMADO A BD PARA ACTUALIZAR EL VALOR DE LA RUTA FOTO = ""
+
+                            confirmacionFoto.Text = "<div class=\"alert alert-danger alert-dismissible fade show\" " +
+                              "role=\"alert\"> <strong></strong>" + respuestaFoto + "<button" +
+                              " type = \"button\" class=\"close\" data-dismiss=\"alert\" aria-label=\"Close\">" +
+                              " <span aria-hidden=\"true\">&times;</span> </button> </div>";
+                            confirmacionFoto.Visible = true;
+                        }
+                    }
+                    
+                }
+                else
+                {
+                    MensajeAviso(confirmacion);
+                }
+            }
+            else
+            {
+                confirmacion = "Error: Puede que algunos datos se encuentren vacíos o con un formato incorrecto.";
+                MensajeAviso(confirmacion);
+            }
+
+        }
+
+        private void MensajeAviso(string mensaje)
+        {
+            string color = "";
+
+            if (mensaje.Contains("Error:"))
+            {
+                color = "danger";
+            }
+            else
+            {
+                color = "success";
+            }
+            mensajeConfirmacion.Text = "<div class=\"alert alert-" + color + " alert-dismissible fade show\" " +
+            "role=\"alert\"> <strong></strong>" + mensaje + "<button" +
+            " type = \"button\" class=\"close\" data-dismiss=\"alert\" aria-label=\"Close\">" +
+            " <span aria-hidden=\"true\">&times;</span> </button> </div>";
+
+            mensajeConfirmacion.Visible = true;
         }
 
         private BLExpediente ValidarDatos()
@@ -145,7 +227,7 @@ namespace Sistema_Pediatrico
             string direccionExactaE = direccionExactaEncargado.Value.Trim();
 
             if (!nombreE.Equals("") || !primerApellidoE.Equals("") || !segundoApellidoE.Equals("") || telefonoE != 0 ||
-                !correoE.Equals("") || !parentescoE.Equals("") || !direccionExactaE.Equals(""))
+                !correoE.Equals("") || !parentescoE.Equals("") || !direccionExactaE.Equals("") || !cedulaE.Equals(""))
             {
                 if (cedulaE.Equals(""))
                 {
@@ -188,9 +270,7 @@ namespace Sistema_Pediatrico
                 string distritoD = distritoDValue.Value.Trim();
                 string direccionExactaD = direccionExactaDestinatario.Value.Trim();
 
-                if (!nombreD.Equals("") || !primerApellidoD.Equals("") || !segundoApellidoD.Equals("") || telefonoD != 0 ||
-                    !correoD.Equals("") || !direccionExactaD.Equals(""))
-                {
+
                     if (cedulaD.Equals(""))
                     {
                         return null;
@@ -204,13 +284,15 @@ namespace Sistema_Pediatrico
 
                         expediente.DestinatarioFactura = destinatario;
                     }
-                }
             }
 
             // Datos de SOLICITANTE
 
             if (esSolicitante.Checked == false)
             {
+
+                string correoS = correoSolicitante.Text.Trim();
+
                 int telefonoS = 0;
                 try
                 {
@@ -224,8 +306,7 @@ namespace Sistema_Pediatrico
                 {
                     return null;
                 }
-                string correoS = correoSolicitante.Text.Trim();
-
+                
                 if (correoS.Equals(""))
                 {
                     return null;
@@ -326,7 +407,7 @@ namespace Sistema_Pediatrico
             {
                 perinatales = "";
             }
-            if(negativoPatologico.Checked)
+            if (negativoPatologico.Checked)
             {
                 patologicos = "";
             }
@@ -351,7 +432,7 @@ namespace Sistema_Pediatrico
                 vacunas = "";
             }
 
-            historiaClinica = new BLHistoriaClinica(perinatales, patologicos, quirurgicos, traumaticos, 
+            historiaClinica = new BLHistoriaClinica(perinatales, patologicos, quirurgicos, traumaticos,
                 heredoFamiliares, alergias, vacunas, datosNacimiento);
 
             expediente.HistoriaClinica = historiaClinica;

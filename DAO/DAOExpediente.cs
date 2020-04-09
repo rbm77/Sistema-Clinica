@@ -139,12 +139,17 @@ namespace DAO
 
                 if (expediente.Encargado != null && idExpedienteGuardado != 0)
                 {
-                    comando.CommandText = "INSERT INTO ENCARGADO (CEDULA, NOMBRE, PRIMER_APELLIDO, SEGUNDO_APELLIDO," +
-                    " TELEFONO, CORREO, PARENTESCO, CODIGO_DIRECCION, DIRECCION_EXACTA) VALUES (@cedula, @nombre, @primerApellido, @segundoApellido," +
-                    " @telefono, @correo, @parentesco, @codigoDireccion, @direccionExacta);";
+                    comando.CommandText = "IF NOT EXISTS(SELECT CEDULA FROM ENCARGADO WHERE CEDULA = @cedBuscar) " +
+                        "BEGIN" +
+                        " INSERT INTO ENCARGADO (CEDULA, NOMBRE, PRIMER_APELLIDO, SEGUNDO_APELLIDO," +
+                        " TELEFONO, CORREO, PARENTESCO, CODIGO_DIRECCION, DIRECCION_EXACTA) VALUES (@cedula, @nombre," +
+                        " @primerApellido, @segundoApellido," +
+                        " @telefono, @correo, @parentesco, @codigoDireccion, @direccionExacta)" +
+                        "END;";
 
                     // Se asigna un valor a los parámetros del comando a ejecutar
 
+                    comando.Parameters.AddWithValue("@cedBuscar", expediente.Encargado.Cedula);
                     comando.Parameters.AddWithValue("@cedula", expediente.Encargado.Cedula);
                     comando.Parameters.AddWithValue("@nombre", expediente.Encargado.Nombre);
                     comando.Parameters.AddWithValue("@primerApellido", expediente.Encargado.PrimerApellido);
@@ -164,12 +169,17 @@ namespace DAO
 
                 if (expediente.DestinatarioFactura != null && idExpedienteGuardado != 0)
                 {
-                    comando.CommandText = "INSERT INTO DESTINATARIO_FACTURA (CEDULA, NOMBRE, PRIMER_APELLIDO, SEGUNDO_APELLIDO," +
-                        " TELEFONO, CORREO, CODIGO_DIRECCION, DIRECCION_EXACTA) VALUES (@cedula, @nombre, @primerApellido, @segundoApellido," +
-                        " @telefono, @correo, @codigoDireccion, @direccionExacta);";
+                    comando.CommandText = "IF NOT EXISTS(SELECT CEDULA FROM DESTINATARIO_FACTURA WHERE CEDULA = @cedBuscar) " +
+                        "BEGIN" +
+                        " INSERT INTO DESTINATARIO_FACTURA (CEDULA, NOMBRE, PRIMER_APELLIDO, SEGUNDO_APELLIDO," +
+                        " TELEFONO, CORREO, CODIGO_DIRECCION, DIRECCION_EXACTA) VALUES (@cedula, @nombre," +
+                        " @primerApellido, @segundoApellido," +
+                        " @telefono, @correo, @codigoDireccion, @direccionExacta)" +
+                        "END;";
 
                     // Se asigna un valor a los parámetros del comando a ejecutar
 
+                    comando.Parameters.AddWithValue("@cedBuscar", expediente.DestinatarioFactura.Cedula);
                     comando.Parameters.AddWithValue("@cedula", expediente.DestinatarioFactura.Cedula);
                     comando.Parameters.AddWithValue("@nombre", expediente.DestinatarioFactura.Nombre);
                     comando.Parameters.AddWithValue("@primerApellido", expediente.DestinatarioFactura.PrimerApellido);
@@ -188,10 +198,17 @@ namespace DAO
 
                 if (expediente.SolicitanteCita != null && idExpedienteGuardado != 0)
                 {
+
+                    comando.CommandText = "IF NOT EXISTS(SELECT CORREO FROM SOLICITANTE_CITA WHERE CORREO = @correoBuscar) " +
+                        "BEGIN" +
+                        " INSERT INTO SOLICITANTE_CITA(CORREO, CONTRASENNA, TELEFONO, ESTADO)" +
+                        " VALUES(@correo, @contrasenna, @telefono, @estado) " +
+                        "END;";
                     comando.CommandText = "INSERT INTO SOLICITANTE_CITA (CORREO, CONTRASENNA, TELEFONO, ESTADO) VALUES (@correo, @contrasenna, @telefono, @estado);";
 
                     // Se asigna un valor a los parámetros del comando a ejecutar
 
+                    comando.Parameters.AddWithValue("@correoBuscar", expediente.SolicitanteCita.Correo);
                     comando.Parameters.AddWithValue("@correo", expediente.SolicitanteCita.Correo);
                     comando.Parameters.AddWithValue("@contrasenna", expediente.SolicitanteCita.Contrasenna);
                     comando.Parameters.AddWithValue("@telefono", expediente.SolicitanteCita.Telefono);
