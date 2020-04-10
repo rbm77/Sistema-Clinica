@@ -12,7 +12,7 @@ namespace TO
         public string Nombre { get; set; }
         public string PrimerApellido { get; set; }
         public string SegundoApellido { get; set; }
-        public int Telefono { get; set; }
+        public string Telefono { get; set; }
         public string Correo { get; set; }
         public string Parentesco { get; set; }
         public string CodigoDireccion { get; set; }
@@ -24,7 +24,7 @@ namespace TO
         }
 
         public TOEncargado(string cedula, string nombre, string primerApellido, string segundoApellido,
-            int telefono, string correo, string parentesco, string codigoDireccion, string direccionExacta)
+            string telefono, string correo, string parentesco, string codigoDireccion, string direccionExacta)
         {
             this.Cedula = cedula;
             this.Nombre = nombre;

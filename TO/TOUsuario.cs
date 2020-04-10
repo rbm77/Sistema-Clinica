@@ -12,7 +12,7 @@ namespace TO
         public string Nombre { get; set; }
         public string PrimerApellido { get; set; }
         public string SegundoApellido { get; set; }
-        public int Telefono { get; set; }
+        public string Telefono { get; set; }
         public string CodigoAsistente { get; set; }
 
         public TOUsuario()
@@ -20,7 +20,7 @@ namespace TO
 
         }
 
-        public TOUsuario(string cedula, string nombre, string primerApellido, string segundoApellido, int telefono, string codigoAsistente)
+        public TOUsuario(string cedula, string nombre, string primerApellido, string segundoApellido, string telefono, string codigoAsistente)
         {
             this.Cedula = cedula;
             this.Nombre = nombre;

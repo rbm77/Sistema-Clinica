@@ -28,22 +28,15 @@ namespace Sistema_Pediatrico
             string nombre = inputNombre.Text.Trim();
             string primerApellido = inputPrimerApellido.Text.Trim();
             string segundoApellido = inputSegundoApellido.Text.Trim();
-            int telefono;
-            try
-            {
-                telefono = int.Parse(inputTelefono.Text.Trim());
-            }
-            catch (Exception)
-            {
-                telefono = 0;
-            }
+            string telefono = inputTelefono.Text.Trim();
+
             string correo = inputCorreo.Text.Trim();
             string contrasenna = inputContrasenna.Text.Trim();
             string confimar = inputConfirmar.Text.Trim();
 
             string confirmacion = "Error: Puede que algunos datos se encuentren vacíos o con un formato incorrecto.";
 
-            if (telefono != 0 && contrasenna.Equals(confimar))
+            if (contrasenna.Equals(confimar))
             {
                 string rol = inputRol.Value.Trim();
                 string codigoAsistente = inputCodigoAsistente.SelectedValue.Trim();

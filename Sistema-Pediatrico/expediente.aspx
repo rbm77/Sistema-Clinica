@@ -330,7 +330,7 @@
                         <div class="form-group col-md-4 col-sm-4">
                             <asp:Label ID="labelTallaNacimiento" runat="server" Text="Talla"></asp:Label>
                             <div class="input-group">
-                                <asp:TextBox ID="tallaNacimiento" runat="server" class="form-control" ClientIDMode="Static" pattern="[0-9]+(\.[0-9]{1,2})?%?"></asp:TextBox>
+                                <asp:TextBox ID="tallaNacimiento" runat="server" class="form-control" ClientIDMode="Static" pattern="[0-9]+(,[0-9]{1,2})?%?"></asp:TextBox>
                                 <div class="input-group-append">
                                     <span class="input-group-text">cm</span>
                                 </div>
@@ -341,7 +341,7 @@
                         <div class="form-group col-md-4 col-sm-4">
                             <asp:Label ID="labelPesoNacimiento" runat="server" Text="Peso"></asp:Label>
                             <div class="input-group">
-                                <asp:TextBox ID="pesoNacimiento" runat="server" class="form-control" ClientIDMode="Static" pattern="[0-9]+(\.[0-9]{1,2})?%?"></asp:TextBox>
+                                <asp:TextBox ID="pesoNacimiento" runat="server" class="form-control" ClientIDMode="Static" pattern="[0-9]+(,[0-9]{1,2})?%?"></asp:TextBox>
                                 <div class="input-group-append">
                                     <span class="input-group-text">kg</span>
                                 </div>
@@ -354,7 +354,7 @@
                         <div class="form-group col-md-4 col-sm-4">
                             <asp:Label ID="labelPerimetroCefalico" runat="server" Text="Perímetro Cefálico"></asp:Label>
                             <div class="input-group">
-                                <asp:TextBox ID="perimetroCefalico" runat="server" class="form-control" ClientIDMode="Static" pattern="[0-9]+(\.[0-9]{1,2})?%?"></asp:TextBox>
+                                <asp:TextBox ID="perimetroCefalico" runat="server" class="form-control" ClientIDMode="Static" pattern="[0-9]+(,[0-9]{1,2})?%?"></asp:TextBox>
                                 <div class="input-group-append">
                                     <span class="input-group-text">cm</span>
                                 </div>
@@ -371,7 +371,7 @@
                         <div class="form-group col-md-4 col-sm-4">
                             <asp:Label ID="labelEdadGestacional" runat="server" Text="Edad Gestacional"></asp:Label>
                             <div class="input-group">
-                                <asp:TextBox ID="edadGestacional" runat="server" class="form-control" ClientIDMode="Static" pattern="[0-9]+(\.[0-9]{1,2})?%?"></asp:TextBox>
+                                <asp:TextBox ID="edadGestacional" runat="server" class="form-control" ClientIDMode="Static" pattern="[0-9]+(,[0-9]{1,2})?%?"></asp:TextBox>
                                 <div class="input-group-append">
                                     <span class="input-group-text">semanas</span>
                                 </div>
@@ -621,6 +621,8 @@
 
                 </div>
             </div>
+
+
         </form>
 
 

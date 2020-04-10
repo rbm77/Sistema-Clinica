@@ -69,9 +69,26 @@ function CargarDatos(input, datos) {
 function ObtenerCantonesPaciente(provincia) {
 
     var codigoProvincia = provincia.value;
-    var destino = 'https://ubicaciones.paginasweb.cr/provincia/' + codigoProvincia + '/cantones.json'
+
+    var destino = '../../../Recursos/' + codigoProvincia + '_cantones.json';
 
     document.getElementById("provinciaPValue").value = codigoProvincia;
+
+    var canton = document.getElementById("inputCantonPaciente");
+    var distrito = document.getElementById("inputDistritoPaciente");
+
+    var lengthC = canton.options.length;
+    for (i = lengthC - 1; i >= 0; i--) {
+        canton.options[i] = null;
+    }
+
+    var lengthD = distrito.options.length;
+    for (i = lengthD - 1; i >= 0; i--) {
+        distrito.options[i] = null;
+    }
+
+    document.getElementById("cantonPValue").value = "nulo";
+    document.getElementById("distritoPValue").value = "nulo";
 
     $.ajax({
         dataType: 'json',
@@ -80,19 +97,6 @@ function ObtenerCantonesPaciente(provincia) {
         success: function (response, status) {
  
             if (status == "success") {
-
-                var canton = document.getElementById("inputCantonPaciente");
-                var distrito = document.getElementById("inputDistritoPaciente");
-
-                var lengthC = canton.options.length;
-                for (i = lengthC - 1; i >= 0; i--) {
-                    canton.options[i] = null;
-                }
-
-                var lengthD = distrito.options.length;
-                for (i = lengthD - 1; i >= 0; i--) {
-                    distrito.options[i] = null;
-                }
 
                 CargarDatos(canton, response);
             }
@@ -107,7 +111,16 @@ function ObtenerDistritosPaciente(canton) {
 
     document.getElementById("cantonPValue").value = codigoCanton;
 
-    var destino = 'https://ubicaciones.paginasweb.cr/provincia/' + codigoProvincia + '/canton/' + codigoCanton + '/distritos.json'
+    var destino = '../../../Recursos/' + codigoProvincia + '_' + codigoCanton + '_distritos.json';
+
+    var distrito = document.getElementById("inputDistritoPaciente");
+
+    var lengthD = distrito.options.length;
+    for (i = lengthD - 1; i >= 0; i--) {
+        distrito.options[i] = null;
+    }
+
+    document.getElementById("distritoPValue").value = "nulo";
 
     $.ajax({
         dataType: 'json',
@@ -116,13 +129,6 @@ function ObtenerDistritosPaciente(canton) {
         success: function (response, status) {
 
             if (status == "success") {
-
-                var distrito = document.getElementById("inputDistritoPaciente");
-
-                var lengthD = distrito.options.length;
-                for (i = lengthD - 1; i >= 0; i--) {
-                    distrito.options[i] = null;
-                }
 
                 CargarDatos(distrito, response);
             }
@@ -165,6 +171,11 @@ function ObtenerProvincias() {
                     provinciaPaciente.options[i] = null;
                 }
 
+                document.getElementById("provinciaPValue").value = "nulo";
+                document.getElementById("cantonPValue").value = "nulo";
+                document.getElementById("distritoPValue").value = "nulo";
+
+
                 CargarDatos(provinciaPaciente, response);
 
                 var provinciaEncargado = document.getElementById("inputProvinciaEncargado");
@@ -174,6 +185,10 @@ function ObtenerProvincias() {
                     provinciaEncargado.options[i] = null;
                 }
 
+                document.getElementById("provinciaEValue").value = "nulo";
+                document.getElementById("cantonEValue").value = "nulo";
+                document.getElementById("distritoEValue").value = "nulo";
+
                 CargarDatos(provinciaEncargado, response);
 
                 var provinciaDestinatario = document.getElementById("inputProvinciaDestinatario");
@@ -182,6 +197,10 @@ function ObtenerProvincias() {
                 for (i = length - 1; i >= 0; i--) {
                     provinciaDestinatario.options[i] = null;
                 }
+
+                document.getElementById("provinciaDValue").value = "nulo";
+                document.getElementById("cantonDValue").value = "nulo";
+                document.getElementById("distritoDValue").value = "nulo";
 
                 CargarDatos(provinciaDestinatario, response);
             }
@@ -193,9 +212,25 @@ function ObtenerProvincias() {
 function ObtenerCantonesEncargado(provincia) {
 
     var codigoProvincia = provincia.value;
-    var destino = 'https://ubicaciones.paginasweb.cr/provincia/' + codigoProvincia + '/cantones.json'
+    var destino = '../../../Recursos/' + codigoProvincia + '_cantones.json';
 
     document.getElementById("provinciaEValue").value = codigoProvincia;
+
+    var canton = document.getElementById("inputCantonEncargado");
+    var distrito = document.getElementById("inputDistritoEncargado");
+
+    var lengthC = canton.options.length;
+    for (i = lengthC - 1; i >= 0; i--) {
+        canton.options[i] = null;
+    }
+
+    var lengthD = distrito.options.length;
+    for (i = lengthD - 1; i >= 0; i--) {
+        distrito.options[i] = null;
+    }
+
+    document.getElementById("cantonEValue").value = "nulo";
+    document.getElementById("distritoEValue").value = "nulo";
 
     $.ajax({
         dataType: 'json',
@@ -204,19 +239,6 @@ function ObtenerCantonesEncargado(provincia) {
         success: function (response, status) {
 
             if (status == "success") {
-
-                var canton = document.getElementById("inputCantonEncargado");
-                var distrito = document.getElementById("inputDistritoEncargado");
-
-                var lengthC = canton.options.length;
-                for (i = lengthC - 1; i >= 0; i--) {
-                    canton.options[i] = null;
-                }
-
-                var lengthD = distrito.options.length;
-                for (i = lengthD - 1; i >= 0; i--) {
-                    distrito.options[i] = null;
-                }
 
                 CargarDatos(canton, response);
             }
@@ -231,7 +253,16 @@ function ObtenerDistritosEncargado(canton) {
 
     document.getElementById("cantonEValue").value = codigoCanton;
 
-    var destino = 'https://ubicaciones.paginasweb.cr/provincia/' + codigoProvincia + '/canton/' + codigoCanton + '/distritos.json'
+    var destino = '../../../Recursos/' + codigoProvincia + '_' + codigoCanton + '_distritos.json';
+
+    var distrito = document.getElementById("inputDistritoEncargado");
+
+    var lengthD = distrito.options.length;
+    for (i = lengthD - 1; i >= 0; i--) {
+        distrito.options[i] = null;
+    }
+
+    document.getElementById("distritoEValue").value = "nulo";
 
     $.ajax({
         dataType: 'json',
@@ -241,12 +272,6 @@ function ObtenerDistritosEncargado(canton) {
 
             if (status == "success") {
 
-                var distrito = document.getElementById("inputDistritoEncargado");
-
-                var lengthD = distrito.options.length;
-                for (i = lengthD - 1; i >= 0; i--) {
-                    distrito.options[i] = null;
-                }
 
                 CargarDatos(distrito, response);
             }
@@ -258,9 +283,25 @@ function ObtenerDistritosEncargado(canton) {
 function ObtenerCantonesDestinatario(provincia) {
 
     var codigoProvincia = provincia.value;
-    var destino = 'https://ubicaciones.paginasweb.cr/provincia/' + codigoProvincia + '/cantones.json'
+    var destino = '../../../Recursos/' + codigoProvincia + '_cantones.json';
 
     document.getElementById("provinciaDValue").value = codigoProvincia;
+
+    var canton = document.getElementById("inputCantonDestinatario");
+    var distrito = document.getElementById("inputDistritoDestinatario");
+
+    var lengthC = canton.options.length;
+    for (i = lengthC - 1; i >= 0; i--) {
+        canton.options[i] = null;
+    }
+
+    var lengthD = distrito.options.length;
+    for (i = lengthD - 1; i >= 0; i--) {
+        distrito.options[i] = null;
+    }
+
+    document.getElementById("cantonDValue").value = "nulo";
+    document.getElementById("distritoDValue").value = "nulo";
 
     $.ajax({
         dataType: 'json',
@@ -269,19 +310,6 @@ function ObtenerCantonesDestinatario(provincia) {
         success: function (response, status) {
 
             if (status == "success") {
-
-                var canton = document.getElementById("inputCantonDestinatario");
-                var distrito = document.getElementById("inputDistritoDestinatario");
-
-                var lengthC = canton.options.length;
-                for (i = lengthC - 1; i >= 0; i--) {
-                    canton.options[i] = null;
-                }
-
-                var lengthD = distrito.options.length;
-                for (i = lengthD - 1; i >= 0; i--) {
-                    distrito.options[i] = null;
-                }
 
                 CargarDatos(canton, response);
             }
@@ -296,7 +324,16 @@ function ObtenerDistritosDestinatario(canton) {
 
     document.getElementById("cantonDValue").value = codigoCanton;
 
-    var destino = 'https://ubicaciones.paginasweb.cr/provincia/' + codigoProvincia + '/canton/' + codigoCanton + '/distritos.json'
+    var destino = '../../../Recursos/' + codigoProvincia + '_' + codigoCanton + '_distritos.json';
+
+    var distrito = document.getElementById("inputDistritoDestinatario");
+
+    var lengthD = distrito.options.length;
+    for (i = lengthD - 1; i >= 0; i--) {
+        distrito.options[i] = null;
+    }
+
+    document.getElementById("distritoDValue").value = "nulo";
 
     $.ajax({
         dataType: 'json',
@@ -305,13 +342,6 @@ function ObtenerDistritosDestinatario(canton) {
         success: function (response, status) {
 
             if (status == "success") {
-
-                var distrito = document.getElementById("inputDistritoDestinatario");
-
-                var lengthD = distrito.options.length;
-                for (i = lengthD - 1; i >= 0; i--) {
-                    distrito.options[i] = null;
-                }
 
                 CargarDatos(distrito, response);
             }

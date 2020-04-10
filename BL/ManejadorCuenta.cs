@@ -80,7 +80,7 @@ namespace BL
                 || (toUsuario.Nombre == null) || (toUsuario.Nombre.Equals(""))
                 || (toUsuario.PrimerApellido == null) || (toUsuario.PrimerApellido.Equals(""))
                 || (toUsuario.SegundoApellido == null) || (toUsuario.SegundoApellido.Equals(""))
-                || (toUsuario.Telefono == 0) || (rol.Equals("asistente") && toUsuario.CodigoAsistente == null)
+                || (toUsuario.Telefono.Equals("")) || (rol.Equals("asistente") && toUsuario.CodigoAsistente == null)
                 || (rol.Equals("asistente") && toUsuario.CodigoAsistente.Equals("")) || (rol.Equals("asistente") && toUsuario.CodigoAsistente.Equals("nulo")))
             {
                 return null;

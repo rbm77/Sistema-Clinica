@@ -10,7 +10,7 @@ namespace BL
     {
         public string Correo { get; set; }
         public string Contrasenna { get; set; }
-        public int Telefono { get; set; }
+        public string Telefono { get; set; }
         public string Estado { get; set; }
 
         public BLSolicitanteCita()
@@ -18,7 +18,7 @@ namespace BL
 
         }
 
-        public BLSolicitanteCita(string correo, string contrasenna, int telefono, string estado)
+        public BLSolicitanteCita(string correo, string contrasenna, string telefono, string estado)
         {
             this.Correo = correo;
             this.Contrasenna = contrasenna;

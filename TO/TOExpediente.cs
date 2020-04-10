@@ -36,6 +36,7 @@ namespace TO
             TOEncargado encargado, TODestinatarioFactura destinatarioFactura, TOSolicitanteCita solicitanteCita)
         {
             this.IDExpediente = idExpediente;
+            this.Cedula = cedula;
             this.Nombre = nombre;
             this.PrimerApellido = primerApellido;
             this.SegundoApellido = segundoApellido;
@@ -45,12 +46,12 @@ namespace TO
             this.UrlExpedienteAntiguo = urlExpedienteAntiguo;
             this.DireccionExacta = direccionExacta;
             this.IDMedico = idMedico;
-            this.FechaNacimiento = fechaCreacion;
             this.CodigoDireccion = codigoDireccion;
             this.HistoriaClinica = historiaClinica;
             this.Encargado = encargado;
             this.DestinatarioFactura = destinatarioFactura;
             this.SolicitanteCita = solicitanteCita;
+            this.FechaCreacion = fechaCreacion;
         }
 
     }

@@ -12,7 +12,7 @@ namespace BL
         public string Nombre { get; set; }
         public string PrimerApellido { get; set; }
         public string SegundoApellido { get; set; }
-        public int Telefono { get; set; }
+        public string Telefono { get; set; }
         public string CodigoAsistente { get; set; }
 
         public BLUsuario()
@@ -20,7 +20,7 @@ namespace BL
 
         }
 
-        public BLUsuario(string cedula, string nombre, string primerApellido, string segundoApellido, int telefono, string codigoAsistente)
+        public BLUsuario(string cedula, string nombre, string primerApellido, string segundoApellido, string telefono, string codigoAsistente)
         {
             this.Cedula = cedula;
             this.Nombre = nombre;

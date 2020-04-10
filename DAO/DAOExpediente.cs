@@ -57,13 +57,13 @@ namespace DAO
 
                 comando.Transaction = transaccion;
 
-                int idExpedienteGuardado = 0;
+                long idExpedienteGuardado = 0;
 
                 if (expediente != null)
                 {
                     comando.CommandText = "INSERT INTO EXPEDIENTE (CEDULA, NOMBRE, PRIMER_APELLIDO, SEGUNDO_APELLIDO, FECHA_NACIMIENTO," +
                     " SEXO, URL_FOTO, URL_EXPEDIENTE_ANTIGUO, CODIGO_DIRECCION, DIRECCION_EXACTA, ID_ENCARGADO, ID_DESTINATARIO_FACTURA," +
-                    " ID_SOLICITANTE_CITA, FECHA_CREACION, ID_MEDICO) output INSERTED.ID_EXPEDIENTE" + " VALUES (@cedula, @nombre, @primerApellido, @segundoApellido, @fechaNacimiento," +
+                    " ID_SOLICITANTE_CITA, FECHA_CREACION, ID_MEDICO) OUTPUT INSERTED.ID_EXPEDIENTE" + " VALUES (@cedula, @nombre, @primerApellido, @segundoApellido, @fechaNacimiento," +
                     "@sexo, @urlFoto, @urlExpediente, @codigoDireccion, @direccionExacta, @idEncargado, @idDestinatario, @idSolicitante, @fechaCreacion," +
                     "@idMedico);";
 
@@ -132,7 +132,7 @@ namespace DAO
 
                     // Se ejecuta el comando y se realiza un commit de la transacción
 
-                    idExpedienteGuardado = (int)comando.ExecuteScalar();
+                    idExpedienteGuardado = (long) comando.ExecuteScalar();
 
                     comando.Parameters.Clear();
                 }
@@ -204,7 +204,6 @@ namespace DAO
                         " INSERT INTO SOLICITANTE_CITA(CORREO, CONTRASENNA, TELEFONO, ESTADO)" +
                         " VALUES(@correo, @contrasenna, @telefono, @estado) " +
                         "END;";
-                    comando.CommandText = "INSERT INTO SOLICITANTE_CITA (CORREO, CONTRASENNA, TELEFONO, ESTADO) VALUES (@correo, @contrasenna, @telefono, @estado);";
 
                     // Se asigna un valor a los parámetros del comando a ejecutar
 
@@ -270,11 +269,11 @@ namespace DAO
                 transaccion.Commit();
 
             }
-            catch (Exception)
+            catch (Exception e)
             {
                 try
                 {
-
+                    string prueba = e.Message;
                     // En caso de un error se realiza un rollback a la transacción
 
                     transaccion.Rollback();

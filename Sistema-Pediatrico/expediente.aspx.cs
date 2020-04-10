@@ -34,6 +34,7 @@ namespace Sistema_Pediatrico
                 aldiaVacunas.Checked = true;
                 descripcionVacuna.Disabled = true;
             }
+            
         }
 
         private string SubirFoto()
@@ -79,6 +80,7 @@ namespace Sistema_Pediatrico
 
         protected void btnGuardar_Click(object sender, EventArgs e)
         {
+
             BLExpediente expediente = ValidarDatos();
 
             string confirmacion = "";
@@ -174,7 +176,7 @@ namespace Sistema_Pediatrico
             // Comienza a validar
 
             if (nombreP.Equals("") || primerApellidoP.Equals("") || fechaNacimientoP.Equals("") || sexoP.Equals("nulo") ||
-                provinciaP.Equals("nulo") || cantonP.Equals("nulo") || distritoP.Equals("nulo") || direccionExactaP.Equals("") ||
+                provinciaP.Equals("nulo") || cantonP.Equals("nulo") || distritoP.Equals("nulo") || 
                 fechaCreacion.Equals("") || idMedico.Equals(""))
             {
                 return null;
@@ -206,19 +208,7 @@ namespace Sistema_Pediatrico
             string nombreE = nombreEncargado.Text.Trim();
             string primerApellidoE = primerApellidoEncargado.Text.Trim();
             string segundoApellidoE = segundoApellidoEncargado.Text.Trim();
-            int telefonoE = 0;
-            try
-            {
-                string temp = inputTelefonoEncargado.Text.Trim();
-                if (!temp.Equals(""))
-                {
-                    telefonoE = int.Parse(temp);
-                }
-            }
-            catch (Exception)
-            {
-                return null;
-            }
+            string telefonoE = inputTelefonoEncargado.Text.Trim();
             string correoE = inputCorreoEncargado.Text.Trim();
             string parentescoE = parentesco.Text.Trim();
             string provinciaE = provinciaEValue.Value.Trim();
@@ -226,7 +216,7 @@ namespace Sistema_Pediatrico
             string distritoE = distritoEValue.Value.Trim();
             string direccionExactaE = direccionExactaEncargado.Value.Trim();
 
-            if (!nombreE.Equals("") || !primerApellidoE.Equals("") || !segundoApellidoE.Equals("") || telefonoE != 0 ||
+            if (!nombreE.Equals("") || !primerApellidoE.Equals("") || !segundoApellidoE.Equals("") || !telefonoE.Equals("") ||
                 !correoE.Equals("") || !parentescoE.Equals("") || !direccionExactaE.Equals("") || !cedulaE.Equals(""))
             {
                 if (cedulaE.Equals(""))
@@ -251,19 +241,7 @@ namespace Sistema_Pediatrico
                 string nombreD = nombreDestinatario.Text.Trim();
                 string primerApellidoD = primerApellidoDestinatario.Text.Trim();
                 string segundoApellidoD = segundoApellidoDestinatario.Text.Trim();
-                int telefonoD = 0;
-                try
-                {
-                    string temp = telefonoDestinatario.Text.Trim();
-                    if (!temp.Equals(""))
-                    {
-                        telefonoD = int.Parse(temp);
-                    }
-                }
-                catch (Exception)
-                {
-                    return null;
-                }
+                string telefonoD = telefonoDestinatario.Text.Trim();
                 string correoD = correoDestinatario.Text.Trim();
                 string provinciaD = provinciaDValue.Value.Trim();
                 string cantonD = cantonDValue.Value.Trim();
@@ -293,19 +271,7 @@ namespace Sistema_Pediatrico
 
                 string correoS = correoSolicitante.Text.Trim();
 
-                int telefonoS = 0;
-                try
-                {
-                    string temp = telefonoSolicitante.Text.Trim();
-                    if (!temp.Equals(""))
-                    {
-                        telefonoS = int.Parse(temp);
-                    }
-                }
-                catch (Exception)
-                {
-                    return null;
-                }
+                string telefonoS = telefonoSolicitante.Text.Trim();
                 
                 if (correoS.Equals(""))
                 {
@@ -343,7 +309,7 @@ namespace Sistema_Pediatrico
 
             double talla = 0.0;
             double peso = 0.0;
-            int perimCefalico = 0;
+            double perimCefalico = 0.0;
             double edadGest = 0.0;
             int apg = 0;
             string clasifUniversal = clasificacionUniversal.Text.Trim();
@@ -360,7 +326,7 @@ namespace Sistema_Pediatrico
                 }
                 if (!tempPerimCefalico.Equals(""))
                 {
-                    perimCefalico = int.Parse(tempPerimCefalico);
+                    perimCefalico = double.Parse(tempPerimCefalico);
                 }
                 if (!tempEdadGest.Equals(""))
                 {
@@ -376,7 +342,7 @@ namespace Sistema_Pediatrico
                 return null;
             }
 
-            if (talla != 0.0 || peso != 0.0 || perimCefalico != 0 || edadGest != 0.0 || !clasifUniversal.Equals("") || apg != 0)
+            if (talla != 0.0 || peso != 0.0 || perimCefalico != 0.0 || edadGest != 0.0 || !clasifUniversal.Equals("") || apg != 0)
             {
                 datosNacimiento = new BLDatosNacimiento(talla, peso, perimCefalico, apg, edadGest, clasifUniversal);
             }
