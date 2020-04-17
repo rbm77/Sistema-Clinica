@@ -78,8 +78,10 @@
     <Content Include="Bootstrap\dist\assets\img\error-404-monochrome.svg" />
     <Content Include="Bootstrap\dist\charts.html" />
     <Content Include="Bootstrap\dist\css\estilos_personal.css" />
+    <Content Include="Bootstrap\dist\css\inicioSesion.css" />
     <Content Include="Bootstrap\dist\css\styles.css" />
     <Content Include="Bootstrap\dist\index.html" />
+    <Content Include="Bootstrap\dist\js\main.js" />
     <Content Include="Bootstrap\dist\js\scripts.js" />
     <Content Include="Bootstrap\dist\js\script_personal.js" />
     <Content Include="Bootstrap\dist\layout-sidenav-light.html" />
@@ -109,6 +111,9 @@
     <Content Include="Bootstrap\src\js\scripts.js" />
     <Content Include="cuenta_usuario.aspx" />
     <Content Include="expediente.aspx" />
+    <Content Include="inicio_sesion.aspx" />
+    <Content Include="Recursos\bg-01.jpg" />
+    <Content Include="Recursos\favicon.ico" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
@@ -125,6 +130,13 @@
     </Compile>
     <Compile Include="expediente.aspx.designer.cs">
       <DependentUpon>expediente.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="inicio_sesion.aspx.cs">
+      <DependentUpon>inicio_sesion.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="inicio_sesion.aspx.designer.cs">
+      <DependentUpon>inicio_sesion.aspx</DependentUpon>
     </Compile>
     <Compile Include="Maestra.Master.cs">
       <DependentUpon>Maestra.Master</DependentUpon>
@@ -182,6 +194,9 @@
     <Content Include="Bootstrap\src\scss\_global.scss" />
     <Content Include="Bootstrap\src\scss\_variables.scss" />
     <Content Include="Recursos\1_6_distritos.json" />
+    <Content Include="Bootstrap\dist\fonts\montserrat\Montserrat-Bold.ttf" />
+    <Content Include="Bootstrap\dist\fonts\montserrat\Montserrat-Regular.ttf" />
+    <Content Include="Bootstrap\dist\fonts\poppins\Poppins-Regular.ttf" />
     <None Include="packages.config" />
     <Content Include="Recursos\provincias.json" />
     <Content Include="Recursos\1_cantones.json" />

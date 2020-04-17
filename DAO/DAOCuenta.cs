@@ -238,6 +238,168 @@ namespace DAO
         }
 
 
+        public string CargarUsuario(TOCuenta cuenta, TOUsuario usuario, TOMedico medico)
+        {
+            string confirmacion = "El usuario se cargó exitosamente.";
+
+            // Se abre la conexión
+
+            if (conexion != null)
+            {
+                try
+                {
+                    if (conexion.State != ConnectionState.Open)
+                    {
+                        conexion.Open();
+                    }
+                }
+                catch (Exception)
+                {
+                    confirmacion = "Error: No se puede cargar los datos de usuario";
+                    return confirmacion;
+
+                }
+            }
+            else
+            {
+                confirmacion = "Error: No se puede cargar los datos de usuario";
+                return confirmacion;
+            }
+
+            // Se inicia una nueva transacción
+
+            SqlTransaction transaccion = null;
+
+            try
+            {
+                transaccion = conexion.BeginTransaction("Cargar datos de usuario");
+
+                // Se crea un nuevo comando con la secuencia SQL y el objeto de conexión
+
+                SqlCommand comando = new SqlCommand();
+
+                comando.Connection = conexion;
+
+                comando.CommandText = "SELECT CORREO, ROL, ESTADO FROM CUENTA_USUARIO WHERE ID_CUENTA = @idCuenta AND CONTRASENNA = @contrasenna";
+
+
+                comando.Transaction = transaccion;
+
+
+                // Se ejecuta el comando y se realiza un commit de la transacción
+
+                comando.Parameters.AddWithValue("@idCuenta", cuenta.IdCuenta);
+                comando.Parameters.AddWithValue("@contrasenna", cuenta.Contrasenna);
+
+                SqlDataReader lector = comando.ExecuteReader();
+
+                if (lector.HasRows)
+                {
+                    while (lector.Read())
+                    {
+                        cuenta.Correo = lector["CORREO"].ToString();
+                        cuenta.Rol = lector["ROL"].ToString();
+                        cuenta.Estado = lector["ESTADO"].ToString();
+                    }
+                }
+                else
+                {
+                    cuenta.IdCuenta = "";
+                }
+
+                lector.Close();
+
+                comando.Parameters.Clear();
+
+
+                if(!cuenta.IdCuenta.Equals(""))
+                {
+
+                    comando.CommandText = "SELECT * FROM USUARIO WHERE CEDULA = @cedula";
+
+
+                    comando.Parameters.AddWithValue("@cedula", cuenta.IdCuenta);
+
+                    lector = comando.ExecuteReader();
+
+                    if (lector.HasRows)
+                    {
+                        while (lector.Read())
+                        {
+                            usuario.Cedula = lector["CEDULA"].ToString();
+                            usuario.Nombre = lector["NOMBRE"].ToString();
+                            usuario.PrimerApellido = lector["PRIMER_APELLIDO"].ToString();
+                            usuario.SegundoApellido = lector["SEGUNDO_APELLIDO"].ToString();
+                            usuario.Telefono = lector["TELEFONO"].ToString();
+                            usuario.CodigoAsistente = lector["CODIGO_ASISTENTE"].ToString();
+                        }
+                    }
+
+                    lector.Close();
+
+                    comando.Parameters.Clear();
+
+                    if (cuenta != null)
+                    {
+                        if (cuenta.Rol.Equals("medico"))
+                        {
+                            comando.CommandText = "SELECT * FROM MEDICO WHERE ID_MEDICO = @idMedico";
+
+                            comando.Parameters.AddWithValue("@idMedico", cuenta.IdCuenta);
+
+                            lector = comando.ExecuteReader();
+
+                            if (lector.HasRows)
+                            {
+                                while (lector.Read())
+                                {
+                                    medico.IdMedico = lector["ID_MEDICO"].ToString();
+                                    medico.CodigoMedico = lector["CODIGO_MEDICO"].ToString();
+                                    medico.Especialidad = lector["ESPECIALIDAD"].ToString();
+                                    medico.DuracionCita = lector["DURACION_CITA"].ToString();
+                                }
+                            }
+
+                            lector.Close();
+                        }
+                    }
+
+
+                } else
+                {
+                    confirmacion = "Error: Las credenciales ingresadas no son correctas.";
+                }
+
+                transaccion.Commit();
+
+            }
+            catch (Exception)
+            {
+                try
+                {
+
+                    // En caso de un error se realiza un rollback a la transacción
+
+                    transaccion.Rollback();
+                }
+                catch (Exception)
+                {
+                }
+                finally
+                {
+                    confirmacion = "Error: No se puede cargar los datos de usuario";
+                }
+            }
+            finally
+            {
+                if (conexion.State != ConnectionState.Closed)
+                {
+                    conexion.Close();
+                }
+            }
+            return confirmacion;
+        }
+
     }
 }
 

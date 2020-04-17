@@ -109,5 +109,14 @@ namespace BL
             }
             return confirmacion;
         }
+
+        public string CargarUsuario(BLCuenta cuenta, BLUsuario usuario, BLMedico medico)
+        {
+            string confirmacion = "Error: Indefinido.";
+
+            
+
+            return confirmacion;
+        }
     }
 }
