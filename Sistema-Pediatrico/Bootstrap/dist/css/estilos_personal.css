@@ -1,5 +1,38 @@
-﻿body {
+﻿
+@font-face {
+    font-family: Poppins-Regular;
+    src: url('../fonts/poppins/Poppins-Regular.ttf');
 }
+
+
+@font-face {
+    font-family: Montserrat-Bold;
+    src: url('../fonts/montserrat/Montserrat-Bold.ttf');
+}
+
+
+@font-face {
+    font-family: Montserrat-Regular;
+    src: url('../fonts/montserrat/Montserrat-Regular.ttf');
+}
+
+body, html {
+    height: 100%;
+    font-family: Poppins-Regular, sans-serif;
+}
+
+/*---------------------------------------------*/
+/*a {
+    font-family: Poppins-Regular;
+    font-size: 14px;
+    line-height: 1.7;
+    color: #666666;
+    margin: 0px;
+    transition: all 0.4s;
+    -webkit-transition: all 0.4s;
+    -o-transition: all 0.4s;
+    -moz-transition: all 0.4s;
+}*/
 
 .padding-contenedor {
     padding-top: 3rem;
@@ -72,3 +105,10 @@
     padding-top: 7px !important;
 }
 
+.padding-cards-inicio {
+    margin-bottom: 16px !important;
+}
+
+.card-footer-inicio {
+    background-color: rgb(29, 94, 147) !important;
+}

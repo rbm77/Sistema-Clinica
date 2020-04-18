@@ -114,7 +114,35 @@ namespace BL
         {
             string confirmacion = "Error: Indefinido.";
 
+            TOCuenta toCuenta = new TOCuenta(cuenta.IdCuenta, "", cuenta.Contrasenna, "", "");
+            TOUsuario toUsuario = new TOUsuario();
+            TOMedico toMedico = new TOMedico();
+
+            DAOCuenta dao = new DAOCuenta();
+            confirmacion =  dao.CargarUsuario(toCuenta, toUsuario, toMedico);
             
+            if(!confirmacion.Contains("Error:"))
+            {
+
+                cuenta.Correo = toCuenta.Correo;
+                cuenta.Rol = toCuenta.Rol;
+                cuenta.Estado = toCuenta.Estado;
+
+                usuario.Cedula = toUsuario.Cedula;
+                usuario.Nombre = toUsuario.Nombre;
+                usuario.PrimerApellido = toUsuario.PrimerApellido;
+                usuario.SegundoApellido = toUsuario.SegundoApellido;
+                usuario.Telefono = toUsuario.Telefono;
+                usuario.CodigoAsistente = toUsuario.CodigoAsistente;
+
+                if(toCuenta.Rol.Equals("medico"))
+                {
+                    medico.IdMedico = toMedico.IdMedico;
+                    medico.CodigoMedico = toMedico.CodigoMedico;
+                    medico.Especialidad = toMedico.Especialidad;
+                    medico.DuracionCita = toMedico.DuracionCita;
+                }
+            }
 
             return confirmacion;
         }

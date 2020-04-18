@@ -111,9 +111,11 @@
     <Content Include="Bootstrap\src\js\scripts.js" />
     <Content Include="cuenta_usuario.aspx" />
     <Content Include="expediente.aspx" />
+    <Content Include="inicio.aspx" />
     <Content Include="inicio_sesion.aspx" />
     <Content Include="Recursos\bg-01.jpg" />
     <Content Include="Recursos\favicon.ico" />
+    <Content Include="Recursos\Logo_letras_azules.png" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
@@ -130,6 +132,13 @@
     </Compile>
     <Compile Include="expediente.aspx.designer.cs">
       <DependentUpon>expediente.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="inicio.aspx.cs">
+      <DependentUpon>inicio.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="inicio.aspx.designer.cs">
+      <DependentUpon>inicio.aspx</DependentUpon>
     </Compile>
     <Compile Include="inicio_sesion.aspx.cs">
       <DependentUpon>inicio_sesion.aspx</DependentUpon>

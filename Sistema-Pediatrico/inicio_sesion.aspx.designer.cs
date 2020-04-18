@@ -31,22 +31,22 @@ namespace Sistema_Pediatrico {
         protected global::System.Web.UI.WebControls.Literal mensajeConfirmacion;
         
         /// <summary>
-        /// Control txtCorreo.
+        /// Control inputCedula.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtCorreo;
+        protected global::System.Web.UI.WebControls.TextBox inputCedula;
         
         /// <summary>
-        /// Control txtContra.
+        /// Control inputContrasenna.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtContra;
+        protected global::System.Web.UI.WebControls.TextBox inputContrasenna;
         
         /// <summary>
         /// Control botonLogin.
