@@ -1,7 +1,7 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Maestra.Master" AutoEventWireup="true" CodeBehind="inicio.aspx.cs" Inherits="Sistema_Pediatrico.inicio" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
-
+    <title>Inicio</title>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
 
@@ -21,7 +21,7 @@
 
                             <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-20 padding-cards-inicio">
                                 <div class="card text-white o-hidden h-100">
-                                    <a class="card-body card-dash" href="ListaExpedientes.aspx">
+                                    <a class="card-body card-dash" style="background: #f7f7f7;" href="ListaExpedientes.aspx">
                                             <i style="color: #1d5e93" class="far fa-id-card fa-4x"></i>
                                         </a>
   
@@ -38,7 +38,7 @@
                             <div class="col-sm-12 col-xl-6 col-lg-6 col-md-12 mb-20 padding-cards-inicio">
                                 <div class="card text-white o-hidden h-100">
     
-                                        <a class="card-body card-dash" href="ListaConsultasActivas.aspx">
+                                        <a class="card-body card-dash" style="background: #f7f7f7;" href="ListaConsultasActivas.aspx">
                                             <i style="color: #1d5e93" class="fas fa-user-check fa-4x"></i>
                                         </a>
               
@@ -53,7 +53,7 @@
 
                             <div class=" col-sm-12 col-xl-6 col-lg-6 col-md-12 mb-20 padding-cards-inicio">
                                 <div class="card text-white o-hidden h-100">
-                                    <a class="card-body card-dash" href="expediente.aspx">
+                                    <a class="card-body card-dash" style="background: #f7f7f7;" href="expediente.aspx">
                                         <i style="color: #1d5e93" class="fas fa-plus-circle fa-4x"></i>
                                     </a>
                                     <a class="card-footer card-footer-inicio text-white clearfix z-1" href="expediente.aspx">
@@ -73,7 +73,7 @@
 
                             <div class=" col-sm-12 col-xl-6 col-lg-12 col-md-12 mb-20 padding-cards-inicio">
                                 <div class="card text-white o-hidden h-100">
-                                    <a class="card-body card-dash" href="MiAgenda.aspx">
+                                    <a class="card-body card-dash" style="background: #f7f7f7;" href="MiAgenda.aspx">
                                         <i style="color: #1d5e93" class="far fa-calendar-alt fa-4x"></i>
                                     </a>
                                     <a class="card-footer card-footer-inicio text-white clearfix z-1" href="MiAgenda.aspx">
@@ -89,7 +89,7 @@
                                 <div class="card text-white o-hidden h-100">
 
                              
-                                        <a class="card-body card-dash" href="GestionarAgenda.aspx">
+                                        <a class="card-body card-dash" style="background: #f7f7f7;" href="GestionarAgenda.aspx">
                                             <i style="color: #1d5e93" class="fas fa-calendar-check fa-4x"></i>
                                         </a>
 
@@ -104,7 +104,7 @@
 
                             <div class="col-sm-12 col-xl-6 col-lg-6 col-md-12 mb-20 padding-cards-inicio">
                                 <div class="card text-white o-hidden h-100">
-                                    <a class="card-body card-dash" href="CrearReportes.aspx">
+                                    <a class="card-body card-dash" style="background: #f7f7f7;" href="CrearReportes.aspx">
                                         <i style="color: #1d5e93" class="fas fa-chart-pie fa-4x"></i>
                                     </a>
                                     <a class="card-footer card-footer-inicio text-white clearfix z-1" href="CrearReportes.aspx">

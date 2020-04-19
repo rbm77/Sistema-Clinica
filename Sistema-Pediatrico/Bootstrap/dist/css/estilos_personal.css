@@ -21,6 +21,12 @@ body, html {
     font-family: Poppins-Regular, sans-serif;
 }
 
+
+.fondo-card-inicio {
+    background: #eeeff3 !important;
+}
+
+
 /*---------------------------------------------*/
 /*a {
     font-family: Poppins-Regular;
@@ -110,5 +116,5 @@ body, html {
 }
 
 .card-footer-inicio {
-    background-color: rgb(29, 94, 147) !important;
+    background-color: rgb(107, 114, 119) !important
 }
