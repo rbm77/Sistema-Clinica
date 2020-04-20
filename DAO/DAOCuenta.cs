@@ -237,7 +237,6 @@ namespace DAO
             return confirmacion;
         }
 
-
         public string CargarUsuario(TOCuenta cuenta, TOUsuario usuario, TOMedico medico)
         {
             string confirmacion = "El usuario se cargó exitosamente.";
@@ -280,7 +279,7 @@ namespace DAO
 
                 comando.Connection = conexion;
 
-                comando.CommandText = "SELECT CORREO, ROL, ESTADO FROM CUENTA_USUARIO WHERE ID_CUENTA = @idCuenta AND CONTRASENNA = @contrasenna";
+                comando.CommandText = "SELECT CORREO, ROL, ESTADO, CONTRASENNA FROM CUENTA_USUARIO WHERE ID_CUENTA = @idCuenta";
 
 
                 comando.Transaction = transaccion;
@@ -289,7 +288,6 @@ namespace DAO
                 // Se ejecuta el comando y se realiza un commit de la transacción
 
                 comando.Parameters.AddWithValue("@idCuenta", cuenta.IdCuenta);
-                comando.Parameters.AddWithValue("@contrasenna", cuenta.Contrasenna);
 
                 SqlDataReader lector = comando.ExecuteReader();
 
@@ -300,6 +298,7 @@ namespace DAO
                         cuenta.Correo = lector["CORREO"].ToString();
                         cuenta.Rol = lector["ROL"].ToString();
                         cuenta.Estado = lector["ESTADO"].ToString();
+                        cuenta.Contrasenna = lector["CONTRASENNA"].ToString();
                     }
                 }
                 else
@@ -367,7 +366,7 @@ namespace DAO
 
                 } else
                 {
-                    confirmacion = "Error: Las credenciales ingresadas no son correctas.";
+                    confirmacion = "Error: El usuario no existe";
                 }
 
                 transaccion.Commit();
@@ -399,6 +398,134 @@ namespace DAO
             }
             return confirmacion;
         }
+
+        public string IniciarSesion(TOCuenta cuenta, TOUsuario usuario)
+        {
+            string confirmacion = "La sesión se ha iniciado correctamente.";
+
+            // Se abre la conexión
+
+            if (conexion != null)
+            {
+                try
+                {
+                    if (conexion.State != ConnectionState.Open)
+                    {
+                        conexion.Open();
+                    }
+                }
+                catch (Exception)
+                {
+                    confirmacion = "Error: No se pudo iniciar la sesión de usuario";
+                    return confirmacion;
+
+                }
+            }
+            else
+            {
+                confirmacion = "Error: No se pudo iniciar la sesión de usuario";
+                return confirmacion;
+            }
+
+            // Se inicia una nueva transacción
+
+            SqlTransaction transaccion = null;
+
+            try
+            {
+                transaccion = conexion.BeginTransaction("Iniciar sesión de usuario");
+
+                // Se crea un nuevo comando con la secuencia SQL y el objeto de conexión
+
+                SqlCommand comando = new SqlCommand();
+
+                comando.Connection = conexion;
+
+                comando.CommandText = "SELECT ROL FROM CUENTA_USUARIO WHERE ID_CUENTA = @idCuenta AND CONTRASENNA = @contrasenna AND ESTADO = 'activa'";
+
+
+                comando.Transaction = transaccion;
+
+
+                // Se ejecuta el comando y se realiza un commit de la transacción
+
+                comando.Parameters.AddWithValue("@idCuenta", cuenta.IdCuenta);
+                comando.Parameters.AddWithValue("@contrasenna", cuenta.Contrasenna);
+
+                SqlDataReader lector = comando.ExecuteReader();
+
+                if (lector.HasRows)
+                {
+                    while (lector.Read())
+                    {
+                        cuenta.Rol = lector["ROL"].ToString();
+                    }
+                }
+                else
+                {
+                    cuenta.IdCuenta = "";
+                    confirmacion = "Error: El usuario no existe o la cuenta se encuentra inactiva";
+                }
+
+                lector.Close();
+
+                comando.Parameters.Clear();
+
+                if (!cuenta.IdCuenta.Equals(""))
+                {
+
+                    comando.CommandText = "SELECT NOMBRE, PRIMER_APELLIDO, SEGUNDO_APELLIDO FROM USUARIO WHERE CEDULA = @cedula";
+
+
+                    comando.Parameters.AddWithValue("@cedula", cuenta.IdCuenta);
+
+                    lector = comando.ExecuteReader();
+
+                    if (lector.HasRows)
+                    {
+                        while (lector.Read())
+                        {
+                            usuario.Nombre = lector["NOMBRE"].ToString();
+                            usuario.PrimerApellido = lector["PRIMER_APELLIDO"].ToString();
+                            usuario.SegundoApellido = lector["SEGUNDO_APELLIDO"].ToString();
+                        }
+                    }
+
+                    lector.Close();
+                }
+
+
+                transaccion.Commit();
+
+            }
+            catch (Exception)
+            {
+                try
+                {
+
+                    // En caso de un error se realiza un rollback a la transacción
+
+                    transaccion.Rollback();
+                }
+                catch (Exception)
+                {
+                }
+                finally
+                {
+                    confirmacion = "Error: No se pudo iniciar la sesión de usuario";
+                }
+            }
+            finally
+            {
+                if (conexion.State != ConnectionState.Closed)
+                {
+                    conexion.Close();
+                }
+            }
+            return confirmacion;
+        }
+
+
 
     }
 }

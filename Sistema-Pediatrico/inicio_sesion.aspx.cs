@@ -25,8 +25,8 @@ namespace Sistema_Pediatrico
                 ManejadorCuenta manejador = new ManejadorCuenta();
                 BLCuenta cuenta = new BLCuenta(cedula, "", contrasenna, "", "");
                 BLUsuario usuario = new BLUsuario();
-                BLMedico medico = new BLMedico();
-                string confirmacion = manejador.CargarUsuario(cuenta, usuario, medico);
+
+                string confirmacion = manejador.IniciarSesion(cuenta, usuario);
 
                 if (confirmacion.Contains("Error:"))
                 {
@@ -41,9 +41,10 @@ namespace Sistema_Pediatrico
                     mensajeConfirmacion.Visible = false;
 
 
-                    Session["cuenta"] = cuenta;
-                    Session["usuario"] = usuario;
-                    Session["medico"] = medico;
+                    Session["id"] = cuenta.IdCuenta;
+                    Session["rol"] = cuenta.Rol;
+                    Session["nombre"] = usuario.Nombre + " " + usuario.PrimerApellido + " " + usuario.SegundoApellido;
+                    Session["accion"] = "iniciar";
 
                     Response.Redirect("inicio.aspx");
                 }

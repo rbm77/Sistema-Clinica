@@ -11,7 +11,10 @@ namespace Sistema_Pediatrico
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-
+            if(Session["nombre"] != null)
+            {
+                conectadoComo.Text = Session["nombre"].ToString();
+            }
         }
     }
 }

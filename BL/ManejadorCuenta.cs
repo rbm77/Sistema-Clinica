@@ -114,7 +114,9 @@ namespace BL
         {
             string confirmacion = "Error: Indefinido.";
 
-            TOCuenta toCuenta = new TOCuenta(cuenta.IdCuenta, "", cuenta.Contrasenna, "", "");
+            TOCuenta toCuenta = new TOCuenta();
+            toCuenta.IdCuenta = cuenta.IdCuenta;
+
             TOUsuario toUsuario = new TOUsuario();
             TOMedico toMedico = new TOMedico();
 
@@ -127,6 +129,7 @@ namespace BL
                 cuenta.Correo = toCuenta.Correo;
                 cuenta.Rol = toCuenta.Rol;
                 cuenta.Estado = toCuenta.Estado;
+                cuenta.Contrasenna = toCuenta.Contrasenna;
 
                 usuario.Cedula = toUsuario.Cedula;
                 usuario.Nombre = toUsuario.Nombre;
@@ -146,5 +149,29 @@ namespace BL
 
             return confirmacion;
         }
+
+        public string IniciarSesion(BLCuenta cuenta, BLUsuario usuario)
+        {
+            string confirmacion = "Error: Indefinido.";
+
+            TOCuenta toCuenta = new TOCuenta(cuenta.IdCuenta, "", cuenta.Contrasenna, "", "");
+            TOUsuario toUsuario = new TOUsuario();
+
+            DAOCuenta dao = new DAOCuenta();
+            confirmacion = dao.IniciarSesion(toCuenta, toUsuario);
+
+            if (!confirmacion.Contains("Error:"))
+            {
+                cuenta.Rol = toCuenta.Rol;
+
+                usuario.Nombre = toUsuario.Nombre;
+                usuario.PrimerApellido = toUsuario.PrimerApellido;
+                usuario.SegundoApellido = toUsuario.SegundoApellido;
+
+            }
+
+            return confirmacion;
+        }
+
     }
 }

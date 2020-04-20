@@ -12,13 +12,31 @@ namespace Sistema_Pediatrico
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            if(!IsPostBack)
+
+            if (!IsPostBack)
             {
-                this.inputCodigoAsistente.Attributes["disabled"] = "disabled";
-                this.inputCodigoMedico.Attributes["disabled"] = "disabled";
-                this.inputEspecialidad.Attributes["disabled"] = "disabled";
                 CargarCodigosMedicos(new List<string>());
+
+                // Se verifica si la accion es crear una nueva cuenta
+
+                if (Session["accion"] != null)
+                {
+                    string accion = Session["accion"].ToString();
+
+                    if (accion.Equals("crearCuenta"))
+                    {
+                        inputCodigoAsistente.Attributes.Add("disabled", "disabled");
+                        inputCodigoMedico.Attributes.Add("disabled", "disabled");
+                        inputEspecialidad.Attributes.Add("disabled", "disabled");
+                    }
+                    else
+                    {
+                        Consultar();
+                    }
+                }
             }
+
+           
         }
 
         protected void btnGuardar_Click(object sender, EventArgs e)
@@ -49,20 +67,70 @@ namespace Sistema_Pediatrico
                 BLUsuario usuario = new BLUsuario(cedula, nombre, primerApellido, segundoApellido, telefono, codigoAsistente);
                 BLMedico medico = new BLMedico(cedula, codigoMedico, especialidad, "");
 
-                confirmacion = manejador.CrearCuenta(cuenta, usuario, medico);
+                // AQUI DE DIVIDE EL PROCESO DEPENDIENDO DE SI LA ACCION ES CREAR O ACTUALIZAR
 
-                if (!confirmacion.Contains("Error:"))
+                
+
+                if(Session["accion"] != null)
                 {
-                    if(rol.Equals("medico"))
+                    string accion = Session["accion"].ToString();
+
+                    if (accion.Equals("crearCuenta"))
                     {
-                        CargarCodigosMedicos(new List<string>());
+                        confirmacion = manejador.CrearCuenta(cuenta, usuario, medico);
+                        if (!confirmacion.Contains("Error:"))
+                        {
+                            if (rol.Equals("medico"))
+                            {
+                                CargarCodigosMedicos(new List<string>());
+                            }
+                            LimpiarDatos();
+                        }
                     }
-                    LimpiarDatos();
+                    else
+                    {
+                        // AQUI SE HACE EL ACTUALIZAR
+                        // SI ES CORRECTO LOS DATOS NO SE LIMPIAN
+                        // SI ES INCORRECTO SE LLAMA A UN CONSULTAR PARA QUE LOS DATOS ESTEN EN SU ESTADO ACTUAL
+                        // MOSTRAR EL MENSAJE DE CONFIRMACION EN CUALQUIERA DE LOS DOS CASOS
+
+                    // RECORDAR ACTUALIZAR EL NOMBRE DE LA SESION EN CASO DE QUE LO HAYA CAMBIADO EN LOS DATOS PERSONALES
+                    }
                 }
             }
+
             MensajeAviso(confirmacion);
-            inputRol.Value = "nulo";
-            inputCodigoAsistente.SelectedValue = "nulo";
+
+            string rolTemp = inputRol.Value.Trim();
+
+            if (!rolTemp.Equals("nulo"))
+            {
+                if (rolTemp.Equals("medico"))
+                {
+                    inputCodigoAsistente.Attributes.Add("disabled", "disabled");
+                    inputCodigoMedico.Attributes.Remove("disabled");
+                    inputEspecialidad.Attributes.Remove("disabled");
+
+                }
+                else if (rolTemp.Equals("asistente"))
+                {
+                    inputCodigoMedico.Attributes.Add("disabled", "disabled");
+                    inputEspecialidad.Attributes.Add("disabled", "disabled");
+                    inputCodigoAsistente.Attributes.Remove("disabled");
+                }
+                else if (rolTemp.Equals("administrador"))
+                {
+                    inputCodigoAsistente.Attributes.Add("disabled", "disabled");
+                    inputCodigoMedico.Attributes.Add("disabled", "disabled");
+                    inputEspecialidad.Attributes.Add("disabled", "disabled");
+                }
+            }
+            else
+            {
+                inputCodigoAsistente.Attributes.Add("disabled", "disabled");
+                inputCodigoMedico.Attributes.Add("disabled", "disabled");
+                inputEspecialidad.Attributes.Add("disabled", "disabled");
+            }
         }
 
         protected void btnRegresar_Click(object sender, EventArgs e)
@@ -103,6 +171,10 @@ namespace Sistema_Pediatrico
             inputRol.Value = "nulo";
             inputCodigoMedico.Text = "";
             inputEspecialidad.Text = "";
+            inputCodigoAsistente.SelectedValue = "nulo";
+            inputCodigoAsistente.Attributes.Add("disabled", "disabled");
+            inputCodigoMedico.Attributes.Add("disabled", "disabled");
+            inputEspecialidad.Attributes.Add("disabled", "disabled");
         }
 
         private void CargarCodigosMedicos(List<string> codigos)
@@ -127,5 +199,67 @@ namespace Sistema_Pediatrico
                 MensajeAviso(confirmacion);
             }
         }
+
+        private void Consultar()
+        {
+            if (Session["id"] != null && Session["rol"] != null)
+            {
+
+                BLCuenta cuenta = new BLCuenta();
+                cuenta.IdCuenta = Session["id"].ToString();
+
+                BLUsuario usuario = new BLUsuario();
+                BLMedico medico = new BLMedico();
+
+                ManejadorCuenta manejador = new ManejadorCuenta();
+                string confirmacion = manejador.CargarUsuario(cuenta, usuario, medico);
+
+
+                if (!confirmacion.Contains("Error:"))
+                {
+                    inputCedula.Text = usuario.Cedula;
+                    inputNombre.Text = usuario.Nombre;
+                    inputPrimerApellido.Text = usuario.PrimerApellido;
+                    inputSegundoApellido.Text = usuario.SegundoApellido;
+                    inputTelefono.Text = usuario.Telefono;
+                    inputCorreo.Text = cuenta.Correo;
+                    inputContrasenna.Text = cuenta.Contrasenna;
+                    inputConfirmar.Text = cuenta.Contrasenna;
+                    string rol = cuenta.Rol;
+                    inputRol.Value = rol;
+
+                    if (rol.Equals("medico"))
+                    {
+                        inputCodigoAsistente.Attributes.Add("disabled", "disabled");
+                        inputCodigoMedico.Text = medico.CodigoMedico;
+                        inputEspecialidad.Text = medico.Especialidad;
+                    }
+                    else if (rol.Equals("asistente"))
+                    {
+                        inputCodigoMedico.Attributes.Add("disabled", "disabled");
+                        inputEspecialidad.Attributes.Add("disabled", "disabled");
+                        inputCodigoAsistente.SelectedValue = usuario.CodigoAsistente;
+                    }
+                    else if (rol.Equals("administrador"))
+                    {
+                        inputCodigoAsistente.Attributes.Add("disabled", "disabled");
+                        inputCodigoMedico.Attributes.Add("disabled", "disabled");
+                        inputEspecialidad.Attributes.Add("disabled", "disabled");
+                    }
+                    inputCedula.Attributes.Add("disabled", "disabled");
+                    inputRol.Attributes.Add("disabled", "disabled");
+                }
+                else
+                {
+                    MensajeAviso(confirmacion);
+
+                    contenedorDatos.Visible = false;
+
+                }
+            }
+               
+        }
+
+
     }
 }
