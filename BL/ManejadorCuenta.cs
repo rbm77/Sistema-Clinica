@@ -61,6 +61,56 @@ namespace BL
             return confirmacion;
         }
 
+        public string ActualizarCuenta(BLCuenta blCuenta, BLUsuario blUsuario, BLMedico blMedico)
+        {
+            string confirmacion = "Error: Indefinido.";
+
+            if (blCuenta != null && blUsuario != null)
+            {
+                TOCuenta toCuenta = new TOCuenta(blCuenta.IdCuenta.Trim(), blCuenta.Correo.Trim(), blCuenta.Contrasenna.Trim(),
+               blCuenta.Rol.Trim(), blCuenta.Estado.Trim());
+
+                TOUsuario toUsuario = new TOUsuario(blUsuario.Cedula.Trim(), blUsuario.Nombre.Trim(),
+                    blUsuario.PrimerApellido.Trim(), blUsuario.SegundoApellido.Trim(),
+                    blUsuario.Telefono, blUsuario.CodigoAsistente);
+
+                TOMedico toMedico = null;
+
+                toCuenta = ValidarCuenta(toCuenta);
+
+                if (toCuenta != null)
+                {
+                    toUsuario = ValidarUsuario(toUsuario, toCuenta.Rol);
+                }
+
+                if (toCuenta != null && toUsuario != null)
+                {
+
+
+                    if (toCuenta.Rol.Equals("medico") && blMedico != null)
+                    {
+                        toMedico = new TOMedico(blMedico.IdMedico.Trim(), blMedico.CodigoMedico.Trim(),
+                            blMedico.Especialidad.Trim(), blMedico.DuracionCita.Trim());
+
+                        toMedico = ValidarMedico(toMedico);
+
+                        if (toMedico == null)
+                        {
+                            return "Error: Puede que algunos datos se encuentren vacíos o con un formato incorrecto.";
+                        }
+
+                    }
+                    DAOCuenta daoCuenta = new DAOCuenta();
+                    return daoCuenta.ActualizarCuenta(toCuenta, toUsuario, toMedico);
+                }
+                else
+                {
+                    return "Error: Puede que algunos datos se encuentren vacíos o con un formato incorrecto.";
+                }
+            }
+            return confirmacion;
+        }
+
         private TOCuenta ValidarCuenta(TOCuenta toCuenta)
         {
             if ((!toCuenta.Correo.Contains("@")) || (toCuenta.Correo == null) || (toCuenta.Correo.Equals(""))
@@ -167,7 +217,6 @@ namespace BL
                 usuario.Nombre = toUsuario.Nombre;
                 usuario.PrimerApellido = toUsuario.PrimerApellido;
                 usuario.SegundoApellido = toUsuario.SegundoApellido;
-
             }
 
             return confirmacion;

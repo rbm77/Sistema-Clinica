@@ -143,7 +143,6 @@ namespace DAO
             return confirmacion;
         }
 
-
         public string CargarCodigosMedicos(List<string> codigos)
         {
             string confirmacion = "Los códigos de los médicos se cargaron exitosamente.";
@@ -525,7 +524,148 @@ namespace DAO
             return confirmacion;
         }
 
+        public string ActualizarCuenta(TOCuenta toCuenta, TOUsuario toUsuario, TOMedico toMedico)
+        {
+            string confirmacion = "La cuenta se actualizó exitosamente.";
 
+            // Se abre la conexión
+
+            if (conexion != null)
+            {
+                try
+                {
+                    if (conexion.State != ConnectionState.Open)
+                    {
+                        conexion.Open();
+                    }
+                }
+                catch (Exception)
+                {
+                    confirmacion = "Error: No se pudo actualizar la cuenta en el sistema";
+                    return confirmacion;
+
+                }
+            }
+            else
+            {
+                confirmacion = "Error: No se pudo actualizar la cuenta en el sistema";
+                return confirmacion;
+            }
+
+            // Se inicia una nueva transacción
+
+            SqlTransaction transaccion = null;
+
+
+
+            try
+            {
+                transaccion = conexion.BeginTransaction("Actualizar una cuenta");
+
+                // Se crea un nuevo comando con la secuencia SQL y el objeto de conexión
+
+                SqlCommand comando = new SqlCommand();
+
+                comando.Connection = conexion;
+
+                comando.CommandText = "UPDATE CUENTA_USUARIO SET " +
+                    "CORREO = @correo, " +
+                    "CONTRASENNA = @contrasenna, " +
+                    "ROL = @rol, " +
+                    "ESTADO = @estado " +
+                    "WHERE ID_CUENTA = @id";
+
+
+                comando.Transaction = transaccion;
+
+                // Se asigna un valor a los parámetros del comando a ejecutar
+
+                comando.Parameters.AddWithValue("@id", toCuenta.IdCuenta);
+                comando.Parameters.AddWithValue("@correo", toCuenta.Correo);
+                comando.Parameters.AddWithValue("@contrasenna", toCuenta.Contrasenna);
+                comando.Parameters.AddWithValue("@rol", toCuenta.Rol);
+                comando.Parameters.AddWithValue("@estado", toCuenta.Estado);
+
+                // Se ejecuta el comando y se realiza un commit de la transacción
+
+                comando.ExecuteNonQuery();
+
+
+                comando.Parameters.Clear();
+
+
+                comando.CommandText = "UPDATE USUARIO SET " +
+                    "NOMBRE = @nombre, " +
+                    "PRIMER_APELLIDO = @primer, " +
+                    "SEGUNDO_APELLIDO = @segundo, " +
+                    "TELEFONO = @telefono, " +
+                    "CODIGO_ASISTENTE = @codigoAsistente " +
+                    "WHERE CEDULA = @cedula;";
+
+                // Se asigna un valor a los parámetros del comando a ejecutar
+
+                comando.Parameters.AddWithValue("@cedula", toUsuario.Cedula);
+                comando.Parameters.AddWithValue("@nombre", toUsuario.Nombre);
+                comando.Parameters.AddWithValue("@primer", toUsuario.PrimerApellido);
+                comando.Parameters.AddWithValue("@segundo", toUsuario.SegundoApellido);
+                comando.Parameters.AddWithValue("@telefono", toUsuario.Telefono);
+                comando.Parameters.AddWithValue("@codigoAsistente", toUsuario.CodigoAsistente);
+
+                // Se ejecuta el comando y se realiza un commit de la transacción
+
+                comando.ExecuteNonQuery();
+
+                comando.Parameters.Clear();
+
+                if (toCuenta.Rol.Equals("medico") && toMedico != null)
+                {
+                    comando.CommandText = "UPDATE MEDICO SET " +
+                        "CODIGO_MEDICO = @codigo, " +
+                        "ESPECIALIDAD = @especialidad, " +
+                        "DURACION_CITA = @duracion " +
+                        "WHERE ID_MEDICO = @id;";
+
+                    // Se asigna un valor a los parámetros del comando a ejecutar
+
+                    comando.Parameters.AddWithValue("@id", toMedico.IdMedico);
+                    comando.Parameters.AddWithValue("@codigo", toMedico.CodigoMedico);
+                    comando.Parameters.AddWithValue("@especialidad", toMedico.Especialidad);
+                    comando.Parameters.AddWithValue("@duracion", toMedico.DuracionCita);
+
+                    // Se ejecuta el comando y se realiza un commit de la transacción
+
+                    comando.ExecuteNonQuery();
+                }
+
+                transaccion.Commit();
+
+            }
+            catch (Exception e)
+            {
+                try
+                {
+                    string err = e.Message;
+                    // En caso de un error se realiza un rollback a la transacción
+
+                    transaccion.Rollback();
+                }
+                catch (Exception)
+                {
+                }
+                finally
+                {
+                    confirmacion = "Error: No se pudo actualizar la cuenta en el sistema";
+                }
+            }
+            finally
+            {
+                if (conexion.State != ConnectionState.Closed)
+                {
+                    conexion.Close();
+                }
+            }
+            return confirmacion;
+        }
 
     }
 }

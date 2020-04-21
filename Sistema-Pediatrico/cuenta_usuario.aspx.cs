@@ -26,8 +26,8 @@ namespace Sistema_Pediatrico
                     if (accion.Equals("crearCuenta"))
                     {
                         inputCodigoAsistente.Attributes.Add("disabled", "disabled");
-                        inputCodigoMedico.Attributes.Add("disabled", "disabled");
-                        inputEspecialidad.Attributes.Add("disabled", "disabled");
+                        inputCodigoMedico.ReadOnly = true;
+                        inputEspecialidad.ReadOnly = true;
                     }
                     else
                     {
@@ -42,7 +42,8 @@ namespace Sistema_Pediatrico
         protected void btnGuardar_Click(object sender, EventArgs e)
         {
             mensajeConfirmacion.Visible = false;
-            string cedula = inputCedula.Text.Trim();
+
+            string cedula = inputCedula.Text;
             string nombre = inputNombre.Text.Trim();
             string primerApellido = inputPrimerApellido.Text.Trim();
             string segundoApellido = inputSegundoApellido.Text.Trim();
@@ -89,12 +90,15 @@ namespace Sistema_Pediatrico
                     }
                     else
                     {
-                        // AQUI SE HACE EL ACTUALIZAR
-                        // SI ES CORRECTO LOS DATOS NO SE LIMPIAN
-                        // SI ES INCORRECTO SE LLAMA A UN CONSULTAR PARA QUE LOS DATOS ESTEN EN SU ESTADO ACTUAL
-                        // MOSTRAR EL MENSAJE DE CONFIRMACION EN CUALQUIERA DE LOS DOS CASOS
-
-                    // RECORDAR ACTUALIZAR EL NOMBRE DE LA SESION EN CASO DE QUE LO HAYA CAMBIADO EN LOS DATOS PERSONALES
+                        confirmacion = manejador.ActualizarCuenta(cuenta, usuario, medico);
+                        if (!confirmacion.Contains("Error:"))
+                        {
+                            Session["nombre"] = usuario.Nombre + " " + usuario.PrimerApellido + " " + usuario.SegundoApellido;
+                        }
+                        else
+                        {
+                            Consultar();
+                        }
                     }
                 }
             }
@@ -108,28 +112,26 @@ namespace Sistema_Pediatrico
                 if (rolTemp.Equals("medico"))
                 {
                     inputCodigoAsistente.Attributes.Add("disabled", "disabled");
-                    inputCodigoMedico.Attributes.Remove("disabled");
-                    inputEspecialidad.Attributes.Remove("disabled");
-
+                    inputEspecialidad.ReadOnly = false;
                 }
                 else if (rolTemp.Equals("asistente"))
                 {
-                    inputCodigoMedico.Attributes.Add("disabled", "disabled");
-                    inputEspecialidad.Attributes.Add("disabled", "disabled");
+                    inputCodigoMedico.ReadOnly = true;
+                    inputEspecialidad.ReadOnly = true;
                     inputCodigoAsistente.Attributes.Remove("disabled");
                 }
                 else if (rolTemp.Equals("administrador"))
                 {
                     inputCodigoAsistente.Attributes.Add("disabled", "disabled");
-                    inputCodigoMedico.Attributes.Add("disabled", "disabled");
-                    inputEspecialidad.Attributes.Add("disabled", "disabled");
+                    inputCodigoMedico.ReadOnly = true;
+                    inputEspecialidad.ReadOnly = true;
                 }
             }
             else
             {
                 inputCodigoAsistente.Attributes.Add("disabled", "disabled");
-                inputCodigoMedico.Attributes.Add("disabled", "disabled");
-                inputEspecialidad.Attributes.Add("disabled", "disabled");
+                inputCodigoMedico.ReadOnly = true;
+                inputEspecialidad.ReadOnly = true;
             }
         }
 
@@ -173,8 +175,8 @@ namespace Sistema_Pediatrico
             inputEspecialidad.Text = "";
             inputCodigoAsistente.SelectedValue = "nulo";
             inputCodigoAsistente.Attributes.Add("disabled", "disabled");
-            inputCodigoMedico.Attributes.Add("disabled", "disabled");
-            inputEspecialidad.Attributes.Add("disabled", "disabled");
+            inputCodigoMedico.ReadOnly = true;
+            inputEspecialidad.ReadOnly = true;
         }
 
         private void CargarCodigosMedicos(List<string> codigos)
@@ -217,6 +219,7 @@ namespace Sistema_Pediatrico
 
                 if (!confirmacion.Contains("Error:"))
                 {
+
                     inputCedula.Text = usuario.Cedula;
                     inputNombre.Text = usuario.Nombre;
                     inputPrimerApellido.Text = usuario.PrimerApellido;
@@ -233,20 +236,23 @@ namespace Sistema_Pediatrico
                         inputCodigoAsistente.Attributes.Add("disabled", "disabled");
                         inputCodigoMedico.Text = medico.CodigoMedico;
                         inputEspecialidad.Text = medico.Especialidad;
+                        inputCodigoMedico.ReadOnly = true;
                     }
                     else if (rol.Equals("asistente"))
                     {
-                        inputCodigoMedico.Attributes.Add("disabled", "disabled");
-                        inputEspecialidad.Attributes.Add("disabled", "disabled");
+                        inputCodigoMedico.ReadOnly = true;
+                        inputEspecialidad.ReadOnly = true;
                         inputCodigoAsistente.SelectedValue = usuario.CodigoAsistente;
                     }
                     else if (rol.Equals("administrador"))
                     {
                         inputCodigoAsistente.Attributes.Add("disabled", "disabled");
-                        inputCodigoMedico.Attributes.Add("disabled", "disabled");
-                        inputEspecialidad.Attributes.Add("disabled", "disabled");
+                        inputCodigoMedico.ReadOnly = true;
+                        inputEspecialidad.ReadOnly = true;
                     }
-                    inputCedula.Attributes.Add("disabled", "disabled");
+
+                   // inputCedula.Attributes.Add("disabled", "disabled");
+                    inputCedula.ReadOnly = true;
                     inputRol.Attributes.Add("disabled", "disabled");
                 }
                 else

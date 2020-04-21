@@ -39,7 +39,7 @@
                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="userDropdown">
                     <a class="dropdown-item" href="cuenta_usuario.aspx">Ajustes de cuenta</a>
                     <div class="dropdown-divider"></div>
-                    <a class="dropdown-item" href="login.html">Salir</a>
+                    <a class="dropdown-item" href="inicio_sesion.aspx">Salir</a>
                 </div>
             </li>
         </ul>
@@ -93,7 +93,7 @@
                         </a>
 
                         <div class="sb-sidenav-menu-heading">ADMINISTRACIÓN</div>
-                        <a class="nav-link collapsed" href="charts.html">
+                        <a class="nav-link collapsed" href="administracion.aspx">
                             <div class="sb-nav-link-icon"><i class="fas fa-user-cog"></i></div>
                             Cuentas
                          

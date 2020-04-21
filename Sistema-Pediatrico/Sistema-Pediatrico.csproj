@@ -67,6 +67,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="administracion.aspx" />
     <Content Include="Bootstrap\.gitignore" />
     <Content Include="Bootstrap\dist\401.html" />
     <Content Include="Bootstrap\dist\404.html" />
@@ -119,6 +120,13 @@
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="administracion.aspx.cs">
+      <DependentUpon>administracion.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="administracion.aspx.designer.cs">
+      <DependentUpon>administracion.aspx</DependentUpon>
+    </Compile>
     <Compile Include="cuenta_usuario.aspx.cs">
       <DependentUpon>cuenta_usuario.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>

@@ -12,7 +12,15 @@ namespace Sistema_Pediatrico
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-
+            if (!IsPostBack)
+            {
+                if(Session["accion"] != null)
+                {
+                    Session["accion"] = null;
+                    inputCedula.Text = "";
+                    inputContrasenna.Text = "";
+                }
+            }
         }
 
         protected void botonLogin_Click(object sender, EventArgs e)
