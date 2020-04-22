@@ -200,6 +200,37 @@ namespace BL
             return confirmacion;
         }
 
+        public string CargarUsuarios(List<BLCuenta> cuentas, List<BLUsuario> usuarios)
+        {
+            string confirmacion = "Error: Indefinido.";
+
+            List<TOCuenta> toCuentas = new List<TOCuenta>();
+            List<TOUsuario> toUsuarios = new List<TOUsuario>();
+
+            DAOCuenta dao = new DAOCuenta();
+            confirmacion = dao.CargarUsuarios(toCuentas, toUsuarios);
+
+            if (!confirmacion.Contains("Error:"))
+            {
+                foreach (TOCuenta i in toCuentas) {
+                    BLCuenta c = new BLCuenta();
+                    c.IdCuenta = i.IdCuenta;
+                    c.Correo = i.Correo;
+                    c.Estado = i.Estado;
+                    cuentas.Add(c);
+                }
+
+                foreach (TOUsuario i in toUsuarios)
+                {
+                    BLUsuario u = new BLUsuario(i.Cedula, i.Nombre, i.PrimerApellido, i.SegundoApellido, i.Telefono, "");
+                    usuarios.Add(u);
+                }
+            }
+
+            return confirmacion;
+        }
+
+
         public string IniciarSesion(BLCuenta cuenta, BLUsuario usuario)
         {
             string confirmacion = "Error: Indefinido.";

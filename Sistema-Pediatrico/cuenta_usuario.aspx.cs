@@ -23,16 +23,25 @@ namespace Sistema_Pediatrico
                 {
                     string accion = Session["accion"].ToString();
 
-                    if (accion.Equals("crearCuenta"))
+                    string anterior = "";
+
+                    if(Session["anterior"] != null)
+                    {
+                        anterior = Session["anterior"].ToString();
+                    }
+
+                    if (accion.Equals("crearCuenta") && anterior.Equals("administracion.aspx"))
                     {
                         inputCodigoAsistente.Attributes.Add("disabled", "disabled");
-                        inputCodigoMedico.ReadOnly = true;
-                        inputEspecialidad.ReadOnly = true;
+                        inputCodigoMedico.Attributes.Add("disabled", "disabled");
+                        inputEspecialidad.Attributes.Add("disabled", "disabled");
+                        Session["anterior"] = "cuenta_usuario.aspx";
                     }
                     else
                     {
                         Consultar();
                     }
+                    
                 }
             }
 
@@ -72,11 +81,19 @@ namespace Sistema_Pediatrico
 
                 
 
+
                 if(Session["accion"] != null)
                 {
-                    string accion = Session["accion"].ToString();
 
-                    if (accion.Equals("crearCuenta"))
+                    string accion = Session["accion"].ToString();
+                    string anterior = "";
+
+                    if (Session["anterior"] != null)
+                    {
+                        anterior = Session["anterior"].ToString();
+                    }
+
+                    if (accion.Equals("crearCuenta") && anterior.Equals("administracion.aspx"))
                     {
                         confirmacion = manejador.CrearCuenta(cuenta, usuario, medico);
                         if (!confirmacion.Contains("Error:"))
@@ -102,6 +119,10 @@ namespace Sistema_Pediatrico
                     }
                 }
             }
+            else
+            {
+                Consultar();
+            }
 
             MensajeAviso(confirmacion);
 
@@ -112,26 +133,27 @@ namespace Sistema_Pediatrico
                 if (rolTemp.Equals("medico"))
                 {
                     inputCodigoAsistente.Attributes.Add("disabled", "disabled");
-                    inputEspecialidad.ReadOnly = false;
+                    inputEspecialidad.Attributes.Remove("disabled");
+                    inputCodigoMedico.Attributes.Remove("disabled");
                 }
                 else if (rolTemp.Equals("asistente"))
                 {
-                    inputCodigoMedico.ReadOnly = true;
-                    inputEspecialidad.ReadOnly = true;
+                    inputCodigoMedico.Attributes.Add("disabled", "disabled");
+                    inputEspecialidad.Attributes.Add("disabled", "disabled");
                     inputCodigoAsistente.Attributes.Remove("disabled");
                 }
                 else if (rolTemp.Equals("administrador"))
                 {
                     inputCodigoAsistente.Attributes.Add("disabled", "disabled");
-                    inputCodigoMedico.ReadOnly = true;
-                    inputEspecialidad.ReadOnly = true;
+                    inputCodigoMedico.Attributes.Add("disabled", "disabled");
+                    inputEspecialidad.Attributes.Add("disabled", "disabled");
                 }
             }
             else
             {
                 inputCodigoAsistente.Attributes.Add("disabled", "disabled");
-                inputCodigoMedico.ReadOnly = true;
-                inputEspecialidad.ReadOnly = true;
+                inputCodigoMedico.Attributes.Add("disabled", "disabled");
+                inputEspecialidad.Attributes.Add("disabled", "disabled");
             }
         }
 
@@ -175,8 +197,8 @@ namespace Sistema_Pediatrico
             inputEspecialidad.Text = "";
             inputCodigoAsistente.SelectedValue = "nulo";
             inputCodigoAsistente.Attributes.Add("disabled", "disabled");
-            inputCodigoMedico.ReadOnly = true;
-            inputEspecialidad.ReadOnly = true;
+            inputCodigoMedico.Attributes.Add("disabled", "disabled");
+            inputEspecialidad.Attributes.Add("disabled", "disabled");
         }
 
         private void CargarCodigosMedicos(List<string> codigos)

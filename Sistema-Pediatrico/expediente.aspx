@@ -611,10 +611,10 @@
 
                     <div class="row justify-content-center" style="margin-top: 30px">
                         <div class="col-md-2 col-sm-5">
-                            <asp:Button ID="btnGuardar" runat="server" Text="Guardar" CssClass="btn btn-guardar" OnClick="btnGuardar_Click" />
+                            <asp:Button ID="btnGuardar" runat="server" Text="Guardar" CssClass="btn btn-general btn-guardar" OnClick="btnGuardar_Click" />
                         </div>
                         <div class="col-md-2 col-sm-5">
-                            <asp:Button ID="btnRegresar" runat="server" Text="Cancelar" CssClass="btn btn-regresar" />
+                            <asp:Button ID="btnRegresar" runat="server" Text="Cancelar" CssClass="btn btn-general btn-regresar" />
                         </div>
                     </div>
 

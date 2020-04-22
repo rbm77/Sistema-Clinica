@@ -96,7 +96,7 @@ namespace DAO
 
                 comando.Parameters.Clear();
 
-                if(toCuenta.Rol.Equals("medico") && toMedico != null)
+                if (toCuenta.Rol.Equals("medico") && toMedico != null)
                 {
                     comando.CommandText = "INSERT INTO MEDICO (ID_MEDICO, CODIGO_MEDICO, ESPECIALIDAD, DURACION_CITA) " +
                         "VALUES (@id, @codigo, @especialidad, @duracion);";
@@ -310,7 +310,7 @@ namespace DAO
                 comando.Parameters.Clear();
 
 
-                if(!cuenta.IdCuenta.Equals(""))
+                if (!cuenta.IdCuenta.Equals(""))
                 {
 
                     comando.CommandText = "SELECT * FROM USUARIO WHERE CEDULA = @cedula";
@@ -363,7 +363,8 @@ namespace DAO
                     }
 
 
-                } else
+                }
+                else
                 {
                     confirmacion = "Error: El usuario no existe";
                 }
@@ -397,6 +398,122 @@ namespace DAO
             }
             return confirmacion;
         }
+
+        public string CargarUsuarios(List<TOCuenta> cuentas, List<TOUsuario> usuarios)
+        {
+            string confirmacion = "Las cuentas de usuario se cargaron exitosamente.";
+
+            // Se abre la conexión
+
+            if (conexion != null)
+            {
+                try
+                {
+                    if (conexion.State != ConnectionState.Open)
+                    {
+                        conexion.Open();
+                    }
+                }
+                catch (Exception)
+                {
+                    confirmacion = "Error: No se pueden cargar las cuentas de usuario";
+                    return confirmacion;
+
+                }
+            }
+            else
+            {
+                confirmacion = "Error: No se pueden cargar las cuentas de usuario";
+                return confirmacion;
+            }
+
+            // Se inicia una nueva transacción
+
+            SqlTransaction transaccion = null;
+
+            try
+            {
+                transaccion = conexion.BeginTransaction("Cargar cuentas de usuario");
+
+                // Se crea un nuevo comando con la secuencia SQL y el objeto de conexión
+
+                SqlCommand comando = new SqlCommand();
+
+                comando.Connection = conexion;
+
+                comando.CommandText = "SELECT ID_CUENTA, CORREO, ESTADO FROM CUENTA_USUARIO";
+
+
+                comando.Transaction = transaccion;
+
+
+                // Se ejecuta el comando y se realiza un commit de la transacción
+
+
+                SqlDataReader lector = comando.ExecuteReader();
+
+                if (lector.HasRows)
+                {
+                    while (lector.Read())
+                    {
+                        TOCuenta temp = new TOCuenta();
+                        temp.IdCuenta = lector["ID_CUENTA"].ToString();
+                        temp.Correo = lector["CORREO"].ToString();
+                        temp.Estado = lector["ESTADO"].ToString();
+                        cuentas.Add(temp);
+                    }
+                }
+
+                lector.Close();
+
+
+                comando.CommandText = "SELECT CEDULA, NOMBRE, PRIMER_APELLIDO, SEGUNDO_APELLIDO, TELEFONO FROM USUARIO";
+
+                lector = comando.ExecuteReader();
+
+                if (lector.HasRows)
+                {
+                    while (lector.Read())
+                    {
+                        TOUsuario temp = new TOUsuario(lector["CEDULA"].ToString(), lector["NOMBRE"].ToString(),
+                            lector["PRIMER_APELLIDO"].ToString(), lector["SEGUNDO_APELLIDO"].ToString(),
+                            lector["TELEFONO"].ToString(), "");
+                        usuarios.Add(temp);
+                    }
+                }
+
+                lector.Close();
+
+                transaccion.Commit();
+
+            }
+            catch (Exception)
+            {
+                try
+                {
+
+                    // En caso de un error se realiza un rollback a la transacción
+
+                    transaccion.Rollback();
+                }
+                catch (Exception)
+                {
+                }
+                finally
+                {
+                    confirmacion = "Error: No se pueden cargar las cuentas de usuario";
+                }
+            }
+            finally
+            {
+                if (conexion.State != ConnectionState.Closed)
+                {
+                    conexion.Close();
+                }
+            }
+            return confirmacion;
+        }
+
 
         public string IniciarSesion(TOCuenta cuenta, TOUsuario usuario)
         {

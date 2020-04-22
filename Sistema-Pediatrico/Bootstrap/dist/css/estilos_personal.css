@@ -46,9 +46,10 @@ body, html {
 }
 
 .padding-contenedorExp {
-    padding-top: 0.5rem;
-    padding-bottom: 1.75rem;
+    padding-top: 1rem;
+    padding-bottom: 1rem;
 }
+
 
 .padding-tab-exp {
     padding-top: 1.2rem;
@@ -58,40 +59,34 @@ body, html {
     resize: none;
 }
 
+.btn-general {
+    color: #FFFFFF;
+    width: 100%;
+    margin-top: 15px;
+    margin-bottom: 20px;
+    font-size: 18px;
+    box-shadow: 0 2px 8px 0 rgba(0,0,0,0.2), 0 3px 10px 0 rgba(0,0,0,0.19);
+    border-radius: 18px;
+}
+
+    .btn-general:hover {
+        box-shadow: 0 9px 17px 0 rgba(0,0,0,0.2), 0 7px 21px 0 rgba(0,0,0,0.19);
+        color: #FFFFFF;
+    }
 
 
 .btn-guardar {
-    color: #FFFFFF;
     background-color: #4CAF50;
-    width: 100%;
-    margin-top: 15px;
-    margin-bottom: 20px;
-    font-size: 18px;
-    box-shadow: 0 2px 8px 0 rgba(0,0,0,0.2), 0 3px 10px 0 rgba(0,0,0,0.19);
-    border-radius: 18px;
 }
 
-    .btn-guardar:hover {
-        box-shadow: 0 9px 17px 0 rgba(0,0,0,0.2), 0 7px 21px 0 rgba(0,0,0,0.19);
-        color: #FFFFFF;
-    }
-
+.btn-crear {
+    background-color: #7199d0;
+}
 
 .btn-regresar {
-    color: #FFFFFF;
     background-color: dimgray;
-    width: 100%;
-    margin-top: 15px;
-    margin-bottom: 20px;
-    font-size: 18px;
-    box-shadow: 0 2px 8px 0 rgba(0,0,0,0.2), 0 3px 10px 0 rgba(0,0,0,0.19);
-    border-radius: 18px;
 }
 
-    .btn-regresar:hover {
-        box-shadow: 0 9px 17px 0 rgba(0,0,0,0.2), 0 7px 21px 0 rgba(0,0,0,0.19);
-        color: #FFFFFF;
-    }
 
 .titulo {
     color: #343a40 !important;
@@ -118,3 +113,4 @@ body, html {
 .card-footer-inicio {
     background-color: rgb(107, 114, 119) !important
 }
+
