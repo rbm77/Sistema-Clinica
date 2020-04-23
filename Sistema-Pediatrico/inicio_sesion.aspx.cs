@@ -51,7 +51,7 @@ namespace Sistema_Pediatrico
 
                     Session["id"] = cuenta.IdCuenta;
                     Session["rol"] = cuenta.Rol;
-                    Session["nombre"] = usuario.Nombre + " " + usuario.PrimerApellido + " " + usuario.SegundoApellido;
+                    Session["nombre"] = usuario.Nombre + " " + usuario.PrimerApellido[0] + ". " + usuario.SegundoApellido[0] + ".";
                     Session["accion"] = "iniciar";
 
                     Response.Redirect("inicio.aspx");

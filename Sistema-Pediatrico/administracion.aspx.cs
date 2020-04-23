@@ -12,7 +12,18 @@ namespace Sistema_Pediatrico
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            CargarUsuarios();
+            if (!IsPostBack)
+            {
+                if (Session["accion"] != null)
+                {
+                    if (Session["accion"].ToString().Equals("consultarCuenta"))
+                    {
+                        Response.Redirect("inicio.aspx");
+                    }
+                }
+
+                CargarUsuarios();
+            }
         }
 
         private void CargarUsuarios()
@@ -104,8 +115,12 @@ namespace Sistema_Pediatrico
         protected void btnCrear_Click(object sender, EventArgs e)
         {
             Session["accion"] = "crearCuenta";
-            Session["anterior"] = "administracion.aspx";
             Response.Redirect("cuenta_usuario.aspx");
+        }
+
+        protected void btnRegresar_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("inicio.aspx");
         }
     }
 }

@@ -53,7 +53,7 @@
                     <asp:Button ID="btnGuardar" runat="server" Text="Guardar" CssClass="btn btn-general btn-guardar" />
                 </div>
                 <div class="col-md-2 col-sm-5">
-                    <asp:Button ID="btnRegresar" runat="server" Text="Cancelar" CssClass="btn btn-general btn-regresar" />
+                    <asp:Button ID="btnRegresar" runat="server" Text="Regresar" OnClick="btnRegresar_Click" CssClass="btn btn-general btn-regresar" />
                 </div>
             </div>
 

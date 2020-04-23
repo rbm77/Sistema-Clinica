@@ -15,6 +15,14 @@ namespace Sistema_Pediatrico
 
             if (!IsPostBack)
             {
+                if (Request.QueryString["accion"] != null)
+                {
+                    if (Request.QueryString["accion"].Equals("consultar"))
+                    {
+                        Session["accion"] = "consultarCuenta";
+                    }
+                }
+          
                 CargarCodigosMedicos(new List<string>());
 
                 // Se verifica si la accion es crear una nueva cuenta
@@ -23,25 +31,16 @@ namespace Sistema_Pediatrico
                 {
                     string accion = Session["accion"].ToString();
 
-                    string anterior = "";
-
-                    if(Session["anterior"] != null)
-                    {
-                        anterior = Session["anterior"].ToString();
-                    }
-
-                    if (accion.Equals("crearCuenta") && anterior.Equals("administracion.aspx"))
+                    if (accion.Equals("crearCuenta"))
                     {
                         inputCodigoAsistente.Attributes.Add("disabled", "disabled");
                         inputCodigoMedico.Attributes.Add("disabled", "disabled");
                         inputEspecialidad.Attributes.Add("disabled", "disabled");
-                        Session["anterior"] = "cuenta_usuario.aspx";
                     }
-                    else
+                    else if (accion.Equals("consultarCuenta"))
                     {
                         Consultar();
                     }
-                    
                 }
             }
 
@@ -86,14 +85,8 @@ namespace Sistema_Pediatrico
                 {
 
                     string accion = Session["accion"].ToString();
-                    string anterior = "";
 
-                    if (Session["anterior"] != null)
-                    {
-                        anterior = Session["anterior"].ToString();
-                    }
-
-                    if (accion.Equals("crearCuenta") && anterior.Equals("administracion.aspx"))
+                    if (accion.Equals("crearCuenta"))
                     {
                         confirmacion = manejador.CrearCuenta(cuenta, usuario, medico);
                         if (!confirmacion.Contains("Error:"))
@@ -105,12 +98,12 @@ namespace Sistema_Pediatrico
                             LimpiarDatos();
                         }
                     }
-                    else
+                    else if(accion.Equals("consultarCuenta"))
                     {
                         confirmacion = manejador.ActualizarCuenta(cuenta, usuario, medico);
                         if (!confirmacion.Contains("Error:"))
                         {
-                            Session["nombre"] = usuario.Nombre + " " + usuario.PrimerApellido + " " + usuario.SegundoApellido;
+                            Session["nombre"] = usuario.Nombre + " " + usuario.PrimerApellido[0] + ". " + usuario.SegundoApellido[0] + ".";
                         }
                         else
                         {
@@ -121,7 +114,11 @@ namespace Sistema_Pediatrico
             }
             else
             {
-                Consultar();
+                string accion = Session["accion"].ToString(); 
+                if (accion.Equals("consultarCuenta"))
+                {
+                    Consultar();
+                }
             }
 
             MensajeAviso(confirmacion);
@@ -155,12 +152,6 @@ namespace Sistema_Pediatrico
                 inputCodigoMedico.Attributes.Add("disabled", "disabled");
                 inputEspecialidad.Attributes.Add("disabled", "disabled");
             }
-        }
-
-        protected void btnRegresar_Click(object sender, EventArgs e)
-        {
-            mensajeConfirmacion.Visible = false;
-
         }
 
         private void MensajeAviso(string mensaje)
