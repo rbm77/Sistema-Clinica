@@ -41,7 +41,7 @@
                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="userDropdown">
 
                     <a class="dropdown-item" href="cuenta_usuario.aspx?accion=consultar">Ajustes de cuenta</a>
-                    
+
                     <div class="dropdown-divider"></div>
                     <a class="dropdown-item" href="inicio_sesion.aspx">Salir</a>
                 </div>
@@ -59,8 +59,27 @@
                             <div class="sb-nav-link-icon"><i class="fas fa-home"></i></div>
                             Inicio</a>
 
+
+
+                        <%  if (Session["rol"] != null)
+                            {
+                                string rol = Session["rol"].ToString();
+                                if (rol.Equals("administrador"))
+                                { %>
+
+                        <div class="sb-sidenav-menu-heading">ADMINISTRACIÓN</div>
+                        <a class="nav-link collapsed" href="administracion.aspx">
+                            <div class="sb-nav-link-icon"><i class="fas fa-user-cog"></i></div>
+                            Cuentas
+                         
+                            <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
+                        </a>
+                             <% }
+                                else
+                                { %>
+
                         <div class="sb-sidenav-menu-heading">EXPEDIENTE</div>
-                        <a class="nav-link collapsed" href="charts.html">
+                        <a class="nav-link collapsed" href="expedientes.aspx">
                             <div class="sb-nav-link-icon"><i class="far fa-id-card"></i></div>
                             Expedientes
                          
@@ -96,14 +115,9 @@
                             <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
                         </a>
 
-                        <div class="sb-sidenav-menu-heading">ADMINISTRACIÓN</div>
-                        <a class="nav-link collapsed" href="administracion.aspx">
-                            <div class="sb-nav-link-icon"><i class="fas fa-user-cog"></i></div>
-                            Cuentas
-                         
-                            <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
-                        </a>
-
+                             <% }
+                            }
+                        %>
                     </div>
                 </div>
                 <div class="sb-sidenav-footer">
@@ -678,7 +692,7 @@
             </footer>
         </div>
 
-        
+
 
     </div>
 

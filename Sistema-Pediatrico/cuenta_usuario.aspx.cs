@@ -78,9 +78,6 @@ namespace Sistema_Pediatrico
 
                 // AQUI DE DIVIDE EL PROCESO DEPENDIENDO DE SI LA ACCION ES CREAR O ACTUALIZAR
 
-                
-
-
                 if(Session["accion"] != null)
                 {
 
@@ -103,7 +100,7 @@ namespace Sistema_Pediatrico
                         confirmacion = manejador.ActualizarCuenta(cuenta, usuario, medico);
                         if (!confirmacion.Contains("Error:"))
                         {
-                            Session["nombre"] = usuario.Nombre + " " + usuario.PrimerApellido[0] + ". " + usuario.SegundoApellido[0] + ".";
+                            Session["nombre"] = usuario.Nombre + " " + usuario.PrimerApellido[0] + " " + usuario.SegundoApellido[0];
                         }
                         else
                         {

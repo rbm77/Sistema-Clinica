@@ -82,7 +82,7 @@
                         <asp:Button ID="btnGuardar" runat="server" Text="Guardar" CssClass="btn btn-general btn-guardar" OnClick="btnGuardar_Click" />
                     </div>
                     <div class="col-md-2 col-sm-5">
-                        <a href="administracion.aspx" class="btn btn-general btn-regresar">Regresar</a>
+                        <a href="administracion.aspx?accion=regresar" class="btn btn-general btn-regresar">Regresar</a>
                     </div>
                 </div>
 

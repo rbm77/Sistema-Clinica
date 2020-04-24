@@ -248,9 +248,27 @@ namespace BL
                 usuario.Nombre = toUsuario.Nombre;
                 usuario.PrimerApellido = toUsuario.PrimerApellido;
                 usuario.SegundoApellido = toUsuario.SegundoApellido;
+                usuario.CodigoAsistente = toUsuario.CodigoAsistente;
+
             }
 
             return confirmacion;
+        }
+
+        public string ActualizarEstados(List<BLCuenta> cuentas)
+        {
+            List<TOCuenta> to = new List<TOCuenta>();
+
+            foreach (BLCuenta c in cuentas)
+            {
+                TOCuenta nueva = new TOCuenta();
+                nueva.IdCuenta = c.IdCuenta;
+                nueva.Estado = c.Estado;
+                to.Add(nueva);
+            }
+
+            DAOCuenta daoCuenta = new DAOCuenta();
+            return daoCuenta.ActualizarEstados(to);
         }
 
     }

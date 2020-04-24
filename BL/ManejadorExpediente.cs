@@ -46,8 +46,8 @@ namespace BL
 
                 if (expediente.SolicitanteCita != null)
                 {
-                    solicitante = new TOSolicitanteCita(expediente.SolicitanteCita.Correo, expediente.SolicitanteCita.Contrasenna,
-                    expediente.SolicitanteCita.Telefono, expediente.SolicitanteCita.Estado);
+                    solicitante = new TOSolicitanteCita(expediente.SolicitanteCita.Cedula, expediente.SolicitanteCita.Correo, expediente.SolicitanteCita.Contrasenna,
+                    expediente.SolicitanteCita.Telefono);
                 }
 
                 TOHistoriaClinica historiaClinica = null;
@@ -90,6 +90,33 @@ namespace BL
                 confirmacion = "Error: No se pudo ingresar el expediente en el sistema";
             }
             return confirmacion;
+        }
+
+        public string CargarExpedientes(List<BLExpediente> expedientes, string idMedico)
+        {
+            List<TOExpediente> to = new List<TOExpediente>();
+            DAOExpediente dao = new DAOExpediente();
+
+            string confirmacion = "Error: Indefinido.";
+
+            confirmacion = dao.CargarExpedientes(to, idMedico);
+
+            if (!confirmacion.Contains("Error:"))
+            {
+                foreach (TOExpediente t in to)
+                {
+                    BLExpediente e = new BLExpediente();
+                    e.IDExpediente = t.IDExpediente;
+                    e.Cedula = t.Cedula;
+                    e.Nombre = t.Nombre;
+                    e.PrimerApellido = t.PrimerApellido;
+                    e.SegundoApellido = t.SegundoApellido;
+                    expedientes.Add(e);
+                }
+            }
+
+            return confirmacion;
+
         }
     }
 }

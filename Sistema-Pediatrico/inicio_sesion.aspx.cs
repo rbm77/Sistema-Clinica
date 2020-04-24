@@ -51,7 +51,13 @@ namespace Sistema_Pediatrico
 
                     Session["id"] = cuenta.IdCuenta;
                     Session["rol"] = cuenta.Rol;
-                    Session["nombre"] = usuario.Nombre + " " + usuario.PrimerApellido[0] + ". " + usuario.SegundoApellido[0] + ".";
+
+                    if (!cuenta.Rol.Equals("administrador"))
+                    {
+                        Session["codigoMedico"] = usuario.CodigoAsistente; // ESTO PUEDE SER EL CODIGO DE ASISTENTE O EL CODIGO MEDICO DEPENDIENDO DEL ROL
+                    }
+
+                    Session["nombre"] = usuario.Nombre + " " + usuario.PrimerApellido[0] + " " + usuario.SegundoApellido[0];
                     Session["accion"] = "iniciar";
 
                     Response.Redirect("inicio.aspx");

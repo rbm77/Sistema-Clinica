@@ -8,7 +8,7 @@ namespace BL
 {
     public class BLExpediente
     {
-        public int IDExpediente { get; set; }
+        public long IDExpediente { get; set; }
         public string Cedula { get; set; }
         public string Nombre { get; set; }
         public string PrimerApellido { get; set; }
@@ -30,7 +30,7 @@ namespace BL
         {
 
         }
-        public BLExpediente(int idExpediente, string cedula, string nombre, string primerApellido, 
+        public BLExpediente(long idExpediente, string cedula, string nombre, string primerApellido, 
             string segundoApellido, string fechaNacimiento, string sexo, string urlFoto, string urlExpedienteAntiguo,
             string codigoDireccion, string direccionExacta, string idMedico, string fechaCreacion, BLHistoriaClinica historiaClinica,
             BLEncargado encargado, BLDestinatarioFactura destinatarioFactura, BLSolicitanteCita solicitanteCita)

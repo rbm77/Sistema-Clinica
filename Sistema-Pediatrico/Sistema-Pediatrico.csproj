@@ -112,6 +112,7 @@
     <Content Include="Bootstrap\src\js\scripts.js" />
     <Content Include="cuenta_usuario.aspx" />
     <Content Include="expediente.aspx" />
+    <Content Include="expedientes.aspx" />
     <Content Include="inicio.aspx" />
     <Content Include="inicio_sesion.aspx" />
     <Content Include="Recursos\bg-01.jpg" />
@@ -140,6 +141,13 @@
     </Compile>
     <Compile Include="expediente.aspx.designer.cs">
       <DependentUpon>expediente.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="expedientes.aspx.cs">
+      <DependentUpon>expedientes.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="expedientes.aspx.designer.cs">
+      <DependentUpon>expedientes.aspx</DependentUpon>
     </Compile>
     <Compile Include="inicio.aspx.cs">
       <DependentUpon>inicio.aspx</DependentUpon>

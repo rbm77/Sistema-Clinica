@@ -14,7 +14,7 @@ namespace DAO
         SqlConnection conexion = new SqlConnection(Properties.Settings.Default.conexion);
         public string CrearExpediente(TOExpediente expediente)
         {
-            string confirmacion = "El expediente se creó exitosamente.";
+            string confirmacion = "El expediente se creó exitosamente";
             // Se abre la conexión
 
             if (conexion != null)
@@ -100,11 +100,11 @@ namespace DAO
                         }
                         if (expediente.SolicitanteCita == null)
                         {
-                            comando.Parameters.AddWithValue("@idSolicitante", expediente.Encargado.Correo);
+                            comando.Parameters.AddWithValue("@idSolicitante", expediente.Encargado.Cedula);
                         }
                         else
                         {
-                            comando.Parameters.AddWithValue("@idSolicitante", expediente.SolicitanteCita.Correo);
+                            comando.Parameters.AddWithValue("@idSolicitante", expediente.SolicitanteCita.Cedula);
                         }
                     }
                     else
@@ -125,7 +125,7 @@ namespace DAO
                         }
                         else
                         {
-                            comando.Parameters.AddWithValue("@idSolicitante", expediente.SolicitanteCita.Correo);
+                            comando.Parameters.AddWithValue("@idSolicitante", expediente.SolicitanteCita.Cedula);
                         }
                     }
                     
@@ -199,20 +199,19 @@ namespace DAO
                 if (expediente.SolicitanteCita != null && idExpedienteGuardado != 0)
                 {
 
-                    comando.CommandText = "IF NOT EXISTS(SELECT CORREO FROM SOLICITANTE_CITA WHERE CORREO = @correoBuscar) " +
+                    comando.CommandText = "IF NOT EXISTS(SELECT CEDULA FROM SOLICITANTE_CITA WHERE CEDULA = @cedulaBuscar) " +
                         "BEGIN" +
-                        " INSERT INTO SOLICITANTE_CITA(CORREO, CONTRASENNA, TELEFONO, ESTADO)" +
-                        " VALUES(@correo, @contrasenna, @telefono, @estado) " +
+                        " INSERT INTO SOLICITANTE_CITA(CEDULA, CORREO, CONTRASENNA, TELEFONO)" +
+                        " VALUES(@cedula, @correo, @contrasenna, @telefono,) " +
                         "END;";
 
                     // Se asigna un valor a los parámetros del comando a ejecutar
 
-                    comando.Parameters.AddWithValue("@correoBuscar", expediente.SolicitanteCita.Correo);
+                    comando.Parameters.AddWithValue("@cedulaBuscar", expediente.SolicitanteCita.Cedula);
+                    comando.Parameters.AddWithValue("@cedula", expediente.SolicitanteCita.Cedula);
                     comando.Parameters.AddWithValue("@correo", expediente.SolicitanteCita.Correo);
                     comando.Parameters.AddWithValue("@contrasenna", expediente.SolicitanteCita.Contrasenna);
                     comando.Parameters.AddWithValue("@telefono", expediente.SolicitanteCita.Telefono);
-                    comando.Parameters.AddWithValue("@estado", expediente.SolicitanteCita.Estado);
-
                     // Se ejecuta el comando y se realiza un commit de la transacción
 
                     comando.ExecuteNonQuery();
@@ -284,6 +283,339 @@ namespace DAO
                 finally
                 {
                     confirmacion = "Error: No se pudo ingresar el expediente en el sistema";
+                }
+            }
+            finally
+            {
+                if (conexion.State != ConnectionState.Closed)
+                {
+                    conexion.Close();
+                }
+            }
+            return confirmacion;
+        }
+
+        public string CargarExpediente(TOExpediente expediente)
+        {
+            string confirmacion = "El expediente se cargó exitosamente";
+
+            // Se abre la conexión
+
+            if (conexion != null)
+            {
+                try
+                {
+                    if (conexion.State != ConnectionState.Open)
+                    {
+                        conexion.Open();
+                    }
+                }
+                catch (Exception)
+                {
+                    confirmacion = "Error: No se pueden cargar los datos del expediente";
+                    return confirmacion;
+
+                }
+            }
+            else
+            {
+                confirmacion = "Error: No se pueden cargar los datos del expediente";
+                return confirmacion;
+            }
+
+            // Se inicia una nueva transacción
+
+            SqlTransaction transaccion = null;
+
+            try
+            {
+                transaccion = conexion.BeginTransaction("Cargar datos de expediente");
+
+                SqlCommand comando = new SqlCommand();
+
+                comando.Connection = conexion;
+
+                comando.CommandText = "SELECT * FROM EXPEDIENTE WHERE ID_EXPEDIENTE = @idExpediente";
+
+                comando.Transaction = transaccion;
+
+                comando.Parameters.AddWithValue("@idExpediente", expediente.IDExpediente);
+
+                SqlDataReader lector = comando.ExecuteReader();
+
+                if (lector.HasRows)
+                {
+                    while (lector.Read())
+                    {
+                        expediente.Cedula = lector["CEDULA"].ToString();
+                        expediente.Nombre = lector["NOMBRE"].ToString();
+                        expediente.PrimerApellido = lector["PRIMER_APELLIDO"].ToString();
+                        expediente.SegundoApellido = lector["SEGUNDO_APELLIDO"].ToString();
+                        expediente.FechaNacimiento = lector["FECHA_NACIMIENTO"].ToString();
+                        expediente.Sexo = lector["SEXO"].ToString();
+                        expediente.UrlFoto = lector["URL_FOTO"].ToString();
+                        expediente.UrlExpedienteAntiguo = lector["URL_EXPEDIENTE_ANTIGUO"].ToString();
+                        expediente.CodigoDireccion = lector["CODIGO_DIRECCION"].ToString();
+                        expediente.DireccionExacta = lector["DIRECCION_EXACTA"].ToString();
+                        expediente.Encargado.Cedula = lector["ID_ENCARGADO"].ToString();
+                        expediente.DestinatarioFactura.Cedula = lector["ID_DESTINATARIO_FACTURA"].ToString();
+                        expediente.SolicitanteCita.Correo = lector["ID_SOLICITANTE_CITA"].ToString();
+                        expediente.FechaCreacion = lector["FECHA_CREACION"].ToString();
+                        expediente.IDMedico = lector["ID_MEDICO"].ToString();
+                    }
+                }
+                else
+                {
+                    expediente.IDExpediente = 0;
+                }
+
+                lector.Close();
+
+                comando.Parameters.Clear();
+
+                if (expediente.IDExpediente != 0)
+                {
+
+                    if (!expediente.Encargado.Cedula.Equals(""))
+                    {
+                        comando.CommandText = "SELECT * FROM ENCARGADO WHERE CEDULA = @cedula";
+                        comando.Parameters.AddWithValue("@cedula", expediente.Encargado.Cedula);
+
+                        lector = comando.ExecuteReader();
+
+                        if (lector.HasRows)
+                        {
+                            while (lector.Read())
+                            {
+                                expediente.Encargado.Cedula = lector["CEDULA"].ToString();
+                                expediente.Encargado.Nombre = lector["NOMBRE"].ToString();
+                                expediente.Encargado.PrimerApellido = lector["PRIMER_APELLIDO"].ToString();
+                                expediente.Encargado.SegundoApellido = lector["SEGUNDO_APELLIDO"].ToString();
+                                expediente.Encargado.Telefono = lector["TELEFONO"].ToString();
+                                expediente.Encargado.Correo = lector["CORREO"].ToString();
+                                expediente.Encargado.Parentesco = lector["PARENTESCO"].ToString();
+                                expediente.Encargado.CodigoDireccion = lector["CODIGO_DIRECCION"].ToString();
+                                expediente.Encargado.DireccionExacta = lector["DIRECCION_EXACTA"].ToString();
+                            }
+                        }
+
+                        lector.Close();
+                        comando.Parameters.Clear();
+                    }
+
+                    if ((!expediente.Encargado.Cedula.Equals(expediente.DestinatarioFactura.Cedula)) &&
+                        (!expediente.DestinatarioFactura.Cedula.Equals("")))
+                    {
+                        comando.CommandText = "SELECT * FROM DESTINATARIO_FACTURA WHERE CEDULA = @cedula";
+                        comando.Parameters.AddWithValue("@cedula", expediente.DestinatarioFactura.Cedula);
+
+                        lector = comando.ExecuteReader();
+
+                        if (lector.HasRows)
+                        {
+                            while (lector.Read())
+                            {
+                                expediente.DestinatarioFactura.Cedula = lector["CEDULA"].ToString();
+                                expediente.DestinatarioFactura.Nombre = lector["NOMBRE"].ToString();
+                                expediente.DestinatarioFactura.PrimerApellido = lector["PRIMER_APELLIDO"].ToString();
+                                expediente.DestinatarioFactura.SegundoApellido = lector["SEGUNDO_APELLIDO"].ToString();
+                                expediente.DestinatarioFactura.Telefono = lector["TELEFONO"].ToString();
+                                expediente.DestinatarioFactura.Correo = lector["CORREO"].ToString();
+                                expediente.DestinatarioFactura.CodigoDireccion = lector["CODIGO_DIRECCION"].ToString();
+                                expediente.DestinatarioFactura.DireccionExacta = lector["DIRECCION_EXACTA"].ToString();
+                            }
+                        }
+
+                        lector.Close();
+                        comando.Parameters.Clear();
+                    }
+
+                    if ((!expediente.Encargado.Cedula.Equals(expediente.SolicitanteCita.Cedula)) &&
+                        (!expediente.SolicitanteCita.Cedula.Equals("")))
+                    {
+                        comando.CommandText = "SELECT * FROM SOLICITANTE_CITA WHERE CEDULA = @cedula";
+                        comando.Parameters.AddWithValue("@cedula", expediente.SolicitanteCita.Cedula);
+
+                        lector = comando.ExecuteReader();
+
+                        if (lector.HasRows)
+                        {
+                            while (lector.Read())
+                            {
+                                expediente.SolicitanteCita.Cedula = lector["CEDULA"].ToString();
+                                expediente.SolicitanteCita.Telefono = lector["TELEFONO"].ToString();
+                                expediente.SolicitanteCita.Correo = lector["CORREO"].ToString();
+                            }
+                        }
+
+                        lector.Close();
+                        comando.Parameters.Clear();
+                    }
+
+
+                    comando.CommandText = "SELECT * FROM HISTORIA_CLINICA WHERE ID_EXPEDIENTE = @idExpediente";
+                    comando.Parameters.AddWithValue("@idExpediente", expediente.IDExpediente);
+
+                    lector = comando.ExecuteReader();
+
+                    if (lector.HasRows)
+                    {
+                        while (lector.Read())
+                        {
+                            expediente.HistoriaClinica.Perinatales = lector["PERINATALES"].ToString();
+                            expediente.HistoriaClinica.Patologicos = lector["PATOLOGICOS"].ToString();
+                            expediente.HistoriaClinica.Quirurgicos = lector["QUIRURGICOS"].ToString();
+                            expediente.HistoriaClinica.Traumaticos = lector["TRAUMATICOS"].ToString();
+                            expediente.HistoriaClinica.HeredoFamiliares = lector["HEREDO_FAMILIARES"].ToString();
+                            expediente.HistoriaClinica.Alergias = lector["ALERGIAS"].ToString();
+                            expediente.HistoriaClinica.Vacunas = lector["VACUNAS"].ToString();
+                        }
+                    }
+
+                    lector.Close();
+                    comando.Parameters.Clear();
+
+                    comando.CommandText = "SELECT * FROM DATOS_NACIMIENTO WHERE ID_EXPEDIENTE = @idExpediente";
+                    comando.Parameters.AddWithValue("@idExpediente", expediente.IDExpediente);
+
+                    lector = comando.ExecuteReader();
+
+                    if (lector.HasRows)
+                    {
+                        while (lector.Read())
+                        {
+                            expediente.HistoriaClinica.DatosNacimiento.TallaNacimiento = (double) lector["TALLA_NACIMIENTO"];
+                            expediente.HistoriaClinica.DatosNacimiento.PesoNacimiento = (double) lector["PESO_NACIMIENTO"];
+                            expediente.HistoriaClinica.DatosNacimiento.PerimetroCefalico =  (double) lector["PERIMETRO_CEFALICO"];
+                            expediente.HistoriaClinica.DatosNacimiento.Apgar = (int) lector["APGAR"];
+                            expediente.HistoriaClinica.DatosNacimiento.EdadGestacional = (double) lector["EDAD_GESTACIONAL"];
+                            expediente.HistoriaClinica.DatosNacimiento.ClasificacionUniversal = lector["CLASIFICACION_UNIVERSAL"].ToString();
+                        }
+                    }
+
+                    lector.Close();
+                    comando.Parameters.Clear();
+
+                }
+                else
+                {
+                    confirmacion = "Error: El expediente no existe";
+                }
+
+                transaccion.Commit();
+
+            }
+            catch (Exception)
+            {
+                try
+                {
+
+                    // En caso de un error se realiza un rollback a la transacción
+
+                    transaccion.Rollback();
+                }
+                catch (Exception)
+                {
+                }
+                finally
+                {
+                    confirmacion = "Error: No se pueden cargar los datos del expediente";
+                }
+            }
+            finally
+            {
+                if (conexion.State != ConnectionState.Closed)
+                {
+                    conexion.Close();
+                }
+            }
+            return confirmacion;
+        }
+
+        public string CargarExpedientes(List<TOExpediente> expedientes, string idMedico)
+        {
+            string confirmacion = "Los expedientes se cargaron exitosamente";
+
+            // Se abre la conexión
+
+            if (conexion != null)
+            {
+                try
+                {
+                    if (conexion.State != ConnectionState.Open)
+                    {
+                        conexion.Open();
+                    }
+                }
+                catch (Exception)
+                {
+                    confirmacion = "Error: No se pueden cargar los expedientes";
+                    return confirmacion;
+
+                }
+            }
+            else
+            {
+                confirmacion = "Error: No se pueden cargar los expedientes";
+                return confirmacion;
+            }
+
+            // Se inicia una nueva transacción
+
+            SqlTransaction transaccion = null;
+
+            try
+            {
+                transaccion = conexion.BeginTransaction("Cargar expedientes");
+
+                SqlCommand comando = new SqlCommand();
+
+                comando.Connection = conexion;
+
+                comando.CommandText = "SELECT ID_EXPEDIENTE, CEDULA, NOMBRE, PRIMER_APELLIDO, SEGUNDO_APELLIDO" +
+                    " FROM EXPEDIENTE WHERE ID_MEDICO = @idMedico";
+
+                comando.Transaction = transaccion;
+
+                comando.Parameters.AddWithValue("@idMedico", idMedico);
+
+                SqlDataReader lector = comando.ExecuteReader();
+
+                if (lector.HasRows)
+                {
+                    while (lector.Read())
+                    {
+                        TOExpediente expediente = new TOExpediente();
+                        expediente.IDExpediente = (long) lector["ID_EXPEDIENTE"];
+                        expediente.Cedula = lector["CEDULA"].ToString();
+                        expediente.Nombre = lector["NOMBRE"].ToString();
+                        expediente.PrimerApellido = lector["PRIMER_APELLIDO"].ToString();
+                        expediente.SegundoApellido = lector["SEGUNDO_APELLIDO"].ToString();
+
+                        expedientes.Add(expediente);
+                    }
+                }
+
+                lector.Close();
+                   
+                transaccion.Commit();
+
+            }
+            catch (Exception)
+            {
+                try
+                {
+
+                    // En caso de un error se realiza un rollback a la transacción
+
+                    transaccion.Rollback();
+                }
+                catch (Exception)
+                {
+                }
+                finally
+                {
+                    confirmacion = "Error: No se pueden cargar los expedientes";
                 }
             }
             finally

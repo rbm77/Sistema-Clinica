@@ -11,14 +11,5 @@ namespace Sistema_Pediatrico {
     
     
     public partial class inicio {
-        
-        /// <summary>
-        /// Control mensajeConfirmacion.
-        /// </summary>
-        /// <remarks>
-        /// Campo generado automáticamente.
-        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Literal mensajeConfirmacion;
     }
 }

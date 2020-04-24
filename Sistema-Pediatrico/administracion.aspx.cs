@@ -14,11 +14,18 @@ namespace Sistema_Pediatrico
         {
             if (!IsPostBack)
             {
-                if (Session["accion"] != null)
+
+                if (Request.QueryString["accion"] != null)
                 {
-                    if (Session["accion"].ToString().Equals("consultarCuenta"))
+                    if (Request.QueryString["accion"].Equals("regresar"))
                     {
-                        Response.Redirect("inicio.aspx");
+                        if (Session["accion"] != null)
+                        {
+                            if (Session["accion"].ToString().Equals("consultarCuenta"))
+                            {
+                                Response.Redirect("inicio.aspx");
+                            }
+                        }
                     }
                 }
 
@@ -121,6 +128,52 @@ namespace Sistema_Pediatrico
         protected void btnRegresar_Click(object sender, EventArgs e)
         {
             Response.Redirect("inicio.aspx");
+        }
+
+        private string Formato(string texto)
+        {
+            texto = texto.Replace("&#243;", "ó").Replace("&#233;", "é").Replace("&#225;", "á").Replace("&#237;", "í").Replace("&#250;", "ú").Replace("&#241;", "ñ");
+            return texto;
+        }
+        private void ActualizarEstados()
+        {
+            List<BLCuenta> cuentas = new List<BLCuenta>();
+            CheckBox temp;
+            string estado = "";
+
+            foreach (GridViewRow fila in listaCuentas.Rows)
+            {
+                temp = (CheckBox)fila.Cells[4].FindControl("estado");
+
+                if (temp.Checked)
+                {
+                    estado = "activa";                }
+                else
+                {
+                    estado = "inactiva";
+                }
+
+                BLCuenta nueva = new BLCuenta();
+                nueva.IdCuenta = Formato(fila.Cells[1].Text);
+                nueva.Estado = estado;
+                cuentas.Add(nueva);
+            }
+
+            ManejadorCuenta manejador = new ManejadorCuenta();
+
+            string confirmacion = manejador.ActualizarEstados(cuentas);
+
+            if (confirmacion.Contains("Error:"))
+            {
+                CargarUsuarios();
+            }
+
+            MensajeAviso(confirmacion);
+        }
+
+        protected void btnGuardar_Click(object sender, EventArgs e)
+        {
+            ActualizarEstados();
         }
     }
 }

@@ -232,11 +232,15 @@
 
                             <h5 class="titulo col-12" style="margin-bottom: 15px">Datos del Solicitante de las Citas Médicas</h5>
 
-                            <div class="form-group col-md-6 col-sm-6">
+                            <div class="form-group col-md-4 col-sm-4">
+                                <asp:Label ID="labelCedulaSolicitante" runat="server" Text="Cédula"></asp:Label>
+                                <asp:TextBox ID="cedulaSolicitante" runat="server" class="form-control" ClientIDMode="Static"></asp:TextBox>
+                            </div>
+                            <div class="form-group col-md-4 col-sm-4">
                                 <asp:Label ID="labelCorreoSolicitante" runat="server" Text="Correo Electrónico"></asp:Label>
                                 <asp:TextBox ID="correoSolicitante" type="email" runat="server" class="form-control" ClientIDMode="Static"></asp:TextBox>
                             </div>
-                            <div class="form-group col-md-6 col-sm-6">
+                            <div class="form-group col-md-4 col-sm-4">
                                 <asp:Label ID="labelTelefonoSolicitante" runat="server" Text="Teléfono"></asp:Label>
                                 <asp:TextBox ID="telefonoSolicitante" runat="server" class="form-control" ClientIDMode="Static" pattern="[0-9]*"></asp:TextBox>
                             </div>

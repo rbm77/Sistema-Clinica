@@ -50,7 +50,7 @@
 
             <div class="row justify-content-center" style="margin-top: 30px">
                 <div class="col-md-2 col-sm-5">
-                    <asp:Button ID="btnGuardar" runat="server" Text="Guardar" CssClass="btn btn-general btn-guardar" />
+                    <asp:Button ID="btnGuardar" runat="server" Text="Guardar" OnClick="btnGuardar_Click" CssClass="btn btn-general btn-guardar" />
                 </div>
                 <div class="col-md-2 col-sm-5">
                     <asp:Button ID="btnRegresar" runat="server" Text="Regresar" OnClick="btnRegresar_Click" CssClass="btn btn-general btn-regresar" />

@@ -8,7 +8,7 @@ namespace TO
 {
     public class TOExpediente
     {
-        public int IDExpediente { get; set; }
+        public long IDExpediente { get; set; }
         public string Cedula { get; set; }
         public string Nombre { get; set; }
         public string PrimerApellido { get; set; }
@@ -30,7 +30,7 @@ namespace TO
         {
 
         }
-        public TOExpediente(int idExpediente, string cedula, string nombre, string primerApellido,
+        public TOExpediente(long idExpediente, string cedula, string nombre, string primerApellido,
             string segundoApellido, string fechaNacimiento, string sexo, string urlFoto, string urlExpedienteAntiguo,
             string codigoDireccion, string direccionExacta, string idMedico, string fechaCreacion, TOHistoriaClinica historiaClinica,
             TOEncargado encargado, TODestinatarioFactura destinatarioFactura, TOSolicitanteCita solicitanteCita)

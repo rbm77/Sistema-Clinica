@@ -170,7 +170,14 @@ namespace Sistema_Pediatrico
             string cantonP = cantonPValue.Value.Trim();
             string distritoP = distritoPValue.Value.Trim();
             string direccionExactaP = direccionExactaPaciente.Value.Trim();
-            string idMedico = "AUSENTE"; // SE DEBE INSERTAR EL ID DEL MEDICO QUE CREO EL EXPEDIENTE. SE OBTIENE DE LA SESION DE USUARIO.
+
+            string idMedico = "";
+
+            if (Session["codigoMedico"] != null)
+            {
+                idMedico = Session["codigoMedico"].ToString();
+            }
+
             string fechaCreacion = fechaActual.Text.Trim();
 
             // Comienza a validar
@@ -268,12 +275,13 @@ namespace Sistema_Pediatrico
 
             if (esSolicitante.Checked == false)
             {
+                string cedulaS = cedulaSolicitante.Text.Trim();
 
                 string correoS = correoSolicitante.Text.Trim();
 
                 string telefonoS = telefonoSolicitante.Text.Trim();
                 
-                if (correoS.Equals(""))
+                if (correoS.Equals("") || cedulaS.Equals(""))
                 {
                     return null;
                 }
@@ -281,7 +289,7 @@ namespace Sistema_Pediatrico
                 {
 
                     string contrasenna = "NINGUNA"; // SE DEBE AUTOGENERAR UNA CONTRASENNA Y ASIGNARLA AL SOLICITANTE. ADEMAS ENVIARLA POR CORREO
-                    solicitante = new BLSolicitanteCita(correoS, contrasenna, telefonoS, "activa");
+                    solicitante = new BLSolicitanteCita(cedulaS, correoS, contrasenna, telefonoS);
                     expediente.SolicitanteCita = solicitante;
                 }
             }
@@ -289,7 +297,7 @@ namespace Sistema_Pediatrico
             {
                 if (expediente.Encargado != null)
                 {
-                    if (expediente.Encargado.Correo.Equals(""))
+                    if (expediente.Encargado.Correo.Equals("") || expediente.Encargado.Cedula.Equals(""))
                     {
                         return null;
                     }

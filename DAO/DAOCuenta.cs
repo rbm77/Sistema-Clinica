@@ -14,7 +14,7 @@ namespace DAO
         SqlConnection conexion = new SqlConnection(Properties.Settings.Default.conexion);
         public string CrearCuenta(TOCuenta toCuenta, TOUsuario toUsuario, TOMedico toMedico)
         {
-            string confirmacion = "La cuenta se creó exitosamente.";
+            string confirmacion = "La cuenta se creó exitosamente";
 
             // Se abre la conexión
 
@@ -145,7 +145,7 @@ namespace DAO
 
         public string CargarCodigosMedicos(List<string> codigos)
         {
-            string confirmacion = "Los códigos de los médicos se cargaron exitosamente.";
+            string confirmacion = "Los códigos de los médicos se cargaron exitosamente";
 
             // Se abre la conexión
 
@@ -238,7 +238,7 @@ namespace DAO
 
         public string CargarUsuario(TOCuenta cuenta, TOUsuario usuario, TOMedico medico)
         {
-            string confirmacion = "El usuario se cargó exitosamente.";
+            string confirmacion = "El usuario se cargó exitosamente";
 
             // Se abre la conexión
 
@@ -401,7 +401,7 @@ namespace DAO
 
         public string CargarUsuarios(List<TOCuenta> cuentas, List<TOUsuario> usuarios)
         {
-            string confirmacion = "Las cuentas de usuario se cargaron exitosamente.";
+            string confirmacion = "Las cuentas de usuario se cargaron exitosamente";
 
             // Se abre la conexión
 
@@ -590,7 +590,7 @@ namespace DAO
                 if (!cuenta.IdCuenta.Equals(""))
                 {
 
-                    comando.CommandText = "SELECT NOMBRE, PRIMER_APELLIDO, SEGUNDO_APELLIDO FROM USUARIO WHERE CEDULA = @cedula";
+                    comando.CommandText = "SELECT NOMBRE, PRIMER_APELLIDO, SEGUNDO_APELLIDO, CODIGO_ASISTENTE FROM USUARIO WHERE CEDULA = @cedula";
 
 
                     comando.Parameters.AddWithValue("@cedula", cuenta.IdCuenta);
@@ -604,10 +604,37 @@ namespace DAO
                             usuario.Nombre = lector["NOMBRE"].ToString();
                             usuario.PrimerApellido = lector["PRIMER_APELLIDO"].ToString();
                             usuario.SegundoApellido = lector["SEGUNDO_APELLIDO"].ToString();
+                            if (cuenta.Rol.Equals("asistente"))
+                            {
+                                usuario.CodigoAsistente = lector["CODIGO_ASISTENTE"].ToString();
+                            }
                         }
                     }
 
                     lector.Close();
+                    comando.Parameters.Clear();
+
+                    if (cuenta.Rol.Equals("medico"))
+                    {
+                        comando.CommandText = "SELECT CODIGO_MEDICO FROM MEDICO WHERE ID_MEDICO = @idMedico";
+
+
+                        comando.Parameters.AddWithValue("@idMedico", cuenta.IdCuenta);
+
+                        lector = comando.ExecuteReader();
+
+                        if (lector.HasRows)
+                        {
+                            while (lector.Read())
+                            {
+                                usuario.CodigoAsistente = lector["CODIGO_MEDICO"].ToString();
+                            }
+                        }
+
+                        lector.Close();
+
+                    }
+
                 }
 
 
@@ -643,7 +670,7 @@ namespace DAO
 
         public string ActualizarCuenta(TOCuenta toCuenta, TOUsuario toUsuario, TOMedico toMedico)
         {
-            string confirmacion = "La cuenta se actualizó exitosamente.";
+            string confirmacion = "La cuenta se actualizó exitosamente";
 
             // Se abre la conexión
 
@@ -757,11 +784,10 @@ namespace DAO
                 transaccion.Commit();
 
             }
-            catch (Exception e)
+            catch (Exception)
             {
                 try
                 {
-                    string err = e.Message;
                     // En caso de un error se realiza un rollback a la transacción
 
                     transaccion.Rollback();
@@ -772,6 +798,98 @@ namespace DAO
                 finally
                 {
                     confirmacion = "Error: No se pudo actualizar la cuenta en el sistema";
+                }
+            }
+            finally
+            {
+                if (conexion.State != ConnectionState.Closed)
+                {
+                    conexion.Close();
+                }
+            }
+            return confirmacion;
+        }
+
+        public string ActualizarEstados(List<TOCuenta> cuentas)
+        {
+            string confirmacion = "Las cuentas se actualizaron exitosamente";
+
+            // Se abre la conexión
+
+            if (conexion != null)
+            {
+                try
+                {
+                    if (conexion.State != ConnectionState.Open)
+                    {
+                        conexion.Open();
+                    }
+                }
+                catch (Exception)
+                {
+                    confirmacion = "Error: No se pudieron actualizar las cuentas en el sistema";
+                    return confirmacion;
+
+                }
+            }
+            else
+            {
+                confirmacion = "Error: No se pudieron actualizar las cuentas en el sistema";
+                return confirmacion;
+            }
+
+            // Se inicia una nueva transacción
+
+            SqlTransaction transaccion = null;
+
+
+
+            try
+            {
+                transaccion = conexion.BeginTransaction("Actualizar estado de cuentas");
+
+                // Se crea un nuevo comando con la secuencia SQL y el objeto de conexión
+
+                SqlCommand comando = new SqlCommand();
+
+                comando.Connection = conexion;
+
+                comando.CommandText = "UPDATE CUENTA_USUARIO SET " +
+                    "ESTADO = @estado " +
+                    "WHERE ID_CUENTA = @id";
+
+                comando.Transaction = transaccion;
+
+                foreach (TOCuenta c in cuentas)
+                {
+                    // Se asigna un valor a los parámetros del comando a ejecutar
+
+                    comando.Parameters.AddWithValue("@id", c.IdCuenta);
+                    comando.Parameters.AddWithValue("@estado", c.Estado);
+
+                    // Se ejecuta el comando y se realiza un commit de la transacción
+
+                    comando.ExecuteNonQuery();
+
+                    comando.Parameters.Clear();
+
+                }
+
+                transaccion.Commit();
+
+            }
+            catch (Exception)
+            {
+                try
+                {
+                    transaccion.Rollback();
+                }
+                catch (Exception)
+                {
+                }
+                finally
+                {
+                    confirmacion = "Error: No se pudieron actualizar las cuentas en el sistema";
                 }
             }
             finally
