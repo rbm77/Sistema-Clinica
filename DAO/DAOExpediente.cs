@@ -62,7 +62,7 @@ namespace DAO
                 if (expediente != null)
                 {
                     comando.CommandText = "INSERT INTO EXPEDIENTE (CEDULA, NOMBRE, PRIMER_APELLIDO, SEGUNDO_APELLIDO, FECHA_NACIMIENTO," +
-                    " SEXO, URL_FOTO, URL_EXPEDIENTE_ANTIGUO, CODIGO_DIRECCION, DIRECCION_EXACTA, ID_ENCARGADO, ID_DESTINATARIO_FACTURA," +
+                    " SEXO, URL_EXPEDIENTE_ANTIGUO, CODIGO_DIRECCION, DIRECCION_EXACTA, ID_ENCARGADO, ID_DESTINATARIO_FACTURA," +
                     " ID_SOLICITANTE_CITA, FECHA_CREACION, ID_MEDICO) OUTPUT INSERTED.ID_EXPEDIENTE" + " VALUES (@cedula, @nombre, @primerApellido, @segundoApellido, @fechaNacimiento," +
                     "@sexo, @urlFoto, @urlExpediente, @codigoDireccion, @direccionExacta, @idEncargado, @idDestinatario, @idSolicitante, @fechaCreacion," +
                     "@idMedico);";
@@ -75,7 +75,6 @@ namespace DAO
                     comando.Parameters.AddWithValue("@segundoApellido", expediente.SegundoApellido);
                     comando.Parameters.AddWithValue("@fechaNacimiento", expediente.FechaNacimiento);
                     comando.Parameters.AddWithValue("@sexo", expediente.Sexo);
-                    comando.Parameters.AddWithValue("@urlFoto", expediente.UrlFoto);
                     comando.Parameters.AddWithValue("@urlExpediente", expediente.UrlExpedienteAntiguo);
                     comando.Parameters.AddWithValue("@codigoDireccion", expediente.CodigoDireccion);
                     comando.Parameters.AddWithValue("@direccionExacta", expediente.DireccionExacta);
@@ -353,7 +352,6 @@ namespace DAO
                         expediente.SegundoApellido = lector["SEGUNDO_APELLIDO"].ToString();
                         expediente.FechaNacimiento = lector["FECHA_NACIMIENTO"].ToString();
                         expediente.Sexo = lector["SEXO"].ToString();
-                        expediente.UrlFoto = lector["URL_FOTO"].ToString();
                         expediente.UrlExpedienteAntiguo = lector["URL_EXPEDIENTE_ANTIGUO"].ToString();
                         expediente.CodigoDireccion = lector["CODIGO_DIRECCION"].ToString();
                         expediente.DireccionExacta = lector["DIRECCION_EXACTA"].ToString();

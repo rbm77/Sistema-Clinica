@@ -37,46 +37,46 @@ namespace Sistema_Pediatrico
             
         }
 
-        private string SubirFoto()
-        {
-            try
-            {
+        //private string SubirFoto()
+        //{
+        //    try
+        //    {
                 
 
-                if (inputFotoPaciente.HasFile)
-                {
-                    string extension = Path.GetExtension(inputFotoPaciente.FileName);
+        //        if (inputFotoPaciente.HasFile)
+        //        {
+        //            string extension = Path.GetExtension(inputFotoPaciente.FileName);
 
-                    if (extension.Equals(".jpg") || extension.Equals(".jpeg") || extension.Equals(".png")
-                       || extension.Equals(".JPG") || extension.Equals(".JPEG") || extension.Equals(".PNG"))
-                    {
-                        string ruta = Server.MapPath("~/Fotos_Pacientes/" + inputFotoPaciente.FileName);
+        //            if (extension.Equals(".jpg") || extension.Equals(".jpeg") || extension.Equals(".png")
+        //               || extension.Equals(".JPG") || extension.Equals(".JPEG") || extension.Equals(".PNG"))
+        //            {
+        //                string ruta = Server.MapPath("~/Fotos_Pacientes/" + inputFotoPaciente.FileName);
 
-                        if (!File.Exists(ruta))
-                        {
-                            inputFotoPaciente.SaveAs(ruta);
-                        }
-                        else
-                        {
-                            return "Error: El archivo de la foto seleccionada ya existe. Por favor intente cambiar el nombre del archivo.";
-                        }
-                    }
-                    else
-                    {
-                        return "Error: La extensión del archivo de la foto no es permitida.";
-                    }
-                }
-                else
-                {
-                    return "Error: No se ha seleccionado una foto.";
-                }
-                return "La foto se almacenó exitosamente.";
-            }
-            catch (Exception)
-            {
-                return "Error: La foto no se pudo almacenar.";
-            }
-        }
+        //                if (!File.Exists(ruta))
+        //                {
+        //                    inputFotoPaciente.SaveAs(ruta);
+        //                }
+        //                else
+        //                {
+        //                    return "Error: El archivo de la foto seleccionada ya existe. Por favor intente cambiar el nombre del archivo.";
+        //                }
+        //            }
+        //            else
+        //            {
+        //                return "Error: La extensión del archivo de la foto no es permitida.";
+        //            }
+        //        }
+        //        else
+        //        {
+        //            return "Error: No se ha seleccionado una foto.";
+        //        }
+        //        return "La foto se almacenó exitosamente.";
+        //    }
+        //    catch (Exception)
+        //    {
+        //        return "Error: La foto no se pudo almacenar.";
+        //    }
+        //}
 
         protected void btnGuardar_Click(object sender, EventArgs e)
         {
@@ -92,31 +92,8 @@ namespace Sistema_Pediatrico
 
                 confirmacion = manejador.CrearExpediente(expediente);
 
-                if (!confirmacion.Contains("Error:"))
-                {
-                    MensajeAviso(confirmacion);
+                MensajeAviso(confirmacion);
 
-                    if(!expediente.UrlFoto.Equals(""))
-                    {
-                        string respuestaFoto = SubirFoto();
-
-                        if (respuestaFoto.Contains("Error:"))
-                        {
-                            // DEBE HACER UN LLAMADO A BD PARA ACTUALIZAR EL VALOR DE LA RUTA FOTO = ""
-
-                            confirmacionFoto.Text = "<div class=\"alert alert-danger alert-dismissible fade show\" " +
-                              "role=\"alert\"> <strong></strong>" + respuestaFoto + "<button" +
-                              " type = \"button\" class=\"close\" data-dismiss=\"alert\" aria-label=\"Close\">" +
-                              " <span aria-hidden=\"true\">&times;</span> </button> </div>";
-                            confirmacionFoto.Visible = true;
-                        }
-                    }
-                    
-                }
-                else
-                {
-                    MensajeAviso(confirmacion);
-                }
             }
             else
             {
@@ -164,7 +141,6 @@ namespace Sistema_Pediatrico
             string segundoApellidoP = segundoApellidoPaciente.Text.Trim();
             string fechaNacimientoP = fechaNacimientoPaciente.Text.Trim();
             string sexoP = sexoPaciente.Text.Trim();
-            string urlFotoP = inputFotoPaciente.FileName.Trim();
             string urlExpedienteAntiguoP = urlExpedienteAntiguoPaciente.Value.Trim();
             string provinciaP = provinciaPValue.Value.Trim();
             string cantonP = cantonPValue.Value.Trim();
@@ -198,7 +174,6 @@ namespace Sistema_Pediatrico
                 expediente.SegundoApellido = segundoApellidoP;
                 expediente.FechaNacimiento = fechaNacimientoP;
                 expediente.Sexo = sexoP;
-                expediente.UrlFoto = urlFotoP;
                 expediente.UrlExpedienteAntiguo = urlExpedienteAntiguoP;
                 expediente.CodigoDireccion = provinciaP + "-" + cantonP + "-" + distritoP;
                 expediente.DireccionExacta = direccionExactaP;
@@ -412,7 +387,51 @@ namespace Sistema_Pediatrico
             expediente.HistoriaClinica = historiaClinica;
 
             return expediente;
+        }
+        private void CargarExpediente(string idExpediente)
+        {
+            BLEncargado encargado = new BLEncargado();
+            BLDestinatarioFactura destinatario = new BLDestinatarioFactura();
+            BLSolicitanteCita solicitante = new BLSolicitanteCita();
+            BLDatosNacimiento datosNacimiento = new BLDatosNacimiento();
+            BLHistoriaClinica historiaClinica = new BLHistoriaClinica();
+            BLExpediente expediente = new BLExpediente();
 
+            expediente.IDExpediente =  long.Parse(idExpediente);
+            expediente.Encargado = encargado;
+            expediente.DestinatarioFactura = destinatario;
+            expediente.SolicitanteCita = solicitante;
+            expediente.HistoriaClinica = historiaClinica;
+            expediente.HistoriaClinica.DatosNacimiento = datosNacimiento;
+
+            ManejadorExpediente manejador = new ManejadorExpediente();
+            string confirmacion = manejador.CargarExpediente(expediente);
+
+            if (!confirmacion.Contains("Error:"))
+            {
+                // Datos de PACIENTE
+
+                //cedulaPaciente.Text = expediente.Cedula;
+                //nombrePaciente.Text = expediente.Nombre;
+                //primerApellidoPaciente.Text = expediente.PrimerApellido;
+                //segundoApellidoPaciente.Text = expediente.SegundoApellido;
+                //fechaNacimientoPaciente.Text = expediente.FechaNacimiento;
+                //sexoPaciente.Text = expediente.Sexo;
+                //urlExpedienteAntiguoPaciente.Value = expediente.UrlExpedienteAntiguo;
+                //provinciaPValue.Value;
+                //cantonPValue.Value.Trim();
+                //distritoPValue.Value.Trim();
+                //direccionExactaPaciente.Value.Trim();
+
+            // DEBO CARGAR LAS DIRECCIONES Y SELECCIONAR LA CORRESPONDIENTE, DE IGUAL MANERA CON EL SEXO.
+
+
+            }
+            else
+            {
+                MensajeAviso(confirmacion);
+                contenedorDatos.Visible = false;
+            }
 
         }
 

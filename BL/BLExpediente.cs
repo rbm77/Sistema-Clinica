@@ -15,7 +15,6 @@ namespace BL
         public string SegundoApellido { get; set; }
         public string FechaNacimiento { get; set; }
         public string Sexo { get; set; }
-        public string UrlFoto { get; set; }
         public string UrlExpedienteAntiguo { get; set; }
         public string CodigoDireccion { get; set; }
         public string DireccionExacta { get; set; }
@@ -31,7 +30,7 @@ namespace BL
 
         }
         public BLExpediente(long idExpediente, string cedula, string nombre, string primerApellido, 
-            string segundoApellido, string fechaNacimiento, string sexo, string urlFoto, string urlExpedienteAntiguo,
+            string segundoApellido, string fechaNacimiento, string sexo, string urlExpedienteAntiguo,
             string codigoDireccion, string direccionExacta, string idMedico, string fechaCreacion, BLHistoriaClinica historiaClinica,
             BLEncargado encargado, BLDestinatarioFactura destinatarioFactura, BLSolicitanteCita solicitanteCita)
         {
@@ -41,7 +40,6 @@ namespace BL
             this.SegundoApellido = segundoApellido;
             this.FechaNacimiento = fechaNacimiento;
             this.Sexo = sexo;
-            this.UrlFoto = urlFoto;
             this.CodigoDireccion = codigoDireccion;
             this.UrlExpedienteAntiguo = urlExpedienteAntiguo;
             this.DireccionExacta = direccionExacta;

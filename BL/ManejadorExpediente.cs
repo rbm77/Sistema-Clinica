@@ -79,7 +79,7 @@ namespace BL
 
                 TOExpediente to = new TOExpediente(expediente.IDExpediente, expediente.Cedula, expediente.Nombre,
                     expediente.PrimerApellido, expediente.SegundoApellido, expediente.FechaNacimiento, expediente.Sexo,
-                    expediente.UrlFoto, expediente.UrlExpedienteAntiguo, expediente.CodigoDireccion,
+                    expediente.UrlExpedienteAntiguo, expediente.CodigoDireccion,
                     expediente.DireccionExacta, expediente.IDMedico, expediente.FechaCreacion,
                     historiaClinica, encargado, destinatario, solicitante);
 
@@ -87,7 +87,7 @@ namespace BL
             }
             else
             {
-                confirmacion = "Error: No se pudo ingresar el expediente en el sistema";
+                confirmacion = "Error: No se pudo ingresar el to en el sistema";
             }
             return confirmacion;
         }
@@ -118,5 +118,88 @@ namespace BL
             return confirmacion;
 
         }
+
+        public string CargarExpediente(BLExpediente expediente)
+        {
+            TOExpediente to = new TOExpediente();
+            DAOExpediente dao = new DAOExpediente();
+
+            string confirmacion = "Error: Indefinido.";
+
+            to.IDExpediente = expediente.IDExpediente;
+
+            confirmacion = dao.CargarExpediente(to);
+
+            if (!confirmacion.Contains("Error:"))
+            {
+                BLEncargado encargado = null;
+
+                if (to.Encargado != null)
+                {
+                    encargado = new BLEncargado(
+                                to.Encargado.Cedula, to.Encargado.Nombre, to.Encargado.PrimerApellido,
+                                to.Encargado.SegundoApellido, to.Encargado.Telefono, to.Encargado.Correo,
+                                to.Encargado.Parentesco, to.Encargado.CodigoDireccion,
+                                to.Encargado.DireccionExacta);
+                }
+
+                BLDestinatarioFactura destinatario = null;
+
+                if (to.DestinatarioFactura != null)
+                {
+                    destinatario = new BLDestinatarioFactura(
+                                to.DestinatarioFactura.Cedula, to.DestinatarioFactura.Nombre,
+                                to.DestinatarioFactura.PrimerApellido,
+                                to.DestinatarioFactura.SegundoApellido, to.DestinatarioFactura.Telefono,
+                                to.DestinatarioFactura.Correo,
+                                to.DestinatarioFactura.CodigoDireccion,
+                                to.DestinatarioFactura.DireccionExacta);
+                }
+
+                BLSolicitanteCita solicitante = null;
+
+                if (to.SolicitanteCita != null)
+                {
+                    solicitante = new BLSolicitanteCita(to.SolicitanteCita.Cedula, to.SolicitanteCita.Correo, to.SolicitanteCita.Contrasenna,
+                    to.SolicitanteCita.Telefono);
+                }
+
+                BLHistoriaClinica historiaClinica = null;
+
+                if (to.HistoriaClinica != null)
+                {
+
+                    BLDatosNacimiento datosNacimiento = null;
+
+                    if (to.HistoriaClinica.DatosNacimiento != null)
+                    {
+
+                        datosNacimiento = new BLDatosNacimiento(
+                            to.HistoriaClinica.DatosNacimiento.TallaNacimiento,
+                            to.HistoriaClinica.DatosNacimiento.PesoNacimiento,
+                            to.HistoriaClinica.DatosNacimiento.PerimetroCefalico,
+                            to.HistoriaClinica.DatosNacimiento.Apgar,
+                            to.HistoriaClinica.DatosNacimiento.EdadGestacional,
+                            to.HistoriaClinica.DatosNacimiento.ClasificacionUniversal);
+                    }
+
+                    historiaClinica = new BLHistoriaClinica(
+                        to.HistoriaClinica.Perinatales, to.HistoriaClinica.Patologicos,
+                        to.HistoriaClinica.Quirurgicos, to.HistoriaClinica.Traumaticos,
+                        to.HistoriaClinica.HeredoFamiliares, to.HistoriaClinica.Alergias,
+                        to.HistoriaClinica.Vacunas, datosNacimiento);
+                }
+
+                expediente = new BLExpediente(to.IDExpediente, to.Cedula, to.Nombre,
+                    to.PrimerApellido, to.SegundoApellido, to.FechaNacimiento, to.Sexo,
+                    to.UrlExpedienteAntiguo, to.CodigoDireccion,
+                    to.DireccionExacta, to.IDMedico, to.FechaCreacion,
+                    historiaClinica, encargado, destinatario, solicitante);
+            }
+
+            return confirmacion;
+
+        }
+
     }
 }
