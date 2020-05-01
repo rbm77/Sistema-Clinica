@@ -357,7 +357,7 @@ namespace DAO
                         expediente.DireccionExacta = lector["DIRECCION_EXACTA"].ToString();
                         expediente.Encargado.Cedula = lector["ID_ENCARGADO"].ToString();
                         expediente.DestinatarioFactura.Cedula = lector["ID_DESTINATARIO_FACTURA"].ToString();
-                        expediente.SolicitanteCita.Correo = lector["ID_SOLICITANTE_CITA"].ToString();
+                        expediente.SolicitanteCita.Cedula = lector["ID_SOLICITANTE_CITA"].ToString();
                         expediente.FechaCreacion = lector["FECHA_CREACION"].ToString();
                         expediente.IDMedico = lector["ID_MEDICO"].ToString();
                     }
@@ -503,11 +503,11 @@ namespace DAO
                 transaccion.Commit();
 
             }
-            catch (Exception)
+            catch (Exception e)
             {
                 try
                 {
-
+                    string error = e.Message;
                     // En caso de un error se realiza un rollback a la transacción
 
                     transaccion.Rollback();

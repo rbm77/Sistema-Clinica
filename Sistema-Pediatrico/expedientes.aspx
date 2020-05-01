@@ -60,7 +60,7 @@
             </div>
 
             <asp:GridView ID="listaExpedientes" runat="server" ClientIDMode="Static" AutoGenerateColumns="false"
-                CssClass="table table-bordered table-hover" Width="100%">
+                CssClass="table table-bordered table-hover" Width="100%" OnRowCommand="listaExpedientes_RowCommand">
                 <Columns>
                     <asp:BoundField HeaderText="Cédula" DataField="Cedula" HeaderStyle-Width="19%" />
                     <asp:BoundField HeaderText="Nombre" DataField="Nombre" HeaderStyle-Width="23%" />
@@ -74,22 +74,16 @@
 
                             <div class="row">
                                 <div class="col-6">
-                                    <asp:LinkButton ID="consultar" runat="server"> 
-
-                                      
-
-
-                                    <i class="fas fa-eye fa-lg" style="color: #7199d0;"></i>
-
-                                               
+                                    <asp:LinkButton ID="consultar" runat="server" CommandName="consultar"
+                                        CommandArgument="<%# ((GridViewRow) Container).RowIndex%>"> 
+                                    <i class="fas fa-eye fa-lg" style="color: #7199d0;"></i> 
                                     </asp:LinkButton>
                                 </div>
 
                                 <div class="col-6">
-                                    <asp:LinkButton ID="eliminar" runat="server">
-                                        
+                                    <asp:LinkButton ID="eliminar" runat="server" CommandName="eliminar"
+                                        CommandArgument="<%# ((GridViewRow) Container).RowIndex%>">
                                         <i class="fas fa-trash-alt fa-lg" style="color: Tomato;"></i>
-                                            
                                     </asp:LinkButton>
                                 </div>
                             </div>

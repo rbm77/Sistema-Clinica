@@ -110,5 +110,17 @@ namespace Sistema_Pediatrico
 
             mensajeConfirmacion.Visible = true;
         }
+
+        protected void listaExpedientes_RowCommand(object sender, GridViewCommandEventArgs e)
+        {
+            if (e.CommandName == "consultar")
+            {
+                int indice = Convert.ToInt32(e.CommandArgument.ToString());
+                GridViewRow filaSeleccionada = listaExpedientes.Rows[indice];
+                TableCell id = filaSeleccionada.Cells[5];
+                Session["accion"] = "consultarExpediente";
+                Response.Redirect("expediente.aspx?id=" + id.Text);
+            }
+        }
     }
 }

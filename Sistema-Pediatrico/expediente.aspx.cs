@@ -6,6 +6,8 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using System.IO;
 using BL;
+using Newtonsoft;
+using Newtonsoft.Json;
 
 namespace Sistema_Pediatrico
 {
@@ -17,24 +19,48 @@ namespace Sistema_Pediatrico
 
             if (!IsPostBack)
             {
-                esDestinatario.Checked = true;
-                esSolicitante.Checked = true;
-                normalPerinatal.Checked = true;
-                descripcionPerinatal.Disabled = true;
-                negativoPatologico.Checked = true;
-                descripcionPatologico.Disabled = true;
-                negativoQuirurgico.Checked = true;
-                descripcionQuirurgico.Disabled = true;
-                negativoTraumatico.Checked = true;
-                descripcionTraumatico.Disabled = true;
-                negativoHeredoFamiliar.Checked = true;
-                descripcionHeredoFamiliar.Disabled = true;
-                negativoAlergias.Checked = true;
-                descripcionAlergia.Disabled = true;
-                aldiaVacunas.Checked = true;
-                descripcionVacuna.Disabled = true;
+
+                if (Request.QueryString["accion"] != null)
+                {
+                    if (Request.QueryString["accion"].Equals("crear"))
+                    {
+                        Session["accion"] = "crearExpediente";
+                    }
+                }
+
+                if (Session["accion"] != null)
+                {
+                    string accion = Session["accion"].ToString();
+
+                    if (accion.Equals("crearExpediente"))
+                    {
+                        esDestinatario.Checked = true;
+                        esSolicitante.Checked = true;
+                        normalPerinatal.Checked = true;
+                        descripcionPerinatal.Disabled = true;
+                        negativoPatologico.Checked = true;
+                        descripcionPatologico.Disabled = true;
+                        negativoQuirurgico.Checked = true;
+                        descripcionQuirurgico.Disabled = true;
+                        negativoTraumatico.Checked = true;
+                        descripcionTraumatico.Disabled = true;
+                        negativoHeredoFamiliar.Checked = true;
+                        descripcionHeredoFamiliar.Disabled = true;
+                        negativoAlergias.Checked = true;
+                        descripcionAlergia.Disabled = true;
+                        aldiaVacunas.Checked = true;
+                        descripcionVacuna.Disabled = true;
+                    }
+                    else if (accion.Equals("consultarExpediente"))
+                    {
+                        if (Request.QueryString["id"] != null)
+                        {
+                            Session["idExpediente"] = Request.QueryString["id"];
+                            CargarExpediente(Session["idExpediente"].ToString());
+                        }
+                    }
+                }
             }
-            
         }
 
         //private string SubirFoto()
@@ -390,19 +416,10 @@ namespace Sistema_Pediatrico
         }
         private void CargarExpediente(string idExpediente)
         {
-            BLEncargado encargado = new BLEncargado();
-            BLDestinatarioFactura destinatario = new BLDestinatarioFactura();
-            BLSolicitanteCita solicitante = new BLSolicitanteCita();
-            BLDatosNacimiento datosNacimiento = new BLDatosNacimiento();
-            BLHistoriaClinica historiaClinica = new BLHistoriaClinica();
+
             BLExpediente expediente = new BLExpediente();
 
             expediente.IDExpediente =  long.Parse(idExpediente);
-            expediente.Encargado = encargado;
-            expediente.DestinatarioFactura = destinatario;
-            expediente.SolicitanteCita = solicitante;
-            expediente.HistoriaClinica = historiaClinica;
-            expediente.HistoriaClinica.DatosNacimiento = datosNacimiento;
 
             ManejadorExpediente manejador = new ManejadorExpediente();
             string confirmacion = manejador.CargarExpediente(expediente);
@@ -423,7 +440,11 @@ namespace Sistema_Pediatrico
                 //distritoPValue.Value.Trim();
                 //direccionExactaPaciente.Value.Trim();
 
-            // DEBO CARGAR LAS DIRECCIONES Y SELECCIONAR LA CORRESPONDIENTE, DE IGUAL MANERA CON EL SEXO.
+                // DEBO CARGAR LAS DIRECCIONES Y SELECCIONAR LA CORRESPONDIENTE, DE IGUAL MANERA CON EL SEXO.
+
+
+                CargarDirecciones(expediente.CodigoDireccion, "", "");
+
 
 
             }
@@ -432,6 +453,75 @@ namespace Sistema_Pediatrico
                 MensajeAviso(confirmacion);
                 contenedorDatos.Visible = false;
             }
+
+        }
+
+        private class DatoDireccion {
+
+            public string Clave { get; set; }
+            public string Valor { get; set; }
+
+            public DatoDireccion()
+            {
+
+            }
+            public DatoDireccion(string clave, string valor)
+            {
+                this.Clave = clave;
+                this.Valor = valor;
+            }
+
+        }
+
+
+        private void CargarDirecciones(string codDireccionPaciente, string codDireccionEncargado, string codDireccionDestinatario)
+        {
+
+
+
+            // CARGANDO DIRECCION DE PACIENTE
+
+            if (!codDireccionPaciente.Equals(""))
+            {
+                string[] direccion = codDireccionPaciente.Split('-');
+                string provincia = direccion[0];
+                string canton = direccion[1];
+                string distrito = direccion[2];
+
+                string path = Path.GetFullPath(AppDomain.CurrentDomain.BaseDirectory);
+
+                path = path + "/Recursos/" + provincia + "_cantones.json";
+
+                string json = File.ReadAllText(path).Replace("\"", "'");
+
+                JsonTextReader reader = new JsonTextReader(new StringReader(json));
+
+                List<string> lista = new List<string>();
+
+                if (reader.HasLineInfo())
+                {
+                    while (reader.Read())
+                    {
+                        if (reader.Value != null)
+                        {
+                            lista.Add(reader.Value + "");
+                        }
+                    }
+                }
+
+                List<DatoDireccion> fuente = new List<DatoDireccion>();
+
+                for(int i = 0; i < lista.Count - 1; i = i+2)
+                {
+                    fuente.Add(new DatoDireccion(lista[i], lista[i + 1]));
+                }
+
+            }
+
+
+            
+
+
 
         }
 

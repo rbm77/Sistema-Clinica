@@ -121,12 +121,25 @@ namespace BL
 
         public string CargarExpediente(BLExpediente expediente)
         {
+
+            TOEncargado toencargado = new TOEncargado();
+            TODestinatarioFactura todestinatario = new TODestinatarioFactura();
+            TOSolicitanteCita tosolicitante = new TOSolicitanteCita();
+            TODatosNacimiento todatosNacimiento = new TODatosNacimiento();
+            TOHistoriaClinica tohistoriaClinica = new TOHistoriaClinica();
+
             TOExpediente to = new TOExpediente();
+
             DAOExpediente dao = new DAOExpediente();
 
             string confirmacion = "Error: Indefinido.";
 
             to.IDExpediente = expediente.IDExpediente;
+            to.Encargado = toencargado;
+            to.DestinatarioFactura = todestinatario;
+            to.SolicitanteCita = tosolicitante;
+            to.HistoriaClinica = tohistoriaClinica;
+            to.HistoriaClinica.DatosNacimiento = todatosNacimiento;
 
             confirmacion = dao.CargarExpediente(to);
 
@@ -190,11 +203,24 @@ namespace BL
                         to.HistoriaClinica.Vacunas, datosNacimiento);
                 }
 
-                expediente = new BLExpediente(to.IDExpediente, to.Cedula, to.Nombre,
-                    to.PrimerApellido, to.SegundoApellido, to.FechaNacimiento, to.Sexo,
-                    to.UrlExpedienteAntiguo, to.CodigoDireccion,
-                    to.DireccionExacta, to.IDMedico, to.FechaCreacion,
-                    historiaClinica, encargado, destinatario, solicitante);
+                expediente.IDExpediente = to.IDExpediente;
+                expediente.Cedula = to.Cedula;
+                expediente.Nombre = to.Nombre;
+                expediente.PrimerApellido = to.PrimerApellido;
+                expediente.SegundoApellido = to.SegundoApellido;
+                expediente.FechaNacimiento = to.FechaNacimiento;
+                expediente.Sexo = to.Sexo;
+                expediente.UrlExpedienteAntiguo = to.UrlExpedienteAntiguo;
+                expediente.CodigoDireccion = to.CodigoDireccion;
+                expediente.DireccionExacta = to.DireccionExacta;
+                expediente.IDMedico = to.IDMedico;
+                expediente.FechaCreacion = to.FechaCreacion;
+
+                expediente.HistoriaClinica = historiaClinica;
+                expediente.Encargado = encargado;
+                expediente.DestinatarioFactura = destinatario;
+                expediente.SolicitanteCita = solicitante;
+
             }
 
             return confirmacion;
