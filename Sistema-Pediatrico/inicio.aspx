@@ -72,10 +72,10 @@
 
                             <div class=" col-sm-12 col-xl-6 col-lg-6 col-md-12 mb-20 padding-cards-inicio">
                                 <div class="card text-white o-hidden h-100">
-                                    <a class="card-body card-dash" style="background: #f7f7f7;" href="expediente.aspx">
+                                    <a class="card-body card-dash" style="background: #f7f7f7;" href="expediente.aspx?accion=crear">
                                         <i style="color: #1d5e93" class="fas fa-plus-circle fa-4x"></i>
                                     </a>
-                                    <a class="card-footer card-footer-inicio text-white clearfix z-1" href="expediente.aspx">
+                                    <a class="card-footer card-footer-inicio text-white clearfix z-1" href="expediente.aspx?accion=crea">
                                         <span class="float-left">Nuevo Expediente</span>
                                         <span class="float-right">
                                             <i class="fas fa-angle-right"></i>

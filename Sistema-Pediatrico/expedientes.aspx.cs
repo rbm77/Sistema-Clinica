@@ -20,7 +20,8 @@ namespace Sistema_Pediatrico
 
         protected void btnCrear_Click(object sender, EventArgs e)
         {
-
+            Session["accion"] = "crearExpediente";
+            Response.Redirect("expediente.aspx");
         }
 
         private void CargarExpedientes()
@@ -116,10 +117,9 @@ namespace Sistema_Pediatrico
             if (e.CommandName == "consultar")
             {
                 int indice = Convert.ToInt32(e.CommandArgument.ToString());
-                GridViewRow filaSeleccionada = listaExpedientes.Rows[indice];
-                TableCell id = filaSeleccionada.Cells[5];
+                string id = (string) listaExpedientes.DataKeys[indice]["IdExpediente"];
                 Session["accion"] = "consultarExpediente";
-                Response.Redirect("expediente.aspx?id=" + id.Text);
+                Response.Redirect("expediente.aspx?id=" + id);
             }
         }
     }

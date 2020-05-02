@@ -10,7 +10,7 @@
 
     <div class="container-fluid padding-contenedorExp">
 
-        <h3 class="titulo">Expediente</h3>
+        <h3 runat="server" id="Titulo" class="titulo"></h3>
 
         <hr />
 
@@ -21,6 +21,14 @@
             <form id="formularioExpediente" class="needs-validation"
                 novalidate style="margin-top: 15px" runat="server">
 
+                <div runat="server" id="Consul_Exam" class="row justify-content-end">
+                    <div class="col-md-3 col-sm-6">
+                        <a href="" class="btn btn-general btn-crear">Consultas</a>
+                    </div>
+                    <div class="col-md-3 col-sm-6">
+                        <a href="" class="btn btn-general btn-crear">Exámenes Lab.</a>
+                    </div>
+                </div>
 
                 <nav>
                     <div class="nav nav-tabs" id="nav-tab" role="tablist">
@@ -113,7 +121,7 @@
 
                         <div class="form-row">
                             <div class="form-group col-md-4 col-sm-4">
-                                <asp:Label ID="labelFechaActual" runat="server" Text="Fecha actual"></asp:Label>
+                                <asp:Label ID="labelFechaActual" runat="server" Text="Fecha Creación"></asp:Label>
                                 <asp:TextBox ID="fechaActual" runat="server" class="form-control" placeholder="formato: dd/mm/aaaa" ClientIDMode="Static" pattern="([0-2][0-9]|3[0-1])(\/|-)(0[1-9]|1[0-2])\2(\d{4})" required></asp:TextBox>
                             </div>
                             <%--                        <div class="form-group col-md-8 col-sm-12">
@@ -619,7 +627,7 @@
                                 <asp:Button ID="btnGuardar" runat="server" Text="Guardar" CssClass="btn btn-general btn-guardar" OnClick="btnGuardar_Click" />
                             </div>
                             <div class="col-md-2 col-sm-5">
-                                <asp:Button ID="btnRegresar" runat="server" Text="Regresar" CssClass="btn btn-general btn-regresar" />
+                                <a href="expedientes.aspx" class="btn btn-general btn-regresar">Regresar</a>
                             </div>
                         </div>
 
@@ -652,7 +660,6 @@
                         form.classList.add('was-validated');
                     }, false);
                 });
-                ObtenerProvincias();
                 esSolicitanteCita();
                 esDestinatarioFactura();
             }, false);

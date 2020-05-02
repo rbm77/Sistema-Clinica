@@ -86,7 +86,7 @@
                             <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
                         </a>
 
-                        <a class="nav-link collapsed" href="expediente.aspx">
+                        <a class="nav-link collapsed" href="expediente.aspx?accion=crear">
                             <div class="sb-nav-link-icon"><i class="fas fa-plus-circle"></i></div>
                             Nuevo
                                

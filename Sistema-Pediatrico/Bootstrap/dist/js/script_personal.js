@@ -154,60 +154,6 @@ function AsignarDistritoDestinatario(distrito) {
     document.getElementById("distritoDValue").value = codigoDistrito;
 }
 
-function ObtenerProvincias() {
-
-    $.ajax({
-        dataType: 'json',
-        type: 'GET',
-        url: '../../../Recursos/provincias.json',
-        success: function (response, status) {
-
-            if (status == "success") {
-
-                var provinciaPaciente = document.getElementById("inputProvinciaPaciente");
-
-                var length = provinciaPaciente.options.length;
-                for (i = length - 1; i >= 0; i--) {
-                    provinciaPaciente.options[i] = null;
-                }
-
-                document.getElementById("provinciaPValue").value = "nulo";
-                document.getElementById("cantonPValue").value = "nulo";
-                document.getElementById("distritoPValue").value = "nulo";
-
-
-                CargarDatos(provinciaPaciente, response);
-
-                var provinciaEncargado = document.getElementById("inputProvinciaEncargado");
-
-                var length = provinciaEncargado.options.length;
-                for (i = length - 1; i >= 0; i--) {
-                    provinciaEncargado.options[i] = null;
-                }
-
-                document.getElementById("provinciaEValue").value = "nulo";
-                document.getElementById("cantonEValue").value = "nulo";
-                document.getElementById("distritoEValue").value = "nulo";
-
-                CargarDatos(provinciaEncargado, response);
-
-                var provinciaDestinatario = document.getElementById("inputProvinciaDestinatario");
-
-                var length = provinciaDestinatario.options.length;
-                for (i = length - 1; i >= 0; i--) {
-                    provinciaDestinatario.options[i] = null;
-                }
-
-                document.getElementById("provinciaDValue").value = "nulo";
-                document.getElementById("cantonDValue").value = "nulo";
-                document.getElementById("distritoDValue").value = "nulo";
-
-                CargarDatos(provinciaDestinatario, response);
-            }
-        },
-    });
-}
-
 
 function ObtenerCantonesEncargado(provincia) {
 

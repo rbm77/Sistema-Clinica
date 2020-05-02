@@ -64,7 +64,7 @@ namespace DAO
                     comando.CommandText = "INSERT INTO EXPEDIENTE (CEDULA, NOMBRE, PRIMER_APELLIDO, SEGUNDO_APELLIDO, FECHA_NACIMIENTO," +
                     " SEXO, URL_EXPEDIENTE_ANTIGUO, CODIGO_DIRECCION, DIRECCION_EXACTA, ID_ENCARGADO, ID_DESTINATARIO_FACTURA," +
                     " ID_SOLICITANTE_CITA, FECHA_CREACION, ID_MEDICO) OUTPUT INSERTED.ID_EXPEDIENTE" + " VALUES (@cedula, @nombre, @primerApellido, @segundoApellido, @fechaNacimiento," +
-                    "@sexo, @urlFoto, @urlExpediente, @codigoDireccion, @direccionExacta, @idEncargado, @idDestinatario, @idSolicitante, @fechaCreacion," +
+                    "@sexo, @urlExpediente, @codigoDireccion, @direccionExacta, @idEncargado, @idDestinatario, @idSolicitante, @fechaCreacion," +
                     "@idMedico);";
 
                     // Se asigna un valor a los parámetros del comando a ejecutar
@@ -132,6 +132,8 @@ namespace DAO
                     // Se ejecuta el comando y se realiza un commit de la transacción
 
                     idExpedienteGuardado = (long) comando.ExecuteScalar();
+
+                    confirmacion += "*" + idExpedienteGuardado;
 
                     comando.Parameters.Clear();
                 }

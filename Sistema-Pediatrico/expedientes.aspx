@@ -60,7 +60,8 @@
             </div>
 
             <asp:GridView ID="listaExpedientes" runat="server" ClientIDMode="Static" AutoGenerateColumns="false"
-                CssClass="table table-bordered table-hover" Width="100%" OnRowCommand="listaExpedientes_RowCommand">
+                CssClass="table table-bordered table-hover" Width="100%" OnRowCommand="listaExpedientes_RowCommand"
+                DataKeyNames="IdExpediente">
                 <Columns>
                     <asp:BoundField HeaderText="Cédula" DataField="Cedula" HeaderStyle-Width="19%" />
                     <asp:BoundField HeaderText="Nombre" DataField="Nombre" HeaderStyle-Width="23%" />

@@ -19,6 +19,7 @@ namespace Sistema_Pediatrico
 
             if (!IsPostBack)
             {
+                CargarProvincias();
 
                 if (Request.QueryString["accion"] != null)
                 {
@@ -50,15 +51,57 @@ namespace Sistema_Pediatrico
                         descripcionAlergia.Disabled = true;
                         aldiaVacunas.Checked = true;
                         descripcionVacuna.Disabled = true;
+                        fechaActual.Text = DateTime.Today.ToString("dd/MM/yyyy");
+                        Titulo.InnerText = "Nuevo Expediente";
+                        Consul_Exam.Visible = false;
                     }
                     else if (accion.Equals("consultarExpediente"))
                     {
                         if (Request.QueryString["id"] != null)
                         {
-                            Session["idExpediente"] = Request.QueryString["id"];
+                            if (!Request.QueryString["id"].Equals(""))
+                            {
+                                Session["idExpediente"] = Request.QueryString["id"];
+                            }
+                        }
+                        if (Session["idExpediente"] != null)
+                        {
                             CargarExpediente(Session["idExpediente"].ToString());
+                            Titulo.InnerText = "Expediente # " + Session["idExpediente"].ToString();
+                            Consul_Exam.Visible = true;
                         }
                     }
+                }
+            }
+            else
+            {
+                if (anormalPerinatal.Checked)
+                {
+                    descripcionPerinatal.Disabled = false;
+                }
+                if (positivoPatologico.Checked)
+                {
+                    descripcionPatologico.Disabled = false;
+                }
+                if (positivoQuirurgico.Checked)
+                {
+                    descripcionQuirurgico.Disabled = false;
+                }
+                if (positivoTraumatico.Checked)
+                {
+                    descripcionTraumatico.Disabled = false;
+                }
+                if (positivoHeredoFamiliar.Checked)
+                {
+                    descripcionHeredoFamiliar.Disabled = false;
+                }
+                if (positivoAlergias.Checked)
+                {
+                    descripcionHeredoFamiliar.Disabled = false;
+                }
+                if (pendientesVacunas.Checked)
+                {
+                    descripcionVacuna.Disabled = false;
                 }
             }
         }
@@ -67,7 +110,7 @@ namespace Sistema_Pediatrico
         //{
         //    try
         //    {
-                
+
 
         //        if (inputFotoPaciente.HasFile)
         //        {
@@ -118,15 +161,36 @@ namespace Sistema_Pediatrico
 
                 confirmacion = manejador.CrearExpediente(expediente);
 
-                MensajeAviso(confirmacion);
-
+                if (confirmacion.Contains("Error:"))
+                {
+                    EstablecerNulos();
+                    MensajeAviso(confirmacion);
+                }
+                else
+                {
+                    string id = confirmacion.Split('*')[1];
+                    Session["accion"] = "consultarExpediente";
+                    Response.Redirect("expediente.aspx?id=" + id);
+                }
             }
             else
             {
+                EstablecerNulos();
                 confirmacion = "Error: Puede que algunos datos se encuentren vacíos o con un formato incorrecto.";
                 MensajeAviso(confirmacion);
             }
 
+        }
+
+        private void EstablecerNulos()
+        {
+            inputProvinciaPaciente.SelectedValue = "nulo";
+            inputProvinciaEncargado.SelectedValue = "nulo";
+            inputProvinciaDestinatario.SelectedValue = "nulo";
+
+            provinciaPValue.Value = "nulo";
+            provinciaEValue.Value = "nulo";
+            provinciaDValue.Value = "nulo";
         }
 
         private void MensajeAviso(string mensaje)
@@ -185,7 +249,7 @@ namespace Sistema_Pediatrico
             // Comienza a validar
 
             if (nombreP.Equals("") || primerApellidoP.Equals("") || fechaNacimientoP.Equals("") || sexoP.Equals("nulo") ||
-                provinciaP.Equals("nulo") || cantonP.Equals("nulo") || distritoP.Equals("nulo") || 
+                provinciaP.Equals("nulo") || cantonP.Equals("nulo") || distritoP.Equals("nulo") ||
                 fechaCreacion.Equals("") || idMedico.Equals(""))
             {
                 return null;
@@ -233,6 +297,13 @@ namespace Sistema_Pediatrico
                 }
                 else
                 {
+                    if (!provinciaE.Equals("nulo") || !cantonE.Equals("nulo") || !distritoE.Equals("nulo"))
+                    {
+                        if (provinciaE.Equals("nulo") || cantonE.Equals("nulo") || distritoE.Equals("nulo"))
+                        {
+                            return null;
+                        }
+                    }
                     string codigoDireccion = provinciaE + "-" + cantonE + "-" + distritoE;
 
                     encargado = new BLEncargado(cedulaE, nombreE, primerApellidoE, segundoApellidoE, telefonoE, correoE, parentescoE,
@@ -257,19 +328,26 @@ namespace Sistema_Pediatrico
                 string direccionExactaD = direccionExactaDestinatario.Value.Trim();
 
 
-                    if (cedulaD.Equals(""))
+                if (cedulaD.Equals(""))
+                {
+                    return null;
+                }
+                else
+                {
+                    if (!provinciaD.Equals("nulo") || !cantonD.Equals("nulo") || !distritoD.Equals("nulo"))
                     {
-                        return null;
+                        if (provinciaD.Equals("nulo") || cantonD.Equals("nulo") || distritoD.Equals("nulo"))
+                        {
+                            return null;
+                        }
                     }
-                    else
-                    {
-                        string codigoDireccion = provinciaD + "-" + cantonD + "-" + distritoD;
+                    string codigoDireccion = provinciaD + "-" + cantonD + "-" + distritoD;
 
-                        destinatario = new BLDestinatarioFactura(cedulaD, nombreD, primerApellidoD, segundoApellidoD, telefonoD,
-                            correoD, codigoDireccion, direccionExactaD);
+                    destinatario = new BLDestinatarioFactura(cedulaD, nombreD, primerApellidoD, segundoApellidoD, telefonoD,
+                        correoD, codigoDireccion, direccionExactaD);
 
-                        expediente.DestinatarioFactura = destinatario;
-                    }
+                    expediente.DestinatarioFactura = destinatario;
+                }
             }
 
             // Datos de SOLICITANTE
@@ -281,14 +359,13 @@ namespace Sistema_Pediatrico
                 string correoS = correoSolicitante.Text.Trim();
 
                 string telefonoS = telefonoSolicitante.Text.Trim();
-                
+
                 if (correoS.Equals("") || cedulaS.Equals(""))
                 {
                     return null;
                 }
                 else
                 {
-
                     string contrasenna = "NINGUNA"; // SE DEBE AUTOGENERAR UNA CONTRASENNA Y ASIGNARLA AL SOLICITANTE. ADEMAS ENVIARLA POR CORREO
                     solicitante = new BLSolicitanteCita(cedulaS, correoS, contrasenna, telefonoS);
                     expediente.SolicitanteCita = solicitante;
@@ -419,7 +496,7 @@ namespace Sistema_Pediatrico
 
             BLExpediente expediente = new BLExpediente();
 
-            expediente.IDExpediente =  long.Parse(idExpediente);
+            expediente.IDExpediente = long.Parse(idExpediente);
 
             ManejadorExpediente manejador = new ManejadorExpediente();
             string confirmacion = manejador.CargarExpediente(expediente);
@@ -428,25 +505,208 @@ namespace Sistema_Pediatrico
             {
                 // Datos de PACIENTE
 
-                //cedulaPaciente.Text = expediente.Cedula;
-                //nombrePaciente.Text = expediente.Nombre;
-                //primerApellidoPaciente.Text = expediente.PrimerApellido;
-                //segundoApellidoPaciente.Text = expediente.SegundoApellido;
-                //fechaNacimientoPaciente.Text = expediente.FechaNacimiento;
-                //sexoPaciente.Text = expediente.Sexo;
-                //urlExpedienteAntiguoPaciente.Value = expediente.UrlExpedienteAntiguo;
-                //provinciaPValue.Value;
-                //cantonPValue.Value.Trim();
-                //distritoPValue.Value.Trim();
-                //direccionExactaPaciente.Value.Trim();
-
-                // DEBO CARGAR LAS DIRECCIONES Y SELECCIONAR LA CORRESPONDIENTE, DE IGUAL MANERA CON EL SEXO.
+                cedulaPaciente.Text = expediente.Cedula;
+                nombrePaciente.Text = expediente.Nombre;
+                primerApellidoPaciente.Text = expediente.PrimerApellido;
+                segundoApellidoPaciente.Text = expediente.SegundoApellido;
+                fechaNacimientoPaciente.Text = expediente.FechaNacimiento;
+                sexoPaciente.SelectedValue = expediente.Sexo;
+                urlExpedienteAntiguoPaciente.Value = expediente.UrlExpedienteAntiguo;
+                direccionExactaPaciente.Value = expediente.DireccionExacta;
+                fechaActual.Text = expediente.FechaCreacion;
+                fechaActual.ReadOnly = true;
 
 
-                CargarDirecciones(expediente.CodigoDireccion, "", "");
+                // Datos de ENCARGADO
 
+                if (expediente.Encargado != null)
+                {
+                    if (expediente.Encargado.Cedula != null)
+                    {
+                        if (!expediente.Encargado.Cedula.Equals(""))
+                        {
+                            cedulaEncargado.Text = expediente.Encargado.Cedula;
+                            nombreEncargado.Text = expediente.Encargado.Nombre;
+                            primerApellidoEncargado.Text = expediente.Encargado.PrimerApellido;
+                            segundoApellidoEncargado.Text = expediente.Encargado.SegundoApellido;
+                            inputTelefonoEncargado.Text = expediente.Encargado.Telefono;
+                            inputCorreoEncargado.Text = expediente.Encargado.Correo;
+                            parentesco.Text = expediente.Encargado.Parentesco;
+                            direccionExactaEncargado.Value = expediente.Encargado.DireccionExacta;
+                        }
+                    }
+                }
 
+                // Datos de DESTINATARIO
 
+                if (expediente.Encargado != null && expediente.DestinatarioFactura != null)
+                {
+                    if (!expediente.DestinatarioFactura.Cedula.Equals("") && 
+                        !expediente.DestinatarioFactura.Cedula.Equals(expediente.Encargado.Cedula))
+                    {
+                        esDestinatario.Checked = false;
+
+                        cedulaDestinatario.Text = expediente.DestinatarioFactura.Cedula;
+                        nombreDestinatario.Text = expediente.DestinatarioFactura.Nombre;
+                        primerApellidoDestinatario.Text = expediente.DestinatarioFactura.PrimerApellido;
+                        segundoApellidoDestinatario.Text = expediente.DestinatarioFactura.SegundoApellido;
+                        telefonoDestinatario.Text = expediente.DestinatarioFactura.Telefono;
+                        correoDestinatario.Text = expediente.DestinatarioFactura.Correo;
+                        direccionExactaDestinatario.Value = expediente.DestinatarioFactura.DireccionExacta;
+                    }
+                    else
+                    {
+                        esDestinatario.Checked = true;
+                    }
+                }
+
+                // Datos de SOLICITANTE
+
+                if (expediente.Encargado != null && expediente.SolicitanteCita != null)
+                {
+                    if (!expediente.SolicitanteCita.Cedula.Equals("") &&
+                        !expediente.SolicitanteCita.Cedula.Equals(expediente.Encargado.Cedula))
+                    {
+                        esSolicitante.Checked = false;
+                        cedulaSolicitante.Text = expediente.SolicitanteCita.Cedula;
+                        correoSolicitante.Text = expediente.SolicitanteCita.Correo;
+                        telefonoSolicitante.Text = expediente.SolicitanteCita.Telefono;
+                    }
+                    else
+                    {
+                        esSolicitante.Checked = true;
+                    }
+                }
+
+                
+                if (expediente.HistoriaClinica != null)
+                {
+                    // DATOS DE NACIMIENTO
+
+                    if (expediente.HistoriaClinica.DatosNacimiento != null)
+                    {
+                        tallaNacimiento.Text = Form0(expediente.HistoriaClinica.DatosNacimiento.TallaNacimiento + "");
+                        pesoNacimiento.Text = Form0(expediente.HistoriaClinica.DatosNacimiento.PesoNacimiento + "");
+                        perimetroCefalico.Text = Form0(expediente.HistoriaClinica.DatosNacimiento.PerimetroCefalico + "");
+                        edadGestacional.Text = Form0(expediente.HistoriaClinica.DatosNacimiento.EdadGestacional + "");
+                        apgar.Text = Form0(expediente.HistoriaClinica.DatosNacimiento.Apgar + "");
+                        clasificacionUniversal.Text = expediente.HistoriaClinica.DatosNacimiento.ClasificacionUniversal;
+                    }
+
+                    // DATOS DE HISTORIA CLINICA
+
+                    descripcionPerinatal.Value = expediente.HistoriaClinica.Perinatales;
+                    descripcionPatologico.Value = expediente.HistoriaClinica.Patologicos;
+                    descripcionQuirurgico.Value = expediente.HistoriaClinica.Quirurgicos;
+                    descripcionTraumatico.Value = expediente.HistoriaClinica.Traumaticos;
+                    descripcionHeredoFamiliar.Value = expediente.HistoriaClinica.HeredoFamiliares;
+                    descripcionAlergia.Value = expediente.HistoriaClinica.Alergias;
+                    descripcionVacuna.Value = expediente.HistoriaClinica.Vacunas;
+
+                    if (expediente.HistoriaClinica.Perinatales.Equals(""))
+                    {
+                        normalPerinatal.Checked = true;
+                        descripcionPerinatal.Disabled = true;
+                    }
+                    else
+                    {
+                        anormalPerinatal.Checked = true;
+                    }
+
+                    if (expediente.HistoriaClinica.Patologicos.Equals(""))
+                    {
+                        negativoPatologico.Checked = true;
+                        descripcionPatologico.Disabled = true;
+                    }
+                    else
+                    {
+                        positivoPatologico.Checked = true;
+                    }
+
+                    if (expediente.HistoriaClinica.Quirurgicos.Equals(""))
+                    {
+                        negativoQuirurgico.Checked = true;
+                        descripcionQuirurgico.Disabled = true;
+                    }
+                    else
+                    {
+                        positivoQuirurgico.Checked = true;
+                    }
+
+                    if (expediente.HistoriaClinica.Traumaticos.Equals(""))
+                    {
+                        negativoTraumatico.Checked = true;
+                        descripcionTraumatico.Disabled = true;
+                    }
+                    else
+                    {
+                        positivoTraumatico.Checked = true;
+                    }
+
+                    if (expediente.HistoriaClinica.HeredoFamiliares.Equals(""))
+                    {
+                        negativoHeredoFamiliar.Checked = true;
+                        descripcionHeredoFamiliar.Disabled = true;
+                    }
+                    else
+                    {
+                        positivoHeredoFamiliar.Checked = true;
+                    }
+
+                    if (expediente.HistoriaClinica.Alergias.Equals(""))
+                    {
+                        negativoAlergias.Checked = true;
+                        descripcionAlergia.Disabled = true;
+                    }
+                    else
+                    {
+                        positivoAlergias.Checked = true;
+                    }
+
+                    if (expediente.HistoriaClinica.Vacunas.Equals(""))
+                    {
+                        aldiaVacunas.Checked = true;
+                        descripcionVacuna.Disabled = true;
+                    }
+                    else
+                    {
+                        pendientesVacunas.Checked = true;
+                    }
+                }
+
+                // CARGO TODAS LAS DIRECCIONES
+
+                if (!expediente.CodigoDireccion.Equals("") && !expediente.CodigoDireccion.Equals("nulo-nulo-nulo"))
+                {
+                    string direccionP = expediente.CodigoDireccion;
+                    string direccionE = "";
+                    string direccionD = "";
+
+                    if (expediente.Encargado != null)
+                    {
+                        if (expediente.Encargado.CodigoDireccion != null)
+                        {
+                            if (!expediente.Encargado.CodigoDireccion.Equals("") &&
+                                !expediente.Encargado.CodigoDireccion.Equals("nulo-nulo-nulo"))
+                            {
+                                direccionE = expediente.Encargado.CodigoDireccion;
+                            }
+                        }
+                    }
+
+                    if (expediente.DestinatarioFactura != null)
+                    {
+                        if (expediente.DestinatarioFactura.CodigoDireccion != null)
+                        {
+                            if (!expediente.DestinatarioFactura.CodigoDireccion.Equals("") &&
+                                !expediente.DestinatarioFactura.CodigoDireccion.Equals("nulo-nulo-nulo"))
+                            {
+                                direccionD = expediente.DestinatarioFactura.CodigoDireccion;
+                            }
+                        }
+                    }
+                    CargarDirecciones(direccionP, direccionE, direccionD);
+                }
             }
             else
             {
@@ -456,7 +716,16 @@ namespace Sistema_Pediatrico
 
         }
 
-        private class DatoDireccion {
+        private string Form0(string entrada)
+        {
+            if (entrada.Equals("0"))
+            {
+                return "";
+            }
+            return entrada;
+        }
+        private class DatoDireccion
+        {
 
             public string Clave { get; set; }
             public string Valor { get; set; }
@@ -476,9 +745,6 @@ namespace Sistema_Pediatrico
 
         private void CargarDirecciones(string codDireccionPaciente, string codDireccionEncargado, string codDireccionDestinatario)
         {
-
-
-
             // CARGANDO DIRECCION DE PACIENTE
 
             if (!codDireccionPaciente.Equals(""))
@@ -488,41 +754,236 @@ namespace Sistema_Pediatrico
                 string canton = direccion[1];
                 string distrito = direccion[2];
 
-                string path = Path.GetFullPath(AppDomain.CurrentDomain.BaseDirectory);
+                inputProvinciaPaciente.SelectedValue = provincia;
+                provinciaPValue.Value = provincia;
 
-                path = path + "/Recursos/" + provincia + "_cantones.json";
+                //
 
-                string json = File.ReadAllText(path).Replace("\"", "'");
+                String path = Path.GetFullPath(AppDomain.CurrentDomain.BaseDirectory) + "/Recursos/" + provincia + "_cantones.json";
 
-                JsonTextReader reader = new JsonTextReader(new StringReader(json));
+                List<DatoDireccion> fuente = GenerarFuente(path);
 
-                List<string> lista = new List<string>();
+                // SE CARGA EL SELECT
 
-                if (reader.HasLineInfo())
-                {
-                    while (reader.Read())
-                    {
-                        if (reader.Value != null)
-                        {
-                            lista.Add(reader.Value + "");
-                        }
-                    }
-                }
+                inputCantonPaciente.DataSource = null;
+                inputCantonPaciente.DataTextField = "Valor";
+                inputCantonPaciente.DataValueField = "Clave";
+                inputCantonPaciente.DataSource = fuente;
+                inputCantonPaciente.DataBind();
 
-                List<DatoDireccion> fuente = new List<DatoDireccion>();
+                inputCantonPaciente.SelectedValue = canton;
+                cantonPValue.Value = canton;
 
-                for(int i = 0; i < lista.Count - 1; i = i+2)
-                {
-                    fuente.Add(new DatoDireccion(lista[i], lista[i + 1]));
-                }
+                //
 
+                path = Path.GetFullPath(AppDomain.CurrentDomain.BaseDirectory) + "/Recursos/" + provincia + "_" + canton + "_distritos.json";
+
+                fuente = GenerarFuente(path);
+
+
+                // SE CARGA EL SELECT
+
+                inputDistritoPaciente.DataSource = null;
+                inputDistritoPaciente.DataTextField = "Valor";
+                inputDistritoPaciente.DataValueField = "Clave";
+                inputDistritoPaciente.DataSource = fuente;
+                inputDistritoPaciente.DataBind();
+
+                inputDistritoPaciente.SelectedValue = distrito;
+                distritoPValue.Value = distrito;
+
+                //
+            }
+
+            // CARGANDO DIRECCION DE ENCARGADO
+
+            if (!codDireccionEncargado.Equals(""))
+            {
+                string[] direccion = codDireccionEncargado.Split('-');
+                string provincia = direccion[0];
+                string canton = direccion[1];
+                string distrito = direccion[2];
+
+                inputProvinciaEncargado.SelectedValue = provincia;
+                provinciaEValue.Value = provincia;
+
+                //
+
+                String path = Path.GetFullPath(AppDomain.CurrentDomain.BaseDirectory) + "/Recursos/" + provincia + "_cantones.json";
+
+                List<DatoDireccion> fuente = GenerarFuente(path);
+
+                // SE CARGA EL SELECT
+
+                inputCantonEncargado.DataSource = null;
+                inputCantonEncargado.DataTextField = "Valor";
+                inputCantonEncargado.DataValueField = "Clave";
+                inputCantonEncargado.DataSource = fuente;
+                inputCantonEncargado.DataBind();
+
+                inputCantonEncargado.SelectedValue = canton;
+                cantonEValue.Value = canton;
+
+                //
+
+                path = Path.GetFullPath(AppDomain.CurrentDomain.BaseDirectory) + "/Recursos/" + provincia + "_" + canton + "_distritos.json";
+
+                fuente = GenerarFuente(path);
+
+
+                // SE CARGA EL SELECT
+
+                inputDistritoEncargado.DataSource = null;
+                inputDistritoEncargado.DataTextField = "Valor";
+                inputDistritoEncargado.DataValueField = "Clave";
+                inputDistritoEncargado.DataSource = fuente;
+                inputDistritoEncargado.DataBind();
+
+                inputDistritoEncargado.SelectedValue = distrito;
+                distritoEValue.Value = distrito;
+
+                //
             }
 
 
-            
+            // CARGANDO DIRECCION DE DESTINATARIO
+
+            if (!codDireccionDestinatario.Equals(""))
+            {
+                string[] direccion = codDireccionDestinatario.Split('-');
+                string provincia = direccion[0];
+                string canton = direccion[1];
+                string distrito = direccion[2];
+
+                inputProvinciaDestinatario.SelectedValue = provincia;
+                provinciaDValue.Value = provincia;
+
+                //
+
+                String path = Path.GetFullPath(AppDomain.CurrentDomain.BaseDirectory) + "/Recursos/" + provincia + "_cantones.json";
+
+                List<DatoDireccion> fuente = GenerarFuente(path);
+
+                // SE CARGA EL SELECT
+
+                inputCantonDestinatario.DataSource = null;
+                inputCantonDestinatario.DataTextField = "Valor";
+                inputCantonDestinatario.DataValueField = "Clave";
+                inputCantonDestinatario.DataSource = fuente;
+                inputCantonDestinatario.DataBind();
+
+                inputCantonDestinatario.SelectedValue = canton;
+                cantonDValue.Value = canton;
+
+                //
+
+                path = Path.GetFullPath(AppDomain.CurrentDomain.BaseDirectory) + "/Recursos/" + provincia + "_" + canton + "_distritos.json";
+
+                fuente = GenerarFuente(path);
 
 
+                // SE CARGA EL SELECT
 
+                inputDistritoDestinatario.DataSource = null;
+                inputDistritoDestinatario.DataTextField = "Valor";
+                inputDistritoDestinatario.DataValueField = "Clave";
+                inputDistritoDestinatario.DataSource = fuente;
+                inputDistritoDestinatario.DataBind();
+
+                inputDistritoDestinatario.SelectedValue = distrito;
+                distritoDValue.Value = distrito;
+
+                //
+            }
+        }
+
+        private List<DatoDireccion> GenerarFuente(string path)
+        {
+            string json = File.ReadAllText(path).Replace("\"", "'");
+
+            JsonTextReader reader = new JsonTextReader(new StringReader(json));
+
+            List<string> lista = new List<string>();
+
+            if (reader.HasLineInfo())
+            {
+                while (reader.Read())
+                {
+                    if (reader.Value != null)
+                    {
+                        lista.Add(reader.Value + "");
+                    }
+                }
+            }
+
+            reader.Close();
+
+            List<DatoDireccion> fuente = new List<DatoDireccion>();
+
+            fuente.Add(new DatoDireccion("nulo","Seleccionar..."));
+
+            for (int i = 0; i < lista.Count - 1; i = i + 2)
+            {
+                fuente.Add(new DatoDireccion(lista[i], lista[i + 1]));
+            }
+            return fuente;
+        }
+
+        private void CargarProvincias()
+        {
+
+            string path = Path.GetFullPath(AppDomain.CurrentDomain.BaseDirectory) + "/Recursos/provincias.json";
+
+            List<DatoDireccion> fuente = GenerarFuente(path);
+
+
+            // SE CARGA EL SELECT
+
+            inputProvinciaPaciente.DataSource = null;
+            inputProvinciaPaciente.DataTextField = "Valor";
+            inputProvinciaPaciente.DataValueField = "Clave";
+            inputProvinciaPaciente.DataSource = fuente;
+            inputProvinciaPaciente.DataBind();
+
+            inputProvinciaPaciente.SelectedValue = "nulo";
+
+            provinciaPValue.Value = "nulo";
+            cantonPValue.Value = "nulo";
+            distritoPValue.Value = "nulo";
+
+            //
+
+            // SE CARGA EL SELECT
+
+            inputProvinciaEncargado.DataSource = null;
+            inputProvinciaEncargado.DataTextField = "Valor";
+            inputProvinciaEncargado.DataValueField = "Clave";
+            inputProvinciaEncargado.DataSource = fuente;
+            inputProvinciaEncargado.DataBind();
+
+            inputProvinciaEncargado.SelectedValue = "nulo";
+
+            provinciaEValue.Value = "nulo";
+            cantonEValue.Value = "nulo";
+            distritoEValue.Value = "nulo";
+
+            //
+
+            // SE CARGA EL SELECT
+
+            inputProvinciaDestinatario.DataSource = null;
+            inputProvinciaDestinatario.DataTextField = "Valor";
+            inputProvinciaDestinatario.DataValueField = "Clave";
+            inputProvinciaDestinatario.DataSource = fuente;
+            inputProvinciaDestinatario.DataBind();
+
+            inputProvinciaDestinatario.SelectedValue = "nulo";
+
+            provinciaDValue.Value = "nulo";
+            cantonDValue.Value = "nulo";
+            distritoDValue.Value = "nulo";
+
+            //
         }
 
     }
