@@ -48,7 +48,7 @@
                         <div class="form-row">
                             <div class="form-group col-md-4 col-sm-4">
                                 <asp:Label ID="labelCedulaPaciente" runat="server" Text="Cédula"></asp:Label>
-                                <asp:TextBox ID="cedulaPaciente" runat="server" class="form-control" ClientIDMode="Static"></asp:TextBox>
+                                <asp:TextBox placeholder="Formato: #0###0###" ID="cedulaPaciente" runat="server" class="form-control" ClientIDMode="Static"></asp:TextBox>
                             </div>
                             <div class="form-group col-md-4 col-sm-4">
                                 <asp:Label ID="labelNombrePaciente" runat="server" Text="Nombre"></asp:Label>
@@ -143,7 +143,7 @@
                         <div class="form-row">
                             <div class="form-group col-md-3 col-sm-4">
                                 <asp:Label ID="labelCedulaEncargado" runat="server" Text="Cédula"></asp:Label>
-                                <asp:TextBox ID="cedulaEncargado" runat="server" class="form-control" ClientIDMode="Static"></asp:TextBox>
+                                <asp:TextBox placeholder="Formato: #0###0###" ID="cedulaEncargado" runat="server" class="form-control" ClientIDMode="Static"></asp:TextBox>
                             </div>
                             <div class="form-group col-md-3 col-sm-4">
                                 <asp:Label ID="labelNombreEncargado" runat="server" Text="Nombre"></asp:Label>
@@ -243,7 +243,7 @@
 
                                 <div class="form-group col-md-4 col-sm-4">
                                     <asp:Label ID="labelCedulaSolicitante" runat="server" Text="Cédula"></asp:Label>
-                                    <asp:TextBox ID="cedulaSolicitante" runat="server" class="form-control" ClientIDMode="Static"></asp:TextBox>
+                                    <asp:TextBox placeholder="Formato: #0###0###" ID="cedulaSolicitante" runat="server" class="form-control" ClientIDMode="Static"></asp:TextBox>
                                 </div>
                                 <div class="form-group col-md-4 col-sm-4">
                                     <asp:Label ID="labelCorreoSolicitante" runat="server" Text="Correo Electrónico"></asp:Label>
@@ -267,7 +267,7 @@
                         <div class="form-row">
                             <div class="form-group col-md-4 col-sm-4">
                                 <asp:Label ID="labelCedulaDestinatario" runat="server" Text="Cédula"></asp:Label>
-                                <asp:TextBox ID="cedulaDestinatario" runat="server" class="form-control" ClientIDMode="Static"></asp:TextBox>
+                                <asp:TextBox placeholder="Formato: #0###0###" ID="cedulaDestinatario" runat="server" class="form-control" ClientIDMode="Static"></asp:TextBox>
                             </div>
                             <div class="form-group col-md-4 col-sm-4">
                                 <asp:Label ID="labelNombreDestinatario" runat="server" Text="Nombre"></asp:Label>

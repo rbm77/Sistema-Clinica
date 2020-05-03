@@ -203,7 +203,7 @@ namespace DAO
                     comando.CommandText = "IF NOT EXISTS(SELECT CEDULA FROM SOLICITANTE_CITA WHERE CEDULA = @cedulaBuscar) " +
                         "BEGIN" +
                         " INSERT INTO SOLICITANTE_CITA(CEDULA, CORREO, CONTRASENNA, TELEFONO)" +
-                        " VALUES(@cedula, @correo, @contrasenna, @telefono,) " +
+                        " VALUES(@cedula, @correo, @contrasenna, @telefono) " +
                         "END;";
 
                     // Se asigna un valor a los parámetros del comando a ejecutar
@@ -247,23 +247,35 @@ namespace DAO
 
                 if (expediente.HistoriaClinica.DatosNacimiento != null && idExpedienteGuardado != 0)
                 {
-                    comando.CommandText = "INSERT INTO DATOS_NACIMIENTO (ID_EXPEDIENTE, TALLA_NACIMIENTO, PESO_NACIMIENTO, PERIMETRO_CEFALICO," +
-                    " APGAR, EDAD_GESTACIONAL, CLASIFICACION_UNIVERSAL) VALUES (@idExpediente, @tallaNacimiento, @pesoNacimiento, @perimetroCefalico," +
-                    " @apgar, @edadGestacional, @clasificacionUniversal);";
+                    TODatosNacimiento dn = expediente.HistoriaClinica.DatosNacimiento;
 
-                    // Se asigna un valor a los parámetros del comando a ejecutar
+                    if (dn.ClasificacionUniversal == null)
+                    {
+                        dn.ClasificacionUniversal = "";
+                    }
 
-                    comando.Parameters.AddWithValue("@idExpediente", idExpedienteGuardado);
-                    comando.Parameters.AddWithValue("@tallaNacimiento", expediente.HistoriaClinica.DatosNacimiento.TallaNacimiento);
-                    comando.Parameters.AddWithValue("@pesoNacimiento", expediente.HistoriaClinica.DatosNacimiento.PesoNacimiento);
-                    comando.Parameters.AddWithValue("@perimetroCefalico", expediente.HistoriaClinica.DatosNacimiento.PerimetroCefalico);
-                    comando.Parameters.AddWithValue("@apgar", expediente.HistoriaClinica.DatosNacimiento.Apgar);
-                    comando.Parameters.AddWithValue("@edadGestacional", expediente.HistoriaClinica.DatosNacimiento.EdadGestacional);
-                    comando.Parameters.AddWithValue("@clasificacionUniversal", expediente.HistoriaClinica.DatosNacimiento.ClasificacionUniversal);
+                    if (dn.TallaNacimiento != 0.0 || dn.PesoNacimiento != 0.0 || dn.PerimetroCefalico != 0.0 ||
+                        dn.Apgar != 0 || dn.EdadGestacional != 0.0 || !dn.ClasificacionUniversal.Equals(""))
+                    {
+                        comando.CommandText = "INSERT INTO DATOS_NACIMIENTO (ID_EXPEDIENTE, TALLA_NACIMIENTO, PESO_NACIMIENTO, PERIMETRO_CEFALICO," +
+                            " APGAR, EDAD_GESTACIONAL, CLASIFICACION_UNIVERSAL) VALUES (@idExpediente, @tallaNacimiento, @pesoNacimiento, @perimetroCefalico," +
+                            " @apgar, @edadGestacional, @clasificacionUniversal);";
 
-                    // Se ejecuta el comando y se realiza un commit de la transacción
+                        // Se asigna un valor a los parámetros del comando a ejecutar
 
-                    comando.ExecuteNonQuery();
+                        comando.Parameters.AddWithValue("@idExpediente", idExpedienteGuardado);
+                        comando.Parameters.AddWithValue("@tallaNacimiento", expediente.HistoriaClinica.DatosNacimiento.TallaNacimiento);
+                        comando.Parameters.AddWithValue("@pesoNacimiento", expediente.HistoriaClinica.DatosNacimiento.PesoNacimiento);
+                        comando.Parameters.AddWithValue("@perimetroCefalico", expediente.HistoriaClinica.DatosNacimiento.PerimetroCefalico);
+                        comando.Parameters.AddWithValue("@apgar", expediente.HistoriaClinica.DatosNacimiento.Apgar);
+                        comando.Parameters.AddWithValue("@edadGestacional", expediente.HistoriaClinica.DatosNacimiento.EdadGestacional);
+                        comando.Parameters.AddWithValue("@clasificacionUniversal", expediente.HistoriaClinica.DatosNacimiento.ClasificacionUniversal);
+
+                        // Se ejecuta el comando y se realiza un commit de la transacción
+
+                        comando.ExecuteNonQuery();
+                    }
+
                 }
 
                 transaccion.Commit();
@@ -616,6 +628,371 @@ namespace DAO
                 finally
                 {
                     confirmacion = "Error: No se pueden cargar los expedientes";
+                }
+            }
+            finally
+            {
+                if (conexion.State != ConnectionState.Closed)
+                {
+                    conexion.Close();
+                }
+            }
+            return confirmacion;
+        }
+
+        public string ActualizarExpediente(TOExpediente expediente)
+        {
+            string confirmacion = "El expediente se actualizó exitosamente";
+            // Se abre la conexión
+
+            if (conexion != null)
+            {
+                try
+                {
+                    if (conexion.State != ConnectionState.Open)
+                    {
+                        conexion.Open();
+                    }
+                }
+                catch (Exception)
+                {
+                    confirmacion = "Error: No se pudo actualizar el expediente en el sistema";
+                    return confirmacion;
+
+                }
+            }
+            else
+            {
+                confirmacion = "Error: No se pudo actualizar el expediente en el sistema";
+                return confirmacion;
+            }
+
+            // Se inicia una nueva transacción
+
+            SqlTransaction transaccion = null;
+
+
+
+            try
+            {
+                transaccion = conexion.BeginTransaction("Actualizar un expediente");
+
+                // Se crea un nuevo comando con la secuencia SQL y el objeto de conexión
+
+                SqlCommand comando = new SqlCommand();
+
+                comando.Connection = conexion;
+
+                comando.Transaction = transaccion;
+
+                if (expediente != null)
+                {
+                    comando.CommandText = "UPDATE EXPEDIENTE SET " +
+                        "CEDULA = @cedula, " +
+                        "NOMBRE = @nombre, " +
+                        "PRIMER_APELLIDO = @primerApellido, " +
+                        "SEGUNDO_APELLIDO = @segundoApellido, " +
+                        "FECHA_NACIMIENTO = @fechaNacimiento, " +
+                        "SEXO = @sexo, " +
+                        "URL_EXPEDIENTE_ANTIGUO = @urlExpediente, " +
+                        "CODIGO_DIRECCION = @codigoDireccion, " +
+                        "DIRECCION_EXACTA = @direccionExacta, " +
+                        "ID_ENCARGADO = @idEncargado, " +
+                        "ID_DESTINATARIO_FACTURA = @idDestinatario, " +
+                        "ID_SOLICITANTE_CITA = @idSolicitante, " +
+                        "FECHA_CREACION = @fechaCreacion, " +
+                        "ID_MEDICO = @idMedico WHERE ID_EXPEDIENTE = @idExpediente;";
+
+                    // Se asigna un valor a los parámetros del comando a ejecutar
+
+                    comando.Parameters.AddWithValue("@idExpediente", expediente.IDExpediente);
+                    comando.Parameters.AddWithValue("@cedula", expediente.Cedula);
+                    comando.Parameters.AddWithValue("@nombre", expediente.Nombre);
+                    comando.Parameters.AddWithValue("@primerApellido", expediente.PrimerApellido);
+                    comando.Parameters.AddWithValue("@segundoApellido", expediente.SegundoApellido);
+                    comando.Parameters.AddWithValue("@fechaNacimiento", expediente.FechaNacimiento);
+                    comando.Parameters.AddWithValue("@sexo", expediente.Sexo);
+                    comando.Parameters.AddWithValue("@urlExpediente", expediente.UrlExpedienteAntiguo);
+                    comando.Parameters.AddWithValue("@codigoDireccion", expediente.CodigoDireccion);
+                    comando.Parameters.AddWithValue("@direccionExacta", expediente.DireccionExacta);
+                    comando.Parameters.AddWithValue("@fechaCreacion", expediente.FechaCreacion);
+                    comando.Parameters.AddWithValue("@idMedico", expediente.IDMedico);
+
+
+                    // validaciones de los asociados al expediente
+
+
+                    if (expediente.Encargado != null)
+                    {
+                        comando.Parameters.AddWithValue("@idEncargado", expediente.Encargado.Cedula);
+
+                        if (expediente.DestinatarioFactura == null)
+                        {
+                            comando.Parameters.AddWithValue("@idDestinatario", expediente.Encargado.Cedula);
+                        }
+                        else
+                        {
+                            comando.Parameters.AddWithValue("@idDestinatario", expediente.DestinatarioFactura.Cedula);
+                        }
+                        if (expediente.SolicitanteCita == null)
+                        {
+                            comando.Parameters.AddWithValue("@idSolicitante", expediente.Encargado.Cedula);
+                        }
+                        else
+                        {
+                            comando.Parameters.AddWithValue("@idSolicitante", expediente.SolicitanteCita.Cedula);
+                        }
+                    }
+                    else
+                    {
+                        comando.Parameters.AddWithValue("@idEncargado", "");
+
+                        if (expediente.DestinatarioFactura == null)
+                        {
+                            comando.Parameters.AddWithValue("@idDestinatario", "");
+                        }
+                        else
+                        {
+                            comando.Parameters.AddWithValue("@idDestinatario", expediente.DestinatarioFactura.Cedula);
+                        }
+                        if (expediente.SolicitanteCita == null)
+                        {
+                            comando.Parameters.AddWithValue("@idSolicitante", "");
+                        }
+                        else
+                        {
+                            comando.Parameters.AddWithValue("@idSolicitante", expediente.SolicitanteCita.Cedula);
+                        }
+                    }
+
+
+                    // Se ejecuta el comando y se realiza un commit de la transacción
+
+                    comando.ExecuteNonQuery();
+
+                    comando.Parameters.Clear();
+                }
+
+                if (expediente.Encargado != null)
+                {
+                    comando.CommandText = "IF NOT EXISTS(SELECT CEDULA FROM ENCARGADO WHERE CEDULA = @cedBuscar) " +
+                            "BEGIN" +
+                            " INSERT INTO ENCARGADO (CEDULA, NOMBRE, PRIMER_APELLIDO, SEGUNDO_APELLIDO," +
+                            " TELEFONO, CORREO, PARENTESCO, CODIGO_DIRECCION, DIRECCION_EXACTA) VALUES (@cedula, @nombre," +
+                            " @primerApellido, @segundoApellido," +
+                            " @telefono, @correo, @parentesco, @codigoDireccion, @direccionExacta) " +
+                            "END " +
+                        "ELSE" +
+                        " BEGIN " + 
+                            "UPDATE ENCARGADO SET " +
+                            "NOMBRE = @nombre, " +
+                            "PRIMER_APELLIDO = @primerApellido, " +
+                            "SEGUNDO_APELLIDO = @segundoApellido, " +
+                            "TELEFONO = @telefono, " +
+                            "CORREO = @correo, " +
+                            "PARENTESCO = @parentesco, " +
+                            "CODIGO_DIRECCION = @codigoDireccion, " +
+                            "DIRECCION_EXACTA = @direccionExacta WHERE CEDULA = @cedula" +
+                        " END;";
+
+                    // Se asigna un valor a los parámetros del comando a ejecutar
+
+                    comando.Parameters.AddWithValue("@cedBuscar", expediente.Encargado.Cedula);
+                    comando.Parameters.AddWithValue("@cedula", expediente.Encargado.Cedula);
+                    comando.Parameters.AddWithValue("@nombre", expediente.Encargado.Nombre);
+                    comando.Parameters.AddWithValue("@primerApellido", expediente.Encargado.PrimerApellido);
+                    comando.Parameters.AddWithValue("@segundoApellido", expediente.Encargado.SegundoApellido);
+                    comando.Parameters.AddWithValue("@telefono", expediente.Encargado.Telefono);
+                    comando.Parameters.AddWithValue("@correo", expediente.Encargado.Correo);
+                    comando.Parameters.AddWithValue("@parentesco", expediente.Encargado.Parentesco);
+                    comando.Parameters.AddWithValue("@codigoDireccion", expediente.Encargado.CodigoDireccion);
+                    comando.Parameters.AddWithValue("@direccionExacta", expediente.Encargado.DireccionExacta);
+
+                    // Se ejecuta el comando y se realiza un commit de la transacción
+
+                    comando.ExecuteNonQuery();
+
+                    comando.Parameters.Clear();
+                }
+
+                if (expediente.DestinatarioFactura != null)
+                {
+                    comando.CommandText = "IF NOT EXISTS(SELECT CEDULA FROM DESTINATARIO_FACTURA WHERE CEDULA = @cedBuscar) " +
+                            "BEGIN" +
+                            " INSERT INTO DESTINATARIO_FACTURA (CEDULA, NOMBRE, PRIMER_APELLIDO, SEGUNDO_APELLIDO," +
+                            " TELEFONO, CORREO, CODIGO_DIRECCION, DIRECCION_EXACTA) VALUES (@cedula, @nombre," +
+                            " @primerApellido, @segundoApellido," +
+                            " @telefono, @correo, @codigoDireccion, @direccionExacta) " +
+                            "END " +
+                        "ELSE" +
+                        " BEGIN " +
+                            "UPDATE DESTINATARIO_FACTURA SET " +
+                            "NOMBRE = @nombre, " +
+                            "PRIMER_APELLIDO = @primerApellido, " +
+                            "SEGUNDO_APELLIDO = @segundoApellido, " +
+                            "TELEFONO = @telefono, " +
+                            "CORREO = @correo, " +
+                            "CODIGO_DIRECCION = @codigoDireccion, " +
+                            "DIRECCION_EXACTA = @direccionExacta WHERE CEDULA = @cedula" +
+                        " END;";
+
+                    // Se asigna un valor a los parámetros del comando a ejecutar
+
+                    comando.Parameters.AddWithValue("@cedBuscar", expediente.DestinatarioFactura.Cedula);
+                    comando.Parameters.AddWithValue("@cedula", expediente.DestinatarioFactura.Cedula);
+                    comando.Parameters.AddWithValue("@nombre", expediente.DestinatarioFactura.Nombre);
+                    comando.Parameters.AddWithValue("@primerApellido", expediente.DestinatarioFactura.PrimerApellido);
+                    comando.Parameters.AddWithValue("@segundoApellido", expediente.DestinatarioFactura.SegundoApellido);
+                    comando.Parameters.AddWithValue("@telefono", expediente.DestinatarioFactura.Telefono);
+                    comando.Parameters.AddWithValue("@correo", expediente.DestinatarioFactura.Correo);
+                    comando.Parameters.AddWithValue("@codigoDireccion", expediente.DestinatarioFactura.CodigoDireccion);
+                    comando.Parameters.AddWithValue("@direccionExacta", expediente.DestinatarioFactura.DireccionExacta);
+
+                    // Se ejecuta el comando y se realiza un commit de la transacción
+
+                    comando.ExecuteNonQuery();
+
+                    comando.Parameters.Clear();
+                }
+
+                if (expediente.SolicitanteCita != null)
+                {
+                    comando.CommandText = "IF NOT EXISTS(SELECT CEDULA FROM SOLICITANTE_CITA WHERE CEDULA = @cedulaBuscar) " +
+                           "BEGIN" +
+                           " INSERT INTO SOLICITANTE_CITA (CEDULA, CORREO, CONTRASENNA, TELEFONO) VALUES (@cedula, @correo," +
+                           " @contrasenna, @telefono) " +
+                           "END " +
+                       "ELSE" +
+                       " BEGIN " +
+                           "UPDATE SOLICITANTE_CITA SET " +
+                           "CORREO = @correo, " +
+                           "TELEFONO = @telefono WHERE CEDULA = @cedula" +
+                       " END;";
+
+                    // Se asigna un valor a los parámetros del comando a ejecutar
+
+                    comando.Parameters.AddWithValue("@cedulaBuscar", expediente.SolicitanteCita.Cedula);
+                    comando.Parameters.AddWithValue("@cedula", expediente.SolicitanteCita.Cedula);
+                    comando.Parameters.AddWithValue("@correo", expediente.SolicitanteCita.Correo);
+                    comando.Parameters.AddWithValue("@contrasenna", expediente.SolicitanteCita.Contrasenna);
+                    comando.Parameters.AddWithValue("@telefono", expediente.SolicitanteCita.Telefono);
+                    // Se ejecuta el comando y se realiza un commit de la transacción
+
+                    comando.ExecuteNonQuery();
+
+                    comando.Parameters.Clear();
+                }
+
+                if (expediente.HistoriaClinica != null)
+                {
+                    comando.CommandText = "UPDATE HISTORIA_CLINICA SET " +
+                        "PERINATALES = @perinatales, " +
+                        "PATOLOGICOS = @patologicos, " +
+                        "QUIRURGICOS = @quirurgicos, " +
+                        "TRAUMATICOS = @traumaticos, " +
+                        "HEREDO_FAMILIARES = @heredoFamiliares, " +
+                        "ALERGIAS = @alergias, " +
+                        "VACUNAS = @vacunas WHERE ID_EXPEDIENTE = @idExpediente;";
+
+                    // Se asigna un valor a los parámetros del comando a ejecutar
+
+                    comando.Parameters.AddWithValue("@idExpediente", expediente.IDExpediente);
+                    comando.Parameters.AddWithValue("@perinatales", expediente.HistoriaClinica.Perinatales);
+                    comando.Parameters.AddWithValue("@patologicos", expediente.HistoriaClinica.Patologicos);
+                    comando.Parameters.AddWithValue("@quirurgicos", expediente.HistoriaClinica.Quirurgicos);
+                    comando.Parameters.AddWithValue("@traumaticos", expediente.HistoriaClinica.Traumaticos);
+                    comando.Parameters.AddWithValue("@heredoFamiliares", expediente.HistoriaClinica.HeredoFamiliares);
+                    comando.Parameters.AddWithValue("@alergias", expediente.HistoriaClinica.Alergias);
+                    comando.Parameters.AddWithValue("@vacunas", expediente.HistoriaClinica.Vacunas);
+
+                    // Se ejecuta el comando y se realiza un commit de la transacción
+
+                    comando.ExecuteNonQuery();
+
+                    comando.Parameters.Clear();
+                }
+
+
+                if (expediente.HistoriaClinica.DatosNacimiento != null)
+                {
+                    TODatosNacimiento dn = expediente.HistoriaClinica.DatosNacimiento;
+
+                    if (dn.ClasificacionUniversal == null)
+                    {
+                        dn.ClasificacionUniversal = "";
+                    }
+
+                    if (dn.TallaNacimiento != 0.0 || dn.PesoNacimiento != 0.0 || dn.PerimetroCefalico != 0.0 ||
+                        dn.Apgar != 0 || dn.EdadGestacional != 0.0 || !dn.ClasificacionUniversal.Equals(""))
+                    {
+                        // NO ESTA VACIO
+
+                        comando.CommandText = "IF EXISTS(SELECT ID_EXPEDIENTE FROM DATOS_NACIMIENTO WHERE ID_EXPEDIENTE = @idExpediente) " +
+                               "BEGIN " +
+                                "UPDATE DATOS_NACIMIENTO SET " +
+                                "TALLA_NACIMIENTO = @tallaNacimiento, " +
+                                "PESO_NACIMIENTO = @pesoNacimiento, " +
+                                "PERIMETRO_CEFALICO = @perimetroCefalico, " +
+                                "APGAR = @apgar, " +
+                                "EDAD_GESTACIONAL = @edadGestacional, " +
+                                "CLASIFICACION_UNIVERSAL = @clasificacionUniversal WHERE ID_EXPEDIENTE = @idExpediente " +
+                               "END " +
+                               "ELSE " +
+                               "BEGIN " +
+                               "INSERT INTO DATOS_NACIMIENTO(ID_EXPEDIENTE, TALLA_NACIMIENTO, PESO_NACIMIENTO, PERIMETRO_CEFALICO," +
+                                " APGAR, EDAD_GESTACIONAL, CLASIFICACION_UNIVERSAL) VALUES (@idExpediente, @tallaNacimiento, @pesoNacimiento, @perimetroCefalico," +
+                                " @apgar, @edadGestacional, @clasificacionUniversal) " +
+                               "END";
+                    }
+                    else
+                    {
+                        // SI ESTA VACIO
+
+                        comando.CommandText = "IF EXISTS(SELECT ID_EXPEDIENTE FROM DATOS_NACIMIENTO WHERE ID_EXPEDIENTE = @idExpediente) " +
+                           "BEGIN " +
+                            "UPDATE DATOS_NACIMIENTO SET " +
+                            "TALLA_NACIMIENTO = @tallaNacimiento, " +
+                            "PESO_NACIMIENTO = @pesoNacimiento, " +
+                            "PERIMETRO_CEFALICO = @perimetroCefalico, " +
+                            "APGAR = @apgar, " +
+                            "EDAD_GESTACIONAL = @edadGestacional, " +
+                            "CLASIFICACION_UNIVERSAL = @clasificacionUniversal WHERE ID_EXPEDIENTE = @idExpediente " +
+                           "END ";
+                    }
+
+                    // Se asigna un valor a los parámetros del comando a ejecutar
+
+                    comando.Parameters.AddWithValue("@idExpediente", expediente.IDExpediente);
+                    comando.Parameters.AddWithValue("@tallaNacimiento", expediente.HistoriaClinica.DatosNacimiento.TallaNacimiento);
+                    comando.Parameters.AddWithValue("@pesoNacimiento", expediente.HistoriaClinica.DatosNacimiento.PesoNacimiento);
+                    comando.Parameters.AddWithValue("@perimetroCefalico", expediente.HistoriaClinica.DatosNacimiento.PerimetroCefalico);
+                    comando.Parameters.AddWithValue("@apgar", expediente.HistoriaClinica.DatosNacimiento.Apgar);
+                    comando.Parameters.AddWithValue("@edadGestacional", expediente.HistoriaClinica.DatosNacimiento.EdadGestacional);
+                    comando.Parameters.AddWithValue("@clasificacionUniversal", expediente.HistoriaClinica.DatosNacimiento.ClasificacionUniversal);
+
+                    // Se ejecuta el comando y se realiza un commit de la transacción
+
+                    comando.ExecuteNonQuery();
+                }
+
+                transaccion.Commit();
+
+            }
+            catch (Exception e)
+            {
+                try
+                {
+                    string prueba = e.Message;
+                    // En caso de un error se realiza un rollback a la transacción
+
+                    transaccion.Rollback();
+                }
+                catch (Exception)
+                {
+                }
+                finally
+                {
+                    confirmacion = "Error: No se pudo actualizar el expediente en el sistema";
                 }
             }
             finally

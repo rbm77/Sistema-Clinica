@@ -78,30 +78,78 @@ namespace Sistema_Pediatrico
                 if (anormalPerinatal.Checked)
                 {
                     descripcionPerinatal.Disabled = false;
+                    normalPerinatal.Checked = false;
                 }
+                else if (normalPerinatal.Checked)
+                {
+                    descripcionPerinatal.Disabled = true;
+                    anormalPerinatal.Checked = false;
+                }
+
                 if (positivoPatologico.Checked)
                 {
+                    negativoPatologico.Checked = false;
                     descripcionPatologico.Disabled = false;
                 }
+                else if (negativoPatologico.Checked)
+                {
+                    positivoPatologico.Checked = false;
+                    descripcionPatologico.Disabled = true;
+                }
+
                 if (positivoQuirurgico.Checked)
                 {
+                    negativoQuirurgico.Checked = false;
                     descripcionQuirurgico.Disabled = false;
                 }
+                else if (negativoQuirurgico.Checked)
+                {
+                    positivoQuirurgico.Checked = false;
+                    descripcionQuirurgico.Disabled = true;
+                }
+
                 if (positivoTraumatico.Checked)
                 {
+                    negativoTraumatico.Checked = false;
                     descripcionTraumatico.Disabled = false;
                 }
+                else if (negativoTraumatico.Checked)
+                {
+                    positivoTraumatico.Checked = false;
+                    descripcionTraumatico.Disabled = true;
+                }
+
                 if (positivoHeredoFamiliar.Checked)
                 {
+                    negativoHeredoFamiliar.Checked = false;
                     descripcionHeredoFamiliar.Disabled = false;
                 }
+                else if (negativoHeredoFamiliar.Checked)
+                {
+                    positivoHeredoFamiliar.Checked = false;
+                    descripcionHeredoFamiliar.Disabled = true;
+                }
+
                 if (positivoAlergias.Checked)
                 {
-                    descripcionHeredoFamiliar.Disabled = false;
+                    negativoAlergias.Checked = false;
+                    descripcionAlergia.Disabled = false;
                 }
+                else if (negativoAlergias.Checked)
+                {
+                    positivoAlergias.Checked = false;
+                    descripcionAlergia.Disabled = true;
+                }
+
                 if (pendientesVacunas.Checked)
                 {
+                    aldiaVacunas.Checked = false;
                     descripcionVacuna.Disabled = false;
+                }
+                else if (aldiaVacunas.Checked)
+                {
+                    pendientesVacunas.Checked = false;
+                    descripcionVacuna.Disabled = true;
                 }
             }
         }
@@ -152,31 +200,50 @@ namespace Sistema_Pediatrico
 
             BLExpediente expediente = ValidarDatos();
 
+            ManejadorExpediente manejador = new ManejadorExpediente();
+
             string confirmacion = "";
 
-            if (expediente != null)
+            if (Session["accion"].Equals("crearExpediente"))
             {
-
-                ManejadorExpediente manejador = new ManejadorExpediente();
-
-                confirmacion = manejador.CrearExpediente(expediente);
-
-                if (confirmacion.Contains("Error:"))
+                if (expediente != null)
                 {
-                    EstablecerNulos();
-                    MensajeAviso(confirmacion);
+                    confirmacion = manejador.CrearExpediente(expediente);
+
+                    if (confirmacion.Contains("Error:"))
+                    {
+                        EstablecerNulos();
+                        MensajeAviso(confirmacion);
+                    }
+                    else
+                    {
+                        string id = confirmacion.Split('*')[1];
+                        Session["accion"] = "consultarExpediente";
+                        Response.Redirect("expediente.aspx?id=" + id);
+                    }
                 }
                 else
                 {
-                    string id = confirmacion.Split('*')[1];
-                    Session["accion"] = "consultarExpediente";
-                    Response.Redirect("expediente.aspx?id=" + id);
+                    EstablecerNulos();
+                    confirmacion = "Error: Puede que algunos datos se encuentren vacíos o con un formato incorrecto";
+                    MensajeAviso(confirmacion);
                 }
             }
-            else
+            else if (Session["accion"].Equals("consultarExpediente"))
             {
-                EstablecerNulos();
-                confirmacion = "Error: Puede que algunos datos se encuentren vacíos o con un formato incorrecto.";
+                if (expediente != null)
+                {
+                    expediente.IDExpediente = long.Parse(Session["idExpediente"].ToString());
+
+                    confirmacion = manejador.ActualizarExpediente(expediente);
+                }
+                else
+                {
+                    confirmacion = "Error: Puede que algunos datos se encuentren vacíos o con un formato incorrecto";
+                }
+
+                CargarExpediente(Session["idExpediente"].ToString());
+
                 MensajeAviso(confirmacion);
             }
 
@@ -191,6 +258,22 @@ namespace Sistema_Pediatrico
             provinciaPValue.Value = "nulo";
             provinciaEValue.Value = "nulo";
             provinciaDValue.Value = "nulo";
+
+            inputCantonPaciente.SelectedValue = "nulo";
+            inputCantonEncargado.SelectedValue = "nulo";
+            inputCantonDestinatario.SelectedValue = "nulo";
+
+            cantonPValue.Value = "nulo";
+            cantonEValue.Value = "nulo";
+            cantonDValue.Value = "nulo";
+
+            inputDistritoPaciente.SelectedValue = "nulo";
+            inputDistritoEncargado.SelectedValue = "nulo";
+            inputDistritoDestinatario.SelectedValue = "nulo";
+
+            distritoPValue.Value = "nulo";
+            distritoEValue.Value = "nulo";
+            distritoDValue.Value = "nulo";
         }
 
         private void MensajeAviso(string mensaje)
@@ -366,7 +449,7 @@ namespace Sistema_Pediatrico
                 }
                 else
                 {
-                    string contrasenna = "NINGUNA"; // SE DEBE AUTOGENERAR UNA CONTRASENNA Y ASIGNARLA AL SOLICITANTE. ADEMAS ENVIARLA POR CORREO
+                    string contrasenna = "CAMBIAR";
                     solicitante = new BLSolicitanteCita(cedulaS, correoS, contrasenna, telefonoS);
                     expediente.SolicitanteCita = solicitante;
                 }
@@ -381,8 +464,6 @@ namespace Sistema_Pediatrico
                     }
                 }
             }
-
-
 
             // Datos de DATOS DE NACIMIENTO
 
@@ -428,10 +509,7 @@ namespace Sistema_Pediatrico
                 return null;
             }
 
-            if (talla != 0.0 || peso != 0.0 || perimCefalico != 0.0 || edadGest != 0.0 || !clasifUniversal.Equals("") || apg != 0)
-            {
-                datosNacimiento = new BLDatosNacimiento(talla, peso, perimCefalico, apg, edadGest, clasifUniversal);
-            }
+            datosNacimiento = new BLDatosNacimiento(talla, peso, perimCefalico, apg, edadGest, clasifUniversal);
 
 
             // Datos de HISTORIA CLINICA
@@ -503,6 +581,35 @@ namespace Sistema_Pediatrico
 
             if (!confirmacion.Contains("Error:"))
             {
+
+                // LIMPIEZA DE DATOS
+
+                cedulaEncargado.Text = "";
+                nombreEncargado.Text = "";
+                primerApellidoEncargado.Text = "";
+                segundoApellidoEncargado.Text = "";
+                inputTelefonoEncargado.Text = "";
+                inputCorreoEncargado.Text = "";
+                parentesco.Text = "";
+                direccionExactaEncargado.Value = "";
+                cedulaDestinatario.Text = "";
+                nombreDestinatario.Text = "";
+                primerApellidoDestinatario.Text = "";
+                segundoApellidoDestinatario.Text = "";
+                telefonoDestinatario.Text = "";
+                correoDestinatario.Text = "";
+                direccionExactaDestinatario.Value = "";
+                cedulaSolicitante.Text = "";
+                correoSolicitante.Text = "";
+                telefonoSolicitante.Text = "";
+                tallaNacimiento.Text = "";
+                pesoNacimiento.Text = "";
+                perimetroCefalico.Text = "";
+                edadGestacional.Text = "";
+                apgar.Text = "";
+                clasificacionUniversal.Text = "";
+                EstablecerNulos();
+
                 // Datos de PACIENTE
 
                 cedulaPaciente.Text = expediente.Cedula;
@@ -606,107 +713,96 @@ namespace Sistema_Pediatrico
                     if (expediente.HistoriaClinica.Perinatales.Equals(""))
                     {
                         normalPerinatal.Checked = true;
+                        anormalPerinatal.Checked = false;
                         descripcionPerinatal.Disabled = true;
                     }
                     else
                     {
                         anormalPerinatal.Checked = true;
+                        normalPerinatal.Checked = false;
+                        descripcionPerinatal.Disabled = false;
                     }
 
                     if (expediente.HistoriaClinica.Patologicos.Equals(""))
                     {
                         negativoPatologico.Checked = true;
+                        positivoPatologico.Checked = false;
                         descripcionPatologico.Disabled = true;
                     }
                     else
                     {
                         positivoPatologico.Checked = true;
+                        negativoPatologico.Checked = false;
+                        descripcionPatologico.Disabled = false;
                     }
 
                     if (expediente.HistoriaClinica.Quirurgicos.Equals(""))
                     {
                         negativoQuirurgico.Checked = true;
+                        positivoQuirurgico.Checked = false;
                         descripcionQuirurgico.Disabled = true;
                     }
                     else
                     {
                         positivoQuirurgico.Checked = true;
+                        negativoQuirurgico.Checked = false;
+                        descripcionQuirurgico.Disabled = false;
                     }
 
                     if (expediente.HistoriaClinica.Traumaticos.Equals(""))
                     {
                         negativoTraumatico.Checked = true;
+                        positivoTraumatico.Checked = false;
                         descripcionTraumatico.Disabled = true;
                     }
                     else
                     {
                         positivoTraumatico.Checked = true;
+                        negativoTraumatico.Checked = false;
+                        descripcionTraumatico.Disabled = false;
                     }
 
                     if (expediente.HistoriaClinica.HeredoFamiliares.Equals(""))
                     {
                         negativoHeredoFamiliar.Checked = true;
+                        positivoHeredoFamiliar.Checked = false;
                         descripcionHeredoFamiliar.Disabled = true;
                     }
                     else
                     {
                         positivoHeredoFamiliar.Checked = true;
+                        negativoHeredoFamiliar.Checked = false;
+                        descripcionHeredoFamiliar.Disabled = false;
                     }
 
                     if (expediente.HistoriaClinica.Alergias.Equals(""))
                     {
                         negativoAlergias.Checked = true;
+                        positivoAlergias.Checked = false;
                         descripcionAlergia.Disabled = true;
                     }
                     else
                     {
                         positivoAlergias.Checked = true;
+                        negativoAlergias.Checked = false;
+                        descripcionAlergia.Disabled = false;
                     }
 
                     if (expediente.HistoriaClinica.Vacunas.Equals(""))
                     {
                         aldiaVacunas.Checked = true;
+                        pendientesVacunas.Checked = false;
                         descripcionVacuna.Disabled = true;
                     }
                     else
                     {
                         pendientesVacunas.Checked = true;
+                        aldiaVacunas.Checked = false;
+                        descripcionVacuna.Disabled = false;
                     }
                 }
 
-                // CARGO TODAS LAS DIRECCIONES
-
-                if (!expediente.CodigoDireccion.Equals("") && !expediente.CodigoDireccion.Equals("nulo-nulo-nulo"))
-                {
-                    string direccionP = expediente.CodigoDireccion;
-                    string direccionE = "";
-                    string direccionD = "";
-
-                    if (expediente.Encargado != null)
-                    {
-                        if (expediente.Encargado.CodigoDireccion != null)
-                        {
-                            if (!expediente.Encargado.CodigoDireccion.Equals("") &&
-                                !expediente.Encargado.CodigoDireccion.Equals("nulo-nulo-nulo"))
-                            {
-                                direccionE = expediente.Encargado.CodigoDireccion;
-                            }
-                        }
-                    }
-
-                    if (expediente.DestinatarioFactura != null)
-                    {
-                        if (expediente.DestinatarioFactura.CodigoDireccion != null)
-                        {
-                            if (!expediente.DestinatarioFactura.CodigoDireccion.Equals("") &&
-                                !expediente.DestinatarioFactura.CodigoDireccion.Equals("nulo-nulo-nulo"))
-                            {
-                                direccionD = expediente.DestinatarioFactura.CodigoDireccion;
-                            }
-                        }
-                    }
-                    CargarDirecciones(direccionP, direccionE, direccionD);
-                }
+                SetDirecciones(expediente);
             }
             else
             {
@@ -715,6 +811,44 @@ namespace Sistema_Pediatrico
             }
 
         }
+
+        private void SetDirecciones(BLExpediente expediente)
+        {
+            // CARGO TODAS LAS DIRECCIONES
+
+            if (!expediente.CodigoDireccion.Equals("") && !expediente.CodigoDireccion.Equals("nulo-nulo-nulo"))
+            {
+                string direccionP = expediente.CodigoDireccion;
+                string direccionE = "";
+                string direccionD = "";
+
+                if (expediente.Encargado != null)
+                {
+                    if (expediente.Encargado.CodigoDireccion != null)
+                    {
+                        if (!expediente.Encargado.CodigoDireccion.Equals("") &&
+                            !expediente.Encargado.CodigoDireccion.Equals("nulo-nulo-nulo"))
+                        {
+                            direccionE = expediente.Encargado.CodigoDireccion;
+                        }
+                    }
+                }
+
+                if (expediente.DestinatarioFactura != null)
+                {
+                    if (expediente.DestinatarioFactura.CodigoDireccion != null)
+                    {
+                        if (!expediente.DestinatarioFactura.CodigoDireccion.Equals("") &&
+                            !expediente.DestinatarioFactura.CodigoDireccion.Equals("nulo-nulo-nulo"))
+                        {
+                            direccionD = expediente.DestinatarioFactura.CodigoDireccion;
+                        }
+                    }
+                }
+                CargarDirecciones(direccionP, direccionE, direccionD);
+            }
+        }
+
 
         private string Form0(string entrada)
         {

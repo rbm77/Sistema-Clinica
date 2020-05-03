@@ -87,7 +87,7 @@ namespace BL
             }
             else
             {
-                confirmacion = "Error: No se pudo ingresar el to en el sistema";
+                confirmacion = "Error: No se pudo ingresar el expediente en el sistema";
             }
             return confirmacion;
         }
@@ -222,9 +222,89 @@ namespace BL
                 expediente.SolicitanteCita = solicitante;
 
             }
-
             return confirmacion;
+        }
 
+        public string ActualizarExpediente(BLExpediente expediente)
+        {
+            string confirmacion = "Error: Indefinido.";
+
+            if (expediente != null)
+            {
+                DAOExpediente dao = new DAOExpediente();
+
+                TOEncargado encargado = null;
+
+                if (expediente.Encargado != null)
+                {
+                    encargado = new TOEncargado(
+                                expediente.Encargado.Cedula, expediente.Encargado.Nombre, expediente.Encargado.PrimerApellido,
+                                expediente.Encargado.SegundoApellido, expediente.Encargado.Telefono, expediente.Encargado.Correo,
+                                expediente.Encargado.Parentesco, expediente.Encargado.CodigoDireccion,
+                                expediente.Encargado.DireccionExacta);
+                }
+
+                TODestinatarioFactura destinatario = null;
+
+                if (expediente.DestinatarioFactura != null)
+                {
+                    destinatario = new TODestinatarioFactura(
+                                expediente.DestinatarioFactura.Cedula, expediente.DestinatarioFactura.Nombre,
+                                expediente.DestinatarioFactura.PrimerApellido,
+                                expediente.DestinatarioFactura.SegundoApellido, expediente.DestinatarioFactura.Telefono,
+                                expediente.DestinatarioFactura.Correo,
+                                expediente.DestinatarioFactura.CodigoDireccion,
+                                expediente.DestinatarioFactura.DireccionExacta);
+                }
+
+                TOSolicitanteCita solicitante = null;
+
+                if (expediente.SolicitanteCita != null)
+                {
+                    solicitante = new TOSolicitanteCita(expediente.SolicitanteCita.Cedula, expediente.SolicitanteCita.Correo, expediente.SolicitanteCita.Contrasenna,
+                    expediente.SolicitanteCita.Telefono);
+                }
+
+                TOHistoriaClinica historiaClinica = null;
+
+                if (expediente.HistoriaClinica != null)
+                {
+
+                    TODatosNacimiento datosNacimiento = null;
+
+                    if (expediente.HistoriaClinica.DatosNacimiento != null)
+                    {
+
+                        datosNacimiento = new TODatosNacimiento(
+                            expediente.HistoriaClinica.DatosNacimiento.TallaNacimiento,
+                            expediente.HistoriaClinica.DatosNacimiento.PesoNacimiento,
+                            expediente.HistoriaClinica.DatosNacimiento.PerimetroCefalico,
+                            expediente.HistoriaClinica.DatosNacimiento.Apgar,
+                            expediente.HistoriaClinica.DatosNacimiento.EdadGestacional,
+                            expediente.HistoriaClinica.DatosNacimiento.ClasificacionUniversal);
+                    }
+
+                    historiaClinica = new TOHistoriaClinica(
+                        expediente.HistoriaClinica.Perinatales, expediente.HistoriaClinica.Patologicos,
+                        expediente.HistoriaClinica.Quirurgicos, expediente.HistoriaClinica.Traumaticos,
+                        expediente.HistoriaClinica.HeredoFamiliares, expediente.HistoriaClinica.Alergias,
+                        expediente.HistoriaClinica.Vacunas, datosNacimiento);
+                }
+
+
+                TOExpediente to = new TOExpediente(expediente.IDExpediente, expediente.Cedula, expediente.Nombre,
+                    expediente.PrimerApellido, expediente.SegundoApellido, expediente.FechaNacimiento, expediente.Sexo,
+                    expediente.UrlExpedienteAntiguo, expediente.CodigoDireccion,
+                    expediente.DireccionExacta, expediente.IDMedico, expediente.FechaCreacion,
+                    historiaClinica, encargado, destinatario, solicitante);
+
+                return dao.ActualizarExpediente(to);
+            }
+            else
+            {
+                confirmacion = "Error: No se pudo actualizar el expediente en el sistema";
+            }
+            return confirmacion;
         }
 
     }
