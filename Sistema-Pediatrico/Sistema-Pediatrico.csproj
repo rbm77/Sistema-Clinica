@@ -102,6 +102,7 @@
     <Content Include="Bootstrap\src\assets\demo\datatables-demo.js" />
     <Content Include="Bootstrap\src\assets\img\error-404-monochrome.svg" />
     <Content Include="Bootstrap\src\js\scripts.js" />
+    <Content Include="consulta.aspx" />
     <Content Include="cuenta_usuario.aspx" />
     <Content Include="expediente.aspx" />
     <Content Include="expedientes.aspx" />
@@ -119,6 +120,13 @@
     </Compile>
     <Compile Include="administracion.aspx.designer.cs">
       <DependentUpon>administracion.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="consulta.aspx.cs">
+      <DependentUpon>consulta.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="consulta.aspx.designer.cs">
+      <DependentUpon>consulta.aspx</DependentUpon>
     </Compile>
     <Compile Include="cuenta_usuario.aspx.cs">
       <DependentUpon>cuenta_usuario.aspx</DependentUpon>

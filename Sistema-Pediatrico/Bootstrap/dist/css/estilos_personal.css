@@ -114,3 +114,9 @@ body, html {
     background-color: rgb(107, 114, 119) !important
 }
 
+.medioDia {
+    border-bottom-left-radius: 0px;
+    border-top-left-radius: 0px;
+    padding-left: 4px;
+    padding-right: 4px;
+}

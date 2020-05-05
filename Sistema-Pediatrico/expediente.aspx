@@ -48,7 +48,8 @@
                         <div class="form-row">
                             <div class="form-group col-md-4 col-sm-4">
                                 <asp:Label ID="labelCedulaPaciente" runat="server" Text="Cédula"></asp:Label>
-                                <asp:TextBox placeholder="Formato: #0###0###" ID="cedulaPaciente" runat="server" class="form-control" ClientIDMode="Static"></asp:TextBox>
+                                <asp:TextBox ID="cedulaPaciente" runat="server" class="form-control" ClientIDMode="Static"></asp:TextBox>
+                                <small class="form-text text-muted">Formato: #0###0###</small>
                             </div>
                             <div class="form-group col-md-4 col-sm-4">
                                 <asp:Label ID="labelNombrePaciente" runat="server" Text="Nombre"></asp:Label>
@@ -64,7 +65,8 @@
                             </div>
                             <div class="form-group col-md-4 col-sm-4">
                                 <asp:Label ID="labelFechaNacimiento" runat="server" Text="Fecha de Nacimiento"></asp:Label>
-                                <asp:TextBox ID="fechaNacimientoPaciente" runat="server" class="form-control" placeholder="formato: dd/mm/aaaa" ClientIDMode="Static" pattern="([0-2][0-9]|3[0-1])(\/|-)(0[1-9]|1[0-2])\2(\d{4})" required></asp:TextBox>
+                                <asp:TextBox ID="fechaNacimientoPaciente" runat="server" class="form-control" ClientIDMode="Static" pattern="([0-2][0-9]|3[0-1])(\/|-)(0[1-9]|1[0-2])\2(\d{4})" required></asp:TextBox>
+                                <small class="form-text text-muted">formato: dd/mm/aaaa</small>
                             </div>
                             <div class="form-group col-md-4 col-sm-4">
                                 <asp:Label ID="labelSexoPaciente" runat="server" Text="Sexo"></asp:Label>
@@ -122,7 +124,8 @@
                         <div class="form-row">
                             <div class="form-group col-md-4 col-sm-4">
                                 <asp:Label ID="labelFechaActual" runat="server" Text="Fecha Creación"></asp:Label>
-                                <asp:TextBox ID="fechaActual" runat="server" class="form-control" placeholder="formato: dd/mm/aaaa" ClientIDMode="Static" pattern="([0-2][0-9]|3[0-1])(\/|-)(0[1-9]|1[0-2])\2(\d{4})" required></asp:TextBox>
+                                <asp:TextBox ID="fechaActual" runat="server" class="form-control" ClientIDMode="Static" pattern="([0-2][0-9]|3[0-1])(\/|-)(0[1-9]|1[0-2])\2(\d{4})" required></asp:TextBox>
+                                <small class="form-text text-muted">Formato: dd/mm/aaaa</small>
                             </div>
                             <%--                        <div class="form-group col-md-8 col-sm-12">
                             <asp:Label ID="label14" runat="server" Text="Foto del paciente"></asp:Label>
@@ -143,7 +146,8 @@
                         <div class="form-row">
                             <div class="form-group col-md-3 col-sm-4">
                                 <asp:Label ID="labelCedulaEncargado" runat="server" Text="Cédula"></asp:Label>
-                                <asp:TextBox placeholder="Formato: #0###0###" ID="cedulaEncargado" runat="server" class="form-control" ClientIDMode="Static"></asp:TextBox>
+                                <asp:TextBox ID="cedulaEncargado" runat="server" class="form-control" ClientIDMode="Static"></asp:TextBox>
+                                <small class="form-text text-muted">Formato: #0###0###</small>
                             </div>
                             <div class="form-group col-md-3 col-sm-4">
                                 <asp:Label ID="labelNombreEncargado" runat="server" Text="Nombre"></asp:Label>
@@ -243,7 +247,8 @@
 
                                 <div class="form-group col-md-4 col-sm-4">
                                     <asp:Label ID="labelCedulaSolicitante" runat="server" Text="Cédula"></asp:Label>
-                                    <asp:TextBox placeholder="Formato: #0###0###" ID="cedulaSolicitante" runat="server" class="form-control" ClientIDMode="Static"></asp:TextBox>
+                                    <asp:TextBox ID="cedulaSolicitante" runat="server" class="form-control" ClientIDMode="Static"></asp:TextBox>
+                                    <small class="form-text text-muted">Formato: #0###0###</small>
                                 </div>
                                 <div class="form-group col-md-4 col-sm-4">
                                     <asp:Label ID="labelCorreoSolicitante" runat="server" Text="Correo Electrónico"></asp:Label>
@@ -267,7 +272,8 @@
                         <div class="form-row">
                             <div class="form-group col-md-4 col-sm-4">
                                 <asp:Label ID="labelCedulaDestinatario" runat="server" Text="Cédula"></asp:Label>
-                                <asp:TextBox placeholder="Formato: #0###0###" ID="cedulaDestinatario" runat="server" class="form-control" ClientIDMode="Static"></asp:TextBox>
+                                <asp:TextBox ID="cedulaDestinatario" runat="server" class="form-control" ClientIDMode="Static"></asp:TextBox>
+                                <small class="form-text text-muted">Formato: #0###0###</small>
                             </div>
                             <div class="form-group col-md-4 col-sm-4">
                                 <asp:Label ID="labelNombreDestinatario" runat="server" Text="Nombre"></asp:Label>
@@ -339,6 +345,9 @@
 
                             <h4 class="titulo col-12" style="padding-bottom: 10px">Datos de Nacimiento</h4>
 
+                            <div class="form-group col-12">
+                                <small class="form-text text-muted">Utilice una coma ( , ) en caso de ingresar valores decimales.</small>
+                            </div>
 
                             <div class="form-group col-md-4 col-sm-4">
                                 <asp:Label ID="labelTallaNacimiento" runat="server" Text="Talla"></asp:Label>
