@@ -220,445 +220,481 @@ namespace Sistema_Pediatrico {
         protected global::System.Web.UI.WebControls.TextBox SO2;
         
         /// <summary>
-        /// Control labelProvinciaPaciente.
+        /// Control labelPCEdad.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label labelProvinciaPaciente;
+        protected global::System.Web.UI.WebControls.Label labelPCEdad;
         
         /// <summary>
-        /// Control inputProvinciaPaciente.
+        /// Control perimetroCefalicoEdad.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList inputProvinciaPaciente;
+        protected global::System.Web.UI.WebControls.TextBox perimetroCefalicoEdad;
         
         /// <summary>
-        /// Control provinciaPValue.
+        /// Control labelPesoEdad.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlInputHidden provinciaPValue;
+        protected global::System.Web.UI.WebControls.Label labelPesoEdad;
         
         /// <summary>
-        /// Control labelCantonPaciente.
+        /// Control pesoEdad.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label labelCantonPaciente;
+        protected global::System.Web.UI.WebControls.TextBox pesoEdad;
         
         /// <summary>
-        /// Control inputCantonPaciente.
+        /// Control labelTallaEdad.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList inputCantonPaciente;
+        protected global::System.Web.UI.WebControls.Label labelTallaEdad;
         
         /// <summary>
-        /// Control cantonPValue.
+        /// Control tallaEdad.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlInputHidden cantonPValue;
+        protected global::System.Web.UI.WebControls.TextBox tallaEdad;
         
         /// <summary>
-        /// Control labelDistritosPaciente.
+        /// Control labelPesoTalla.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label labelDistritosPaciente;
+        protected global::System.Web.UI.WebControls.Label labelPesoTalla;
         
         /// <summary>
-        /// Control inputDistritoPaciente.
+        /// Control pesoTalla.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList inputDistritoPaciente;
+        protected global::System.Web.UI.WebControls.TextBox pesoTalla;
         
         /// <summary>
-        /// Control distritoPValue.
+        /// Control labelIMCEdad.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlInputHidden distritoPValue;
+        protected global::System.Web.UI.WebControls.Label labelIMCEdad;
         
         /// <summary>
-        /// Control labelDireccionExactaPaciente.
+        /// Control imcEdad.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label labelDireccionExactaPaciente;
+        protected global::System.Web.UI.WebControls.TextBox imcEdad;
         
         /// <summary>
-        /// Control direccionExactaPaciente.
+        /// Control labelRuidosCardiacos.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlTextArea direccionExactaPaciente;
+        protected global::System.Web.UI.WebControls.Label labelRuidosCardiacos;
         
         /// <summary>
-        /// Control labelURLExpediente.
+        /// Control ruidosCardiacos.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label labelURLExpediente;
+        protected global::System.Web.UI.HtmlControls.HtmlTextArea ruidosCardiacos;
         
         /// <summary>
-        /// Control urlExpedienteAntiguoPaciente.
+        /// Control labelCamposPulmonares.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlTextArea urlExpedienteAntiguoPaciente;
+        protected global::System.Web.UI.WebControls.Label labelCamposPulmonares;
         
         /// <summary>
-        /// Control labelFechaActual.
+        /// Control camposPulmonares.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label labelFechaActual;
+        protected global::System.Web.UI.HtmlControls.HtmlTextArea camposPulmonares;
         
         /// <summary>
-        /// Control fechaActual.
+        /// Control labelAbdomen.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox fechaActual;
+        protected global::System.Web.UI.WebControls.Label labelAbdomen;
         
         /// <summary>
-        /// Control labelCedulaEncargado.
+        /// Control abdomen.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label labelCedulaEncargado;
+        protected global::System.Web.UI.HtmlControls.HtmlTextArea abdomen;
         
         /// <summary>
-        /// Control cedulaEncargado.
+        /// Control labelFaringe.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox cedulaEncargado;
+        protected global::System.Web.UI.WebControls.Label labelFaringe;
         
         /// <summary>
-        /// Control labelNombreEncargado.
+        /// Control faringe.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label labelNombreEncargado;
+        protected global::System.Web.UI.HtmlControls.HtmlTextArea faringe;
         
         /// <summary>
-        /// Control nombreEncargado.
+        /// Control labelNariz.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox nombreEncargado;
+        protected global::System.Web.UI.WebControls.Label labelNariz;
         
         /// <summary>
-        /// Control labelPrimerApellidoEncargado.
+        /// Control nariz.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label labelPrimerApellidoEncargado;
+        protected global::System.Web.UI.HtmlControls.HtmlTextArea nariz;
         
         /// <summary>
-        /// Control primerApellidoEncargado.
+        /// Control labelOidos.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox primerApellidoEncargado;
+        protected global::System.Web.UI.WebControls.Label labelOidos;
         
         /// <summary>
-        /// Control labelSegundoApellidoEncargado.
+        /// Control oidos.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label labelSegundoApellidoEncargado;
+        protected global::System.Web.UI.HtmlControls.HtmlTextArea oidos;
         
         /// <summary>
-        /// Control segundoApellidoEncargado.
+        /// Control labelSNC.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox segundoApellidoEncargado;
+        protected global::System.Web.UI.WebControls.Label labelSNC;
         
         /// <summary>
-        /// Control labelParentesco.
+        /// Control snc.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label labelParentesco;
+        protected global::System.Web.UI.HtmlControls.HtmlTextArea snc;
         
         /// <summary>
-        /// Control parentesco.
+        /// Control labelNeurodesarrollo.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox parentesco;
+        protected global::System.Web.UI.WebControls.Label labelNeurodesarrollo;
         
         /// <summary>
-        /// Control labelTelefonoEncargado.
+        /// Control neurodesarrollo.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label labelTelefonoEncargado;
+        protected global::System.Web.UI.HtmlControls.HtmlTextArea neurodesarrollo;
         
         /// <summary>
-        /// Control inputTelefonoEncargado.
+        /// Control labelSistemaOsteomuscular.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox inputTelefonoEncargado;
+        protected global::System.Web.UI.WebControls.Label labelSistemaOsteomuscular;
         
         /// <summary>
-        /// Control labelCorreoEncargado.
+        /// Control sistemaOsteomuscular.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label labelCorreoEncargado;
+        protected global::System.Web.UI.HtmlControls.HtmlTextArea sistemaOsteomuscular;
         
         /// <summary>
-        /// Control inputCorreoEncargado.
+        /// Control labelPiel.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox inputCorreoEncargado;
+        protected global::System.Web.UI.WebControls.Label labelPiel;
         
         /// <summary>
-        /// Control label1.
+        /// Control piel.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label label1;
+        protected global::System.Web.UI.HtmlControls.HtmlTextArea piel;
         
         /// <summary>
-        /// Control inputProvinciaEncargado.
+        /// Control labelEstadoAlerta.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList inputProvinciaEncargado;
+        protected global::System.Web.UI.WebControls.Label labelEstadoAlerta;
         
         /// <summary>
-        /// Control provinciaEValue.
+        /// Control estadoAlerta.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlInputHidden provinciaEValue;
+        protected global::System.Web.UI.HtmlControls.HtmlTextArea estadoAlerta;
         
         /// <summary>
-        /// Control label2.
+        /// Control labelEstadoHidratacion.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label label2;
+        protected global::System.Web.UI.WebControls.Label labelEstadoHidratacion;
         
         /// <summary>
-        /// Control inputCantonEncargado.
+        /// Control estadoHidratacion.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList inputCantonEncargado;
+        protected global::System.Web.UI.HtmlControls.HtmlTextArea estadoHidratacion;
         
         /// <summary>
-        /// Control cantonEValue.
+        /// Control labelOtros.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlInputHidden cantonEValue;
+        protected global::System.Web.UI.WebControls.Label labelOtros;
         
         /// <summary>
-        /// Control label3.
+        /// Control otrosHallazgos.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label label3;
+        protected global::System.Web.UI.HtmlControls.HtmlTextArea otrosHallazgos;
         
         /// <summary>
-        /// Control inputDistritoEncargado.
+        /// Control labelAnalisis.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList inputDistritoEncargado;
+        protected global::System.Web.UI.WebControls.Label labelAnalisis;
         
         /// <summary>
-        /// Control distritoEValue.
+        /// Control analisis.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlInputHidden distritoEValue;
+        protected global::System.Web.UI.HtmlControls.HtmlTextArea analisis;
         
         /// <summary>
-        /// Control labelDireccionExactaEncargado.
+        /// Control labelImpresionDiagnostica.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label labelDireccionExactaEncargado;
+        protected global::System.Web.UI.WebControls.Label labelImpresionDiagnostica;
         
         /// <summary>
-        /// Control direccionExactaEncargado.
+        /// Control impresionDiagnostica.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlTextArea direccionExactaEncargado;
+        protected global::System.Web.UI.HtmlControls.HtmlTextArea impresionDiagnostica;
         
         /// <summary>
-        /// Control esDestinatario.
+        /// Control labelPlan.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlInputCheckBox esDestinatario;
+        protected global::System.Web.UI.WebControls.Label labelPlan;
         
         /// <summary>
-        /// Control esSolicitante.
+        /// Control plan.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlInputCheckBox esSolicitante;
+        protected global::System.Web.UI.HtmlControls.HtmlTextArea plan;
         
         /// <summary>
-        /// Control datosSolicitanteCita.
+        /// Control labelEnfermedades.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl datosSolicitanteCita;
+        protected global::System.Web.UI.WebControls.Label labelEnfermedades;
         
         /// <summary>
-        /// Control labelCedulaSolicitante.
+        /// Control DropDownList1.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label labelCedulaSolicitante;
+        protected global::System.Web.UI.WebControls.DropDownList DropDownList1;
         
         /// <summary>
-        /// Control cedulaSolicitante.
+        /// Control labelFrecuencia.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox cedulaSolicitante;
+        protected global::System.Web.UI.WebControls.Label labelFrecuencia;
         
         /// <summary>
-        /// Control labelCorreoSolicitante.
+        /// Control frecuencia.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label labelCorreoSolicitante;
+        protected global::System.Web.UI.WebControls.DropDownList frecuencia;
         
         /// <summary>
-        /// Control correoSolicitante.
+        /// Control labelReferidoA.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox correoSolicitante;
+        protected global::System.Web.UI.WebControls.Label labelReferidoA;
         
         /// <summary>
-        /// Control labelTelefonoSolicitante.
+        /// Control referidoA.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label labelTelefonoSolicitante;
+        protected global::System.Web.UI.WebControls.DropDownList referidoA;
         
         /// <summary>
-        /// Control telefonoSolicitante.
+        /// Control generarReferencia.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox telefonoSolicitante;
+        protected global::System.Web.UI.HtmlControls.HtmlInputCheckBox generarReferencia;
+        
+        /// <summary>
+        /// Control labelEspecialidad.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label labelEspecialidad;
+        
+        /// <summary>
+        /// Control especialidad.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlTextArea especialidad;
+        
+        /// <summary>
+        /// Control labelMotivo.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label labelMotivo;
+        
+        /// <summary>
+        /// Control motivo.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlTextArea motivo;
         
         /// <summary>
         /// Control btnGuardar.

@@ -442,3 +442,16 @@ function VacunaPendiente(pendienteVacuna) {
         descripcion.disabled = true;
     }
 }
+
+function CalcularIMC() {
+    var peso = document.getElementById("peso").value;
+    var talla = document.getElementById("talla").value;
+    var IMC = document.getElementById("IMC");
+
+    if (peso != "" && talla != "") {
+        var tallaMetros = talla * 0.01;
+        IMC.value = (peso / tallaMetros ** 2).toFixed(2).replace('.', ',');
+    } else {
+        alert("Por favor ingrese los datos correspondiente al peso y la talla")
+    }
+}
