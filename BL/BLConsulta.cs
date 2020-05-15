@@ -8,7 +8,7 @@ namespace BL
 {
     public class BLConsulta
     {
-        public int IDExpediente { get; set; }
+        public long IDExpediente { get; set; }
         public string Fecha { get; set; }
         public string Hora { get; set; }
         public string PadecimientoActual { get; set; }
@@ -27,7 +27,7 @@ namespace BL
         {
 
         }
-        public BLConsulta(int idExpediente, string fecha, string hora, string padecimientoActual,
+        public BLConsulta(long idExpediente, string fecha, string hora, string padecimientoActual,
             string analisis, string impresionDiagnostica, string plan, string mmFrecuencia, string mmReferidoA,
             string cpEspecialidad, string cpMotivo, BLExamenFisico examenFisico, string enfermedad)
         {

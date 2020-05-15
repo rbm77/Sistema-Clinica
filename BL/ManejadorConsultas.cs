@@ -90,5 +90,36 @@ namespace BL
             }
             return confirmacion;
         }
+        public string CargarConsultas(List<BLConsulta> consultas, BLExpediente expediente)
+        {
+            List<TOConsulta> to = new List<TOConsulta>();
+            DAOConsulta dao = new DAOConsulta();
+
+            TOExpediente toExp = new TOExpediente();
+            toExp.IDExpediente = expediente.IDExpediente;
+
+            string confirmacion = "Error: Indefinido.";
+
+            confirmacion = dao.CargarConsultas(to, toExp);
+
+            if (!confirmacion.Contains("Error:"))
+            {
+                foreach (TOConsulta t in to)
+                {
+                    BLConsulta c = new BLConsulta();
+                    c.IDExpediente = t.IDExpediente;
+                    c.Fecha = t.Fecha;
+                    c.Hora = t.Hora;
+                    consultas.Add(c);
+                }
+                expediente.Cedula = toExp.Cedula;
+                expediente.Nombre = toExp.Nombre;
+                expediente.PrimerApellido = toExp.PrimerApellido;
+                expediente.SegundoApellido = toExp.SegundoApellido;
+            }
+
+            return confirmacion;
+
+        }
     }
 }

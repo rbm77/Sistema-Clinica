@@ -424,5 +424,121 @@ namespace DAO
             }
             return confirmacion;
         }
+        public string CargarConsultas(List<TOConsulta> consultas, TOExpediente expediente)
+        {
+            string confirmacion = "Las consultas se cargaron exitosamente";
+
+            // Se abre la conexión
+
+            if (conexion != null)
+            {
+                try
+                {
+                    if (conexion.State != ConnectionState.Open)
+                    {
+                        conexion.Open();
+                    }
+                }
+                catch (Exception)
+                {
+                    confirmacion = "Error: No se pueden cargar las consultas";
+                    return confirmacion;
+
+                }
+            }
+            else
+            {
+                confirmacion = "Error: No se pueden cargar las consultas";
+                return confirmacion;
+            }
+
+            // Se inicia una nueva transacción
+
+            SqlTransaction transaccion = null;
+
+            try
+            {
+                transaccion = conexion.BeginTransaction("Cargar consultas");
+
+                SqlCommand comando = new SqlCommand();
+
+                comando.Connection = conexion;
+
+                comando.CommandText = "SELECT FECHA, HORA FROM CONSULTA WHERE ID_EXPEDIENTE = @idExpediente";
+
+                comando.Transaction = transaccion;
+
+                comando.Parameters.AddWithValue("@idExpediente", expediente.IDExpediente);
+
+                SqlDataReader lector = comando.ExecuteReader();
+
+                if (lector.HasRows)
+                {
+                    while (lector.Read())
+                    {
+                        TOConsulta consulta = new TOConsulta();
+                        consulta.IDExpediente = expediente.IDExpediente;
+                        consulta.Fecha = lector["FECHA"].ToString();
+                        consulta.Hora = lector["HORA"].ToString();
+
+                        consultas.Add(consulta);
+                    }
+                }
+
+                lector.Close();
+
+                comando.Parameters.Clear();
+
+                // AHORA SE EXTRAEN DATOS DEL EXPEDIENTE PARA MOSTRAR COMO ENCABEZADO
+
+                comando.CommandText = "SELECT CEDULA, NOMBRE, PRIMER_APELLIDO, SEGUNDO_APELLIDO" +
+                    " FROM EXPEDIENTE WHERE ID_EXPEDIENTE = @idExpediente";
+
+                comando.Parameters.AddWithValue("@idExpediente", expediente.IDExpediente);
+
+                lector = comando.ExecuteReader();
+
+                if (lector.HasRows)
+                {
+                    while (lector.Read())
+                    {
+                        expediente.Cedula = lector["CEDULA"].ToString();
+                        expediente.Nombre = lector["NOMBRE"].ToString();
+                        expediente.PrimerApellido = lector["PRIMER_APELLIDO"].ToString();
+                        expediente.SegundoApellido = lector["SEGUNDO_APELLIDO"].ToString();
+                    }
+                }
+
+                lector.Close();
+
+                transaccion.Commit();
+
+            }
+            catch (Exception)
+            {
+                try
+                {
+
+                    // En caso de un error se realiza un rollback a la transacción
+
+                    transaccion.Rollback();
+                }
+                catch (Exception)
+                {
+                }
+                finally
+                {
+                    confirmacion = "Error: No se pueden cargar las consultas";
+                }
+            }
+            finally
+            {
+                if (conexion.State != ConnectionState.Closed)
+                {
+                    conexion.Close();
+                }
+            }
+            return confirmacion;
+        }
     }
 }

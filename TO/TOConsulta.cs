@@ -8,7 +8,7 @@ namespace TO
 {
     public class TOConsulta
     {
-        public int IDExpediente { get; set; }
+        public long IDExpediente { get; set; }
         public string Fecha { get; set; }
         public string Hora { get; set; }
         public string PadecimientoActual { get; set; }
@@ -26,7 +26,7 @@ namespace TO
         {
 
         }
-        public TOConsulta(int idExpediente, string fecha, string hora, string padecimientoActual,
+        public TOConsulta(long idExpediente, string fecha, string hora, string padecimientoActual,
             string analisis, string impresionDiagnostica, string plan, string mmFrecuencia, string mmReferidoA,
             string cpEspecialidad, string cpMotivo, TOExamenFisico examenFisico, string enfermedad)
         {

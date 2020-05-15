@@ -23,7 +23,7 @@
 
                 <div runat="server" id="Consul_Exam" class="row justify-content-end">
                     <div class="col-md-3 col-sm-6">
-                        <a href="" class="btn btn-general btn-crear">Consultas</a>
+                        <a href="consultas.aspx" class="btn btn-general btn-crear">Consultas</a>
                     </div>
                     <div class="col-md-3 col-sm-6">
                         <a href="" class="btn btn-general btn-crear">Exámenes Lab.</a>
