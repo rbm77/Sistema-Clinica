@@ -263,10 +263,8 @@
                             <div class="form-group col-md-6 col-sm-6">
 
                                 <asp:Label ID="labelEnfermedades" runat="server" Text="Enfermedades"></asp:Label>
-                                <asp:DropDownList ID="DropDownList1" runat="server" class="form-control" ClientIDMode="Static">
-                                    <asp:ListItem Selected="True" Value="ninguna">Ninguna</asp:ListItem>
-                                    <asp:ListItem Selected="False" Value="masculino">Otras helmintiasis intestinales no especificadas en otra parte</asp:ListItem>
-                                    <asp:ListItem Selected="False" Value="femenino">Femenino</asp:ListItem>
+                                <asp:DropDownList ID="enfermedades" runat="server" class="form-control" ClientIDMode="Static">
+                                    
                                 </asp:DropDownList>
                             </div>
 
@@ -287,7 +285,9 @@
                                 <asp:Label ID="labelFrecuencia" runat="server" Text="Frecuencia"></asp:Label>
                                 <asp:DropDownList ID="frecuencia" runat="server" class="form-control" ClientIDMode="Static">
                                     <asp:ListItem Selected="True" Value="nulo">Seleccionar...</asp:ListItem>
-                                    <asp:ListItem Value="primeraVez">Primera Vez</asp:ListItem>
+                                    <asp:ListItem Value="primeraVezVida">Primera Vez (Vida)</asp:ListItem>
+                                    <asp:ListItem Value="primeraVezAnno">Primera Vez (Año)</asp:ListItem>
+                                    <asp:ListItem Value="primeraVezEspecializada">Primera Vez (Especializada)</asp:ListItem>
                                     <asp:ListItem Value="subsecuente">Subsecuente</asp:ListItem>
                                 </asp:DropDownList>
                             </div>
@@ -315,17 +315,6 @@
 
                             <h5 class="titulo col-12" style="margin-bottom: 15px">Referecia a Consulta Privada</h5>
 
-
-                            <div class="form-group col-12">
-                                <div class="form-check form-check-inline" style="padding-left: 15px">
-                                    <input class="form-check-input" type="checkbox" id="generarReferencia" runat="server" clientidmode="Static">
-                                    <label class="form-check-label" for="generarReferencia">
-                                        Generar referencia al guardar la consulta
-                                    </label>
-                                </div>
-                            </div>
-
-
                             <div class="form-group col-md-4 col-sm-4">
                                 <asp:Label ID="labelEspecialidad" runat="server" Text="Especialidad"></asp:Label>
                                 <textarea class="form-control" clientidmode="Static" runat="server" id="especialidad" rows="2"></textarea>
@@ -336,16 +325,23 @@
                                 <textarea class="form-control" clientidmode="Static" runat="server" id="motivo" rows="2"></textarea>
                             </div>
 
+                            <div class="form-group col-12">
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="checkbox" id="generarReferencia" runat="server" clientidmode="Static">
+                                    <small class="form-text text-muted" style="margin-top: 0px">Generar PDF con la referencia al guardar la consulta</small>
+                                </div>
+                            </div>
+
                         </div>
 
                     </div>
 
                     <div class="row justify-content-center" style="margin-top: 30px">
                         <div class="col-md-2 col-sm-5">
-                            <asp:Button ID="btnGuardar" runat="server" Text="Guardar" CssClass="btn btn-general btn-guardar" />
+                            <asp:Button ID="btnGuardar" runat="server" Text="Guardar" OnClick="btnGuardar_Click" CssClass="btn btn-general btn-guardar" />
                         </div>
                         <div class="col-md-2 col-sm-5">
-                            <a href="expedientes.aspx" class="btn btn-general btn-regresar">Regresar</a>
+                            <a href="" class="btn btn-general btn-regresar">Regresar</a>
                         </div>
                     </div>
 

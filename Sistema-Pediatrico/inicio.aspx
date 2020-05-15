@@ -31,7 +31,22 @@
                                     </a>
 
                                     <a class="card-footer card-footer-inicio text-white clearfix z-1" href="administracion.aspx">
-                                        <span class="float-left">Administración</span>
+                                        <span class="float-left">Cuentas</span>
+                                        <span class="float-right">
+                                            <i class="fas fa-angle-right"></i>
+                                        </span>
+                                    </a>
+                                </div>
+                            </div>
+
+                            <div class="col-sm-12 col-xl-6 col-lg-6 col-md-12 mb-20 padding-cards-inicio">
+                                <div class="card text-white o-hidden h-100">
+                                    <a class="card-body card-dash" style="background: #f7f7f7;" href="enfermedades.aspx">
+                                        <i style="color: #1d5e93" class="fas fa-notes-medical fa-4x"></i>
+                                    </a>
+
+                                    <a class="card-footer card-footer-inicio text-white clearfix z-1" href="enfermedades.aspx">
+                                        <span class="float-left">Enfermedadades</span>
                                         <span class="float-right">
                                             <i class="fas fa-angle-right"></i>
                                         </span>
@@ -46,9 +61,9 @@
 
 
 
-                     <% }
-                        else
-                        { %>
+                <% }
+                    else
+                    { %>
 
                 <div class="row">
                     <div class="col-xl-5 col-lg-5 col-md-5 col-sm-5">
@@ -153,7 +168,7 @@
                     </div>
                 </div>
 
-                     <% }
+                <% }
                     }
                 %>
             </div>

@@ -74,6 +74,13 @@
                          
                             <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
                         </a>
+
+                        <a class="nav-link collapsed" href="enfermedades.aspx">
+                            <div class="sb-nav-link-icon"><i class="fas fa-notes-medical"></i></div>
+                            Enfermedades
+                         
+                            <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
+                        </a>
                         <% }
                             else
                             { %>

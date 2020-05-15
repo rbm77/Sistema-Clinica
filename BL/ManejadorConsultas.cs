@@ -34,13 +34,59 @@ namespace BL
 
                 TOConsulta to = new TOConsulta(consulta.IDExpediente, consulta.Fecha, consulta.Hora, consulta.PadecimientoActual, 
                     consulta.Analisis, consulta.ImpresionDiagnostica, consulta.Plan, consulta.MMFrecuencia, consulta.MMReferidoA,
-                    examenFisico);
+                    consulta.CPEspecialidad, consulta.CPMotivo, examenFisico, consulta.Enfermedad);
 
                 return dao.CrearConsulta(to);
             }
             else
             {
                 confirmacion = "Error: No se pudo ingresar la consulta en el sistema";
+            }
+            return confirmacion;
+        }
+
+        public string IngresarEnfermedad(string enfermedad)
+        {
+            string confirmacion = "Error: Indefinido.";
+
+            if (enfermedad != null && !enfermedad.Equals(""))
+            {
+                DAOConsulta dao = new DAOConsulta();
+                return dao.IngresarEnfermedad(enfermedad);
+            }
+            else
+            {
+                confirmacion = "Error: No se pudo ingresar la enfermedad";
+            }
+            return confirmacion;
+        }
+        public string EliminarEnfermedad(string enfermedad)
+        {
+            string confirmacion = "Error: Indefinido.";
+
+            if (enfermedad != null && !enfermedad.Equals(""))
+            {
+                DAOConsulta dao = new DAOConsulta();
+                return dao.EliminarEnfermedad(enfermedad);
+            }
+            else
+            {
+                confirmacion = "Error: No se pudo eliminar la enfermedad";
+            }
+            return confirmacion;
+        }
+        public string CargarEnfermedades(List<string> enfermedades)
+        {
+            string confirmacion = "Error: Indefinido.";
+
+            if (enfermedades != null)
+            {
+                DAOConsulta dao = new DAOConsulta();
+                return dao.CargarEnfermedades(enfermedades);
+            }
+            else
+            {
+                confirmacion = "Error: No se pudieron cargar las enfermedades";
             }
             return confirmacion;
         }

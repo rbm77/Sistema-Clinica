@@ -17,7 +17,10 @@ namespace TO
         public string Plan { get; set; }
         public string MMFrecuencia { get; set; }
         public string MMReferidoA { get; set; }
+        public string CPEspecialidad { get; set; }
+        public string CPMotivo { get; set; }
         public TOExamenFisico ExamenFisico { get; set; }
+        public string Enfermedad { get; set; }
 
         public TOConsulta()
         {
@@ -25,7 +28,7 @@ namespace TO
         }
         public TOConsulta(int idExpediente, string fecha, string hora, string padecimientoActual,
             string analisis, string impresionDiagnostica, string plan, string mmFrecuencia, string mmReferidoA,
-            TOExamenFisico examenFisico)
+            string cpEspecialidad, string cpMotivo, TOExamenFisico examenFisico, string enfermedad)
         {
             this.IDExpediente = idExpediente;
             this.Fecha = fecha;
@@ -36,7 +39,10 @@ namespace TO
             this.Plan = plan;
             this.MMFrecuencia = mmFrecuencia;
             this.MMReferidoA = mmReferidoA;
+            this.CPEspecialidad = cpEspecialidad;
+            this.CPMotivo = cpMotivo;
             this.ExamenFisico = examenFisico;
+            this.Enfermedad = enfermedad;
         }
     }
 }

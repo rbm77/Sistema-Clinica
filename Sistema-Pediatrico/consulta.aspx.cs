@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using BL;
 
 namespace Sistema_Pediatrico
 {
@@ -34,7 +35,64 @@ namespace Sistema_Pediatrico
 
                 fecha.Text = DateTime.Today.ToString("dd/MM/yyyy");
                 Titulo.InnerText = "Nueva Consulta Médica";
+                CargarEnfermedades();
             }
+        }
+
+        private void CargarEnfermedades()
+        {
+            ManejadorConsultas manejador = new ManejadorConsultas();
+            List<string> listaEnfemedades = new List<string>();
+            string confimacion = manejador.CargarEnfermedades(listaEnfemedades);
+            enfermedades.Items.Clear();
+            enfermedades.Items.Add(new ListItem("Seleccionar...", "nulo"));
+            enfermedades.SelectedValue = "nulo";
+            if (!confimacion.Contains("Error:"))
+            {
+                if (listaEnfemedades.Count > 0)
+                {
+                    foreach (string i in listaEnfemedades)
+                    {
+                        ListItem item = new ListItem(i, i);
+                        enfermedades.Items.Add(item);
+                    }
+                }
+            }
+
+        }
+        protected void btnGuardar_Click(object sender, EventArgs e)
+        {
+            string fechaCreacion = fecha.Text.Trim();
+            string horaCreacion = hora.Text.Trim() + "|" + medioDia.Value.Trim();
+
+            if (!fechaCreacion.Equals("") && !horaCreacion.Equals(""))
+            {
+
+            }
+            else
+            {
+                MensajeAviso("Error: Puede que algunos datos se encuentren vacíos o con un formato incorrecto");
+            }
+
+        }
+        private void MensajeAviso(string mensaje)
+        {
+            string color = "";
+
+            if (mensaje.Contains("Error:"))
+            {
+                color = "danger";
+            }
+            else
+            {
+                color = "success";
+            }
+            mensajeConfirmacion.Text = "<div class=\"alert alert-" + color + " alert-dismissible fade show\" " +
+            "role=\"alert\"> <strong></strong>" + mensaje + "<button" +
+            " type = \"button\" class=\"close\" data-dismiss=\"alert\" aria-label=\"Close\">" +
+            " <span aria-hidden=\"true\">&times;</span> </button> </div>";
+
+            mensajeConfirmacion.Visible = true;
         }
     }
 }

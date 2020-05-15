@@ -59,8 +59,9 @@ namespace DAO
                 if (consulta != null)
                 {
                     comando.CommandText = "INSERT INTO CONSULTA (ID_EXPEDIENTE, FECHA, HORA, PADECIMIENTO_ACTUAL, " +
-                        "ANALISIS, IMPRESION_DIAGNOSTICA, DESCRIPCION_PLAN, MEDICINA_MIXTA_FRECUENCIA_REFERIDO_A) VALUES(" +
-                        "@idExpediente, @fecha, @hora, @padecimiento, @analisis, @impresion, @plan, @medicinaMixta);";
+                        "ANALISIS, IMPRESION_DIAGNOSTICA, DESCRIPCION_PLAN, MEDICINA_MIXTA_FRECUENCIA_REFERIDO_A, " +
+                        "CONSULTA_PRIVADA_ESPECIALIDAD_MOTIVO, ENFERMEDAD) VALUES(" +
+                        "@idExpediente, @fecha, @hora, @padecimiento, @analisis, @impresion, @plan, @medicinaMixta, @consultaPrivada, @enfermedad);";
 
                     // Se asigna un valor a los parámetros del comando a ejecutar
 
@@ -71,8 +72,17 @@ namespace DAO
                     comando.Parameters.AddWithValue("@analisis", consulta.Analisis);
                     comando.Parameters.AddWithValue("@impresion", consulta.ImpresionDiagnostica);
                     comando.Parameters.AddWithValue("@plan", consulta.Plan);
-                    comando.Parameters.AddWithValue("@medicinaMixta", consulta.MMFrecuencia + "|" + consulta.MMReferidoA);
 
+                    // Validamos que no se lleguen a producir problemas de caracteres
+
+                    consulta.MMFrecuencia.Replace("|","/");
+                    consulta.MMReferidoA.Replace("|", "/");
+                    consulta.CPEspecialidad.Replace("|", "/");
+                    consulta.CPMotivo.Replace("|", "/");
+
+                    comando.Parameters.AddWithValue("@medicinaMixta", consulta.MMFrecuencia + "|" + consulta.MMReferidoA);
+                    comando.Parameters.AddWithValue("@consultaPrivada", consulta.CPEspecialidad + "|" + consulta.CPMotivo);
+                    comando.Parameters.AddWithValue("@enfermedad", consulta.Enfermedad);
                     comando.ExecuteNonQuery();
 
                     comando.Parameters.Clear();
@@ -98,7 +108,7 @@ namespace DAO
                         comando.Parameters.AddWithValue("@temperatura", consulta.ExamenFisico.Temperatura);
                         comando.Parameters.AddWithValue("@graficasYperimetro", consulta.ExamenFisico.PC_Edad + "|" +
                             consulta.ExamenFisico.Peso_Edad + "|" + consulta.ExamenFisico.Talla_Edad + "|" + 
-                            consulta.ExamenFisico.Peso_Talla + "|" + consulta.ExamenFisico.IMC_Edad + "*" + 
+                            consulta.ExamenFisico.Peso_Talla + "|" + consulta.ExamenFisico.IMC_Edad + "^" + 
                             consulta.ExamenFisico.PerimetroCefalico);
                         comando.Parameters.AddWithValue("@estadoAlerta", consulta.ExamenFisico.EstadoAlerta);
                         comando.Parameters.AddWithValue("@estadoHidratacion", consulta.ExamenFisico.EstadoHidratacion);
@@ -149,5 +159,270 @@ namespace DAO
             return confirmacion;
         }
 
+        public string IngresarEnfermedad(string enfermedad)
+        {
+            string confirmacion = "La enfermedad se ingresó exitosamente";
+            // Se abre la conexión
+
+            if (conexion != null)
+            {
+                try
+                {
+                    if (conexion.State != ConnectionState.Open)
+                    {
+                        conexion.Open();
+                    }
+                }
+                catch (Exception)
+                {
+                    confirmacion = "Error: No se pudo ingresar la enfermedad";
+                    return confirmacion;
+
+                }
+            }
+            else
+            {
+                confirmacion = "Error: No se pudo ingresar la enfermedad";
+                return confirmacion;
+            }
+
+            // Se inicia una nueva transacción
+
+            SqlTransaction transaccion = null;
+
+            try
+            {
+                transaccion = conexion.BeginTransaction("Ingresar nueva enfermedad");
+
+                // Se crea un nuevo comando con la secuencia SQL y el objeto de conexión
+
+                SqlCommand comando = new SqlCommand();
+
+                comando.Connection = conexion;
+
+                comando.Transaction = transaccion;
+
+                if (enfermedad != null)
+                {
+                    if (!enfermedad.Equals(""))
+                    {
+                        comando.CommandText = "INSERT INTO ENFERMEDADES (ENFERMEDAD) VALUES(@enfermedad);";
+
+                        // Se asigna un valor a los parámetros del comando a ejecutar
+
+                        comando.Parameters.AddWithValue("@enfermedad", enfermedad);
+
+                        comando.ExecuteNonQuery();
+                    }
+                }
+
+                transaccion.Commit();
+
+            }
+            catch (Exception e)
+            {
+                try
+                {
+                    string prueba = e.Message;
+                    // En caso de un error se realiza un rollback a la transacción
+
+                    transaccion.Rollback();
+                }
+                catch (Exception)
+                {
+                }
+                finally
+                {
+                    confirmacion = "Error: No se pudo ingresar la enfermedad";
+                }
+            }
+            finally
+            {
+                if (conexion.State != ConnectionState.Closed)
+                {
+                    conexion.Close();
+                }
+            }
+            return confirmacion;
+        }
+
+        public string EliminarEnfermedad(string enfermedad)
+        {
+            string confirmacion = "La enfermedad se eliminó exitosamente";
+            // Se abre la conexión
+
+            if (conexion != null)
+            {
+                try
+                {
+                    if (conexion.State != ConnectionState.Open)
+                    {
+                        conexion.Open();
+                    }
+                }
+                catch (Exception)
+                {
+                    confirmacion = "Error: No se pudo eliminar la enfermedad";
+                    return confirmacion;
+
+                }
+            }
+            else
+            {
+                confirmacion = "Error: No se pudo eliminar la enfermedad";
+                return confirmacion;
+            }
+
+            // Se inicia una nueva transacción
+
+            SqlTransaction transaccion = null;
+
+            try
+            {
+                transaccion = conexion.BeginTransaction("Eliminar enfermedad");
+
+                // Se crea un nuevo comando con la secuencia SQL y el objeto de conexión
+
+                SqlCommand comando = new SqlCommand();
+
+                comando.Connection = conexion;
+
+                comando.Transaction = transaccion;
+
+                if (enfermedad != null)
+                {
+                    if (!enfermedad.Equals(""))
+                    {
+                        comando.CommandText = "DELETE FROM ENFERMEDADES WHERE ENFERMEDAD = @enfermedad;";
+
+                        // Se asigna un valor a los parámetros del comando a ejecutar
+
+                        comando.Parameters.AddWithValue("@enfermedad", enfermedad);
+
+                        comando.ExecuteNonQuery();
+                    }
+                }
+
+                transaccion.Commit();
+
+            }
+            catch (Exception e)
+            {
+                try
+                {
+                    string prueba = e.Message;
+                    // En caso de un error se realiza un rollback a la transacción
+
+                    transaccion.Rollback();
+                }
+                catch (Exception)
+                {
+                }
+                finally
+                {
+                    confirmacion = "Error: No se pudo eliminar la enfermedad";
+                }
+            }
+            finally
+            {
+                if (conexion.State != ConnectionState.Closed)
+                {
+                    conexion.Close();
+                }
+            }
+            return confirmacion;
+        }
+
+        public string CargarEnfermedades(List<string> enfermedades)
+        {
+            string confirmacion = "Las enfermedades se cargaron exitosamente";
+
+            // Se abre la conexión
+
+            if (conexion != null)
+            {
+                try
+                {
+                    if (conexion.State != ConnectionState.Open)
+                    {
+                        conexion.Open();
+                    }
+                }
+                catch (Exception)
+                {
+                    confirmacion = "Error: No se pudieron cargar las enfermedades";
+                    return confirmacion;
+
+                }
+            }
+            else
+            {
+                confirmacion = "Error: No se pudieron cargar las enfermedades";
+                return confirmacion;
+            }
+
+            // Se inicia una nueva transacción
+
+            SqlTransaction transaccion = null;
+
+            try
+            {
+                transaccion = conexion.BeginTransaction("Cargar enfermedades");
+
+                // Se crea un nuevo comando con la secuencia SQL y el objeto de conexión
+
+                SqlCommand comando = new SqlCommand();
+
+                comando.Connection = conexion;
+
+                comando.CommandText = "SELECT ENFERMEDAD FROM ENFERMEDADES";
+
+                comando.Transaction = transaccion;
+
+
+                // Se ejecuta el comando y se realiza un commit de la transacción
+
+
+                SqlDataReader lector = comando.ExecuteReader();
+
+                if (lector.HasRows)
+                {
+                    while (lector.Read())
+                    {
+                        enfermedades.Add(lector["ENFERMEDAD"].ToString());
+                    }
+                }
+
+                lector.Close();
+
+                transaccion.Commit();
+
+            }
+            catch (Exception)
+            {
+                try
+                {
+
+                    // En caso de un error se realiza un rollback a la transacción
+
+                    transaccion.Rollback();
+                }
+                catch (Exception)
+                {
+                }
+                finally
+                {
+                    confirmacion = "Error: No se pudieron cargar las enfermedades";
+                }
+            }
+            finally
+            {
+                if (conexion.State != ConnectionState.Closed)
+                {
+                    conexion.Close();
+                }
+            }
+            return confirmacion;
+        }
     }
 }

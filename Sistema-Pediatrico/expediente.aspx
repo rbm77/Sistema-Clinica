@@ -214,23 +214,18 @@
 
                         <div class="form-row">
 
-                            <h6 class="titulo col-12">El encargado será:</h6>
-
+                            <h10 class="titulo col-12">Administración de permisos concernientes al encargado</h10>
 
                             <div class="form-group col-12" style="padding-top: 15px">
-                                <div class="form-check form-check-inline" style="padding-left: 15px">
+                                <div class="form-check form-check-inline">
                                     <input class="form-check-input" type="checkbox" onclick="esDestinatarioFactura()" id="esDestinatario" runat="server" clientidmode="Static">
-                                    <label class="form-check-label" for="inlineCheckbox1">
-                                        El destinatario al cual se le remitirá la factura electrónica al finalizar la consulta médica
-                                    </label>
+                                    <small class="form-text text-muted" style="margin-top: 0px">Autorización para que se le remita la factura electrónica al finalizar la consulta médica</small>
                                 </div>
                             </div>
                             <div class="form-group col-12">
-                                <div class="form-check form-check-inline" style="padding-left: 15px">
+                                <div class="form-check form-check-inline">
                                     <input class="form-check-input" type="checkbox" onclick="esSolicitanteCita()" id="esSolicitante" runat="server" clientidmode="Static">
-                                    <label class="form-check-label" for="inlineCheckbox2">
-                                        La persona autorizada para solicitar las citas médicas del paciente
-                                    </label>
+                                    <small class="form-text text-muted" style="margin-top: 0px">Autorización para solicitar las citas médicas del paciente</small>
                                 </div>
                             </div>
 
