@@ -40,9 +40,39 @@
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
     <div class="container-fluid padding-contenedorExp">
 
-        <h3 class="titulo">Consultas</h3>
 
-        <h6 style="color: #007bff;">Expediente # 17 Cédula: 207850434 Nombre: Richard Bolaños Moya</h6>
+
+        <%--        <div class="form-row">
+            <div class="col-md-9">
+                <h3 class="titulo">Consultas</h3>
+            </div>
+            <div class="col-md-3">
+                <div>
+                    <h6 style="display: inline">Expediente #</h6>
+                    <h6 style="color: #007bff; display: inline">17</h6>
+                </div>
+                <div>
+                    <h6 style="display: inline">Cédula:</h6>
+                    <h6 style="color: #007bff; display: inline">207850434</h6>
+                </div>
+                <div>
+                    <h6 style="display: inline">Nombre:</h6>
+                    <h6 style="color: #007bff; display: inline">Richard Bolaños Moya</h6>
+                </div>
+            </div>
+        </div>--%>
+
+
+        <h2 class="titulo">Consultas</h2>
+
+        <h6 style="display: inline">Expediente #</h6>
+        <h6 id="expedienteEncabezado" runat="server" style="color: #007bff; display: inline; margin-right:20px"></h6>
+
+        <h6 style="display: inline">Cédula:</h6>
+        <h6 id="cedulaEncabezado" runat="server" style="color: #007bff; display: inline; margin-right:20px"></h6>
+
+        <h6 style="display: inline">Nombre:</h6>
+        <h6 id="nombreEncabezado" runat="server" style="color: #007bff; display: inline"></h6>
 
         <hr />
 

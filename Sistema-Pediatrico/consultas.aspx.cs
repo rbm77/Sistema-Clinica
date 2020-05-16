@@ -64,7 +64,9 @@ namespace Sistema_Pediatrico
 
                     // AHORA SE CARGA EL ENCABEZADO
 
-                    
+                    expedienteEncabezado.InnerText = expediente.IDExpediente + "";
+                    cedulaEncabezado.InnerText = expediente.Cedula;
+                    nombreEncabezado.InnerText = expediente.Nombre + " " + expediente.PrimerApellido + " " + expediente.SegundoApellido; 
 
                 }
                 else
