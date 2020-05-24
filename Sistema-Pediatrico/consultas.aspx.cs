@@ -20,7 +20,7 @@ namespace Sistema_Pediatrico
 
         protected void btnCrear_Click(object sender, EventArgs e)
         {
-
+            Response.Redirect("consulta.aspx");
         }
 
         protected void listaConsultas_RowCommand(object sender, GridViewCommandEventArgs e)
@@ -82,8 +82,12 @@ namespace Sistema_Pediatrico
             public string Hora { get; set; }
             public ItemGrid(BLConsulta consulta)
             {
-                this.Fecha = consulta.IDExpediente + "";
-                this.Hora = consulta.Hora;
+                string[] contenido = consulta.Hora.Split('|');
+                string hora = contenido[0];
+                string md = contenido[1];
+
+                this.Fecha = consulta.Fecha;
+                this.Hora = hora + " " + md;
             }
         }
 

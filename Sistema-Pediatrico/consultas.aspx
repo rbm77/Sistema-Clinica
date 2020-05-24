@@ -90,16 +90,14 @@
 
             <asp:GridView ID="listaConsultas" runat="server" ClientIDMode="Static" AutoGenerateColumns="false"
                 CssClass="table table-bordered table-hover" Width="100%" OnRowCommand="listaConsultas_RowCommand"
-                DataKeyNames="IdConsulta">
+                DataKeyNames="Fecha">
                 <Columns>
-                    <asp:BoundField HeaderText="Cédula" DataField="Cedula" HeaderStyle-Width="19%" />
-                    <asp:BoundField HeaderText="Nombre" DataField="Nombre" HeaderStyle-Width="23%" />
-                    <asp:BoundField HeaderText="Primer Apellido" DataField="PrimerApellido" HeaderStyle-Width="23%" />
-                    <asp:BoundField HeaderText="Segundo Apellido" DataField="SegundoApellido" HeaderStyle-Width="23%" />
+                    <asp:BoundField HeaderText="Fecha" DataField="Fecha" HeaderStyle-Width="42%" />
+                    <asp:BoundField HeaderText="Hora" DataField="Hora" HeaderStyle-Width="42%" />
 
 
                     <asp:TemplateField HeaderText="Acción" HeaderStyle-CssClass="text-center"
-                        HeaderStyle-Width="12%" ItemStyle-HorizontalAlign="Center">
+                        HeaderStyle-Width="16%" ItemStyle-HorizontalAlign="Center">
                         <ItemTemplate>
 
                             <div class="row">
@@ -120,8 +118,6 @@
 
                         </ItemTemplate>
                     </asp:TemplateField>
-
-                    <asp:BoundField Visible="false" DataField="IdExpediente"></asp:BoundField>
 
                 </Columns>
 

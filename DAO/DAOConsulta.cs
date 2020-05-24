@@ -75,13 +75,24 @@ namespace DAO
 
                     // Validamos que no se lleguen a producir problemas de caracteres
 
-                    consulta.MMFrecuencia.Replace("|","/");
-                    consulta.MMReferidoA.Replace("|", "/");
                     consulta.CPEspecialidad.Replace("|", "/");
                     consulta.CPMotivo.Replace("|", "/");
 
-                    comando.Parameters.AddWithValue("@medicinaMixta", consulta.MMFrecuencia + "|" + consulta.MMReferidoA);
-                    comando.Parameters.AddWithValue("@consultaPrivada", consulta.CPEspecialidad + "|" + consulta.CPMotivo);
+                    string medicMixta = "";
+                    string consultPrivada = "";
+
+                    if(!consulta.MMFrecuencia.Equals("") && !consulta.MMReferidoA.Equals(""))
+                    {
+                        medicMixta = consulta.MMFrecuencia + "|" + consulta.MMReferidoA;
+                    }
+
+                    if (!consulta.CPEspecialidad.Equals("") && !consulta.CPMotivo.Equals(""))
+                    {
+                        consultPrivada = consulta.CPEspecialidad + "|" + consulta.CPMotivo;
+                    }
+
+                    comando.Parameters.AddWithValue("@medicinaMixta", medicMixta);
+                    comando.Parameters.AddWithValue("@consultaPrivada", consultPrivada);
                     comando.Parameters.AddWithValue("@enfermedad", consulta.Enfermedad);
                     comando.ExecuteNonQuery();
 
@@ -90,10 +101,10 @@ namespace DAO
                     if (consulta.ExamenFisico != null)
                     {
                         comando.CommandText = "INSERT INTO EXAMEN_FISICO (ID_EXPEDIENTE, FECHA, PESO, TALLA, " +
-                            "IMC, S02, TEMPERATURA, GRAFICAS_CRECIMIENTO_AND_PERIMETRO_CEFALICO, ESTADO_ALERTA, " +
+                            "IMC, TEMPERATURA, GRAFICAS_CRECIMIENTO_ADICIONALES, ESTADO_ALERTA, " +
                             "ESTADO_HIDRATACION, RUIDOS_CARDIACOS, CAMPOS_PULMONARES, ABDOMEN, FARINGE, " +
                             "NARIZ, OIDOS, SNC, NEURODESARROLLO, SISTEMA_OSTEOMUSCULAR, PIEL, OTROS_HALLAZGOS) VALUES(" +
-                            "@idExpediente, @fecha, @peso, @talla, @imc, @so2, @temperatura, @graficasYperimetro, @estadoAlerta, " +
+                            "@idExpediente, @fecha, @peso, @talla, @imc, @temperatura, @graficasYadicionales, @estadoAlerta, " +
                             "@estadoHidratacion, @ruidosCardiacos, @camposPulmonares, @abdomen, @faringe, @nariz, @oidos, @snc, " +
                             "@neurodesarrollo, @sistemaOsteomuscular, @piel, @otrosHallazgos);";
 
@@ -104,12 +115,20 @@ namespace DAO
                         comando.Parameters.AddWithValue("@peso", consulta.ExamenFisico.Peso);
                         comando.Parameters.AddWithValue("@talla", consulta.ExamenFisico.Talla);
                         comando.Parameters.AddWithValue("@imc", consulta.ExamenFisico.IMC);
-                        comando.Parameters.AddWithValue("@so2", consulta.ExamenFisico.SO2);
                         comando.Parameters.AddWithValue("@temperatura", consulta.ExamenFisico.Temperatura);
-                        comando.Parameters.AddWithValue("@graficasYperimetro", consulta.ExamenFisico.PC_Edad + "|" +
+
+                        consulta.ExamenFisico.PC_Edad.Replace("|", "/").Replace("^", "'");
+                        consulta.ExamenFisico.Peso_Edad.Replace("|", "/").Replace("^", "'");
+                        consulta.ExamenFisico.Talla_Edad.Replace("|", "/").Replace("^", "'");
+                        consulta.ExamenFisico.Peso_Talla.Replace("|", "/").Replace("^", "'");
+                        consulta.ExamenFisico.IMC_Edad.Replace("|", "/").Replace("^", "'");
+
+
+                        comando.Parameters.AddWithValue("@graficasYadicionales", consulta.ExamenFisico.PC_Edad + "|" +
                             consulta.ExamenFisico.Peso_Edad + "|" + consulta.ExamenFisico.Talla_Edad + "|" + 
                             consulta.ExamenFisico.Peso_Talla + "|" + consulta.ExamenFisico.IMC_Edad + "^" + 
-                            consulta.ExamenFisico.PerimetroCefalico);
+                            consulta.ExamenFisico.PerimetroCefalico + "^" + consulta.ExamenFisico.SO2);
+
                         comando.Parameters.AddWithValue("@estadoAlerta", consulta.ExamenFisico.EstadoAlerta);
                         comando.Parameters.AddWithValue("@estadoHidratacion", consulta.ExamenFisico.EstadoHidratacion);
                         comando.Parameters.AddWithValue("@ruidosCardiacos", consulta.ExamenFisico.RuidosCardiacos);
@@ -125,8 +144,15 @@ namespace DAO
                         comando.Parameters.AddWithValue("@otrosHallazgos", consulta.ExamenFisico.OtrosHallazgos);
 
                         comando.ExecuteNonQuery();
+                        comando.Parameters.Clear();
 
                     }
+
+                    comando.CommandText = "INSERT INTO CONSULTAS_DIA (ID_EXPEDIENTE, FECHA_CONSULTA) VALUES(" +
+                       "@idExpediente, @fecha);";
+                    comando.Parameters.AddWithValue("@idExpediente", consulta.IDExpediente);
+                    comando.Parameters.AddWithValue("@fecha", consulta.Fecha);
+                    comando.ExecuteNonQuery();
                 }
 
                 transaccion.Commit();
