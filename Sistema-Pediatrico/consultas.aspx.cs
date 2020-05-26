@@ -86,9 +86,17 @@ namespace Sistema_Pediatrico
                 string hora = contenido[0];
                 string md = contenido[1];
 
-                this.Fecha = consulta.Fecha;
+                this.Fecha = DarFormato(consulta.Fecha);
                 this.Hora = hora + " " + md;
             }
+
+            private string DarFormato(string fecha)
+            {
+                string[] divisiones = fecha.Split('/');
+                string nuevoFormato = divisiones[2] + "/" + divisiones[1] + "/" + divisiones[0];
+                return nuevoFormato;
+            }
+
         }
 
 

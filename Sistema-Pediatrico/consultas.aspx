@@ -25,6 +25,7 @@
                 "responsive": true,
                 "ordering": true,
                 "info": true,
+                "order": [[0, "desc"]]
             });
         });
 
@@ -36,6 +37,9 @@
         }
 
     </script>
+
+
+
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
     <div class="container-fluid padding-contenedorExp">
@@ -66,10 +70,10 @@
         <h2 class="titulo">Consultas</h2>
 
         <h6 style="display: inline">Expediente #</h6>
-        <h6 id="expedienteEncabezado" runat="server" style="color: #007bff; display: inline; margin-right:20px"></h6>
+        <h6 id="expedienteEncabezado" runat="server" style="color: #007bff; display: inline; margin-right: 20px"></h6>
 
         <h6 style="display: inline">Cédula:</h6>
-        <h6 id="cedulaEncabezado" runat="server" style="color: #007bff; display: inline; margin-right:20px"></h6>
+        <h6 id="cedulaEncabezado" runat="server" style="color: #007bff; display: inline; margin-right: 20px"></h6>
 
         <h6 style="display: inline">Nombre:</h6>
         <h6 id="nombreEncabezado" runat="server" style="color: #007bff; display: inline"></h6>
@@ -125,4 +129,5 @@
 
         </form>
     </div>
+
 </asp:Content>

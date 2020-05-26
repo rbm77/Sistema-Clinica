@@ -21,7 +21,7 @@
                 <div class="form-row">
                     <div class="form-group col-md-3 col-sm-3">
                         <asp:Label ID="labelFecha" runat="server" Text="Fecha"></asp:Label>
-                        <asp:TextBox ID="fecha" runat="server" class="form-control" ClientIDMode="Static" pattern="([0-2][0-9]|3[0-1])(\/|-)(0[1-9]|1[0-2])\2(\d{4})" required></asp:TextBox>
+                        <asp:TextBox ID="fecha" runat="server" class="form-control" ClientIDMode="Static" pattern="([0-2][0-9]|3[0-1])(\/)(0[1-9]|1[0-2])\2(\d{4})" required></asp:TextBox>
                         <small class="form-text text-muted">Formato: dd/mm/aaaa</small>
                     </div>
 
