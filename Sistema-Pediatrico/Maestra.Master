@@ -166,6 +166,41 @@
     <script src="Bootstrap/dist/js/jquery.dataTables.min.js"></script>
 
     <script src="Bootstrap/dist/js/dataTables.bootstrap4.min.js"></script>
+
+    <%if (Session["accion"] != null)
+        {
+            if (Session["accion"].Equals("verConsultas"))
+            {%>
+    <script type="text/javascript" src="Bootstrap/dist/js/date-euro.js"></script>
+
+    <script type="text/javascript" charset="utf-8">
+
+        $(document).ready(function () {
+
+            $("#listaConsultas").DataTable({
+                "scrollX": true,
+                "autoWidth": true,
+                "paging": true,
+                "responsive": true,
+                "ordering": true,
+                "info": true,
+                columnDefs: [
+                    { type: 'date-euro', targets: 0 }
+                ],
+                "order": [[0, "desc"]]
+            });
+        });
+
+        function AlinearData() {
+            $('.dataTables_scrollHeadInner').css('width', '100%');
+            setTimeout(function () {
+                $("#listaConsultas").DataTable().columns.adjust().draw()
+            }, 300);
+        }
+
+    </script>
+    <%}
+        } %>
 </body>
 
 

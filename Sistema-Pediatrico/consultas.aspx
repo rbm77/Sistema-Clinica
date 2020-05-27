@@ -14,58 +14,9 @@
         }
     </script>
 
-    <script type="text/javascript" charset="utf-8">
-
-        $(document).ready(function () {
-
-            $("#listaConsultas").DataTable({
-                "scrollX": true,
-                "autoWidth": true,
-                "paging": true,
-                "responsive": true,
-                "ordering": true,
-                "info": true,
-                "order": [[0, "desc"]]
-            });
-        });
-
-        function AlinearData() {
-            $('.dataTables_scrollHeadInner').css('width', '100%');
-            setTimeout(function () {
-                $("#listaConsultas").DataTable().columns.adjust().draw()
-            }, 300);
-        }
-
-    </script>
-
-
-
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
     <div class="container-fluid padding-contenedorExp">
-
-
-
-        <%--        <div class="form-row">
-            <div class="col-md-9">
-                <h3 class="titulo">Consultas</h3>
-            </div>
-            <div class="col-md-3">
-                <div>
-                    <h6 style="display: inline">Expediente #</h6>
-                    <h6 style="color: #007bff; display: inline">17</h6>
-                </div>
-                <div>
-                    <h6 style="display: inline">Cédula:</h6>
-                    <h6 style="color: #007bff; display: inline">207850434</h6>
-                </div>
-                <div>
-                    <h6 style="display: inline">Nombre:</h6>
-                    <h6 style="color: #007bff; display: inline">Richard Bolaños Moya</h6>
-                </div>
-            </div>
-        </div>--%>
-
 
         <h2 class="titulo">Consultas</h2>
 

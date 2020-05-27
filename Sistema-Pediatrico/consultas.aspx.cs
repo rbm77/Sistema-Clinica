@@ -14,6 +14,7 @@ namespace Sistema_Pediatrico
         {
             if (!IsPostBack)
             {
+                Session["accion"] = "verConsultas";
                 CargarConsultas();
             }
         }
@@ -86,7 +87,7 @@ namespace Sistema_Pediatrico
                 string hora = contenido[0];
                 string md = contenido[1];
 
-                this.Fecha = DarFormato(consulta.Fecha);
+                this.Fecha = consulta.Fecha;
                 this.Hora = hora + " " + md;
             }
 

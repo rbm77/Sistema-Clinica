@@ -14,6 +14,7 @@ namespace Sistema_Pediatrico
         {
             if (!IsPostBack)
             {
+                Session["accion"] = "enfermedades";
                 CargarEnfermedades();
             }
         }
