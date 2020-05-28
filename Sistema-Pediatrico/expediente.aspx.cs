@@ -15,7 +15,6 @@ namespace Sistema_Pediatrico
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            // Este es para la accion de crear, se necesita algo diferente para la accion de actualizar
 
             if (!IsPostBack)
             {

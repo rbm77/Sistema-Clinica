@@ -14,28 +14,51 @@ namespace Sistema_Pediatrico
         {
             if (!IsPostBack)
             {
-                perimetroCefalicoEdad.Text = "Normal";
-                pesoEdad.Text = "Normal";
-                tallaEdad.Text = "Normal";
-                pesoTalla.Text = "Normal";
-                imcEdad.Text = "Normal";
-                ruidosCardiacos.Value = "Normal";
-                camposPulmonares.Value = "Normal";
-                abdomen.Value = "Normal";
-                faringe.Value = "Normal";
-                nariz.Value = "Normal";
-                oidos.Value = "Normal";
-                snc.Value = "Normal";
-                neurodesarrollo.Value = "Normal";
-                sistemaOsteomuscular.Value = "Normal";
-                piel.Value = "Normal";
-                estadoAlerta.Value = "Normal";
-                estadoHidratacion.Value = "Normal";
-                otrosHallazgos.Value = "Normal";
+                if (Session["accion"] != null)
+                {
+                    CargarEnfermedades();
 
-                fecha.Text = DateTime.Today.ToString("dd/MM/yyyy");
-                Titulo.InnerText = "Nueva Consulta Médica";
-                CargarEnfermedades();
+                    BLExpediente expediente = (BLExpediente) Session["expediente"];
+
+                    expedienteEncabezado.InnerText = expediente.IDExpediente + "";
+                    cedulaEncabezado.InnerText = expediente.Cedula;
+                    nombreEncabezado.InnerText = expediente.Nombre + " " + expediente.PrimerApellido + " " + expediente.SegundoApellido;
+
+                    string accion = Session["accion"].ToString();
+
+                    if (accion.Equals("crearConsulta"))
+                    {
+                        perimetroCefalicoEdad.Text = "Normal";
+                        pesoEdad.Text = "Normal";
+                        tallaEdad.Text = "Normal";
+                        pesoTalla.Text = "Normal";
+                        imcEdad.Text = "Normal";
+                        ruidosCardiacos.Value = "Normal";
+                        camposPulmonares.Value = "Normal";
+                        abdomen.Value = "Normal";
+                        faringe.Value = "Normal";
+                        nariz.Value = "Normal";
+                        oidos.Value = "Normal";
+                        snc.Value = "Normal";
+                        neurodesarrollo.Value = "Normal";
+                        sistemaOsteomuscular.Value = "Normal";
+                        piel.Value = "Normal";
+                        estadoAlerta.Value = "Normal";
+                        estadoHidratacion.Value = "Normal";
+                        otrosHallazgos.Value = "Normal";
+                        fecha.Text = DateTime.Today.ToString("dd/MM/yyyy");
+                        Titulo.InnerText = "Nueva Consulta Médica";
+                    }
+                    else if (accion.Equals("consultarConsulta"))
+                    {
+                        if (Session["fechaConsulta"] != null)
+                        {
+                            long idExpediente = long.Parse(Session["idExpediente"].ToString());
+                            CargarConsulta(idExpediente, Session["fechaConsulta"].ToString());
+                        }
+                    }
+                    
+                }
             }
         }
 
@@ -203,25 +226,33 @@ namespace Sistema_Pediatrico
                 BLConsulta consulta = new BLConsulta(idExpediente, fechaCreacion, horaCreacion, padecimientoActualC, analisisC,
                     impresionDiagnosticaC, planC, frecuenciaC, referidoC, especialidadC, motivoC, examenFisico, enfermedadC);
 
-                string confirmacion = manejador.CrearConsulta(consulta);
+                string confirmacion = "";
 
-                if (!confirmacion.Contains("Error:"))
+                if (Session["accion"].Equals("crearConsulta"))
                 {
-                    MensajeAviso(confirmacion);
+                    confirmacion = manejador.CrearConsulta(consulta);
 
-                    // SE GENERA LA REFERENCIA EN CASO DE SER NECESARIO
-
-                    if(generarRef)
+                    if (!confirmacion.Contains("Error:"))
                     {
-                        // SE LLAMA AL METODO QUE GENERA EL PDF PARA DESCARGARLO
+                        Titulo.InnerText = "Consulta Médica";
+                        fecha.ReadOnly = true;
+                        hora.ReadOnly = true;
+                        medioDia.Disabled = true;
+                        generarReferencia.Checked = false;
+                        Session["accion"] = "consultarConsulta";
+                        if (generarRef)
+                        {
+                            // SE LLAMA AL METODO QUE GENERA EL PDF PARA DESCARGARLO
 
+                        }
                     }
-                }
-                else
-                {
                     MensajeAviso(confirmacion);
                 }
+                else if (Session["accion"].Equals("consultarConsulta"))
+                {
+                    //confirmacion = manejador.ActualizarConsulta(consulta);
 
+                }
             }
             else
             {
@@ -248,5 +279,201 @@ namespace Sistema_Pediatrico
 
             mensajeConfirmacion.Visible = true;
         }
+
+        private void CargarConsulta(long idExpediente, string fechaConsulta)
+        {
+            ManejadorConsultas manejador = new ManejadorConsultas();
+            BLConsulta consulta = new BLConsulta();
+            BLExamenFisico examenFisico = new BLExamenFisico();
+            consulta.ExamenFisico = examenFisico;
+            consulta.IDExpediente = idExpediente;
+            consulta.Fecha = fechaConsulta;
+            string confirmacion = manejador.CargarConsulta(consulta);
+
+            if (!confirmacion.Contains("Error:"))
+            {
+                // Limpiar datos
+
+                fecha.Text = "";
+                hora.Text = "";
+                medioDia.Value = "am";
+                frecuencia.SelectedValue = "nulo";
+                referidoA.SelectedValue = "nulo";
+                especialidad.Value = "";
+                motivo.Value = "";
+
+                peso.Text = "";
+                talla.Text = "";
+                perimetroCefalico.Text = "";
+                IMC.Text = "";
+                temperatura.Text = "";
+                SO2.Text = "";
+                padecimientoActual.Value = "";
+
+                perimetroCefalicoEdad.Text = "";
+                pesoEdad.Text = "";
+                tallaEdad.Text = "";
+                pesoTalla.Text = "";
+                imcEdad.Text = "";
+                ruidosCardiacos.Value = "";
+                camposPulmonares.Value = "";
+                abdomen.Value = "";
+                faringe.Value = "";
+                nariz.Value = "";
+                oidos.Value = "";
+                snc.Value = "";
+                neurodesarrollo.Value = "";
+                sistemaOsteomuscular.Value = "";
+                piel.Value = "";
+                estadoAlerta.Value = "";
+                estadoHidratacion.Value = "";
+                otrosHallazgos.Value = "";
+                analisis.Value = "";
+                impresionDiagnostica.Value = "";
+                plan.Value = "";
+                enfermedades.SelectedValue = "";
+                generarReferencia.Checked = false;
+
+                // Cargar datos
+
+                fecha.Text = consulta.Fecha;
+                fecha.ReadOnly = true;
+                string[] entradaHora = consulta.Hora.Split('|');
+                hora.Text = entradaHora[0];
+                medioDia.Value = entradaHora[1];
+                hora.ReadOnly = true;
+                medioDia.Disabled = true;
+                string mmFrecuencia = consulta.MMFrecuencia;
+                if (mmFrecuencia == null || mmFrecuencia.Equals(""))
+                {
+                    mmFrecuencia = "nulo";
+                }
+                string mmReferido = consulta.MMReferidoA;
+                if (mmReferido == null || mmReferido.Equals(""))
+                {
+                    mmReferido = "nulo";
+                }
+                string cpEspecialidad = consulta.CPEspecialidad;
+                if (cpEspecialidad == null)
+                {
+                    cpEspecialidad = "";
+                }
+                string cpMotivo = consulta.CPMotivo;
+                if (cpMotivo == null)
+                {
+                    cpMotivo = "";
+                }
+                frecuencia.SelectedValue = mmFrecuencia;
+                referidoA.SelectedValue = mmReferido;
+                especialidad.Value = cpEspecialidad;
+                motivo.Value = cpMotivo;
+
+                string pesoTemp = consulta.ExamenFisico.Peso + "";
+                string tallaTemp = consulta.ExamenFisico.Talla + "";
+                string pcTemp = consulta.ExamenFisico.PerimetroCefalico + "";
+                string imcTemp = consulta.ExamenFisico.IMC + "";
+                string tempTemp = consulta.ExamenFisico.Temperatura + "";
+                string so2Temp = consulta.ExamenFisico.SO2 + "";
+
+                if(pesoTemp == null || pesoTemp.Equals("0"))
+                {
+                    pesoTemp = "";
+                }
+                if (tallaTemp == null || tallaTemp.Equals("0"))
+                {
+                    tallaTemp = "";
+                }
+                if (pcTemp == null || pcTemp.Equals("0"))
+                {
+                    pcTemp = "";
+                }
+                if (imcTemp == null || imcTemp.Equals("0"))
+                {
+                    imcTemp = "";
+                }
+                if (tempTemp == null || tempTemp.Equals("0"))
+                {
+                    tempTemp = "";
+                }
+                if (so2Temp == null || so2Temp.Equals("0"))
+                {
+                    so2Temp = "";
+                }
+
+                peso.Text = pesoTemp;
+                talla.Text = tallaTemp;
+                perimetroCefalico.Text = pcTemp;
+                IMC.Text = imcTemp;
+                temperatura.Text = tempTemp;
+                SO2.Text = so2Temp;
+
+                padecimientoActual.Value = consulta.PadecimientoActual;
+
+                string pcEdadTemp = consulta.ExamenFisico.PC_Edad;
+                string pesoEdadTemp = consulta.ExamenFisico.Peso_Edad;
+                string tallaEdadTemp = consulta.ExamenFisico.Talla_Edad;
+                string pesoTallaTemp = consulta.ExamenFisico.Peso_Talla;
+                string imcEdadTemp = consulta.ExamenFisico.IMC_Edad;
+
+                if (pcEdadTemp.Equals("nulo"))
+                {
+                    pcEdadTemp = "";
+                }
+                if (pesoEdadTemp.Equals("nulo"))
+                {
+                    pesoEdadTemp = "";
+                }
+                if (tallaEdadTemp.Equals("nulo"))
+                {
+                    tallaEdadTemp = "";
+                }
+                if (pesoTallaTemp.Equals("nulo"))
+                {
+                    pesoTallaTemp = "";
+                }
+                if (imcEdadTemp.Equals("nulo"))
+                {
+                    imcEdadTemp = "";
+                }
+
+                perimetroCefalicoEdad.Text = pcEdadTemp;
+                pesoEdad.Text = pesoEdadTemp;
+                tallaEdad.Text = tallaEdadTemp;
+                pesoTalla.Text = pesoTallaTemp;
+                imcEdad.Text = imcEdadTemp;
+
+                ruidosCardiacos.Value = consulta.ExamenFisico.RuidosCardiacos;
+                camposPulmonares.Value = consulta.ExamenFisico.CamposPulmonares;
+                abdomen.Value = consulta.ExamenFisico.Abdomen;
+                faringe.Value = consulta.ExamenFisico.Faringe;
+                nariz.Value = consulta.ExamenFisico.Nariz;
+                oidos.Value = consulta.ExamenFisico.Oidos;
+                snc.Value = consulta.ExamenFisico.SNC;
+                neurodesarrollo.Value = consulta.ExamenFisico.Neurodesarrollo;
+                sistemaOsteomuscular.Value = consulta.ExamenFisico.SistemaOsteomuscular;
+                piel.Value = consulta.ExamenFisico.Piel;
+                estadoAlerta.Value = consulta.ExamenFisico.EstadoAlerta;
+                estadoHidratacion.Value = consulta.ExamenFisico.EstadoHidratacion;
+                otrosHallazgos.Value = consulta.ExamenFisico.OtrosHallazgos;
+                analisis.Value = consulta.Analisis;
+                impresionDiagnostica.Value = consulta.ImpresionDiagnostica;
+                plan.Value = consulta.Plan;
+                try
+                {
+                    enfermedades.SelectedValue = consulta.Enfermedad;
+                } catch (Exception)
+                {
+                    enfermedades.SelectedValue = "ninguna";
+                }
+                Titulo.InnerText = "Consulta Médica";
+            }
+            else
+            {
+                MensajeAviso(confirmacion);
+                contenedorDatos.Visible = false;
+            }
+
+        }
+
     }
 }

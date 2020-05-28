@@ -9,6 +9,15 @@
 
         <h3 runat="server" id="Titulo" class="titulo"></h3>
 
+        <h6 style="display: inline">Expediente #</h6>
+        <h6 id="expedienteEncabezado" runat="server" style="color: #007bff; display: inline; margin-right: 20px"></h6>
+
+        <h6 style="display: inline">Cédula:</h6>
+        <h6 id="cedulaEncabezado" runat="server" style="color: #007bff; display: inline; margin-right: 20px"></h6>
+
+        <h6 style="display: inline">Nombre:</h6>
+        <h6 id="nombreEncabezado" runat="server" style="color: #007bff; display: inline"></h6>
+
         <hr />
 
         <asp:Literal ID="mensajeConfirmacion" runat="server" Visible="false"></asp:Literal>

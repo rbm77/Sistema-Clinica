@@ -21,12 +21,20 @@ namespace Sistema_Pediatrico
 
         protected void btnCrear_Click(object sender, EventArgs e)
         {
+            Session["accion"] = "crearConsulta";
             Response.Redirect("consulta.aspx");
         }
 
         protected void listaConsultas_RowCommand(object sender, GridViewCommandEventArgs e)
         {
-
+            if (e.CommandName == "consultar")
+            {
+                int indice = Convert.ToInt32(e.CommandArgument.ToString());
+                string fecha = (string)listaConsultas.DataKeys[indice]["Fecha"];
+                Session["accion"] = "consultarConsulta";
+                Session["fechaConsulta"] = fecha;
+                Response.Redirect("consulta.aspx");
+            }
         }
 
         private void CargarConsultas()
@@ -67,8 +75,8 @@ namespace Sistema_Pediatrico
 
                     expedienteEncabezado.InnerText = expediente.IDExpediente + "";
                     cedulaEncabezado.InnerText = expediente.Cedula;
-                    nombreEncabezado.InnerText = expediente.Nombre + " " + expediente.PrimerApellido + " " + expediente.SegundoApellido; 
-
+                    nombreEncabezado.InnerText = expediente.Nombre + " " + expediente.PrimerApellido + " " + expediente.SegundoApellido;
+                    Session["expediente"] = expediente;
                 }
                 else
                 {
