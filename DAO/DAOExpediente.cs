@@ -348,7 +348,7 @@ namespace DAO
 
                 comando.Connection = conexion;
 
-                comando.CommandText = "SELECT * FROM EXPEDIENTE WHERE ID_EXPEDIENTE = @idExpediente";
+                comando.CommandText = "SELECT * FROM EXPEDIENTE WHERE ID_EXPEDIENTE = @idExpediente;";
 
                 comando.Transaction = transaccion;
 
@@ -390,7 +390,7 @@ namespace DAO
 
                     if (!expediente.Encargado.Cedula.Equals(""))
                     {
-                        comando.CommandText = "SELECT * FROM ENCARGADO WHERE CEDULA = @cedula";
+                        comando.CommandText = "SELECT * FROM ENCARGADO WHERE CEDULA = @cedula;";
                         comando.Parameters.AddWithValue("@cedula", expediente.Encargado.Cedula);
 
                         lector = comando.ExecuteReader();
@@ -418,7 +418,7 @@ namespace DAO
                     if ((!expediente.Encargado.Cedula.Equals(expediente.DestinatarioFactura.Cedula)) &&
                         (!expediente.DestinatarioFactura.Cedula.Equals("")))
                     {
-                        comando.CommandText = "SELECT * FROM DESTINATARIO_FACTURA WHERE CEDULA = @cedula";
+                        comando.CommandText = "SELECT * FROM DESTINATARIO_FACTURA WHERE CEDULA = @cedula;";
                         comando.Parameters.AddWithValue("@cedula", expediente.DestinatarioFactura.Cedula);
 
                         lector = comando.ExecuteReader();
@@ -445,7 +445,7 @@ namespace DAO
                     if ((!expediente.Encargado.Cedula.Equals(expediente.SolicitanteCita.Cedula)) &&
                         (!expediente.SolicitanteCita.Cedula.Equals("")))
                     {
-                        comando.CommandText = "SELECT * FROM SOLICITANTE_CITA WHERE CEDULA = @cedula";
+                        comando.CommandText = "SELECT * FROM SOLICITANTE_CITA WHERE CEDULA = @cedula;";
                         comando.Parameters.AddWithValue("@cedula", expediente.SolicitanteCita.Cedula);
 
                         lector = comando.ExecuteReader();
@@ -465,7 +465,7 @@ namespace DAO
                     }
 
 
-                    comando.CommandText = "SELECT * FROM HISTORIA_CLINICA WHERE ID_EXPEDIENTE = @idExpediente";
+                    comando.CommandText = "SELECT * FROM HISTORIA_CLINICA WHERE ID_EXPEDIENTE = @idExpediente;";
                     comando.Parameters.AddWithValue("@idExpediente", expediente.IDExpediente);
 
                     lector = comando.ExecuteReader();
@@ -487,7 +487,7 @@ namespace DAO
                     lector.Close();
                     comando.Parameters.Clear();
 
-                    comando.CommandText = "SELECT * FROM DATOS_NACIMIENTO WHERE ID_EXPEDIENTE = @idExpediente";
+                    comando.CommandText = "SELECT * FROM DATOS_NACIMIENTO WHERE ID_EXPEDIENTE = @idExpediente;";
                     comando.Parameters.AddWithValue("@idExpediente", expediente.IDExpediente);
 
                     lector = comando.ExecuteReader();
@@ -585,7 +585,7 @@ namespace DAO
                 comando.Connection = conexion;
 
                 comando.CommandText = "SELECT ID_EXPEDIENTE, CEDULA, NOMBRE, PRIMER_APELLIDO, SEGUNDO_APELLIDO" +
-                    " FROM EXPEDIENTE WHERE ID_MEDICO = @idMedico";
+                    " FROM EXPEDIENTE WHERE ID_MEDICO = @idMedico;";
 
                 comando.Transaction = transaccion;
 

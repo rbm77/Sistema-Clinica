@@ -747,5 +747,305 @@ namespace DAO
             }
             return confirmacion;
         }
+        public string ActualizarConsulta(TOConsulta consulta)
+        {
+            string confirmacion = "La consulta se actualizó exitosamente";
+            // Se abre la conexión
+
+            if (conexion != null)
+            {
+                try
+                {
+                    if (conexion.State != ConnectionState.Open)
+                    {
+                        conexion.Open();
+                    }
+                }
+                catch (Exception)
+                {
+                    confirmacion = "Error: No se pudo actualizar la consulta en el sistema";
+                    return confirmacion;
+
+                }
+            }
+            else
+            {
+                confirmacion = "Error: No se pudo actualizar la consulta en el sistema";
+                return confirmacion;
+            }
+
+            // Se inicia una nueva transacción
+
+            SqlTransaction transaccion = null;
+
+            try
+            {
+                transaccion = conexion.BeginTransaction("Actualizar nueva consulta");
+
+                // Se crea un nuevo comando con la secuencia SQL y el objeto de conexión
+
+                SqlCommand comando = new SqlCommand();
+
+                comando.Connection = conexion;
+
+                comando.Transaction = transaccion;
+
+                if (consulta != null)
+                {
+                    comando.CommandText = "UPDATE CONSULTA SET PADECIMIENTO_ACTUAL = @padecimiento, " +
+                        "ANALISIS = @analisis, " +
+                        "IMPRESION_DIAGNOSTICA = @impresion, " +
+                        "DESCRIPCION_PLAN = @plan, " +
+                        "MEDICINA_MIXTA_FRECUENCIA_REFERIDO_A = @medicinaMixta, " +
+                        "CONSULTA_PRIVADA_ESPECIALIDAD_MOTIVO = @consultaPrivada, " +
+                        "ENFERMEDAD = @enfermedad WHERE ID_EXPEDIENTE = @idExpediente AND FECHA = @fecha;";
+
+                    // Se asigna un valor a los parámetros del comando a ejecutar
+
+                    comando.Parameters.AddWithValue("@idExpediente", consulta.IDExpediente);
+                    comando.Parameters.AddWithValue("@fecha", consulta.Fecha);
+                    comando.Parameters.AddWithValue("@padecimiento", consulta.PadecimientoActual);
+                    comando.Parameters.AddWithValue("@analisis", consulta.Analisis);
+                    comando.Parameters.AddWithValue("@impresion", consulta.ImpresionDiagnostica);
+                    comando.Parameters.AddWithValue("@plan", consulta.Plan);
+
+                    // Validamos que no se lleguen a producir problemas de caracteres
+
+                    consulta.CPEspecialidad.Replace("|", "/");
+                    consulta.CPMotivo.Replace("|", "/");
+
+                    string medicMixta = "";
+                    string consultPrivada = "";
+
+                    if (!consulta.MMFrecuencia.Equals("") && !consulta.MMReferidoA.Equals(""))
+                    {
+                        medicMixta = consulta.MMFrecuencia + "|" + consulta.MMReferidoA;
+                    }
+
+                    if (!consulta.CPEspecialidad.Equals("") && !consulta.CPMotivo.Equals(""))
+                    {
+                        consultPrivada = consulta.CPEspecialidad + "|" + consulta.CPMotivo;
+                    }
+
+                    comando.Parameters.AddWithValue("@medicinaMixta", medicMixta);
+                    comando.Parameters.AddWithValue("@consultaPrivada", consultPrivada);
+                    comando.Parameters.AddWithValue("@enfermedad", consulta.Enfermedad);
+                    comando.ExecuteNonQuery();
+
+                    comando.Parameters.Clear();
+
+                    if (consulta.ExamenFisico != null)
+                    {
+                        comando.CommandText = "UPDATE EXAMEN_FISICO SET PESO = @peso, " +
+                            "TALLA = @talla, " +
+                            "IMC = @imc, " +
+                            "TEMPERATURA = @temperatura, " +
+                            "GRAFICAS_CRECIMIENTO_ADICIONALES = @graficasYadicionales, " +
+                            "ESTADO_ALERTA = @estadoAlerta, " +
+                            "ESTADO_HIDRATACION = @estadoHidratacion, " +
+                            "RUIDOS_CARDIACOS = @ruidosCardiacos, " +
+                            "CAMPOS_PULMONARES = @camposPulmonares, " +
+                            "ABDOMEN = @abdomen, " +
+                            "FARINGE = @faringe, " +
+                            "NARIZ = @nariz, " +
+                            "OIDOS = @oidos, " +
+                            "SNC = @snc, " +
+                            "NEURODESARROLLO = @neurodesarrollo, " +
+                            "SISTEMA_OSTEOMUSCULAR = @sistemaOsteomuscular, " +
+                            "PIEL = @piel, " +
+                            "OTROS_HALLAZGOS = @otrosHallazgos WHERE ID_EXPEDIENTE = @idExpediente AND FECHA = @fecha;";
+
+                        // Se asigna un valor a los parámetros del comando a ejecutar
+
+                        comando.Parameters.AddWithValue("@idExpediente", consulta.IDExpediente);
+                        comando.Parameters.AddWithValue("@fecha", consulta.Fecha);
+                        comando.Parameters.AddWithValue("@peso", consulta.ExamenFisico.Peso);
+                        comando.Parameters.AddWithValue("@talla", consulta.ExamenFisico.Talla);
+                        comando.Parameters.AddWithValue("@imc", consulta.ExamenFisico.IMC);
+                        comando.Parameters.AddWithValue("@temperatura", consulta.ExamenFisico.Temperatura);
+
+                        string pcEdad = consulta.ExamenFisico.PC_Edad.Replace("|", "/").Replace("^", "'");
+                        string pesoEdad = consulta.ExamenFisico.Peso_Edad.Replace("|", "/").Replace("^", "'");
+                        string tallEdad = consulta.ExamenFisico.Talla_Edad.Replace("|", "/").Replace("^", "'");
+                        string pesoTalla = consulta.ExamenFisico.Peso_Talla.Replace("|", "/").Replace("^", "'");
+                        string imcEdad = consulta.ExamenFisico.IMC_Edad.Replace("|", "/").Replace("^", "'");
+
+                        if (pcEdad.Equals(""))
+                        {
+                            pcEdad = "nulo";
+                        }
+                        if (pesoEdad.Equals(""))
+                        {
+                            pesoEdad = "nulo";
+                        }
+                        if (tallEdad.Equals(""))
+                        {
+                            tallEdad = "nulo";
+                        }
+                        if (pesoTalla.Equals(""))
+                        {
+                            pesoTalla = "nulo";
+                        }
+                        if (imcEdad.Equals(""))
+                        {
+                            imcEdad = "nulo";
+                        }
+
+                        comando.Parameters.AddWithValue("@graficasYadicionales", pcEdad + "|" +
+                            pesoEdad + "|" + tallEdad + "|" + pesoTalla + "|" + imcEdad + "^" +
+                            consulta.ExamenFisico.PerimetroCefalico + "^" + consulta.ExamenFisico.SO2);
+
+                        comando.Parameters.AddWithValue("@estadoAlerta", consulta.ExamenFisico.EstadoAlerta);
+                        comando.Parameters.AddWithValue("@estadoHidratacion", consulta.ExamenFisico.EstadoHidratacion);
+                        comando.Parameters.AddWithValue("@ruidosCardiacos", consulta.ExamenFisico.RuidosCardiacos);
+                        comando.Parameters.AddWithValue("@camposPulmonares", consulta.ExamenFisico.CamposPulmonares);
+                        comando.Parameters.AddWithValue("@abdomen", consulta.ExamenFisico.Abdomen);
+                        comando.Parameters.AddWithValue("@faringe", consulta.ExamenFisico.Faringe);
+                        comando.Parameters.AddWithValue("@nariz", consulta.ExamenFisico.Nariz);
+                        comando.Parameters.AddWithValue("@oidos", consulta.ExamenFisico.Oidos);
+                        comando.Parameters.AddWithValue("@snc", consulta.ExamenFisico.SNC);
+                        comando.Parameters.AddWithValue("@neurodesarrollo", consulta.ExamenFisico.Neurodesarrollo);
+                        comando.Parameters.AddWithValue("@sistemaOsteomuscular", consulta.ExamenFisico.SistemaOsteomuscular);
+                        comando.Parameters.AddWithValue("@piel", consulta.ExamenFisico.Piel);
+                        comando.Parameters.AddWithValue("@otrosHallazgos", consulta.ExamenFisico.OtrosHallazgos);
+
+                        comando.ExecuteNonQuery();
+
+                    }
+                }
+
+                transaccion.Commit();
+
+            }
+            catch (Exception e)
+            {
+                try
+                {
+                    string prueba = e.Message;
+                    // En caso de un error se realiza un rollback a la transacción
+
+                    transaccion.Rollback();
+                }
+                catch (Exception)
+                {
+                }
+                finally
+                {
+                    confirmacion = "Error: No se pudo actualizar la consulta en el sistema";
+                }
+            }
+            finally
+            {
+                if (conexion.State != ConnectionState.Closed)
+                {
+                    conexion.Close();
+                }
+            }
+            return confirmacion;
+        }
+        public string CargarConsultasDia(List<TOConsulta> consultas, List<TOExpediente> expedientes, 
+            string idMedico, string fechaActual)
+        {
+            string confirmacion = "Las consultas se cargaron exitosamente";
+
+            // Se abre la conexión
+
+            if (conexion != null)
+            {
+                try
+                {
+                    if (conexion.State != ConnectionState.Open)
+                    {
+                        conexion.Open();
+                    }
+                }
+                catch (Exception)
+                {
+                    confirmacion = "Error: No se pueden cargar las consultas";
+                    return confirmacion;
+
+                }
+            }
+            else
+            {
+                confirmacion = "Error: No se pueden cargar las consultas";
+                return confirmacion;
+            }
+
+            // Se inicia una nueva transacción
+
+            SqlTransaction transaccion = null;
+
+            try
+            {
+                transaccion = conexion.BeginTransaction("Cargar consultas");
+
+                SqlCommand comando = new SqlCommand();
+
+                comando.Connection = conexion;
+
+                comando.CommandText = "SELECT E.ID_EXPEDIENTE, E.CEDULA, E.NOMBRE, E.PRIMER_APELLIDO, " +
+                    "E.SEGUNDO_APELLIDO , C.HORA FROM EXPEDIENTE AS E, CONSULTA AS C, CONSULTAS_DIA AS D " +
+                    "WHERE E.ID_MEDICO = @idMedico AND E.ID_EXPEDIENTE = C.ID_EXPEDIENTE AND " +
+                    "C.FECHA = D.FECHA_CONSULTA AND " +
+                    "E.ID_EXPEDIENTE = D.ID_EXPEDIENTE AND D.FECHA_CONSULTA = @fechaActual;";
+
+                comando.Transaction = transaccion;
+
+                comando.Parameters.AddWithValue("@idMedico", idMedico);
+                comando.Parameters.AddWithValue("@fechaActual", fechaActual);
+
+                SqlDataReader lector = comando.ExecuteReader();
+
+                if (lector.HasRows)
+                {
+                    while (lector.Read())
+                    {
+                        TOExpediente expediente = new TOExpediente();
+                        expediente.IDExpediente = (long)lector["ID_EXPEDIENTE"];
+                        expediente.Cedula = lector["CEDULA"].ToString();
+                        expediente.Nombre = lector["NOMBRE"].ToString();
+                        expediente.PrimerApellido = lector["PRIMER_APELLIDO"].ToString();
+                        expediente.SegundoApellido = lector["SEGUNDO_APELLIDO"].ToString();
+                        expedientes.Add(expediente);
+                        TOConsulta consulta = new TOConsulta();
+                        consulta.Hora = lector["HORA"].ToString();
+                        consultas.Add(consulta);
+                    }
+                }
+
+                lector.Close();
+
+                transaccion.Commit();
+
+            }
+            catch (Exception e)
+            {
+                try
+                {
+                    string mensaje = e.Message;
+                    // En caso de un error se realiza un rollback a la transacción
+
+                    transaccion.Rollback();
+                }
+                catch (Exception)
+                {
+                }
+                finally
+                {
+                    confirmacion = "Error: No se pueden cargar las consultas";
+                }
+            }
+            finally
+            {
+                if (conexion.State != ConnectionState.Closed)
+                {
+                    conexion.Close();
+                }
+            }
+            return confirmacion;
+        }
+
+
     }
 }

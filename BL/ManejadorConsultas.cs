@@ -176,5 +176,71 @@ namespace BL
 
         }
 
+        public string ActualizarConsulta(BLConsulta consulta)
+        {
+            string confirmacion = "Error: Indefinido.";
+
+            if (consulta != null)
+            {
+                DAOConsulta dao = new DAOConsulta();
+
+                TOExamenFisico examenFisico = null;
+
+                if (consulta.ExamenFisico != null)
+                {
+                    examenFisico = new TOExamenFisico(consulta.ExamenFisico.Peso, consulta.ExamenFisico.Talla,
+                        consulta.ExamenFisico.PerimetroCefalico, consulta.ExamenFisico.IMC, consulta.ExamenFisico.SO2,
+                        consulta.ExamenFisico.Temperatura, consulta.ExamenFisico.PC_Edad, consulta.ExamenFisico.Peso_Edad,
+                        consulta.ExamenFisico.Talla_Edad, consulta.ExamenFisico.Peso_Talla, consulta.ExamenFisico.IMC_Edad,
+                        consulta.ExamenFisico.EstadoAlerta, consulta.ExamenFisico.EstadoHidratacion, consulta.ExamenFisico.RuidosCardiacos,
+                        consulta.ExamenFisico.CamposPulmonares, consulta.ExamenFisico.Abdomen, consulta.ExamenFisico.Faringe,
+                        consulta.ExamenFisico.Nariz, consulta.ExamenFisico.Oidos, consulta.ExamenFisico.SNC, consulta.ExamenFisico.Neurodesarrollo,
+                        consulta.ExamenFisico.SistemaOsteomuscular, consulta.ExamenFisico.Piel, consulta.ExamenFisico.OtrosHallazgos);
+                }
+
+                TOConsulta to = new TOConsulta(consulta.IDExpediente, consulta.Fecha, consulta.Hora, consulta.PadecimientoActual,
+                    consulta.Analisis, consulta.ImpresionDiagnostica, consulta.Plan, consulta.MMFrecuencia, consulta.MMReferidoA,
+                    consulta.CPEspecialidad, consulta.CPMotivo, examenFisico, consulta.Enfermedad);
+
+                return dao.ActualizarConsulta(to);
+            }
+            else
+            {
+                confirmacion = "Error: No se pudo actualizar la consulta en el sistema";
+            }
+            return confirmacion;
+        }
+
+        public string CargarConsultasDia(List<BLConsulta> consultas, List<BLExpediente> expedientes, string idMedico, string fechaActual)
+        {
+            List<TOExpediente> toExp = new List<TOExpediente>();
+            List<TOConsulta> toCon = new List<TOConsulta>();
+            DAOConsulta dao = new DAOConsulta();
+
+            string confirmacion = "Error: Indefinido.";
+
+            confirmacion = dao.CargarConsultasDia(toCon, toExp, idMedico, fechaActual);
+
+            if (!confirmacion.Contains("Error:"))
+            {
+                foreach (TOExpediente t in toExp)
+                {
+                    BLExpediente e = new BLExpediente();
+                    e.IDExpediente = t.IDExpediente;
+                    e.Cedula = t.Cedula;
+                    e.Nombre = t.Nombre;
+                    e.PrimerApellido = t.PrimerApellido;
+                    e.SegundoApellido = t.SegundoApellido;
+                    expedientes.Add(e);
+                }
+                foreach (TOConsulta t in toCon)
+                {
+                    BLConsulta c = new BLConsulta();
+                    c.Hora = t.Hora;
+                    consultas.Add(c);
+                }
+            }
+            return confirmacion;
+        }
     }
 }

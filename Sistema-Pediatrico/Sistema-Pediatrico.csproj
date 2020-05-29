@@ -104,6 +104,7 @@
     <Content Include="Bootstrap\src\js\scripts.js" />
     <Content Include="consulta.aspx" />
     <Content Include="consultas.aspx" />
+    <Content Include="consultas_dia.aspx" />
     <Content Include="cuenta_usuario.aspx" />
     <Content Include="enfermedades.aspx" />
     <Content Include="expediente.aspx" />
@@ -136,6 +137,13 @@
     </Compile>
     <Compile Include="consultas.aspx.designer.cs">
       <DependentUpon>consultas.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="consultas_dia.aspx.cs">
+      <DependentUpon>consultas_dia.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="consultas_dia.aspx.designer.cs">
+      <DependentUpon>consultas_dia.aspx</DependentUpon>
     </Compile>
     <Compile Include="cuenta_usuario.aspx.cs">
       <DependentUpon>cuenta_usuario.aspx</DependentUpon>

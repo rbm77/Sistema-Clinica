@@ -102,11 +102,11 @@
                             <div class="col-sm-12 col-xl-6 col-lg-6 col-md-12 mb-20 padding-cards-inicio">
                                 <div class="card text-white o-hidden h-100">
 
-                                    <a class="card-body card-dash" style="background: #f7f7f7;" href="ListaConsultasActivas.aspx">
+                                    <a class="card-body card-dash" style="background: #f7f7f7;" href="consultas_dia.aspx">
                                         <i style="color: #1d5e93" class="fas fa-user-check fa-4x"></i>
                                     </a>
 
-                                    <a class="card-footer card-footer-inicio text-white clearfix z-1" href="ListaConsultasActivas.aspx">
+                                    <a class="card-footer card-footer-inicio text-white clearfix z-1" href="consultas_dia.aspx">
                                         <span class="float-left">Consultas del día</span>
                                         <span class="float-right">
                                             <i class="fas fa-angle-right"></i>

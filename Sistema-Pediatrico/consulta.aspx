@@ -350,7 +350,7 @@
                             <asp:Button ID="btnGuardar" runat="server" Text="Guardar" OnClick="btnGuardar_Click" CssClass="btn btn-general btn-guardar" />
                         </div>
                         <div class="col-md-2 col-sm-5">
-                            <a href="" class="btn btn-general btn-regresar">Regresar</a>
+                            <a href="consultas.aspx?dia=<%= (bool) Session["esDia"] %>" class="btn btn-general btn-regresar">Regresar</a>
                         </div>
                     </div>
 

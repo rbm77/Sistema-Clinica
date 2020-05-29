@@ -16,6 +16,19 @@ namespace Sistema_Pediatrico
             {
                 if (Session["accion"] != null)
                 {
+
+                    if (Request.QueryString["accion"] != null)
+                    {
+                        if (Request.QueryString["accion"].Equals("dia"))
+                        {
+                            Session["esDia"] = true;
+                        }
+                    }
+                    else
+                    {
+                        Session["esDia"] = false;
+                    }
+
                     CargarEnfermedades();
 
                     BLExpediente expediente = (BLExpediente) Session["expediente"];
@@ -208,8 +221,6 @@ namespace Sistema_Pediatrico
 
                 bool generarRef = generarReferencia.Checked;
 
-                // SE CREA LA CONSULTA Y EL EXAMEN FISICO
-
                 ManejadorConsultas manejador = new ManejadorConsultas();
 
                 BLExamenFisico examenFisico = new BLExamenFisico(pesoC, tallaC, perimetroCefalicoC, imc, so2, temperaturaC,
@@ -246,20 +257,40 @@ namespace Sistema_Pediatrico
 
                         }
                     }
-                    MensajeAviso(confirmacion);
                 }
                 else if (Session["accion"].Equals("consultarConsulta"))
                 {
-                    //confirmacion = manejador.ActualizarConsulta(consulta);
+                    confirmacion = manejador.ActualizarConsulta(consulta);
+                    if (confirmacion.Contains("Error:"))
+                    {
+                        CargarConsulta(long.Parse(Session["idExpediente"].ToString()), Session["fechaConsulta"].ToString());
+                    }
+                    else
+                    {
+                        generarReferencia.Checked = false;
+                        if (generarRef)
+                        {
+                            // SE LLAMA AL METODO QUE GENERA EL PDF PARA DESCARGARLO
 
+                        }
+                    }
                 }
+                MensajeAviso(confirmacion);
             }
             else
             {
                 MensajeAviso("Error: Puede que algunos datos se encuentren vacíos o con un formato incorrecto");
+                if (Session["accion"] != null && Session["accion"].Equals("consultarConsulta"))
+                {
+                    CargarConsulta(long.Parse(Session["idExpediente"].ToString()), Session["fechaConsulta"].ToString());
+                }
             }
-
         }
+        private bool GenerarReferencia()
+        {
+            return true;
+        }
+
         private void MensajeAviso(string mensaje)
         {
             string color = "";
@@ -331,7 +362,7 @@ namespace Sistema_Pediatrico
                 analisis.Value = "";
                 impresionDiagnostica.Value = "";
                 plan.Value = "";
-                enfermedades.SelectedValue = "";
+                enfermedades.SelectedValue = "ninguna";
                 generarReferencia.Checked = false;
 
                 // Cargar datos

@@ -14,8 +14,16 @@ namespace Sistema_Pediatrico
         {
             if (!IsPostBack)
             {
-                Session["accion"] = "verConsultas";
-                CargarConsultas();
+
+                if (Request.QueryString["dia"] != null && Request.QueryString["dia"].Equals("True"))
+                {
+                    Response.Redirect("consultas_dia.aspx");
+                }
+                else
+                {
+                    Session["accion"] = "verConsultas";
+                    CargarConsultas();
+                }
             }
         }
 
@@ -127,6 +135,12 @@ namespace Sistema_Pediatrico
             " <span aria-hidden=\"true\">&times;</span> </button> </div>";
 
             mensajeConfirmacion.Visible = true;
+        }
+
+        protected void btnRegresar_Click(object sender, EventArgs e)
+        {
+            Session["accion"] = "consultarExpediente";
+            Response.Redirect("expediente.aspx");
         }
     }
 }
