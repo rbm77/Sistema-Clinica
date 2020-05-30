@@ -6,7 +6,6 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using System.IO;
 using BL;
-using Newtonsoft;
 using Newtonsoft.Json;
 
 namespace Sistema_Pediatrico

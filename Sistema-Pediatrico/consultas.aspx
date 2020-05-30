@@ -51,22 +51,15 @@
                     <asp:BoundField HeaderText="Hora" DataField="Hora" HeaderStyle-Width="42%" />
 
 
-                    <asp:TemplateField HeaderText="Acción" HeaderStyle-CssClass="text-center"
+                    <asp:TemplateField HeaderText="Ver" HeaderStyle-CssClass="text-center"
                         HeaderStyle-Width="16%" ItemStyle-HorizontalAlign="Center">
                         <ItemTemplate>
 
                             <div class="row">
-                                <div class="col-6">
+                                <div class="col-12">
                                     <asp:LinkButton ID="consultar" runat="server" CommandName="consultar"
                                         CommandArgument="<%# ((GridViewRow) Container).RowIndex%>"> 
                                     <i class="fas fa-eye fa-lg" style="color: #7199d0;"></i> 
-                                    </asp:LinkButton>
-                                </div>
-
-                                <div class="col-6">
-                                    <asp:LinkButton ID="eliminar" runat="server" CommandName="eliminar"
-                                        CommandArgument="<%# ((GridViewRow) Container).RowIndex%>">
-                                        <i class="fas fa-trash-alt fa-lg" style="color: Tomato;"></i>
                                     </asp:LinkButton>
                                 </div>
                             </div>

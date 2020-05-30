@@ -44,6 +44,7 @@ namespace Sistema_Pediatrico
                 }
                 else
                 {
+
                     // SE CREA LA SESION Y SE REDIRECCIONA
 
                     mensajeConfirmacion.Visible = false;
@@ -55,6 +56,8 @@ namespace Sistema_Pediatrico
                     if (!cuenta.Rol.Equals("administrador"))
                     {
                         Session["codigoMedico"] = usuario.CodigoAsistente; // ESTO PUEDE SER EL CODIGO DE ASISTENTE O EL CODIGO MEDICO DEPENDIENDO DEL ROL
+                        ManejadorConsultas manejadorConsultas = new ManejadorConsultas();
+                        manejadorConsultas.IniciarHiloEliminacion(DateTime.Today.ToString("dd/MM/yyyy"));
                     }
 
                     Session["nombre"] = usuario.Nombre + " " + usuario.PrimerApellido[0] + " " + usuario.SegundoApellido[0];

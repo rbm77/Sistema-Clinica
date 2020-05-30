@@ -81,7 +81,7 @@ namespace DAO
                     string medicMixta = "";
                     string consultPrivada = "";
 
-                    if(!consulta.MMFrecuencia.Equals("") && !consulta.MMReferidoA.Equals(""))
+                    if (!consulta.MMFrecuencia.Equals("") && !consulta.MMReferidoA.Equals(""))
                     {
                         medicMixta = consulta.MMFrecuencia + "|" + consulta.MMReferidoA;
                     }
@@ -145,7 +145,7 @@ namespace DAO
                         }
 
                         comando.Parameters.AddWithValue("@graficasYadicionales", pcEdad + "|" +
-                            pesoEdad + "|" + tallEdad + "|" + pesoTalla + "|" + imcEdad + "^" + 
+                            pesoEdad + "|" + tallEdad + "|" + pesoTalla + "|" + imcEdad + "^" +
                             consulta.ExamenFisico.PerimetroCefalico + "^" + consulta.ExamenFisico.SO2);
 
                         comando.Parameters.AddWithValue("@estadoAlerta", consulta.ExamenFisico.EstadoAlerta);
@@ -943,7 +943,7 @@ namespace DAO
             }
             return confirmacion;
         }
-        public string CargarConsultasDia(List<TOConsulta> consultas, List<TOExpediente> expedientes, 
+        public string CargarConsultasDia(List<TOConsulta> consultas, List<TOExpediente> expedientes,
             string idMedico, string fechaActual)
         {
             string confirmacion = "Las consultas se cargaron exitosamente";
@@ -1045,7 +1045,89 @@ namespace DAO
             }
             return confirmacion;
         }
+        public string EliminarConsultasDia(string fechaActual)
+        {
+            string confirmacion = "Las consultas se eliminaron exitosamente";
+            // Se abre la conexión
 
+            if (conexion != null)
+            {
+                try
+                {
+                    if (conexion.State != ConnectionState.Open)
+                    {
+                        conexion.Open();
+                    }
+                }
+                catch (Exception)
+                {
+                    confirmacion = "Error: No se pudieron eliminar las consultas";
+                    return confirmacion;
 
+                }
+            }
+            else
+            {
+                confirmacion = "Error: No se pudieron eliminar las consultas";
+                return confirmacion;
+            }
+
+            // Se inicia una nueva transacción
+
+            SqlTransaction transaccion = null;
+
+            try
+            {
+                transaccion = conexion.BeginTransaction("Eliminar consultas");
+
+                // Se crea un nuevo comando con la secuencia SQL y el objeto de conexión
+
+                SqlCommand comando = new SqlCommand();
+
+                comando.Connection = conexion;
+
+                comando.Transaction = transaccion;
+
+                if (fechaActual != null && !fechaActual.Equals(""))
+                {
+
+                    comando.CommandText = "DELETE FROM CONSULTAS_DIA WHERE FECHA_CONSULTA != @fechaActual;";
+
+                    // Se asigna un valor a los parámetros del comando a ejecutar
+
+                    comando.Parameters.AddWithValue("@fechaActual", fechaActual);
+
+                    comando.ExecuteNonQuery();
+                }
+
+                transaccion.Commit();
+
+            }
+            catch (Exception e)
+            {
+                try
+                {
+                    string prueba = e.Message;
+                    // En caso de un error se realiza un rollback a la transacción
+
+                    transaccion.Rollback();
+                }
+                catch (Exception)
+                {
+                }
+                finally
+                {
+                    confirmacion = "Error: No se pudieron eliminar las consultas";
+                }
+            }
+            finally
+            {
+                if (conexion.State != ConnectionState.Closed)
+                {
+                    conexion.Close();
+                }
+            }
+            return confirmacion;
+        }
     }
 }

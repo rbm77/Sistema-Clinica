@@ -64,27 +64,20 @@
                 DataKeyNames="IdExpediente">
                 <Columns>
                     <asp:BoundField HeaderText="Cédula" DataField="Cedula" HeaderStyle-Width="19%" />
-                    <asp:BoundField HeaderText="Nombre" DataField="Nombre" HeaderStyle-Width="23%" />
-                    <asp:BoundField HeaderText="Primer Apellido" DataField="PrimerApellido" HeaderStyle-Width="23%" />
-                    <asp:BoundField HeaderText="Segundo Apellido" DataField="SegundoApellido" HeaderStyle-Width="23%" />
+                    <asp:BoundField HeaderText="Nombre" DataField="Nombre" HeaderStyle-Width="24%" />
+                    <asp:BoundField HeaderText="Primer Apellido" DataField="PrimerApellido" HeaderStyle-Width="24%" />
+                    <asp:BoundField HeaderText="Segundo Apellido" DataField="SegundoApellido" HeaderStyle-Width="24%" />
 
 
-                    <asp:TemplateField HeaderText="Acción" HeaderStyle-CssClass="text-center"
-                        HeaderStyle-Width="12%" ItemStyle-HorizontalAlign="Center">
+                    <asp:TemplateField HeaderText="Ver" HeaderStyle-CssClass="text-center"
+                        HeaderStyle-Width="9%" ItemStyle-HorizontalAlign="Center">
                         <ItemTemplate>
 
                             <div class="row">
-                                <div class="col-6">
+                                <div class="col-12">
                                     <asp:LinkButton ID="consultar" runat="server" CommandName="consultar"
                                         CommandArgument="<%# ((GridViewRow) Container).RowIndex%>"> 
                                     <i class="fas fa-eye fa-lg" style="color: #7199d0;"></i> 
-                                    </asp:LinkButton>
-                                </div>
-
-                                <div class="col-6">
-                                    <asp:LinkButton ID="eliminar" runat="server" CommandName="eliminar"
-                                        CommandArgument="<%# ((GridViewRow) Container).RowIndex%>">
-                                        <i class="fas fa-trash-alt fa-lg" style="color: Tomato;"></i>
                                     </asp:LinkButton>
                                 </div>
                             </div>

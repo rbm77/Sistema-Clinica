@@ -5,6 +5,9 @@ using System.Text;
 using System.Threading.Tasks;
 using TO;
 using DAO;
+using System.Threading;
+using System.IO;
+using System.Web;
 
 namespace BL
 {
@@ -241,6 +244,32 @@ namespace BL
                 }
             }
             return confirmacion;
+        }
+
+        public void IniciarHiloEliminacion(string fechaActual)
+        {
+            Thread proceso = new Thread(new ThreadStart(new ContenedorFecha(fechaActual).EliminarConsultasDia));
+            proceso.Start();
+
+        }
+
+        private class ContenedorFecha
+        {
+            public string FechaActual { get; set; }
+
+            public ContenedorFecha(string fechaActual)
+            {
+                this.FechaActual = fechaActual;
+            }
+
+            public void EliminarConsultasDia()
+            {
+                if (this.FechaActual != null && !this.FechaActual.Equals(""))
+                {
+                    DAOConsulta dao = new DAOConsulta();
+                    string confirmacion = dao.EliminarConsultasDia(this.FechaActual);
+                }
+            }
         }
     }
 }

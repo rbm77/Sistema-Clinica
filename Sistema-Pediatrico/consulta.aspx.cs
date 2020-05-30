@@ -1,10 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using BL;
+using PdfSharp.Drawing;
+using PdfSharp.Pdf;
 
 namespace Sistema_Pediatrico
 {
@@ -218,9 +221,6 @@ namespace Sistema_Pediatrico
 
                 string enfermedadC = enfermedades.SelectedValue.Trim();
 
-
-                bool generarRef = generarReferencia.Checked;
-
                 ManejadorConsultas manejador = new ManejadorConsultas();
 
                 BLExamenFisico examenFisico = new BLExamenFisico(pesoC, tallaC, perimetroCefalicoC, imc, so2, temperaturaC,
@@ -249,13 +249,7 @@ namespace Sistema_Pediatrico
                         fecha.ReadOnly = true;
                         hora.ReadOnly = true;
                         medioDia.Disabled = true;
-                        generarReferencia.Checked = false;
                         Session["accion"] = "consultarConsulta";
-                        if (generarRef)
-                        {
-                            // SE LLAMA AL METODO QUE GENERA EL PDF PARA DESCARGARLO
-
-                        }
                     }
                 }
                 else if (Session["accion"].Equals("consultarConsulta"))
@@ -264,15 +258,6 @@ namespace Sistema_Pediatrico
                     if (confirmacion.Contains("Error:"))
                     {
                         CargarConsulta(long.Parse(Session["idExpediente"].ToString()), Session["fechaConsulta"].ToString());
-                    }
-                    else
-                    {
-                        generarReferencia.Checked = false;
-                        if (generarRef)
-                        {
-                            // SE LLAMA AL METODO QUE GENERA EL PDF PARA DESCARGARLO
-
-                        }
                     }
                 }
                 MensajeAviso(confirmacion);
@@ -286,11 +271,6 @@ namespace Sistema_Pediatrico
                 }
             }
         }
-        private bool GenerarReferencia()
-        {
-            return true;
-        }
-
         private void MensajeAviso(string mensaje)
         {
             string color = "";
@@ -363,7 +343,6 @@ namespace Sistema_Pediatrico
                 impresionDiagnostica.Value = "";
                 plan.Value = "";
                 enfermedades.SelectedValue = "ninguna";
-                generarReferencia.Checked = false;
 
                 // Cargar datos
 
@@ -505,6 +484,31 @@ namespace Sistema_Pediatrico
             }
 
         }
+        private void GenerarPDF()
+        {
+            PdfDocument pdf = new PdfDocument();
+            pdf.Info.Title = "Mi título";
+            PdfPage page = pdf.AddPage();
+            XGraphics graph = XGraphics.FromPdfPage(page);
+            XFont font = new XFont("Verdana", 20, XFontStyle.Bold);
+            graph.DrawString("Este es mi PDF ahora es otro", font, XBrushes.Black, new XRect(0, 0, page.Width.Point, page.Height.Point), XStringFormats.TopLeft);
 
+            // Send PDF to browser
+            MemoryStream stream = new MemoryStream();
+            pdf.Save(stream, false);
+
+            Response.Clear();
+            Response.ContentType = "application/force-download";
+            Response.AppendHeader("Content-Disposition", "attachment; filename=Referencia.pdf");
+            Response.BinaryWrite(stream.ToArray());
+            Response.Flush();
+            stream.Close();
+            Response.End();
+        }
+
+        protected void btnGenerarReferencia_Click(object sender, EventArgs e)
+        {
+            GenerarPDF();
+        }
     }
 }

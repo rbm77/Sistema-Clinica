@@ -679,6 +679,15 @@ namespace Sistema_Pediatrico {
         protected global::System.Web.UI.WebControls.DropDownList referidoA;
         
         /// <summary>
+        /// Control btnGenerarReferencia.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnGenerarReferencia;
+        
+        /// <summary>
         /// Control labelEspecialidad.
         /// </summary>
         /// <remarks>
@@ -713,15 +722,6 @@ namespace Sistema_Pediatrico {
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlTextArea motivo;
-        
-        /// <summary>
-        /// Control generarReferencia.
-        /// </summary>
-        /// <remarks>
-        /// Campo generado automáticamente.
-        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-        /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlInputCheckBox generarReferencia;
         
         /// <summary>
         /// Control btnGuardar.
