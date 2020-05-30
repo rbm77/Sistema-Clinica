@@ -51,6 +51,7 @@
     <Compile Include="TOExpediente.cs" />
     <Compile Include="TOHistoriaClinica.cs" />
     <Compile Include="TOMedico.cs" />
+    <Compile Include="TOReferencia.cs" />
     <Compile Include="TOSolicitanteCita.cs" />
     <Compile Include="TOUsuario.cs" />
   </ItemGroup>

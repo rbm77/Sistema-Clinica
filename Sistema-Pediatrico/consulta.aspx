@@ -321,19 +321,14 @@
 
                         <div class="form-row">
 
-
-
-                            <div class="form-group col-12">
-                                <div class="row justify-content-start">
-                                    <h5 class="titulo col-md-9 col-sm-12" style="margin-bottom: 15px">Referecia a Consulta Privada</h5>
-                                </div>
-                                <div class="row justify-content-end">
-                                    <div class="col-md-3 col-sm-12">
-                                        <asp:Button ID="btnGenerarReferencia" runat="server" Text="Generar Referencia" OnClick="btnGenerarReferencia_Click" CssClass="btn btn-general btn-crear" />
-                                    </div>
-                                </div>
+                            <div class="form-group col-md-9 col-sm-12">
+                                <h5 class="titulo">Referecia a Consulta Privada</h5>
                             </div>
 
+                            <div class="form-group col-md-3 col-sm-12">
+                                <asp:Button ID="btnGenerarReferencia" runat="server" Text="Referencia" OnClick="btnGenerarReferencia_Click" CssClass="btn btn-general btn-crear" style="margin: 0px !important" />
+
+                            </div>
 
                             <div class="form-group col-md-4 col-sm-4">
                                 <asp:Label ID="labelEspecialidad" runat="server" Text="Especialidad"></asp:Label>
@@ -344,13 +339,6 @@
                                 <asp:Label ID="labelMotivo" runat="server" Text="Motivo"></asp:Label>
                                 <textarea class="form-control" clientidmode="Static" runat="server" id="motivo" rows="2"></textarea>
                             </div>
-
-                            <%--                            <div class="form-group col-12">
-                                <div class="form-check form-check-inline">
-                                    <input class="form-check-input" type="checkbox" id="generarReferencia" runat="server" clientidmode="Static">
-                                    <small class="form-text text-muted" style="margin-top: 0px">Generar PDF con la referencia al guardar la consulta</small>
-                                </div>
-                            </div>--%>
                         </div>
 
                     </div>

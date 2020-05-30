@@ -51,6 +51,7 @@
     <Compile Include="BLExpediente.cs" />
     <Compile Include="BLHistoriaClinica.cs" />
     <Compile Include="BLMedico.cs" />
+    <Compile Include="BLReferencia.cs" />
     <Compile Include="BLSolicitanteCita.cs" />
     <Compile Include="BLUsuario.cs" />
     <Compile Include="ManejadorConsultas.cs" />

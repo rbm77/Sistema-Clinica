@@ -484,14 +484,18 @@ namespace Sistema_Pediatrico
             }
 
         }
-        private void GenerarPDF()
+        private void GenerarPDF(BLReferencia referencia)
         {
             PdfDocument pdf = new PdfDocument();
             pdf.Info.Title = "Mi título";
             PdfPage page = pdf.AddPage();
             XGraphics graph = XGraphics.FromPdfPage(page);
-            XFont font = new XFont("Verdana", 20, XFontStyle.Bold);
-            graph.DrawString("Este es mi PDF ahora es otro", font, XBrushes.Black, new XRect(0, 0, page.Width.Point, page.Height.Point), XStringFormats.TopLeft);
+
+            XFont fontRegular = new XFont("Verdana", 11, XFontStyle.Regular);
+            XFont fontBold = new XFont("Verdana", 11, XFontStyle.Bold);
+            graph.DrawString("Clínica Pediátrica Divino Niño", fontBold, XBrushes.Black, new XRect(10, 10, page.Width.Point, page.Height.Point), XStringFormats.TopLeft);
+            graph.DrawString("Dr. Robert Gerardo Moya Vásquez", fontRegular, XBrushes.Black, new XRect(10, 22, page.Width.Point, page.Height.Point), XStringFormats.TopLeft);
+            graph.DrawString("Código: 2346", fontRegular, XBrushes.Black, new XRect(10, 34, page.Width.Point, page.Height.Point), XStringFormats.TopLeft);
 
             // Send PDF to browser
             MemoryStream stream = new MemoryStream();
@@ -508,7 +512,8 @@ namespace Sistema_Pediatrico
 
         protected void btnGenerarReferencia_Click(object sender, EventArgs e)
         {
-            GenerarPDF();
+            BLReferencia referencia = new BLReferencia(); 
+            GenerarPDF(referencia);
         }
     }
 }
