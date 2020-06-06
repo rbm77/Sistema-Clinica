@@ -1,4 +1,4 @@
-﻿<%@ Page Title="" EnableEventValidation="false" Language="C#" MasterPageFile="~/Maestra.Master" AutoEventWireup="true" CodeBehind="expediente.aspx.cs" Inherits="Sistema_Pediatrico.expediente" %>
+﻿<%@ Page Title="Expediente" EnableEventValidation="false" Language="C#" MasterPageFile="~/Maestra.Master" AutoEventWireup="true" CodeBehind="expediente.aspx.cs" Inherits="Sistema_Pediatrico.expediente" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
 
@@ -47,30 +47,30 @@
 
                         <div class="form-row">
                             <div class="form-group col-md-4 col-sm-4">
-                                <asp:Label ID="labelCedulaPaciente" runat="server" Text="Cédula"></asp:Label>
-                                <asp:TextBox ID="cedulaPaciente" runat="server" class="form-control" ClientIDMode="Static"></asp:TextBox>
+                                <asp:Label EnableViewState="false" ID="labelCedulaPaciente" runat="server" Text="Cédula"></asp:Label>
+                                <asp:TextBox EnableViewState="false" ID="cedulaPaciente" runat="server" class="form-control" ClientIDMode="Static"></asp:TextBox>
                                 <small class="form-text text-muted">Formato: #0###0###</small>
                             </div>
                             <div class="form-group col-md-4 col-sm-4">
-                                <asp:Label ID="labelNombrePaciente" runat="server" Text="Nombre"></asp:Label>
-                                <asp:TextBox ID="nombrePaciente" runat="server" class="form-control" ClientIDMode="Static" pattern="[A-Za-zñÑáéíóúÁÉÍÓÚ ]*" required></asp:TextBox>
+                                <asp:Label EnableViewState="false" ID="labelNombrePaciente" runat="server" Text="Nombre"></asp:Label>
+                                <asp:TextBox EnableViewState="false" ID="nombrePaciente" runat="server" class="form-control" ClientIDMode="Static" pattern="[A-Za-zñÑáéíóúÁÉÍÓÚ ]*" required></asp:TextBox>
                             </div>
                             <div class="form-group col-md-4 col-sm-4">
-                                <asp:Label ID="labelPrimerApellidoPaciente" runat="server" Text="Primer Apellido"></asp:Label>
-                                <asp:TextBox ID="primerApellidoPaciente" runat="server" class="form-control" ClientIDMode="Static" pattern="[A-Za-zñÑáéíóúÁÉÍÓÚ ]*" required></asp:TextBox>
+                                <asp:Label EnableViewState="false" ID="labelPrimerApellidoPaciente" runat="server" Text="Primer Apellido"></asp:Label>
+                                <asp:TextBox EnableViewState="false" ID="primerApellidoPaciente" runat="server" class="form-control" ClientIDMode="Static" pattern="[A-Za-zñÑáéíóúÁÉÍÓÚ ]*" required></asp:TextBox>
                             </div>
                             <div class="form-group col-md-4 col-sm-4">
-                                <asp:Label ID="labelSegundoApellidoPaciente" runat="server" Text="Segundo Apellido"></asp:Label>
-                                <asp:TextBox ID="segundoApellidoPaciente" runat="server" class="form-control" ClientIDMode="Static" pattern="[A-Za-zñÑáéíóúÁÉÍÓÚ ]*"></asp:TextBox>
+                                <asp:Label EnableViewState="false" ID="labelSegundoApellidoPaciente" runat="server" Text="Segundo Apellido"></asp:Label>
+                                <asp:TextBox EnableViewState="false" ID="segundoApellidoPaciente" runat="server" class="form-control" ClientIDMode="Static" pattern="[A-Za-zñÑáéíóúÁÉÍÓÚ ]*"></asp:TextBox>
                             </div>
                             <div class="form-group col-md-4 col-sm-4">
-                                <asp:Label ID="labelFechaNacimiento" runat="server" Text="Fecha de Nacimiento"></asp:Label>
-                                <asp:TextBox ID="fechaNacimientoPaciente" runat="server" class="form-control" ClientIDMode="Static" pattern="([0-2][0-9]|3[0-1])(\/|-)(0[1-9]|1[0-2])\2(\d{4})" required></asp:TextBox>
+                                <asp:Label EnableViewState="false" ID="labelFechaNacimiento" runat="server" Text="Fecha de Nacimiento"></asp:Label>
+                                <asp:TextBox EnableViewState="false" ID="fechaNacimientoPaciente" runat="server" class="form-control" ClientIDMode="Static" pattern="([0-2][0-9]|3[0-1])(\/|-)(0[1-9]|1[0-2])\2(\d{4})" required></asp:TextBox>
                                 <small class="form-text text-muted">formato: dd/mm/aaaa</small>
                             </div>
                             <div class="form-group col-md-4 col-sm-4">
-                                <asp:Label ID="labelSexoPaciente" runat="server" Text="Sexo"></asp:Label>
-                                <asp:DropDownList ID="sexoPaciente" runat="server" class="form-control" ClientIDMode="Static" required>
+                                <asp:Label EnableViewState="false" ID="labelSexoPaciente" runat="server" Text="Sexo"></asp:Label>
+                                <asp:DropDownList EnableViewState="false" ID="sexoPaciente" runat="server" class="form-control" ClientIDMode="Static" required>
                                     <asp:ListItem Selected="True" Value="nulo">Seleccionar...</asp:ListItem>
                                     <asp:ListItem Selected="False" Value="masculino">Masculino</asp:ListItem>
                                     <asp:ListItem Selected="False" Value="femenino">Femenino</asp:ListItem>
@@ -88,19 +88,19 @@
 
 
                             <div class="form-group col-md-4 col-sm-4">
-                                <asp:Label ID="labelProvinciaPaciente" runat="server" ClientIDMode="Static" Text="Provincia"></asp:Label>
+                                <asp:Label EnableViewState="false" ID="labelProvinciaPaciente" runat="server" ClientIDMode="Static" Text="Provincia"></asp:Label>
                                 <asp:DropDownList onchange="ObtenerCantonesPaciente(this)" ID="inputProvinciaPaciente" runat="server" class="form-control" ClientIDMode="Static" required>
                                 </asp:DropDownList>
                                 <input type="hidden" clientidmode="Static" id="provinciaPValue" value="nulo" runat="server" />
                             </div>
                             <div class="form-group col-md-4 col-sm-4">
-                                <asp:Label ID="labelCantonPaciente" runat="server" ClientIDMode="Static" Text="Cantón"></asp:Label>
+                                <asp:Label EnableViewState="false" ID="labelCantonPaciente" runat="server" ClientIDMode="Static" Text="Cantón"></asp:Label>
                                 <asp:DropDownList onchange="ObtenerDistritosPaciente(this)" ID="inputCantonPaciente" runat="server" class="form-control" ClientIDMode="Static" required>
                                 </asp:DropDownList>
                                 <input type="hidden" clientidmode="Static" id="cantonPValue" value="nulo" runat="server" />
                             </div>
                             <div class="form-group col-md-4 col-sm-4">
-                                <asp:Label ID="labelDistritosPaciente" runat="server" ClientIDMode="Static" Text="Distrito"></asp:Label>
+                                <asp:Label EnableViewState="false" ID="labelDistritosPaciente" runat="server" ClientIDMode="Static" Text="Distrito"></asp:Label>
                                 <asp:DropDownList onchange="AsignarDistritoPaciente(this)" ID="inputDistritoPaciente" runat="server" class="form-control" ClientIDMode="Static" required>
                                 </asp:DropDownList>
                                 <input type="hidden" clientidmode="Static" id="distritoPValue" value="nulo" runat="server" />
@@ -111,19 +111,19 @@
                         <div class="form-row">
 
                             <div class="form-group col-md-6 col-sm-12">
-                                <asp:Label ID="labelDireccionExactaPaciente" runat="server" Text="Dirección exacta"></asp:Label>
-                                <textarea class="form-control txtArea-size" runat="server" clientidmode="Static" id="direccionExactaPaciente" rows="2"></textarea>
+                                <asp:Label EnableViewState="false" ID="labelDireccionExactaPaciente" runat="server" Text="Dirección exacta"></asp:Label>
+                                <textarea EnableViewState="false" class="form-control txtArea-size" runat="server" clientidmode="Static" id="direccionExactaPaciente" rows="2"></textarea>
                             </div>
 
                             <div class="form-group col-md-6 col-sm-12">
-                                <asp:Label ID="labelURLExpediente" runat="server" Text="URL vinculante a expediente antiguo"></asp:Label>
-                                <textarea class="form-control txtArea-size" clientidmode="Static" runat="server" id="urlExpedienteAntiguoPaciente" rows="2"></textarea>
+                                <asp:Label EnableViewState="false" ID="labelURLExpediente" runat="server" Text="URL vinculante a expediente antiguo"></asp:Label>
+                                <textarea EnableViewState="false" class="form-control txtArea-size" clientidmode="Static" runat="server" id="urlExpedienteAntiguoPaciente" rows="2"></textarea>
                             </div>
                         </div>
 
                         <div class="form-row">
                             <div class="form-group col-md-4 col-sm-4">
-                                <asp:Label ID="labelFechaActual" runat="server" Text="Fecha Creación"></asp:Label>
+                                <asp:Label EnableViewState="false" ID="labelFechaActual" runat="server" Text="Fecha Creación"></asp:Label>
                                 <asp:TextBox ID="fechaActual" runat="server" class="form-control" ClientIDMode="Static" pattern="([0-2][0-9]|3[0-1])(\/|-)(0[1-9]|1[0-2])\2(\d{4})" required></asp:TextBox>
                                 <small class="form-text text-muted">Formato: dd/mm/aaaa</small>
                             </div>
@@ -145,33 +145,33 @@
 
                         <div class="form-row">
                             <div class="form-group col-md-3 col-sm-4">
-                                <asp:Label ID="labelCedulaEncargado" runat="server" Text="Cédula"></asp:Label>
-                                <asp:TextBox ID="cedulaEncargado" runat="server" class="form-control" ClientIDMode="Static"></asp:TextBox>
+                                <asp:Label EnableViewState="false" ID="labelCedulaEncargado" runat="server" Text="Cédula"></asp:Label>
+                                <asp:TextBox EnableViewState="false" ID="cedulaEncargado" runat="server" class="form-control" ClientIDMode="Static"></asp:TextBox>
                                 <small class="form-text text-muted">Formato: #0###0###</small>
                             </div>
                             <div class="form-group col-md-3 col-sm-4">
-                                <asp:Label ID="labelNombreEncargado" runat="server" Text="Nombre"></asp:Label>
-                                <asp:TextBox ID="nombreEncargado" runat="server" class="form-control" ClientIDMode="Static" pattern="[A-Za-zñÑáéíóúÁÉÍÓÚ ]*"></asp:TextBox>
+                                <asp:Label EnableViewState="false" ID="labelNombreEncargado" runat="server" Text="Nombre"></asp:Label>
+                                <asp:TextBox EnableViewState="false" ID="nombreEncargado" runat="server" class="form-control" ClientIDMode="Static" pattern="[A-Za-zñÑáéíóúÁÉÍÓÚ ]*"></asp:TextBox>
                             </div>
                             <div class="form-group col-md-3 col-sm-4">
-                                <asp:Label ID="labelPrimerApellidoEncargado" runat="server" Text="Primer Apellido"></asp:Label>
-                                <asp:TextBox ID="primerApellidoEncargado" runat="server" class="form-control" ClientIDMode="Static" pattern="[A-Za-zñÑáéíóúÁÉÍÓÚ ]*"></asp:TextBox>
+                                <asp:Label EnableViewState="false" ID="labelPrimerApellidoEncargado" runat="server" Text="Primer Apellido"></asp:Label>
+                                <asp:TextBox EnableViewState="false" ID="primerApellidoEncargado" runat="server" class="form-control" ClientIDMode="Static" pattern="[A-Za-zñÑáéíóúÁÉÍÓÚ ]*"></asp:TextBox>
                             </div>
                             <div class="form-group col-md-3 col-sm-4">
-                                <asp:Label ID="labelSegundoApellidoEncargado" runat="server" Text="Segundo Apellido"></asp:Label>
-                                <asp:TextBox ID="segundoApellidoEncargado" runat="server" class="form-control" ClientIDMode="Static" pattern="[A-Za-zñÑáéíóúÁÉÍÓÚ ]*"></asp:TextBox>
+                                <asp:Label EnableViewState="false" ID="labelSegundoApellidoEncargado" runat="server" Text="Segundo Apellido"></asp:Label>
+                                <asp:TextBox EnableViewState="false" ID="segundoApellidoEncargado" runat="server" class="form-control" ClientIDMode="Static" pattern="[A-Za-zñÑáéíóúÁÉÍÓÚ ]*"></asp:TextBox>
                             </div>
                             <div class="form-group col-md-3 col-sm-4">
-                                <asp:Label ID="labelParentesco" runat="server" Text="Parentesco"></asp:Label>
-                                <asp:TextBox ID="parentesco" runat="server" class="form-control" ClientIDMode="Static" pattern="[A-Za-zñÑáéíóúÁÉÍÓÚ ]*"></asp:TextBox>
+                                <asp:Label EnableViewState="false" ID="labelParentesco" runat="server" Text="Parentesco"></asp:Label>
+                                <asp:TextBox EnableViewState="false" ID="parentesco" runat="server" class="form-control" ClientIDMode="Static" pattern="[A-Za-zñÑáéíóúÁÉÍÓÚ ]*"></asp:TextBox>
                             </div>
                             <div class="form-group col-md-3 col-sm-4">
-                                <asp:Label ID="labelTelefonoEncargado" runat="server" Text="Teléfono"></asp:Label>
-                                <asp:TextBox ID="inputTelefonoEncargado" runat="server" class="form-control" ClientIDMode="Static" pattern="[0-9]*"></asp:TextBox>
+                                <asp:Label EnableViewState="false" ID="labelTelefonoEncargado" runat="server" Text="Teléfono"></asp:Label>
+                                <asp:TextBox EnableViewState="false" ID="inputTelefonoEncargado" runat="server" class="form-control" ClientIDMode="Static" pattern="[0-9]*"></asp:TextBox>
                             </div>
                             <div class="form-group col-md-6 col-sm-4">
-                                <asp:Label ID="labelCorreoEncargado" runat="server" Text="Correo Electrónico"></asp:Label>
-                                <asp:TextBox ID="inputCorreoEncargado" type="email" runat="server" class="form-control" ClientIDMode="Static"></asp:TextBox>
+                                <asp:Label EnableViewState="false" ID="labelCorreoEncargado" runat="server" Text="Correo Electrónico"></asp:Label>
+                                <asp:TextBox EnableViewState="false" ID="inputCorreoEncargado" type="email" runat="server" class="form-control" ClientIDMode="Static"></asp:TextBox>
                             </div>
                         </div>
 
@@ -182,19 +182,19 @@
                             <h5 class="titulo col-12">Dirección</h5>
 
                             <div class="form-group col-md-4 col-sm-4">
-                                <asp:Label ID="label1" runat="server" ClientIDMode="Static" Text="Provincia"></asp:Label>
+                                <asp:Label EnableViewState="false" ID="label1" runat="server" ClientIDMode="Static" Text="Provincia"></asp:Label>
                                 <asp:DropDownList onchange="ObtenerCantonesEncargado(this)" ID="inputProvinciaEncargado" runat="server" class="form-control" ClientIDMode="Static">
                                 </asp:DropDownList>
                                 <input type="hidden" clientidmode="Static" id="provinciaEValue" value="nulo" runat="server" />
                             </div>
                             <div class="form-group col-md-4 col-sm-4">
-                                <asp:Label ID="label2" runat="server" ClientIDMode="Static" Text="Cantón"></asp:Label>
+                                <asp:Label EnableViewState="false" ID="label2" runat="server" ClientIDMode="Static" Text="Cantón"></asp:Label>
                                 <asp:DropDownList onchange="ObtenerDistritosEncargado(this)" ID="inputCantonEncargado" runat="server" class="form-control" ClientIDMode="Static">
                                 </asp:DropDownList>
                                 <input type="hidden" clientidmode="Static" id="cantonEValue" value="nulo" runat="server" />
                             </div>
                             <div class="form-group col-md-4 col-sm-4">
-                                <asp:Label ID="label3" runat="server" ClientIDMode="Static" Text="Distrito"></asp:Label>
+                                <asp:Label EnableViewState="false" ID="label3" runat="server" ClientIDMode="Static" Text="Distrito"></asp:Label>
                                 <asp:DropDownList onchange="AsignarDistritoEncargado(this)" ID="inputDistritoEncargado" runat="server" class="form-control" ClientIDMode="Static">
                                 </asp:DropDownList>
                                 <input type="hidden" clientidmode="Static" id="distritoEValue" value="nulo" runat="server" />
@@ -205,8 +205,8 @@
                         <div class="form-row">
 
                             <div class="form-group col-md-12 col-sm-12">
-                                <asp:Label ID="labelDireccionExactaEncargado" runat="server" Text="Dirección exacta"></asp:Label>
-                                <textarea class="form-control txtArea-size" runat="server" clientidmode="Static" id="direccionExactaEncargado" rows="2"></textarea>
+                                <asp:Label EnableViewState="false" ID="labelDireccionExactaEncargado" runat="server" Text="Dirección exacta"></asp:Label>
+                                <textarea EnableViewState="false" class="form-control txtArea-size" runat="server" clientidmode="Static" id="direccionExactaEncargado" rows="2"></textarea>
                             </div>
                         </div>
 
@@ -241,17 +241,17 @@
                                 <h5 class="titulo col-12" style="margin-bottom: 15px">Datos del Solicitante de las Citas Médicas</h5>
 
                                 <div class="form-group col-md-4 col-sm-4">
-                                    <asp:Label ID="labelCedulaSolicitante" runat="server" Text="Cédula"></asp:Label>
-                                    <asp:TextBox ID="cedulaSolicitante" runat="server" class="form-control" ClientIDMode="Static"></asp:TextBox>
+                                    <asp:Label EnableViewState="false" ID="labelCedulaSolicitante" runat="server" Text="Cédula"></asp:Label>
+                                    <asp:TextBox EnableViewState="false" ID="cedulaSolicitante" runat="server" class="form-control" ClientIDMode="Static"></asp:TextBox>
                                     <small class="form-text text-muted">Formato: #0###0###</small>
                                 </div>
                                 <div class="form-group col-md-4 col-sm-4">
-                                    <asp:Label ID="labelCorreoSolicitante" runat="server" Text="Correo Electrónico"></asp:Label>
-                                    <asp:TextBox ID="correoSolicitante" type="email" runat="server" class="form-control" ClientIDMode="Static"></asp:TextBox>
+                                    <asp:Label EnableViewState="false" ID="labelCorreoSolicitante" runat="server" Text="Correo Electrónico"></asp:Label>
+                                    <asp:TextBox EnableViewState="false" ID="correoSolicitante" type="email" runat="server" class="form-control" ClientIDMode="Static"></asp:TextBox>
                                 </div>
                                 <div class="form-group col-md-4 col-sm-4">
-                                    <asp:Label ID="labelTelefonoSolicitante" runat="server" Text="Teléfono"></asp:Label>
-                                    <asp:TextBox ID="telefonoSolicitante" runat="server" class="form-control" ClientIDMode="Static" pattern="[0-9]*"></asp:TextBox>
+                                    <asp:Label EnableViewState="false" ID="labelTelefonoSolicitante" runat="server" Text="Teléfono"></asp:Label>
+                                    <asp:TextBox EnableViewState="false" ID="telefonoSolicitante" runat="server" class="form-control" ClientIDMode="Static" pattern="[0-9]*"></asp:TextBox>
                                 </div>
                             </div>
                         </div>
@@ -266,29 +266,29 @@
 
                         <div class="form-row">
                             <div class="form-group col-md-4 col-sm-4">
-                                <asp:Label ID="labelCedulaDestinatario" runat="server" Text="Cédula"></asp:Label>
-                                <asp:TextBox ID="cedulaDestinatario" runat="server" class="form-control" ClientIDMode="Static"></asp:TextBox>
+                                <asp:Label EnableViewState="false" ID="labelCedulaDestinatario" runat="server" Text="Cédula"></asp:Label>
+                                <asp:TextBox EnableViewState="false" ID="cedulaDestinatario" runat="server" class="form-control" ClientIDMode="Static"></asp:TextBox>
                                 <small class="form-text text-muted">Formato: #0###0###</small>
                             </div>
                             <div class="form-group col-md-4 col-sm-4">
-                                <asp:Label ID="labelNombreDestinatario" runat="server" Text="Nombre"></asp:Label>
-                                <asp:TextBox ID="nombreDestinatario" runat="server" class="form-control" ClientIDMode="Static" pattern="[A-Za-zñÑáéíóúÁÉÍÓÚ ]*"></asp:TextBox>
+                                <asp:Label EnableViewState="false" ID="labelNombreDestinatario" runat="server" Text="Nombre"></asp:Label>
+                                <asp:TextBox EnableViewState="false" ID="nombreDestinatario" runat="server" class="form-control" ClientIDMode="Static" pattern="[A-Za-zñÑáéíóúÁÉÍÓÚ ]*"></asp:TextBox>
                             </div>
                             <div class="form-group col-md-4 col-sm-4">
-                                <asp:Label ID="labelPrimerApellidoDestinatario" runat="server" Text="Primer Apellido"></asp:Label>
-                                <asp:TextBox ID="primerApellidoDestinatario" runat="server" class="form-control" ClientIDMode="Static" pattern="[A-Za-zñÑáéíóúÁÉÍÓÚ ]*"></asp:TextBox>
+                                <asp:Label EnableViewState="false" ID="labelPrimerApellidoDestinatario" runat="server" Text="Primer Apellido"></asp:Label>
+                                <asp:TextBox EnableViewState="false" ID="primerApellidoDestinatario" runat="server" class="form-control" ClientIDMode="Static" pattern="[A-Za-zñÑáéíóúÁÉÍÓÚ ]*"></asp:TextBox>
                             </div>
                             <div class="form-group col-md-4 col-sm-4">
-                                <asp:Label ID="labelSegundoApellidoDestinatario" runat="server" Text="Segundo Apellido"></asp:Label>
-                                <asp:TextBox ID="segundoApellidoDestinatario" runat="server" class="form-control" ClientIDMode="Static" pattern="[A-Za-zñÑáéíóúÁÉÍÓÚ ]*"></asp:TextBox>
+                                <asp:Label EnableViewState="false" ID="labelSegundoApellidoDestinatario" runat="server" Text="Segundo Apellido"></asp:Label>
+                                <asp:TextBox EnableViewState="false" ID="segundoApellidoDestinatario" runat="server" class="form-control" ClientIDMode="Static" pattern="[A-Za-zñÑáéíóúÁÉÍÓÚ ]*"></asp:TextBox>
                             </div>
                             <div class="form-group col-md-4 col-sm-4">
-                                <asp:Label ID="labelTelefono" runat="server" Text="Teléfono"></asp:Label>
-                                <asp:TextBox ID="telefonoDestinatario" runat="server" class="form-control" ClientIDMode="Static" pattern="[0-9]*"></asp:TextBox>
+                                <asp:Label EnableViewState="false" ID="labelTelefono" runat="server" Text="Teléfono"></asp:Label>
+                                <asp:TextBox EnableViewState="false" ID="telefonoDestinatario" runat="server" class="form-control" ClientIDMode="Static" pattern="[0-9]*"></asp:TextBox>
                             </div>
                             <div class="form-group col-md-4 col-sm-4">
-                                <asp:Label ID="labelCorreoDestinatario" runat="server" Text="Correo Electrónico"></asp:Label>
-                                <asp:TextBox ID="correoDestinatario" type="email" runat="server" class="form-control" ClientIDMode="Static"></asp:TextBox>
+                                <asp:Label EnableViewState="false" ID="labelCorreoDestinatario" runat="server" Text="Correo Electrónico"></asp:Label>
+                                <asp:TextBox EnableViewState="false" ID="correoDestinatario" type="email" runat="server" class="form-control" ClientIDMode="Static"></asp:TextBox>
                             </div>
                         </div>
 
@@ -299,19 +299,19 @@
                             <h5 class="titulo col-12">Dirección</h5>
 
                             <div class="form-group col-md-4 col-sm-4">
-                                <asp:Label ID="label4" runat="server" ClientIDMode="Static" Text="Provincia"></asp:Label>
+                                <asp:Label EnableViewState="false" ID="label4" runat="server" ClientIDMode="Static" Text="Provincia"></asp:Label>
                                 <asp:DropDownList onchange="ObtenerCantonesDestinatario(this)" ID="inputProvinciaDestinatario" runat="server" class="form-control" ClientIDMode="Static">
                                 </asp:DropDownList>
                                 <input type="hidden" clientidmode="Static" id="provinciaDValue" value="nulo" runat="server" />
                             </div>
                             <div class="form-group col-md-4 col-sm-4">
-                                <asp:Label ID="label5" runat="server" ClientIDMode="Static" Text="Cantón"></asp:Label>
+                                <asp:Label EnableViewState="false" ID="label5" runat="server" ClientIDMode="Static" Text="Cantón"></asp:Label>
                                 <asp:DropDownList onchange="ObtenerDistritosDestinatario(this)" ID="inputCantonDestinatario" runat="server" class="form-control" ClientIDMode="Static">
                                 </asp:DropDownList>
                                 <input type="hidden" clientidmode="Static" id="cantonDValue" value="nulo" runat="server" />
                             </div>
                             <div class="form-group col-md-4 col-sm-4">
-                                <asp:Label ID="label6" runat="server" ClientIDMode="Static" Text="Distrito"></asp:Label>
+                                <asp:Label EnableViewState="false" ID="label6" runat="server" ClientIDMode="Static" Text="Distrito"></asp:Label>
                                 <asp:DropDownList onchange="AsignarDistritoDestinatario(this)" ID="inputDistritoDestinatario" runat="server" class="form-control" ClientIDMode="Static">
                                 </asp:DropDownList>
                                 <input type="hidden" clientidmode="Static" id="distritoDValue" value="nulo" runat="server" />
@@ -322,8 +322,8 @@
                         <div class="form-row">
 
                             <div class="form-group col-md-12 col-sm-12">
-                                <asp:Label ID="labelDireccionExactaDestinatario" runat="server" Text="Dirección exacta"></asp:Label>
-                                <textarea class="form-control txtArea-size" runat="server" clientidmode="Static" id="direccionExactaDestinatario" rows="2"></textarea>
+                                <asp:Label EnableViewState="false" ID="labelDireccionExactaDestinatario" runat="server" Text="Dirección exacta"></asp:Label>
+                                <textarea EnableViewState="false" class="form-control txtArea-size" runat="server" clientidmode="Static" id="direccionExactaDestinatario" rows="2"></textarea>
                             </div>
                         </div>
 
@@ -345,9 +345,9 @@
                             </div>
 
                             <div class="form-group col-md-4 col-sm-4">
-                                <asp:Label ID="labelTallaNacimiento" runat="server" Text="Talla"></asp:Label>
+                                <asp:Label EnableViewState="false" ID="labelTallaNacimiento" runat="server" Text="Talla"></asp:Label>
                                 <div class="input-group">
-                                    <asp:TextBox ID="tallaNacimiento" runat="server" class="form-control" ClientIDMode="Static" pattern="[0-9]+(,[0-9]{1,2})?%?"></asp:TextBox>
+                                    <asp:TextBox EnableViewState="false" ID="tallaNacimiento" runat="server" class="form-control" ClientIDMode="Static" pattern="[0-9]+(,[0-9]{1,2})?%?"></asp:TextBox>
                                     <div class="input-group-append">
                                         <span class="input-group-text">cm</span>
                                     </div>
@@ -356,9 +356,9 @@
 
 
                             <div class="form-group col-md-4 col-sm-4">
-                                <asp:Label ID="labelPesoNacimiento" runat="server" Text="Peso"></asp:Label>
+                                <asp:Label EnableViewState="false" ID="labelPesoNacimiento" runat="server" Text="Peso"></asp:Label>
                                 <div class="input-group">
-                                    <asp:TextBox ID="pesoNacimiento" runat="server" class="form-control" ClientIDMode="Static" pattern="[0-9]+(,[0-9]{1,2})?%?"></asp:TextBox>
+                                    <asp:TextBox EnableViewState="false" ID="pesoNacimiento" runat="server" class="form-control" ClientIDMode="Static" pattern="[0-9]+(,[0-9]{1,2})?%?"></asp:TextBox>
                                     <div class="input-group-append">
                                         <span class="input-group-text">kg</span>
                                     </div>
@@ -369,9 +369,9 @@
 
 
                             <div class="form-group col-md-4 col-sm-4">
-                                <asp:Label ID="labelPerimetroCefalico" runat="server" Text="Perímetro Cefálico"></asp:Label>
+                                <asp:Label EnableViewState="false" ID="labelPerimetroCefalico" runat="server" Text="Perímetro Cefálico"></asp:Label>
                                 <div class="input-group">
-                                    <asp:TextBox ID="perimetroCefalico" runat="server" class="form-control" ClientIDMode="Static" pattern="[0-9]+(,[0-9]{1,2})?%?"></asp:TextBox>
+                                    <asp:TextBox EnableViewState="false" ID="perimetroCefalico" runat="server" class="form-control" ClientIDMode="Static" pattern="[0-9]+(,[0-9]{1,2})?%?"></asp:TextBox>
                                     <div class="input-group-append">
                                         <span class="input-group-text">cm</span>
                                     </div>
@@ -379,16 +379,16 @@
                             </div>
 
                             <div class="form-group col-md-4 col-sm-4">
-                                <asp:Label ID="labelApgar" runat="server" Text="Puntuación APGAR"></asp:Label>
-                                <asp:TextBox ID="apgar" runat="server" class="form-control" ClientIDMode="Static" pattern="[0-9]*"></asp:TextBox>
+                                <asp:Label EnableViewState="false" ID="labelApgar" runat="server" Text="Puntuación APGAR"></asp:Label>
+                                <asp:TextBox EnableViewState="false" ID="apgar" runat="server" class="form-control" ClientIDMode="Static" pattern="[0-9]*"></asp:TextBox>
                             </div>
 
 
 
                             <div class="form-group col-md-4 col-sm-4">
-                                <asp:Label ID="labelEdadGestacional" runat="server" Text="Edad Gestacional"></asp:Label>
+                                <asp:Label EnableViewState="false" ID="labelEdadGestacional" runat="server" Text="Edad Gestacional"></asp:Label>
                                 <div class="input-group">
-                                    <asp:TextBox ID="edadGestacional" runat="server" class="form-control" ClientIDMode="Static" pattern="[0-9]+(,[0-9]{1,2})?%?"></asp:TextBox>
+                                    <asp:TextBox EnableViewState="false" ID="edadGestacional" runat="server" class="form-control" ClientIDMode="Static" pattern="[0-9]+(,[0-9]{1,2})?%?"></asp:TextBox>
                                     <div class="input-group-append">
                                         <span class="input-group-text">semanas</span>
                                     </div>
@@ -397,8 +397,8 @@
 
 
                             <div class="form-group col-md-4 col-sm-4">
-                                <asp:Label ID="labelClasificacionUniversal" runat="server" Text="Clasificación Universal"></asp:Label>
-                                <asp:TextBox ID="clasificacionUniversal" runat="server" class="form-control" ClientIDMode="Static"></asp:TextBox>
+                                <asp:Label EnableViewState="false" ID="labelClasificacionUniversal" runat="server" Text="Clasificación Universal"></asp:Label>
+                                <asp:TextBox EnableViewState="false" ID="clasificacionUniversal" runat="server" class="form-control" ClientIDMode="Static"></asp:TextBox>
                             </div>
 
                         </div>

@@ -1,4 +1,4 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Maestra.Master" AutoEventWireup="true" CodeBehind="consulta.aspx.cs" Inherits="Sistema_Pediatrico.consulta" %>
+﻿<%@ Page Title="Consulta" Language="C#" MasterPageFile="~/Maestra.Master" AutoEventWireup="true" CodeBehind="consulta.aspx.cs" Inherits="Sistema_Pediatrico.consulta" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
 </asp:Content>
@@ -29,14 +29,14 @@
 
                 <div class="form-row">
                     <div class="form-group col-md-3 col-sm-3">
-                        <asp:Label ID="labelFecha" runat="server" Text="Fecha"></asp:Label>
+                        <asp:Label EnableViewState="false" ID="labelFecha" runat="server" Text="Fecha"></asp:Label>
                         <asp:TextBox ID="fecha" runat="server" class="form-control" ClientIDMode="Static" pattern="([0-2][0-9]|3[0-1])(\/)(0[1-9]|1[0-2])\2(\d{4})" required></asp:TextBox>
                         <small class="form-text text-muted">Formato: dd/mm/aaaa</small>
                     </div>
 
                     <div class="form-group col-md-3 col-sm-3">
 
-                        <asp:Label ID="labelHora" runat="server" Text="Hora"></asp:Label>
+                        <asp:Label EnableViewState="false" ID="labelHora" runat="server" Text="Hora"></asp:Label>
 
                         <div class="input-group">
 
@@ -55,8 +55,8 @@
 
                 <div class="form-row">
                     <div class="form-group col-md-12 col-sm-12">
-                        <asp:Label ID="labelPadecimientoActual" runat="server" Text="Padecimiento Actual"></asp:Label>
-                        <textarea class="form-control" runat="server" clientidmode="Static" id="padecimientoActual" rows="5"></textarea>
+                        <asp:Label EnableViewState="false" ID="labelPadecimientoActual" runat="server" Text="Padecimiento Actual"></asp:Label>
+                        <textarea EnableViewState="false" class="form-control" runat="server" clientidmode="Static" id="padecimientoActual" rows="5"></textarea>
                     </div>
                 </div>
 
@@ -79,9 +79,9 @@
                             </div>
 
                             <div class="form-group col-md-4 col-sm-4">
-                                <asp:Label ID="labelPeso" runat="server" Text="Peso"></asp:Label>
+                                <asp:Label EnableViewState="false" ID="labelPeso" runat="server" Text="Peso"></asp:Label>
                                 <div class="input-group">
-                                    <asp:TextBox ID="peso" runat="server" class="form-control" ClientIDMode="Static" pattern="[0-9]+(,[0-9]{1,2})?%?"></asp:TextBox>
+                                    <asp:TextBox EnableViewState="false" ID="peso" runat="server" class="form-control" ClientIDMode="Static" pattern="[0-9]+(,[0-9]{1,2})?%?"></asp:TextBox>
                                     <div class="input-group-append">
                                         <span class="input-group-text">kg</span>
                                     </div>
@@ -89,9 +89,9 @@
                             </div>
 
                             <div class="form-group col-md-4 col-sm-4">
-                                <asp:Label ID="labelTalla" runat="server" Text="Talla"></asp:Label>
+                                <asp:Label EnableViewState="false" ID="labelTalla" runat="server" Text="Talla"></asp:Label>
                                 <div class="input-group">
-                                    <asp:TextBox ID="talla" runat="server" class="form-control" ClientIDMode="Static" pattern="[0-9]+(,[0-9]{1,2})?%?"></asp:TextBox>
+                                    <asp:TextBox EnableViewState="false" ID="talla" runat="server" class="form-control" ClientIDMode="Static" pattern="[0-9]+(,[0-9]{1,2})?%?"></asp:TextBox>
                                     <div class="input-group-append">
                                         <span class="input-group-text">cm</span>
                                     </div>
@@ -100,9 +100,9 @@
 
 
                             <div class="form-group col-md-4 col-sm-4">
-                                <asp:Label ID="labelPerimetroCefalico" runat="server" Text="Perímetro Cefálico"></asp:Label>
+                                <asp:Label EnableViewState="false" ID="labelPerimetroCefalico" runat="server" Text="Perímetro Cefálico"></asp:Label>
                                 <div class="input-group">
-                                    <asp:TextBox ID="perimetroCefalico" runat="server" class="form-control" ClientIDMode="Static" pattern="[0-9]+(,[0-9]{1,2})?%?"></asp:TextBox>
+                                    <asp:TextBox EnableViewState="false" ID="perimetroCefalico" runat="server" class="form-control" ClientIDMode="Static" pattern="[0-9]+(,[0-9]{1,2})?%?"></asp:TextBox>
                                     <div class="input-group-append">
                                         <span class="input-group-text">cm</span>
                                     </div>
@@ -110,9 +110,9 @@
                             </div>
 
                             <div class="form-group col-md-4 col-sm-4">
-                                <asp:Label ID="labelIMC" runat="server" Text="IMC"></asp:Label>
+                                <asp:Label EnableViewState="false" ID="labelIMC" runat="server" Text="IMC"></asp:Label>
                                 <div class="input-group mb-3">
-                                    <asp:TextBox ID="IMC" runat="server" class="form-control" ClientIDMode="Static" pattern="[0-9]+(,[0-9]{1,2})?%?"></asp:TextBox>
+                                    <asp:TextBox EnableViewState="false" ID="IMC" runat="server" class="form-control" ClientIDMode="Static" pattern="[0-9]+(,[0-9]{1,2})?%?"></asp:TextBox>
                                     <div class="input-group-append">
                                         <button id="calcular" onclick="CalcularIMC()" class="btn btn-Calcular" type="button">Calcular</button>
                                     </div>
@@ -120,9 +120,9 @@
                             </div>
 
                             <div class="form-group col-md-4 col-sm-4">
-                                <asp:Label ID="labelTemperatura" runat="server" Text="Temperatura"></asp:Label>
+                                <asp:Label EnableViewState="false" ID="labelTemperatura" runat="server" Text="Temperatura"></asp:Label>
                                 <div class="input-group">
-                                    <asp:TextBox ID="temperatura" runat="server" class="form-control" ClientIDMode="Static" pattern="[0-9]+(,[0-9]{1,2})?%?"></asp:TextBox>
+                                    <asp:TextBox EnableViewState="false" ID="temperatura" runat="server" class="form-control" ClientIDMode="Static" pattern="[0-9]+(,[0-9]{1,2})?%?"></asp:TextBox>
                                     <div class="input-group-append">
                                         <span class="input-group-text">°C</span>
                                     </div>
@@ -130,9 +130,9 @@
                             </div>
 
                             <div class="form-group col-md-4 col-sm-4">
-                                <asp:Label ID="labelSO2" runat="server" Text="Saturación de Oxígeno"></asp:Label>
+                                <asp:Label EnableViewState="false" ID="labelSO2" runat="server" Text="Saturación de Oxígeno"></asp:Label>
                                 <div class="input-group">
-                                    <asp:TextBox ID="SO2" runat="server" class="form-control" ClientIDMode="Static" pattern="[0-9]+(,[0-9]{1,2})?%?"></asp:TextBox>
+                                    <asp:TextBox EnableViewState="false" ID="SO2" runat="server" class="form-control" ClientIDMode="Static" pattern="[0-9]+(,[0-9]{1,2})?%?"></asp:TextBox>
                                     <div class="input-group-append">
                                         <span class="input-group-text">%</span>
                                     </div>
@@ -149,25 +149,25 @@
                             <h5 class="titulo col-12">Gráficas de Crecimiento</h5>
 
                             <div class="form-group col-md-4 col-sm-4">
-                                <asp:Label ID="labelPCEdad" runat="server" Text="P. Cefálico / Edad"></asp:Label>
-                                <asp:TextBox ID="perimetroCefalicoEdad" runat="server" class="form-control" ClientIDMode="Static"></asp:TextBox>
+                                <asp:Label EnableViewState="false" ID="labelPCEdad" runat="server" Text="P. Cefálico / Edad"></asp:Label>
+                                <asp:TextBox EnableViewState="false" ID="perimetroCefalicoEdad" runat="server" class="form-control" ClientIDMode="Static"></asp:TextBox>
                             </div>
                             <div class="form-group col-md-4 col-sm-4">
-                                <asp:Label ID="labelPesoEdad" runat="server" Text="Peso / Edad"></asp:Label>
-                                <asp:TextBox ID="pesoEdad" runat="server" class="form-control" ClientIDMode="Static"></asp:TextBox>
+                                <asp:Label EnableViewState="false" ID="labelPesoEdad" runat="server" Text="Peso / Edad"></asp:Label>
+                                <asp:TextBox EnableViewState="false" ID="pesoEdad" runat="server" class="form-control" ClientIDMode="Static"></asp:TextBox>
                             </div>
                             <div class="form-group col-md-4 col-sm-4">
-                                <asp:Label ID="labelTallaEdad" runat="server" Text="Talla / Edad"></asp:Label>
-                                <asp:TextBox ID="tallaEdad" runat="server" class="form-control" ClientIDMode="Static"></asp:TextBox>
+                                <asp:Label EnableViewState="false" ID="labelTallaEdad" runat="server" Text="Talla / Edad"></asp:Label>
+                                <asp:TextBox EnableViewState="false" ID="tallaEdad" runat="server" class="form-control" ClientIDMode="Static"></asp:TextBox>
                             </div>
 
                             <div class="form-group col-md-4 col-sm-4">
-                                <asp:Label ID="labelPesoTalla" runat="server" Text="Peso / Talla"></asp:Label>
-                                <asp:TextBox ID="pesoTalla" runat="server" class="form-control" ClientIDMode="Static"></asp:TextBox>
+                                <asp:Label EnableViewState="false" ID="labelPesoTalla" runat="server" Text="Peso / Talla"></asp:Label>
+                                <asp:TextBox EnableViewState="false" ID="pesoTalla" runat="server" class="form-control" ClientIDMode="Static"></asp:TextBox>
                             </div>
                             <div class="form-group col-md-4 col-sm-4">
-                                <asp:Label ID="labelIMCEdad" runat="server" Text="IMC / Edad"></asp:Label>
-                                <asp:TextBox ID="imcEdad" runat="server" class="form-control" ClientIDMode="Static"></asp:TextBox>
+                                <asp:Label EnableViewState="false" ID="labelIMCEdad" runat="server" Text="IMC / Edad"></asp:Label>
+                                <asp:TextBox EnableViewState="false" ID="imcEdad" runat="server" class="form-control" ClientIDMode="Static"></asp:TextBox>
                             </div>
 
                         </div>
@@ -177,69 +177,69 @@
                         <div class="form-row">
 
                             <div class="form-group col-md-6 col-sm-6">
-                                <asp:Label ID="labelRuidosCardiacos" runat="server" Text="Ruidos Cardiacos"></asp:Label>
-                                <textarea class="form-control" runat="server" clientidmode="Static" id="ruidosCardiacos" rows="3"></textarea>
+                                <asp:Label EnableViewState="false" ID="labelRuidosCardiacos" runat="server" Text="Ruidos Cardiacos"></asp:Label>
+                                <textarea EnableViewState="false" class="form-control" runat="server" clientidmode="Static" id="ruidosCardiacos" rows="3"></textarea>
                             </div>
 
                             <div class="form-group col-md-6 col-sm-6">
-                                <asp:Label ID="labelCamposPulmonares" runat="server" Text="Campos Pulmonares"></asp:Label>
-                                <textarea class="form-control" clientidmode="Static" runat="server" id="camposPulmonares" rows="3"></textarea>
+                                <asp:Label EnableViewState="false" ID="labelCamposPulmonares" runat="server" Text="Campos Pulmonares"></asp:Label>
+                                <textarea EnableViewState="false" class="form-control" clientidmode="Static" runat="server" id="camposPulmonares" rows="3"></textarea>
                             </div>
 
                             <div class="form-group col-md-6 col-sm-6">
-                                <asp:Label ID="labelAbdomen" runat="server" Text="Abdomen"></asp:Label>
-                                <textarea class="form-control" clientidmode="Static" runat="server" id="abdomen" rows="3"></textarea>
-                            </div>
-
-
-                            <div class="form-group col-md-6 col-sm-6">
-                                <asp:Label ID="labelFaringe" runat="server" Text="Faringe"></asp:Label>
-                                <textarea class="form-control" runat="server" clientidmode="Static" id="faringe" rows="3"></textarea>
-                            </div>
-
-                            <div class="form-group col-md-6 col-sm-6">
-                                <asp:Label ID="labelNariz" runat="server" Text="Nariz"></asp:Label>
-                                <textarea class="form-control" clientidmode="Static" runat="server" id="nariz" rows="3"></textarea>
-                            </div>
-
-                            <div class="form-group col-md-6 col-sm-6">
-                                <asp:Label ID="labelOidos" runat="server" Text="Oídos"></asp:Label>
-                                <textarea class="form-control" clientidmode="Static" runat="server" id="oidos" rows="3"></textarea>
-                            </div>
-
-                            <div class="form-group col-md-6 col-sm-6">
-                                <asp:Label ID="labelSNC" runat="server" Text="SNC"></asp:Label>
-                                <textarea class="form-control" runat="server" clientidmode="Static" id="snc" rows="3"></textarea>
-                            </div>
-
-                            <div class="form-group col-md-6 col-sm-6">
-                                <asp:Label ID="labelNeurodesarrollo" runat="server" Text="Neurodesarrollo"></asp:Label>
-                                <textarea class="form-control" clientidmode="Static" runat="server" id="neurodesarrollo" rows="3"></textarea>
-                            </div>
-
-                            <div class="form-group col-md-6 col-sm-6">
-                                <asp:Label ID="labelSistemaOsteomuscular" runat="server" Text="Sistema Osteomuscular"></asp:Label>
-                                <textarea class="form-control" clientidmode="Static" runat="server" id="sistemaOsteomuscular" rows="3"></textarea>
+                                <asp:Label EnableViewState="false" ID="labelAbdomen" runat="server" Text="Abdomen"></asp:Label>
+                                <textarea EnableViewState="false" class="form-control" clientidmode="Static" runat="server" id="abdomen" rows="3"></textarea>
                             </div>
 
 
                             <div class="form-group col-md-6 col-sm-6">
-                                <asp:Label ID="labelPiel" runat="server" Text="Piel"></asp:Label>
-                                <textarea class="form-control" runat="server" clientidmode="Static" id="piel" rows="3"></textarea>
+                                <asp:Label EnableViewState="false" ID="labelFaringe" runat="server" Text="Faringe"></asp:Label>
+                                <textarea EnableViewState="false" class="form-control" runat="server" clientidmode="Static" id="faringe" rows="3"></textarea>
                             </div>
 
                             <div class="form-group col-md-6 col-sm-6">
-                                <asp:Label ID="labelEstadoAlerta" runat="server" Text="Estado de Alerta"></asp:Label>
-                                <textarea class="form-control" clientidmode="Static" runat="server" id="estadoAlerta" rows="3"></textarea>
+                                <asp:Label EnableViewState="false" ID="labelNariz" runat="server" Text="Nariz"></asp:Label>
+                                <textarea EnableViewState="false" class="form-control" clientidmode="Static" runat="server" id="nariz" rows="3"></textarea>
                             </div>
 
                             <div class="form-group col-md-6 col-sm-6">
-                                <asp:Label ID="labelEstadoHidratacion" runat="server" Text="Estado de Hidratación"></asp:Label>
-                                <textarea class="form-control" clientidmode="Static" runat="server" id="estadoHidratacion" rows="3"></textarea>
+                                <asp:Label EnableViewState="false" ID="labelOidos" runat="server" Text="Oídos"></asp:Label>
+                                <textarea EnableViewState="false" class="form-control" clientidmode="Static" runat="server" id="oidos" rows="3"></textarea>
+                            </div>
+
+                            <div class="form-group col-md-6 col-sm-6">
+                                <asp:Label EnableViewState="false" ID="labelSNC" runat="server" Text="SNC"></asp:Label>
+                                <textarea EnableViewState="false" class="form-control" runat="server" clientidmode="Static" id="snc" rows="3"></textarea>
+                            </div>
+
+                            <div class="form-group col-md-6 col-sm-6">
+                                <asp:Label EnableViewState="false" ID="labelNeurodesarrollo" runat="server" Text="Neurodesarrollo"></asp:Label>
+                                <textarea EnableViewState="false" class="form-control" clientidmode="Static" runat="server" id="neurodesarrollo" rows="3"></textarea>
+                            </div>
+
+                            <div class="form-group col-md-6 col-sm-6">
+                                <asp:Label EnableViewState="false" ID="labelSistemaOsteomuscular" runat="server" Text="Sistema Osteomuscular"></asp:Label>
+                                <textarea EnableViewState="false" class="form-control" clientidmode="Static" runat="server" id="sistemaOsteomuscular" rows="3"></textarea>
+                            </div>
+
+
+                            <div class="form-group col-md-6 col-sm-6">
+                                <asp:Label EnableViewState="false" ID="labelPiel" runat="server" Text="Piel"></asp:Label>
+                                <textarea EnableViewState="false" class="form-control" runat="server" clientidmode="Static" id="piel" rows="3"></textarea>
+                            </div>
+
+                            <div class="form-group col-md-6 col-sm-6">
+                                <asp:Label EnableViewState="false" ID="labelEstadoAlerta" runat="server" Text="Estado de Alerta"></asp:Label>
+                                <textarea EnableViewState="false" class="form-control" clientidmode="Static" runat="server" id="estadoAlerta" rows="3"></textarea>
+                            </div>
+
+                            <div class="form-group col-md-6 col-sm-6">
+                                <asp:Label EnableViewState="false" ID="labelEstadoHidratacion" runat="server" Text="Estado de Hidratación"></asp:Label>
+                                <textarea EnableViewState="false" class="form-control" clientidmode="Static" runat="server" id="estadoHidratacion" rows="3"></textarea>
                             </div>
                             <div class="form-group col-12">
-                                <asp:Label ID="labelOtros" runat="server" Text="Otros Hallazgos"></asp:Label>
-                                <textarea class="form-control" clientidmode="Static" runat="server" id="otrosHallazgos" rows="3"></textarea>
+                                <asp:Label EnableViewState="false" ID="labelOtros" runat="server" Text="Otros Hallazgos"></asp:Label>
+                                <textarea EnableViewState="false" class="form-control" clientidmode="Static" runat="server" id="otrosHallazgos" rows="3"></textarea>
                             </div>
                         </div>
                     </div>
@@ -250,16 +250,16 @@
 
                         <div class="form-row">
                             <div class="form-group col-12">
-                                <asp:Label ID="labelAnalisis" runat="server" Text="Análisis"></asp:Label>
-                                <textarea class="form-control" clientidmode="Static" runat="server" id="analisis" rows="5"></textarea>
+                                <asp:Label EnableViewState="false" ID="labelAnalisis" runat="server" Text="Análisis"></asp:Label>
+                                <textarea EnableViewState="false" class="form-control" clientidmode="Static" runat="server" id="analisis" rows="5"></textarea>
                             </div>
                             <div class="form-group col-12">
-                                <asp:Label ID="labelImpresionDiagnostica" runat="server" Text="Impresión Diagnóstica"></asp:Label>
-                                <textarea class="form-control" clientidmode="Static" runat="server" id="impresionDiagnostica" rows="5"></textarea>
+                                <asp:Label EnableViewState="false" ID="labelImpresionDiagnostica" runat="server" Text="Impresión Diagnóstica"></asp:Label>
+                                <textarea EnableViewState="false" class="form-control" clientidmode="Static" runat="server" id="impresionDiagnostica" rows="5"></textarea>
                             </div>
                             <div class="form-group col-12">
-                                <asp:Label ID="labelPlan" runat="server" Text="Plan"></asp:Label>
-                                <textarea class="form-control" clientidmode="Static" runat="server" id="plan" rows="5"></textarea>
+                                <asp:Label EnableViewState="false" ID="labelPlan" runat="server" Text="Plan"></asp:Label>
+                                <textarea EnableViewState="false" class="form-control" clientidmode="Static" runat="server" id="plan" rows="5"></textarea>
                             </div>
 
                         </div>
@@ -271,7 +271,7 @@
 
                             <div class="form-group col-md-6 col-sm-6">
 
-                                <asp:Label ID="labelEnfermedades" runat="server" Text="Enfermedades"></asp:Label>
+                                <asp:Label  ID="labelEnfermedades" runat="server" Text="Enfermedades"></asp:Label>
                                 <asp:DropDownList ID="enfermedades" runat="server" class="form-control" ClientIDMode="Static">
                                 </asp:DropDownList>
                             </div>
