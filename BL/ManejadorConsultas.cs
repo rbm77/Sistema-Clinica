@@ -253,6 +253,31 @@ namespace BL
 
         }
 
+        public string CargarReferencia(BLReferencia referencia)
+        {
+            TOReferencia to = new TOReferencia();
+            DAOConsulta dao = new DAOConsulta();
+
+            to.IdCuenta = referencia.IdCuenta;
+            to.IdExpediente = referencia.IdExpediente;
+
+            string confirmacion = "Error: Indefinido.";
+
+            confirmacion = dao.CargarReferencia(to);
+
+            if (!confirmacion.Contains("Error:"))
+            {
+                referencia.NombreMedico = to.NombreMedico;
+                referencia.CodigoMedico = to.CodigoMedico;
+                referencia.TelefonoMedico = to.TelefonoMedico;
+                referencia.CorreoMedico = to.CorreoMedico;
+                referencia.CedulaPaciente = to.CedulaPaciente;
+                referencia.NombrePaciente = to.NombrePaciente;
+                referencia.SexoPaciente = to.SexoPaciente;
+                referencia.EdadPaciente = to.EdadPaciente;
+            }
+            return confirmacion;
+        }
         private class ContenedorFecha
         {
             public string FechaActual { get; set; }

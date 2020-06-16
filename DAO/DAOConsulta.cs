@@ -1,8 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using TO;
 using System.Data.SqlClient;
 using System.Data;
@@ -12,7 +9,6 @@ namespace DAO
     public class DAOConsulta
     {
         SqlConnection conexion = new SqlConnection(Properties.Settings.Default.conexion);
-
         public string CrearConsulta(TOConsulta consulta)
         {
             string confirmacion = "La consulta se creó exitosamente";
@@ -1128,6 +1124,150 @@ namespace DAO
                 }
             }
             return confirmacion;
+        }
+
+        public string CargarReferencia(TOReferencia referencia)
+        {
+            string confirmacion = "La referencia se cargó exitosamente";
+            string mensajeError = "Error: No se pudo cargar la referencia";
+            // Se abre la conexión
+
+            if (conexion != null)
+            {
+                try
+                {
+                    if (conexion.State != ConnectionState.Open)
+                    {
+                        conexion.Open();
+                    }
+                }
+                catch (Exception)
+                {
+                    confirmacion = mensajeError;
+                    return confirmacion;
+
+                }
+            }
+            else
+            {
+                confirmacion = mensajeError;
+                return confirmacion;
+            }
+
+            // Se inicia una nueva transacción
+
+            SqlTransaction transaccion = null;
+            try
+            {
+                transaccion = conexion.BeginTransaction("Cargar referencia");
+
+                // Se crea un nuevo comando con la secuencia SQL y el objeto de conexión
+
+                SqlCommand comando = new SqlCommand();
+
+                comando.Connection = conexion;
+
+                comando.Transaction = transaccion;
+
+
+                comando.CommandText = "SELECT U.NOMBRE AS NM, U.PRIMER_APELLIDO AS PAM, U.SEGUNDO_APELLIDO AS SAM, " +
+                        "M.CODIGO_MEDICO, U.TELEFONO, C.CORREO, " +
+                        "E.CEDULA, E.NOMBRE AS NE, E.PRIMER_APELLIDO AS PAE, E.SEGUNDO_APELLIDO AS SAE, " +
+                        "E.FECHA_NACIMIENTO, E.SEXO " +
+                        "FROM CUENTA_USUARIO AS C, USUARIO AS U, MEDICO AS M, EXPEDIENTE AS E " +
+                        "WHERE C.ID_CUENTA = U.CEDULA AND U.CEDULA = M.ID_MEDICO AND M.CODIGO_MEDICO = E.ID_MEDICO AND " +
+                        "E.ID_EXPEDIENTE = @idExpediente AND C.ID_CUENTA = @idCuenta;";
+
+                // Se asigna un valor a los parámetros del comando a ejecutar
+
+                comando.Parameters.AddWithValue("@idExpediente", referencia.IdExpediente);
+                comando.Parameters.AddWithValue("@idCuenta", referencia.IdCuenta);
+                SqlDataReader lector = comando.ExecuteReader();
+                if (lector.HasRows)
+                {
+                    while (lector.Read())
+                    {
+                        referencia.NombreMedico = lector["NM"].ToString() + " " + lector["PAM"].ToString() + " " + lector["SAM"].ToString();
+                        referencia.CodigoMedico = lector["CODIGO_MEDICO"].ToString();
+                        referencia.TelefonoMedico = lector["TELEFONO"].ToString();
+                        referencia.CorreoMedico = lector["CORREO"].ToString();
+                        referencia.CedulaPaciente = lector["CEDULA"].ToString();
+                        referencia.NombrePaciente = lector["NE"].ToString() + " " + lector["PAE"].ToString() + " " + lector["SAE"].ToString();
+                        referencia.SexoPaciente = lector["SEXO"].ToString();
+                        referencia.EdadPaciente = ObtenerEdad(lector["FECHA_NACIMIENTO"].ToString());
+                    }
+                }
+                lector.Close();
+                transaccion.Commit();
+            }
+            catch (Exception e)
+            {
+                try
+                {
+                    // En caso de un error se realiza un rollback a la transacción
+                    transaccion.Rollback();
+                }
+                catch (Exception)
+                {
+                }
+                finally
+                {
+                    confirmacion = mensajeError;
+                }
+            }
+            finally
+            {
+                if (conexion.State != ConnectionState.Closed)
+                {
+                    conexion.Close();
+                }
+            }
+            return confirmacion;
+        }
+
+        private string ObtenerEdad(string fechaNacimientoTxt)
+        {
+            string edad = "";
+            DateTime fechaNacimiento = DateTime.ParseExact(fechaNacimientoTxt, "dd/MM/yyyy", null);
+            DateTime fechaActual = DateTime.Today;
+            int annosTranscurridos = fechaActual.Year - fechaNacimiento.Year;
+            int mesesTranscurridos = fechaActual.Month - fechaNacimiento.Month;
+            int diasTranscurridos = fechaActual.Day - fechaNacimiento.Day;
+            if (fechaNacimiento > fechaActual.AddYears(-1 * annosTranscurridos))
+            {
+                annosTranscurridos--;
+            }
+            edad = annosTranscurridos + " años";
+            if (annosTranscurridos <= 0)
+            {
+                if (mesesTranscurridos > 0)
+                {
+                    edad = mesesTranscurridos + " meses";
+                    if (mesesTranscurridos == 1)
+                    {
+                        if (diasTranscurridos >= 0)
+                        {
+                            edad = mesesTranscurridos + " mes";
+                        }
+                        else
+                        {
+                            edad = "Días";
+                        }
+                    }
+                }
+                else
+                {
+                    edad = "Días";
+                }
+            }
+            else
+            {
+                if (annosTranscurridos == 1)
+                {
+                    edad = annosTranscurridos + " año";
+                }
+            }
+            return edad;
         }
     }
 }

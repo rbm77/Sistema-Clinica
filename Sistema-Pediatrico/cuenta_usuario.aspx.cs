@@ -1,8 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.UI;
 using System.Web.UI.WebControls;
 using BL;
 
@@ -15,6 +12,8 @@ namespace Sistema_Pediatrico
 
             if (!IsPostBack)
             {
+                // Se obtiene el valor del parámetro accion
+
                 if (Request.QueryString["accion"] != null)
                 {
                     if (Request.QueryString["accion"].Equals("consultar"))
@@ -23,9 +22,11 @@ namespace Sistema_Pediatrico
                     }
                 }
           
+                // Se carga el dropdownlist con los códigos de los médicos
+
                 CargarCodigosMedicos(new List<string>());
 
-                // Se verifica si la accion es crear una nueva cuenta
+                // Se verifica si la accion es crear una nueva cuenta o consultar una existente
 
                 if (Session["accion"] != null)
                 {
@@ -43,25 +44,30 @@ namespace Sistema_Pediatrico
                     }
                 }
             }
-
-           
         }
 
+        // Se guarda o actualiza una cuenta, dependiendo de la accion del usuario
         protected void btnGuardar_Click(object sender, EventArgs e)
         {
             mensajeConfirmacion.Visible = false;
+
+            // Se obtienen los valores de entrada
 
             string cedula = inputCedula.Text;
             string nombre = inputNombre.Text.Trim();
             string primerApellido = inputPrimerApellido.Text.Trim();
             string segundoApellido = inputSegundoApellido.Text.Trim();
             string telefono = inputTelefono.Text.Trim();
-
             string correo = inputCorreo.Text.Trim();
             string contrasenna = inputContrasenna.Text.Trim();
             string confimar = inputConfirmar.Text.Trim();
 
+            // Se inicializa el valor de la variable confirmacion, por defecto contiene el mensaje de error
+
             string confirmacion = "Error: Puede que algunos datos se encuentren vacíos o con un formato incorrecto.";
+
+            // Si la contraseña y su confirmacion coinciden, se procede a obtener el resto de los
+            // valores de entrada y continuar con el flujo de la aplicacion
 
             if (contrasenna.Equals(confimar))
             {
@@ -70,22 +76,30 @@ namespace Sistema_Pediatrico
                 string codigoMedico = inputCodigoMedico.Text.Trim();
                 string especialidad = inputEspecialidad.Text.Trim();
 
+                // Se encapsulan los datos en los objetos correspondientes
 
                 ManejadorCuenta manejador = new ManejadorCuenta();
                 BLCuenta cuenta = new BLCuenta(cedula, correo, contrasenna, rol, "activa");
                 BLUsuario usuario = new BLUsuario(cedula, nombre, primerApellido, segundoApellido, telefono, codigoAsistente);
                 BLMedico medico = new BLMedico(cedula, codigoMedico, especialidad, "");
 
-                // AQUI DE DIVIDE EL PROCESO DEPENDIENDO DE SI LA ACCION ES CREAR O ACTUALIZAR
+                // Aqui se divide el flujo dependiendo si la accion es crear o actualizar
 
-                if(Session["accion"] != null)
+                if (Session["accion"] != null)
                 {
 
                     string accion = Session["accion"].ToString();
 
                     if (accion.Equals("crearCuenta"))
                     {
+                        // Se envían los objetos hacia el manejador y se recibe la respuesta de confirmacion
+
                         confirmacion = manejador.CrearCuenta(cuenta, usuario, medico);
+
+                        // Si la respuesta es exitosa y la cuenta recién ingresada tenía el rol de médico,
+                        // se procede a cargar nuevamente la lista de códigos de médicos y se limpian las
+                        // entradas de datos
+
                         if (!confirmacion.Contains("Error:"))
                         {
                             if (rol.Equals("medico"))
@@ -97,7 +111,15 @@ namespace Sistema_Pediatrico
                     }
                     else if(accion.Equals("consultarCuenta"))
                     {
+                        // Se envían los objetos hacia el manejador y se recibe la respuesta de confirmacion
+
                         confirmacion = manejador.ActualizarCuenta(cuenta, usuario, medico);
+
+                        // Si la respuesta es existosa se procede a actualizar el objeto de sesión que contiene
+                        // el nombre del usuario
+                        // Si la respuesta contiene un error, se procede a cargar nuevamente los datos 
+                        // correctos de la base de datos
+
                         if (!confirmacion.Contains("Error:"))
                         {
                             Session["nombre"] = usuario.Nombre + " " + usuario.PrimerApellido[0] + " " + usuario.SegundoApellido[0];
@@ -111,14 +133,21 @@ namespace Sistema_Pediatrico
             }
             else
             {
+                //  Si la contraseña no coincide con su confirmación
+
                 string accion = Session["accion"].ToString(); 
                 if (accion.Equals("consultarCuenta"))
                 {
+                    // Se procede a cargar nuevamente los datos correctos de la base de datos
                     Consultar();
                 }
             }
 
+            // Se muestra en pantalla la respuesta a la accion realizada, ya sea exitosa o no
+
             MensajeAviso(confirmacion);
+
+            // Se habilitan/deshabilitan las entradas dependiendo del rol seleccionado para la cuenta
 
             string rolTemp = inputRol.Value.Trim();
 
@@ -151,8 +180,11 @@ namespace Sistema_Pediatrico
             }
         }
 
+        // Se muestra un mensaje en pantalla con la respuesta a la accion realizada por el usuario
         private void MensajeAviso(string mensaje)
         {
+            // Dependiendo de si la acción fue exitosa o no, se muestra un color u otro
+
             string color = "";
 
             if(mensaje.Contains("Error:"))
@@ -170,6 +202,7 @@ namespace Sistema_Pediatrico
             mensajeConfirmacion.Visible = true;
         }
 
+        // Se limpian los datos de entrada
         private void LimpiarDatos()
         {
             inputCedula.Text = "";
@@ -189,6 +222,7 @@ namespace Sistema_Pediatrico
             inputEspecialidad.Attributes.Add("disabled", "disabled");
         }
 
+        // Se carga el dropdownlist con los códigos de los médicos
         private void CargarCodigosMedicos(List<string> codigos)
         {
             ManejadorCuenta manejador = new ManejadorCuenta();
@@ -206,12 +240,15 @@ namespace Sistema_Pediatrico
                 }
             }
 
+            // Si la acción contiene un error, se muestra el mensaje en pantalla
+
             if(confirmacion.Contains("Error:"))
             {
                 MensajeAviso(confirmacion);
             }
         }
 
+        // Se cargan todos los datos de entrada con los valores almacenados de la cuenta existente en base de datos
         private void Consultar()
         {
             if (Session["id"] != null && Session["rol"] != null)
@@ -223,13 +260,16 @@ namespace Sistema_Pediatrico
                 BLUsuario usuario = new BLUsuario();
                 BLMedico medico = new BLMedico();
 
+                // Se cargan los objetos enviados como parámetros con los datos respectivos
+
                 ManejadorCuenta manejador = new ManejadorCuenta();
                 string confirmacion = manejador.CargarUsuario(cuenta, usuario, medico);
 
+                // Si la carga de datos fue correcta, se procede a asignar los valores a los componentes
+                // de la página
 
                 if (!confirmacion.Contains("Error:"))
                 {
-
                     inputCedula.Text = usuario.Cedula;
                     inputNombre.Text = usuario.Nombre;
                     inputPrimerApellido.Text = usuario.PrimerApellido;
@@ -261,21 +301,17 @@ namespace Sistema_Pediatrico
                         inputEspecialidad.ReadOnly = true;
                     }
 
-                   // inputCedula.Attributes.Add("disabled", "disabled");
                     inputCedula.ReadOnly = true;
                     inputRol.Attributes.Add("disabled", "disabled");
                 }
                 else
                 {
+                    // Si la respuesta contiene un error, se muestra el mensaje en pantalla 
+
                     MensajeAviso(confirmacion);
-
                     contenedorDatos.Visible = false;
-
                 }
-            }
-               
+            }    
         }
-
-
     }
 }

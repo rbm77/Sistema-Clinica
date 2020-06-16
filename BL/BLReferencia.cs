@@ -22,9 +22,16 @@ namespace BL
         public string ImpresionDiagnóstica { get; set; }
         public string Especialidad { get; set; }
         public string Motivo { get; set; }
+        public string IdCuenta { get; set; }
+        public long IdExpediente { get; set; }
 
         public BLReferencia()
         {
+        }
+        public BLReferencia(string idCuenta, long idExpediente)
+        {
+            this.IdCuenta = idCuenta;
+            this.IdExpediente = idExpediente;
         }
         public BLReferencia(string nombreClinica, string nombreMedico, string codigoMedico, string telefonoMedico,
             string correoMedico, string fechaReferencia, string cedulaPaciente, string nombrePaciente, string sexoPaciente,

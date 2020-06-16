@@ -27,6 +27,5 @@ namespace BL
             this.Rol = rol;
             this.Estado = estado;
         }
-
     }
 }

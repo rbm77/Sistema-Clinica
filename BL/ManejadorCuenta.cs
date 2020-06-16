@@ -10,7 +10,6 @@ namespace BL
 {
     public class ManejadorCuenta
     {
-
         public string CrearCuenta(BLCuenta blCuenta, BLUsuario blUsuario, BLMedico blMedico)
         {
             string confirmacion = "Error: Indefinido.";

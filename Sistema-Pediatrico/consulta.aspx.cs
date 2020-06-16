@@ -489,109 +489,98 @@ namespace Sistema_Pediatrico
         }
         private void GenerarPDF(BLReferencia referencia)
         {
-            PdfDocument pdf = new PdfDocument();
-            pdf.Info.Title = "Mi título";
-            PdfPage page = pdf.AddPage();
-            XGraphics graph = XGraphics.FromPdfPage(page);
+            try
+            {
+                PdfDocument pdf = new PdfDocument();
+                pdf.Info.Title = "Mi título";
+                PdfPage page = pdf.AddPage();
+                XGraphics graph = XGraphics.FromPdfPage(page);
 
-            XFont fontRegular = new XFont("Verdana", 10, XFontStyle.Regular);
-            XFont fontBold = new XFont("Verdana", 10, XFontStyle.Bold);
+                XFont fontRegular = new XFont("Verdana", 10, XFontStyle.Regular);
+                XFont fontBold = new XFont("Verdana", 10, XFontStyle.Bold);
 
-            XTextFormatter tf = new XTextFormatter(graph);
+                XTextFormatter tf = new XTextFormatter(graph);
 
-            tf.Alignment = XParagraphAlignment.Justify;
+                tf.Alignment = XParagraphAlignment.Justify;
 
-            graph.DrawString(referencia.NombreClinica, fontRegular, XBrushes.Black, new XRect(20, 10, page.Width.Point, page.Height.Point), XStringFormats.TopLeft);
-            graph.DrawString("Dr. " + referencia.NombreMedico, fontRegular, XBrushes.Black, new XRect(20, 22, page.Width.Point, page.Height.Point), XStringFormats.TopLeft);
-            graph.DrawString("Código: " + referencia.CodigoMedico, fontRegular, XBrushes.Black, new XRect(20, 34, page.Width.Point, page.Height.Point), XStringFormats.TopLeft);
-            graph.DrawString("Tel: " + referencia.TelefonoMedico, fontRegular, XBrushes.Black, new XRect(20, 46, page.Width.Point, page.Height.Point), XStringFormats.TopLeft);
-            graph.DrawString("Correo: " + referencia.CorreoMedico, fontRegular, XBrushes.Black, new XRect(20, 58, page.Width.Point, page.Height.Point), XStringFormats.TopLeft);
+                graph.DrawString(referencia.NombreClinica, fontRegular, XBrushes.Black, new XRect(20, 10, page.Width.Point, page.Height.Point), XStringFormats.TopLeft);
+                graph.DrawString("Dr. " + referencia.NombreMedico, fontRegular, XBrushes.Black, new XRect(20, 22, page.Width.Point, page.Height.Point), XStringFormats.TopLeft);
+                graph.DrawString("Código: " + referencia.CodigoMedico, fontRegular, XBrushes.Black, new XRect(20, 34, page.Width.Point, page.Height.Point), XStringFormats.TopLeft);
+                graph.DrawString("Tel: " + referencia.TelefonoMedico, fontRegular, XBrushes.Black, new XRect(20, 46, page.Width.Point, page.Height.Point), XStringFormats.TopLeft);
+                graph.DrawString("Correo: " + referencia.CorreoMedico, fontRegular, XBrushes.Black, new XRect(20, 58, page.Width.Point, page.Height.Point), XStringFormats.TopLeft);
 
-            graph.DrawString("Fecha: ", fontRegular, XBrushes.Black, new XRect(340, 10, page.Width.Point, page.Height.Point), XStringFormats.TopLeft);
-            graph.DrawString(referencia.FechaReferencia, fontRegular, XBrushes.Black, new XRect(390, 10, page.Width.Point, page.Height.Point), XStringFormats.TopLeft);
+                graph.DrawString("Fecha: ", fontRegular, XBrushes.Black, new XRect(340, 10, page.Width.Point, page.Height.Point), XStringFormats.TopLeft);
+                graph.DrawString(referencia.FechaReferencia, fontRegular, XBrushes.Black, new XRect(390, 10, page.Width.Point, page.Height.Point), XStringFormats.TopLeft);
 
-            graph.DrawString("Cédula: ", fontRegular, XBrushes.Black, new XRect(340, 22, page.Width.Point, page.Height.Point), XStringFormats.TopLeft);
-            graph.DrawString(referencia.CedulaPaciente, fontRegular, XBrushes.Black, new XRect(390, 22, page.Width.Point, page.Height.Point), XStringFormats.TopLeft);
+                graph.DrawString("Cédula: ", fontRegular, XBrushes.Black, new XRect(340, 22, page.Width.Point, page.Height.Point), XStringFormats.TopLeft);
+                graph.DrawString(referencia.CedulaPaciente, fontRegular, XBrushes.Black, new XRect(390, 22, page.Width.Point, page.Height.Point), XStringFormats.TopLeft);
 
-            graph.DrawString("Nombre: ", fontRegular, XBrushes.Black, new XRect(340, 34, page.Width.Point, page.Height.Point), XStringFormats.TopLeft);
-            graph.DrawString(referencia.NombrePaciente, fontRegular, XBrushes.Black, new XRect(390, 34, page.Width.Point, page.Height.Point), XStringFormats.TopLeft);
+                graph.DrawString("Nombre: ", fontRegular, XBrushes.Black, new XRect(340, 34, page.Width.Point, page.Height.Point), XStringFormats.TopLeft);
+                graph.DrawString(referencia.NombrePaciente, fontRegular, XBrushes.Black, new XRect(390, 34, page.Width.Point, page.Height.Point), XStringFormats.TopLeft);
 
-            graph.DrawString("Edad: ", fontRegular, XBrushes.Black, new XRect(340, 46, page.Width.Point, page.Height.Point), XStringFormats.TopLeft);
-            graph.DrawString(referencia.EdadPaciente, fontRegular, XBrushes.Black, new XRect(390, 46, page.Width.Point, page.Height.Point), XStringFormats.TopLeft);
+                graph.DrawString("Edad: ", fontRegular, XBrushes.Black, new XRect(340, 46, page.Width.Point, page.Height.Point), XStringFormats.TopLeft);
+                graph.DrawString(referencia.EdadPaciente, fontRegular, XBrushes.Black, new XRect(390, 46, page.Width.Point, page.Height.Point), XStringFormats.TopLeft);
 
-            graph.DrawString("Sexo: ", fontRegular, XBrushes.Black, new XRect(340, 58, page.Width.Point, page.Height.Point), XStringFormats.TopLeft);
-            graph.DrawString(referencia.SexoPaciente, fontRegular, XBrushes.Black, new XRect(390, 58, page.Width.Point, page.Height.Point), XStringFormats.TopLeft);
+                graph.DrawString("Sexo: ", fontRegular, XBrushes.Black, new XRect(340, 58, page.Width.Point, page.Height.Point), XStringFormats.TopLeft);
+                graph.DrawString(referencia.SexoPaciente, fontRegular, XBrushes.Black, new XRect(390, 58, page.Width.Point, page.Height.Point), XStringFormats.TopLeft);
 
-            tf.DrawString("Análisis: ", fontRegular, XBrushes.Black, new XRect(20, 100, page.Width.Point, page.Height.Point), XStringFormats.TopLeft);
-            tf.DrawString(referencia.Analisis, fontRegular, XBrushes.Black, new XRect(20, 115, page.Width - 40, page.Height.Point), XStringFormats.TopLeft);
+                tf.DrawString("Análisis: ", fontRegular, XBrushes.Black, new XRect(20, 100, page.Width.Point, page.Height.Point), XStringFormats.TopLeft);
+                tf.DrawString(referencia.Analisis, fontRegular, XBrushes.Black, new XRect(20, 115, page.Width - 40, page.Height.Point), XStringFormats.TopLeft);
 
-            tf.DrawString("Impresión Diagnóstica: ", fontRegular, XBrushes.Black, new XRect(20, 250, page.Width.Point, page.Height.Point), XStringFormats.TopLeft);
-            tf.DrawString(referencia.ImpresionDiagnóstica, fontRegular, XBrushes.Black, new XRect(20, 265, page.Width - 40, page.Height.Point), XStringFormats.TopLeft);
+                tf.DrawString("Impresión Diagnóstica: ", fontRegular, XBrushes.Black, new XRect(20, 250, page.Width.Point, page.Height.Point), XStringFormats.TopLeft);
+                tf.DrawString(referencia.ImpresionDiagnóstica, fontRegular, XBrushes.Black, new XRect(20, 265, page.Width - 40, page.Height.Point), XStringFormats.TopLeft);
 
-            tf.DrawString("A: (Especialidad) ", fontRegular, XBrushes.Black, new XRect(20, 400, page.Width.Point, page.Height.Point), XStringFormats.TopLeft);
-            tf.DrawString(referencia.Especialidad, fontRegular, XBrushes.Black, new XRect(20, 415, page.Width - 40, page.Height.Point), XStringFormats.TopLeft);
+                tf.DrawString("A: (Especialidad) ", fontRegular, XBrushes.Black, new XRect(20, 400, page.Width.Point, page.Height.Point), XStringFormats.TopLeft);
+                tf.DrawString(referencia.Especialidad, fontRegular, XBrushes.Black, new XRect(20, 415, page.Width - 40, page.Height.Point), XStringFormats.TopLeft);
 
-            tf.DrawString("Motivo de la Referencia: ", fontRegular, XBrushes.Black, new XRect(20, 450, page.Width.Point, page.Height.Point), XStringFormats.TopLeft);
-            tf.DrawString(referencia.Motivo, fontRegular, XBrushes.Black, new XRect(20, 465, page.Width - 40, page.Height.Point), XStringFormats.TopLeft);
+                tf.DrawString("Motivo de la Referencia: ", fontRegular, XBrushes.Black, new XRect(20, 450, page.Width.Point, page.Height.Point), XStringFormats.TopLeft);
+                tf.DrawString(referencia.Motivo, fontRegular, XBrushes.Black, new XRect(20, 465, page.Width - 40, page.Height.Point), XStringFormats.TopLeft);
 
-            tf.DrawString("Observaciones: ", fontRegular, XBrushes.Black, new XRect(20, 600, page.Width.Point, page.Height.Point), XStringFormats.TopLeft);
-            tf.DrawString("", fontRegular, XBrushes.Black, new XRect(20, 615, page.Width - 40, page.Height.Point), XStringFormats.TopLeft);
-
-
-            tf.Alignment = XParagraphAlignment.Center;
-            tf.DrawString("__________________________", fontBold, XBrushes.Black, new XRect(0, 745, page.Width.Point, page.Height.Point), XStringFormats.TopLeft);
-            tf.DrawString("Firma", fontRegular, XBrushes.Black, new XRect(0, 760, page.Width.Point, page.Height.Point), XStringFormats.TopLeft);
+                tf.DrawString("Observaciones: ", fontRegular, XBrushes.Black, new XRect(20, 600, page.Width.Point, page.Height.Point), XStringFormats.TopLeft);
+                tf.DrawString("", fontRegular, XBrushes.Black, new XRect(20, 615, page.Width - 40, page.Height.Point), XStringFormats.TopLeft);
 
 
-            // Send PDF to browser
-            MemoryStream stream = new MemoryStream();
-            pdf.Save(stream, false);
+                tf.Alignment = XParagraphAlignment.Center;
+                tf.DrawString("__________________________", fontBold, XBrushes.Black, new XRect(0, 745, page.Width.Point, page.Height.Point), XStringFormats.TopLeft);
+                tf.DrawString("Firma", fontRegular, XBrushes.Black, new XRect(0, 760, page.Width.Point, page.Height.Point), XStringFormats.TopLeft);
 
-            Response.Clear();
-            Response.ContentType = "application/force-download";
-            Response.AppendHeader("Content-Disposition", "attachment; filename=Referencia.pdf");
-            Response.BinaryWrite(stream.ToArray());
-            Response.Flush();
-            stream.Close();
-            Response.End();
+
+                // Send PDF to browser
+                MemoryStream stream = new MemoryStream();
+                pdf.Save(stream, false);
+
+                Response.Clear();
+                Response.ContentType = "application/force-download";
+                Response.AppendHeader("Content-Disposition", "attachment; filename=Referencia.pdf");
+                Response.BinaryWrite(stream.ToArray());
+                Response.Flush();
+                stream.Close();
+                Response.End();
+            }
+            catch (Exception ex)
+            {
+            }
         }
 
         protected void btnGenerarReferencia_Click(object sender, EventArgs e)
         {
-            BLReferencia referencia = new BLReferencia();
-            referencia.NombreClinica = "Clínica Pediátrica Divino Niño";
-            referencia.NombreMedico = "Robert Gerardo Moya Vásquez";
-            referencia.CodigoMedico = "6127";
-            referencia.TelefonoMedico = "89712354";
-            referencia.CorreoMedico = "robertmoyav@gmail.com";
-            referencia.FechaReferencia = DateTime.Today.ToString("dd/MM/yyyy");
-            referencia.CedulaPaciente = "207850434";
-            referencia.NombrePaciente = "Richard Gerardo Bolaños Rodríguez";
-            referencia.EdadPaciente = "21 años";
-            referencia.SexoPaciente = "Masculino";
-            referencia.Analisis = "Contrary to popular belief, Lorem Ipsum is not simply random text. ñ ñ ñ á é í ó ú AÁ É IÍ Ó 123 " +
-                "It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old. " +
-                "Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia, looked up one of the " +
-                "interested. Sections 1.10.32 and 1.10.33 from de Finibus Bonorum et Malorum by Cicero are also reproduced in" +
-                " their exact original form, accompanied by English versions from the 1914 translation by H.Rackham.";
-
-            referencia.ImpresionDiagnóstica = "Contrary to popular belief, Lorem Ipsum is not simply random text. ñ ñ ñ á é í ó ú AÁ É IÍ Ó 123 " +
-                "It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old. " +
-                "Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia, looked up one of the " +
-                "more obscure Latin words, consectetur, from a Lorem Ipsum passage, and going through the cites of " +
-                "interested. Sections 1.10.32 and 1.10.33 from de Finibus Bonorum et Malorum by Cicero are also reproduced in" +
-                " their exact original form, accompanied by English versions from the 1914 translation by H.Rackham.";
-
-            referencia.Especialidad = "Optometría";
-
-            referencia.Motivo = "Contrary to popular belief, Lorem Ipsum is not simply random text. ñ ñ ñ á é í ó ú AÁ É IÍ Ó 123 " +
-    "It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old. " +
-    "Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia, looked up one of the " +
-    "more obscure Latin words, consectetur, from a Lorem Ipsum passage, and going through the cites of " +
-    "interested. Sections 1.10.32 and 1.10.33 from de Finibus Bonorum et Malorum by Cicero are also reproduced in" +
-    " their exact original form, accompanied by English versions from the 1914 translation by H.Rackham.";
-
-            GenerarPDF(referencia);
+            ManejadorConsultas manejador = new ManejadorConsultas();
+            BLReferencia referencia = new BLReferencia(Session["id"].ToString(), long.Parse(Session["idExpediente"].ToString()));
+            string confirmacion = manejador.CargarReferencia(referencia);
+            if (confirmacion.Contains("Error"))
+            {
+                MensajeAviso(confirmacion);
+            }
+            else
+            {
+                referencia.NombreClinica = "Clínica Pediátrica Divino Niño";
+                referencia.FechaReferencia = DateTime.Today.ToString("dd/MM/yyyy");
+                referencia.Analisis = analisis.Value.Trim();
+                referencia.ImpresionDiagnóstica = impresionDiagnostica.Value.Trim();
+                referencia.Especialidad = especialidad.Value.Trim();
+                referencia.Motivo = motivo.Value.Trim();
+                GenerarPDF(referencia);
+            }
         }
     }
 }
